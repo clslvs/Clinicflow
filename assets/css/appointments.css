@@ -1,0 +1,146 @@
+/* appointments.css */
+
+.appointments-container {
+    background: white;
+    border: 1px solid var(--color-teal-300);
+    border-radius: var(--border-radius);
+    padding: 0;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+/* Filters */
+.appointments-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    padding: 0.4rem 1.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 2rem;
+    background: white;
+    color: var(--light-text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--color-teal-900);
+    color: var(--color-teal-900);
+}
+
+.filter-btn.active {
+    background-color: var(--color-teal-900);
+    color: white;
+    border-color: var(--color-teal-900);
+}
+
+/* Table */
+.appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.appointments-table th {
+    background-color: var(--color-teal-50);
+    color: var(--color-teal-900);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.appointments-table th:first-child {
+    text-align: left;
+    padding-left: 2.5rem;
+}
+
+.appointments-table td {
+    padding: 1.5rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.appointments-table td:first-child {
+    text-align: left;
+    padding-left: 2.5rem;
+    font-weight: 600;
+}
+
+.appointments-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.appointments-table tbody tr:hover {
+    background-color: #fafafa;
+}
+
+/* Status Pills */
+.status-pill {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    min-width: 100px;
+}
+
+.status-confirmed {
+    background-color: #E2F4F3;
+    color: var(--color-teal-900);
+}
+
+.status-pending {
+    background-color: #FDF3C7; 
+    color: #92750F;
+}
+
+.status-cancelled {
+    background-color: #FCE1E1;
+    color: #B94949;
+}
+
+.status-completed {
+    background-color: #F1F5F9;
+    color: var(--light-text);
+}
+
+/* Actions */
+.action-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.action-link {
+    color: var(--light-text);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.action-link:hover {
+    color: var(--text-color);
+}
+
+.action-link.cancel {
+    color: #F87171;
+}
+
+.action-link.cancel:hover {
+    color: #DC2626;
+}

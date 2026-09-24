@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicFlow - Staff Settings</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/staff.css">
+    <link rel="stylesheet" href="../assets/css/settings.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
+                    <span>ClinicFlow</span>
+                </a>
+            </div>
+            
+            <div class="user-profile-section">
+                <div class="avatar" id="sidebar-avatar">...</div>
+                <div class="user-info">
+                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                    <span class="user-role">Staff</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="queue.html" class="nav-item">
+                    <i data-lucide="play"></i>
+                    <span>Live Queue</span>
+                </a>
+                <a href="schedules.html" class="nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>Schedules</span>
+                </a>
+                <a href="records.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span>Patient Records</span>
+                </a>
+                <a href="settings.html" class="nav-item active">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" style="padding: 3rem 4rem;">
+            <header class="page-header" style="margin-bottom: 2.5rem;">
+                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Settings</h1>
+                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;">Manage your profile and preferences.</p>
+            </header>
+
+            <div class="settings-container">
+                <!-- Personal Info Card -->
+                <div class="settings-card">
+                    <div class="profile-header">
+                        <div class="settings-avatar" id="settings-avatar">...</div>
+                        <div class="settings-user-info">
+                            <h3 id="settings-name">Loading...</h3>
+                            <p id="settings-role-id">Role: Staff</p>
+                        </div>
+                    </div>
+                    
+                    <h4 class="settings-section-title">PERSONAL INFORMATION</h4>
+                    
+                    <div class="settings-grid">
+                        <div class="input-group">
+                            <label>FIRST NAME</label>
+                            <input type="text" id="input-firstname" class="settings-input" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>LAST NAME</label>
+                            <input type="text" id="input-lastname" class="settings-input" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>EMAIL</label>
+                            <input type="email" id="input-email" class="settings-input" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>PHONE NUMBER</label>
+                            <input type="text" id="input-phone" class="settings-input" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Info Card -->
+                <div class="settings-card">
+                    <h4 class="settings-section-title">PROFESSIONAL INFORMATION</h4>
+                    <form id="professional-form">
+                        <div class="input-group full-width">
+                            <label>ACCOUNT ROLE</label>
+                            <input type="text" id="input-role" class="settings-input" readonly value="Staff">
+                        </div>
+                        <div class="input-group full-width">
+                            <label>ACCOUNT CREATED</label>
+                            <input type="text" id="input-created" class="settings-input" readonly value="N/A">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Password Reset Card -->
+                <div class="settings-card">
+                    <h4 class="settings-section-title">RESET PASSWORD</h4>
+                    <form id="password-form">
+                        <div class="input-group full-width">
+                            <label>OLD PASSWORD</label>
+                            <input type="password" id="input-old-password" class="settings-input" required>
+                        </div>
+                        <div class="input-group full-width">
+                            <label>NEW PASSWORD</label>
+                            <input type="password" id="input-new-password" class="settings-input" required>
+                        </div>
+                        <div class="card-actions">
+                            <button type="submit" class="btn-settings-action primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .then(() => window.location.href = '../index.html');
+        });
+        
+        // Fetch User Info to populate settings
+        fetch('../backend/get_user_settings.php')
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const user = data.user;
+                    
+                    // Sidebar
+                    document.getElementById('sidebar-name').textContent = user.name;
+                    document.getElementById('sidebar-avatar').textContent = user.name.charAt(0);
+                    
+                    // Main Settings Header
+                    document.getElementById('settings-name').textContent = user.name;
+                    document.getElementById('settings-avatar').textContent = user.name.charAt(0);
+                    
+                    // Personal Info
+                    const nameParts = user.name.split(' ');
+                    document.getElementById('input-firstname').value = nameParts[0];
+                    document.getElementById('input-lastname').value = nameParts.slice(1).join(' ');
+                    document.getElementById('input-email').value = user.email;
+                    document.getElementById('input-phone').value = user.phone || 'N/A';
+
+                    // Professional Info
+                    document.getElementById('input-role').value = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+                    if(user.created_at) {
+                        const dateObj = new Date(user.created_at);
+                        document.getElementById('input-created').value = dateObj.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' });
+                    }
+                } else {
+                    window.location.href = '../login.html';
+                }
+            })
+            .catch(err => {
+                console.error("Failed to fetch settings", err);
+            });
+
+        // Password Reset form handler
+        document.getElementById('password-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = 'Saving...';
+            btn.disabled = true;
+
+            const oldPassword = document.getElementById('input-old-password').value;
+            const newPassword = document.getElementById('input-new-password').value;
+
+            fetch('../backend/update_password.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    old_password: oldPassword,
+                    new_password: newPassword
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+                
+                if (data.success) {
+                    alert('Password updated successfully!');
+                    this.reset();
+                } else {
+                    alert(data.message || 'Failed to update password');
+                }
+            })
+            .catch(err => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+                alert('An error occurred while updating the password');
+                console.error(err);
+            });
+        });
+    </script>
+</body>
+</html>

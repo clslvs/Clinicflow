@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicFlow - Patient Records</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/staff.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
+                    <span>ClinicFlow</span>
+                </a>
+            </div>
+            
+            <div class="user-profile-section">
+                <div class="avatar" id="sidebar-avatar">...</div>
+                <div class="user-info">
+                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                    <span class="user-role">Staff</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="queue.html" class="nav-item">
+                    <i data-lucide="play"></i>
+                    <span>Live Queue</span>
+                </a>
+                <a href="schedules.html" class="nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>Schedules</span>
+                </a>
+                <a href="records.html" class="nav-item active">
+                    <i data-lucide="users"></i>
+                    <span>Patient Records</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" style="padding: 3rem 4rem;">
+            <header class="page-header" style="margin-bottom: 2rem;">
+                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Patient Records</h1>
+                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;">Search and view patient information.</p>
+            </header>
+
+            <div class="records-container">
+                
+                <!-- Left Pane: Search and List -->
+                <div class="records-list-pane">
+                    <div class="records-search-bar">
+                        <div class="search-input-wrapper">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="search-input" class="search-input" placeholder="Search patient, doctor, service, date...">
+                        </div>
+                    </div>
+                    <div class="records-list-header" id="patients-count">
+                        0 Patients
+                    </div>
+                    <div class="records-scroll-area" id="patient-list">
+                        <!-- Patient Items Injected Here -->
+                        <div style="padding: 2rem; text-align: center; color: var(--color-grey);">Loading patients...</div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Details -->
+                <div class="records-detail-pane" id="patient-details-pane" style="display: none;">
+                    <div class="detail-header">
+                        <div class="detail-avatar" id="detail-avatar">J</div>
+                        <div class="detail-name">
+                            <h2 id="detail-name">John Doe</h2>
+                            <p id="detail-pt-id">PT ID: #PT-0001</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-grid">
+                        <div class="detail-field">
+                            <label>Email</label>
+                            <p id="detail-email">email@example.com</p>
+                        </div>
+                        <div class="detail-field">
+                            <label>Phone No.</label>
+                            <p id="detail-phone">09123456789</p>
+                        </div>
+                        <div class="detail-field">
+                            <label>Total Visits</label>
+                            <p id="detail-visits">5</p>
+                        </div>
+                        <div class="detail-field">
+                            <label>Primary Doctor</label>
+                            <p id="detail-doctor">Dr. Smith</p>
+                        </div>
+                        <div class="detail-field">
+                            <label>Known Allergies</label>
+                            <p id="detail-allergies">None</p>
+                        </div>
+                        <div class="detail-field">
+                            <label>Medical Conditions</label>
+                            <p id="detail-conditions">None</p>
+                        </div>
+                    </div>
+
+                    <div class="detail-actions">
+                        <button class="btn-solid-teal" id="btn-view-full-history">View Full History</button>
+                        <button class="btn-outline-teal" id="btn-book-visit-main">Book Next Visit</button>
+                    </div>
+                </div>
+                
+                <!-- Empty State -->
+                <div class="records-detail-pane" id="empty-state-pane" style="justify-content: center; align-items: center; text-align: center;">
+                    <i data-lucide="user" style="width: 48px; height: 48px; color: var(--color-teal-300); margin-bottom: 1rem;"></i>
+                    <h3 style="font-family: var(--font-heading); color: var(--color-teal-900); font-size: 1.5rem; margin-bottom: 0.5rem;">No Patient Selected</h3>
+                    <p style="color: var(--color-grey);">Select a patient from the list to view their records.</p>
+                </div>
+            </div>
+
+            <!-- Full History Pane (Hidden by default) -->
+            <div class="full-history-pane" id="full-history-pane">
+                
+                <div class="history-details-card" id="history-details-card">
+                    <!-- Cloned from detail pane by JS -->
+                </div>
+
+                <div class="history-table-card">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>SERVICE</th>
+                                <th>DOCTOR</th>
+                                <th>DATE & TIME</th>
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="history-actions">
+                    <button class="btn-solid-teal" id="btn-back-records">Back</button>
+                    <button class="btn-outline-teal" id="btn-book-visit-history">Book Next Visit</button>
+                </div>
+            </div>
+
+            <!-- Book Visit Pane (Hidden by default) -->
+            <div class="book-visit-pane" id="book-visit-pane" style="display: none; height: 100%; overflow-y: auto;">
+                
+                <div class="history-details-card" id="book-visit-details-card">
+                    <!-- Cloned from detail pane by JS -->
+                </div>
+
+                <div class="book-visit-form-container" style="background: white; border-radius: 12px; padding: 2.5rem; margin-top: 1.5rem; border: 1px solid var(--color-teal-100);">
+                    <h2 class="playfair" style="color: var(--color-dark); margin-bottom: 1.5rem; font-size: 1.8rem;">Book Next Visit</h2>
+                    
+                    <form id="form-book-visit">
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="form-group">
+                                <label style="display:block; margin-bottom:0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">DATE</label>
+                                <input type="date" id="book-date" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); background: #F8FBFC;">
+                            </div>
+                            <div class="form-group">
+                                <label style="display:block; margin-bottom:0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">TIME</label>
+                                <input type="time" id="book-time" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); background: #F8FBFC;">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">DOCTOR</label>
+                            <select id="book-doctor" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); background: #F8FBFC;">
+                                <option value="">Select Doctor</option>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">REASON FOR BOOKING</label>
+                            <select id="book-reason" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); background: #F8FBFC;">
+                                <option value="">Select Reason</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 2rem;">
+                            <label style="display:block; margin-bottom:0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">NOTES</label>
+                            <textarea id="book-notes" rows="4" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); background: #F8FBFC; resize: vertical; font-family: inherit;"></textarea>
+                        </div>
+
+                        <div class="form-actions" style="display: flex; gap: 1rem;">
+                            <button type="button" class="btn-outline-teal" id="btn-cancel-book">Back</button>
+                            <button type="submit" class="btn-solid-teal" id="btn-submit-book">Book Next Visit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .then(() => window.location.href = '../index.html');
+        });
+
+        // Load Sidebar Info
+        fetch('../backend/check_session.php')
+            .then(res => res.json())
+            .then(data => {
+                if(!data.success || (data.user.role !== 'staff' && data.user.role !== 'admin')) {
+                    window.location.href = '../login.html';
+                } else {
+                    const name = data.user.name;
+                    document.getElementById('sidebar-name').textContent = name;
+                    document.getElementById('sidebar-avatar').textContent = name.charAt(0);
+                }
+            });
+
+        let patients = [];
+        let currentPatientId = null;
+
+        // Fetch Patients
+        fetch('../backend/staff_get_patients.php')
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    patients = data.patients;
+                    renderPatientList(patients);
+                }
+            });
+
+        function renderPatientList(listToRender) {
+            const listEl = document.getElementById('patient-list');
+            const countEl = document.getElementById('patients-count');
+            
+            listEl.innerHTML = '';
+            countEl.textContent = `${listToRender.length} Patient${listToRender.length !== 1 ? 's' : ''}`;
+
+            if (listToRender.length === 0) {
+                listEl.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--color-grey);">No patients found.</div>';
+                return;
+            }
+
+            listToRender.forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'record-list-item';
+                item.onclick = () => selectPatient(p, item);
+
+                const avatar = document.createElement('div');
+                avatar.className = 'record-avatar';
+                avatar.textContent = p.name.charAt(0).toUpperCase();
+
+                const info = document.createElement('div');
+                info.className = 'record-info';
+                
+                const nameEl = document.createElement('h4');
+                nameEl.textContent = p.name;
+                
+                const idEl = document.createElement('p');
+                idEl.textContent = p.pt_id;
+
+                info.appendChild(nameEl);
+                info.appendChild(idEl);
+
+                item.appendChild(avatar);
+                item.appendChild(info);
+
+                listEl.appendChild(item);
+            });
+        }
+
+        function selectPatient(patient, itemElement) {
+            currentPatientId = patient.id;
+            
+            // Update active state in list
+            document.querySelectorAll('.record-list-item').forEach(el => el.classList.remove('active'));
+            if (itemElement) itemElement.classList.add('active');
+
+            // Switch Panes
+            document.getElementById('empty-state-pane').style.display = 'none';
+            document.getElementById('patient-details-pane').style.display = 'flex';
+
+            // Populate Details
+            document.getElementById('detail-avatar').textContent = patient.name.charAt(0).toUpperCase();
+            document.getElementById('detail-name').textContent = patient.name;
+            document.getElementById('detail-pt-id').textContent = patient.pt_id;
+            
+            document.getElementById('detail-email').textContent = patient.email;
+            document.getElementById('detail-phone').textContent = patient.phone;
+            document.getElementById('detail-visits').textContent = patient.total_visits;
+            document.getElementById('detail-doctor').textContent = patient.primary_doctor;
+            document.getElementById('detail-allergies').textContent = patient.allergies;
+            document.getElementById('detail-conditions').textContent = patient.medical_conditions;
+        }
+
+        // View Full History Button Logic
+        document.getElementById('btn-view-full-history').addEventListener('click', () => {
+            if(!currentPatientId) return;
+
+            // Clone details card into history pane
+            const detailsPane = document.getElementById('patient-details-pane');
+            const historyDetailsCard = document.getElementById('history-details-card');
+            historyDetailsCard.innerHTML = detailsPane.innerHTML;
+            
+            // Remove the buttons from the cloned card
+            const clonedActions = historyDetailsCard.querySelector('.detail-actions');
+            if (clonedActions) clonedActions.remove();
+
+            // Toggle views
+            document.querySelector('.records-container').style.display = 'none';
+            document.getElementById('full-history-pane').style.display = 'flex';
+
+            // Fetch History Data
+            fetchHistory(currentPatientId);
+        });
+
+        // Back Button Logic
+        document.getElementById('btn-back-records').addEventListener('click', () => {
+            document.getElementById('full-history-pane').style.display = 'none';
+            document.querySelector('.records-container').style.display = 'grid';
+        });
+
+        function fetchHistory(patientId) {
+            const tbody = document.getElementById('history-table-body');
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading history...</td></tr>';
+            
+            fetch(`../backend/staff_get_patient_history.php?patient_id=${patientId}`)
+                .then(res => res.json())
+                .then(data => {
+                    tbody.innerHTML = '';
+                    if (data.success) {
+                        if (data.history.length === 0) {
+                            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No history found.</td></tr>';
+                            return;
+                        }
+
+                        data.history.forEach(appt => {
+                            // Format Date & Time
+                            const dateObj = new Date(appt.appointment_date);
+                            const formattedDate = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                            
+                            const timeParts = appt.appointment_time.split(':');
+                            const timeObj = new Date();
+                            timeObj.setHours(timeParts[0], timeParts[1]);
+                            const formattedTime = timeObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+                            // Format Status
+                            let statusClass = 'status-waiting';
+                            let statusText = 'Waiting';
+                            let actionHtml = '';
+
+                            if (appt.status === 'confirmed') {
+                                statusClass = 'status-confirmed';
+                                statusText = 'Confirmed';
+                                actionHtml = `<button class="action-link teal">Reschedule</button> <button class="action-link red">Cancel</button>`;
+                            } else if (appt.status === 'pending') {
+                                statusClass = 'status-pending';
+                                statusText = 'Pending';
+                                actionHtml = `<button class="action-link teal">Reschedule</button> <button class="action-link red">Cancel</button>`;
+                            } else if (appt.status === 'completed') {
+                                statusClass = 'status-completed';
+                                statusText = 'Completed';
+                                actionHtml = `<button class="action-link teal">Details</button>`;
+                            } else if (appt.status === 'cancelled') {
+                                statusClass = 'status-cancelled';
+                                statusText = 'Cancelled';
+                                actionHtml = ``;
+                            }
+
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td>${appt.service}</td>
+                                <td>${appt.doctor_name}</td>
+                                <td>${formattedDate} | ${formattedTime}</td>
+                                <td><div class="status-pill ${statusClass}">${statusText}</div></td>
+                                <td>${actionHtml}</td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+                    }
+                });
+        }
+
+        // Search functionality
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = patients.filter(p => 
+                p.name.toLowerCase().includes(term) || 
+                p.pt_id.toLowerCase().includes(term) ||
+                p.email.toLowerCase().includes(term) ||
+                p.phone.includes(term)
+            );
+            renderPatientList(filtered);
+        });
+
+        // ----- Book Next Visit Logic -----
+        
+        function showBookVisitPane() {
+            if(!currentPatientId) return;
+
+            // Clone details card into book visit pane
+            const detailsPane = document.getElementById('patient-details-pane');
+            const bookVisitCard = document.getElementById('book-visit-details-card');
+            bookVisitCard.innerHTML = detailsPane.innerHTML;
+            
+            // Remove the buttons from the cloned card
+            const clonedActions = bookVisitCard.querySelector('.detail-actions');
+            if (clonedActions) clonedActions.remove();
+
+            // Load doctors into dropdown
+            fetch('../backend/staff_get_doctors.php')
+                .then(res => res.json())
+                .then(data => {
+                    const docSelect = document.getElementById('book-doctor');
+                    docSelect.innerHTML = '<option value="">Select Doctor</option>';
+                    if(data.success) {
+                        data.doctors.forEach(doc => {
+                            // Try to pre-select their primary doctor if names match loosely
+                            const primaryDocName = document.getElementById('detail-doctor').textContent;
+                            const isSelected = primaryDocName.includes(doc.name) ? 'selected' : '';
+                            docSelect.innerHTML += `<option value="${doc.id}" ${isSelected}>${doc.name} - ${doc.specialty}</option>`;
+                        });
+                    }
+                });
+
+            // Load services into dropdown
+            fetch('../backend/get_active_services.php')
+                .then(res => res.json())
+                .then(data => {
+                    const svcSelect = document.getElementById('book-reason');
+                    svcSelect.innerHTML = '<option value="">Select Reason</option>';
+                    if(data.success) {
+                        data.services.forEach(svc => {
+                            svcSelect.innerHTML += `<option value="${svc.name}">${svc.name}</option>`;
+                        });
+                    }
+                });
+
+            // Hide other panes
+            document.querySelector('.records-container').style.display = 'none';
+            document.getElementById('full-history-pane').style.display = 'none';
+            
+            // Show book visit pane
+            document.getElementById('book-visit-pane').style.display = 'block';
+        }
+
+        // Validate date based on closed days
+        let closedDaysStaff = [];
+        fetch('../backend/get_public_settings.php')
+            .then(res => res.json())
+            .then(data => {
+                if(data.success && data.settings.closed_days) {
+                    closedDaysStaff = JSON.parse(data.settings.closed_days);
+                }
+            });
+
+        document.getElementById('book-date').addEventListener('change', (e) => {
+            const dateVal = e.target.value;
+            if(dateVal) {
+                const dateObj = new Date(dateVal);
+                const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const dayName = daysOfWeek[dateObj.getDay()];
+                
+                if(closedDaysStaff.includes(dayName)) {
+                    alert(`The clinic is closed on ${dayName}s. Please select another date.`);
+                    e.target.value = '';
+                }
+            }
+        });
+
+        document.getElementById('btn-book-visit-main').addEventListener('click', showBookVisitPane);
+        document.getElementById('btn-book-visit-history').addEventListener('click', showBookVisitPane);
+
+        document.getElementById('btn-cancel-book').addEventListener('click', () => {
+            document.getElementById('book-visit-pane').style.display = 'none';
+            document.querySelector('.records-container').style.display = 'grid';
+        });
+
+        document.getElementById('form-book-visit').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const payload = {
+                patient_id: currentPatientId,
+                doctor_id: document.getElementById('book-doctor').value,
+                date: document.getElementById('book-date').value,
+                time: document.getElementById('book-time').value,
+                service: document.getElementById('book-reason').value
+                // notes are captured but not strictly required in our schema unless we add a column, we will pass it anyway
+            };
+
+            fetch('../backend/staff_book_appointment.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    alert('Appointment booked successfully!');
+                    document.getElementById('form-book-visit').reset();
+                    // Go back to records list
+                    document.getElementById('btn-cancel-book').click();
+                } else {
+                    alert(data.message || 'Failed to book appointment');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Error connecting to server.");
+            });
+        });
+
+    </script>
+</body>
+</html>

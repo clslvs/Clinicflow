@@ -1,0 +1,24 @@
+# Dependencies and environment
+node_modules/
+.env
+.env.local
+
+# Old local backup directories
+2026-08-10_20-03_Backup/
+2026-08-10_20-09_Backup/
+*_Backup/
+*.backup.sql
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log

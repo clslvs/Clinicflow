@@ -1,0 +1,205 @@
+/* queue-tracker.css */
+
+.queue-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2rem;
+}
+
+/* Left Column */
+.current-position-card {
+    background-color: var(--color-teal-700);
+    color: white;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(50, 150, 146, 0.2);
+}
+
+.current-position-card .subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-teal-100);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.position-number {
+    font-size: 6rem;
+    line-height: 1.1;
+    margin: 1rem 0;
+    font-weight: 700;
+}
+
+.queue-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 2rem 0;
+}
+
+.queue-number {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.queue-stats-card {
+    background: white;
+    border: 1px solid var(--color-teal-100);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-label {
+    color: var(--light-text);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.stat-value {
+    color: var(--color-dark);
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+.stat-divider {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 1.2rem 0;
+}
+
+/* Right Column */
+.queue-overview-card {
+    background: white;
+    border: 1px solid var(--color-teal-100);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    height: 100%;
+}
+
+.overview-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+    color: var(--color-dark);
+}
+
+.queue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.queue-item {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+/* Specific States */
+.queue-item.in-progress {
+    background-color: #FFF9E6;
+    border-color: #FDE68A;
+}
+
+.queue-item.waiting {
+    background-color: #F8FBFC;
+    border-color: #E2E8F0;
+}
+
+.queue-item.your-turn {
+    background-color: #EEFFFE;
+    border-color: #C9DFDE;
+}
+
+/* Position Circle */
+.queue-position-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+}
+
+.in-progress .queue-position-circle {
+    background: #FBBF24;
+    color: white;
+}
+
+.waiting .queue-position-circle {
+    background: #E2E8F0;
+    color: var(--color-grey);
+}
+
+.your-turn .queue-position-circle {
+    background: var(--color-teal-700);
+    color: white;
+}
+
+/* Details */
+.queue-item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.queue-item-number {
+    font-weight: 700;
+    color: var(--color-dark);
+    font-size: 1.1rem;
+}
+
+.queue-item-service {
+    font-size: 0.85rem;
+    color: var(--light-text);
+    font-weight: 500;
+}
+
+/* Status Badge */
+.queue-item-status {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.in-progress .queue-item-status {
+    color: #D97706;
+}
+
+.waiting .queue-item-status {
+    color: var(--light-text);
+    background-color: #F1F5F9;
+}
+
+.your-turn .queue-item-status {
+    color: white;
+    background-color: var(--color-teal-700);
+}
+
+@media (max-width: 992px) {
+    .queue-grid {
+        grid-template-columns: 1fr;
+    }
+}

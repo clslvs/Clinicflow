@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicFlow - Live Queue</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/staff.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
+                    <span>ClinicFlow</span>
+                </a>
+            </div>
+            
+            <div class="user-profile-section">
+                <div class="avatar" id="sidebar-avatar">...</div>
+                <div class="user-info">
+                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                    <span class="user-role">Staff</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="queue.html" class="nav-item active">
+                    <i data-lucide="play"></i>
+                    <span>Live Queue</span>
+                </a>
+                <a href="schedules.html" class="nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>Schedules</span>
+                </a>
+                <a href="records.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span>Patient Records</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" style="padding: 3rem 4rem;">
+            <header class="page-header" style="margin-bottom: 2.5rem;">
+                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Live Queue Control</h1>
+                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;">Manage patient flow in real time.</p>
+            </header>
+
+            <div class="queue-metrics-container">
+                <div class="queue-metric-card">
+                    <div class="queue-metric-number text-yellow" id="metric-in-progress">00</div>
+                    <div class="queue-metric-label">In Progress</div>
+                </div>
+                <div class="queue-metric-card">
+                    <div class="queue-metric-number text-teal" id="metric-waiting">00</div>
+                    <div class="queue-metric-label">Waiting</div>
+                </div>
+                <div class="queue-metric-card">
+                    <div class="queue-metric-number text-grey" id="metric-completed">00</div>
+                    <div class="queue-metric-label">Completed</div>
+                </div>
+            </div>
+
+            <div class="queue-list-card">
+                <div class="queue-list-header">
+                    QUEUE TODAY
+                </div>
+                <div id="queue-list-container">
+                    <div style="padding: 3rem; text-align: center; color: var(--color-grey);">Loading queue...</div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .then(() => window.location.href = '../index.html');
+        });
+
+        // Load Sidebar Info
+        fetch('../backend/check_session.php')
+            .then(res => res.json())
+            .then(data => {
+                if(!data.success || (data.user.role !== 'staff' && data.user.role !== 'admin')) {
+                    window.location.href = '../login.html';
+                } else {
+                    const name = data.user.name;
+                    document.getElementById('sidebar-name').textContent = name;
+                    document.getElementById('sidebar-avatar').textContent = name.charAt(0);
+                }
+            });
+
+        // Fetch Queue
+        function loadQueue() {
+            fetch('../backend/staff_get_queue.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('metric-in-progress').textContent = data.metrics.in_progress;
+                        document.getElementById('metric-waiting').textContent = data.metrics.waiting;
+                        document.getElementById('metric-completed').textContent = data.metrics.completed;
+
+                        renderQueue(data.queue);
+                    }
+                });
+        }
+
+        function renderQueue(queueItems) {
+            const container = document.getElementById('queue-list-container');
+            container.innerHTML = '';
+
+            if (queueItems.length === 0) {
+                container.innerHTML = '<div style="padding: 3rem; text-align: center; color: var(--color-grey);">No appointments scheduled for today.</div>';
+                return;
+            }
+
+            queueItems.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'queue-item';
+
+                // Setup Colors and Actions based on status
+                let circleClass = '';
+                let circleContent = item.queue_no;
+                let statusPill = '';
+                let actionsHtml = '';
+
+                if (item.status === 'completed') {
+                    circleClass = 'bg-grey';
+                    circleContent = '<i data-lucide="check" style="width: 24px; height: 24px;"></i>';
+                    statusPill = '<div class="status-pill status-completed">Completed</div>';
+                    actionsHtml = '<button class="btn-q-action btn-q-disabled" disabled>Done</button>';
+                } else if (item.status === 'in_progress') {
+                    circleClass = 'bg-yellow';
+                    statusPill = '<div class="status-pill status-in-progress">In Progress</div>';
+                    actionsHtml = `<button class="btn-q-action btn-q-solid-green" onclick="updateStatus(${item.id}, 'completed')">Mark Done</button>`;
+                } else if (item.status === 'waiting') {
+                    circleClass = 'bg-light-teal';
+                    statusPill = '<div class="status-pill status-waiting">Waiting</div>';
+                    actionsHtml = `
+                        <button class="btn-q-action btn-q-solid-teal" onclick="updateStatus(${item.id}, 'in_progress')">Call</button>
+                        <button class="btn-q-action btn-q-outline-red" onclick="updateStatus(${item.id}, 'cancelled')">Cancel</button>
+                    `;
+                }
+
+                el.innerHTML = `
+                    <div class="queue-num-circle ${circleClass}">
+                        ${circleContent}
+                    </div>
+                    <div class="queue-details">
+                        <h4>${item.patient_name} | Queue No. ${item.queue_no}</h4>
+                        <p>${item.service} - ${item.doctor_name} | ${item.room_no}</p>
+                    </div>
+                    <div class="queue-status-col">
+                        ${statusPill}
+                    </div>
+                    <div class="queue-actions-col">
+                        ${actionsHtml}
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+            lucide.createIcons();
+        }
+
+        function updateStatus(appointmentId, newStatus) {
+            fetch('../backend/staff_update_queue_status.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ appointment_id: appointmentId, status: newStatus })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    loadQueue(); // refresh queue
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
+
+        // Initial Load
+        loadQueue();
+        
+        // Auto refresh every 15 seconds to simulate "Live"
+        setInterval(loadQueue, 15000);
+
+    </script>
+</body>
+</html>

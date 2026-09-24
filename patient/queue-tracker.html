@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Tracker - ClinicFlow</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/queue-tracker.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
+                    <span>ClinicFlow</span>
+                </a>
+            </div>
+            
+            <div class="user-profile-section">
+                <div class="avatar" id="sidebar-avatar">...</div>
+                <div class="user-info">
+                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                    <span class="user-role">Patient</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="book-appointment.html" class="nav-item">
+                    <i data-lucide="book-open"></i>
+                    <span>Book Appointment</span>
+                </a>
+                <a href="my-appointments.html" class="nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>My Appointment</span>
+                </a>
+                <a href="queue-tracker.html" class="nav-item active">
+                    <i data-lucide="users"></i>
+                    <span>Queue Tracker</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../login.html" class="nav-item sign-out">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" style="background-color: #F8FBFC; min-height: 100vh; padding: 2rem 3rem;">
+            <header class="page-header" style="margin-bottom: 2.5rem;">
+                <h1 class="playfair" style="font-size: 2.2rem; color: var(--color-dark); margin-bottom: 0.25rem;">Queue Tracker</h1>
+                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;" id="queue-subtitle">Loading queue information...</p>
+            </header>
+
+            <div class="queue-grid" id="queue-content" style="display: none;">
+                <!-- Left Column -->
+                <div class="queue-left">
+                    <div class="current-position-card">
+                        <p class="subtitle">Your current position</p>
+                        <h2 class="playfair position-number" id="user-position">--</h2>
+                        <div class="queue-divider"></div>
+                        <p class="subtitle">QUEUE NO.</p>
+                        <h3 class="queue-number" id="user-queue-number">----</h3>
+                    </div>
+
+                    <div class="queue-stats-card">
+                        <div class="stat-row">
+                            <span class="stat-label">Current Patient</span>
+                            <span class="stat-value" id="current-patient-pos">--</span>
+                        </div>
+                        <hr class="stat-divider">
+                        <div class="stat-row">
+                            <span class="stat-label">Estimated Wait</span>
+                            <span class="stat-value" id="estimated-wait">--</span>
+                        </div>
+                        <hr class="stat-divider">
+                        <div class="stat-row">
+                            <span class="stat-label">People Ahead</span>
+                            <span class="stat-value" id="people-ahead">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="queue-right">
+                    <div class="queue-overview-card">
+                        <h4 class="overview-title">QUEUE OVERVIEW</h4>
+                        <div class="queue-list" id="queue-list-container">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="no-queue-msg" style="display: none; background: white; padding: 3rem; border-radius: 12px; text-align: center; border: 1px solid var(--color-teal-300);">
+                <i data-lucide="calendar-x" style="width: 48px; height: 48px; color: var(--color-teal-300); margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">No Appointments Today</h3>
+                <p style="color: var(--color-teal-700);">You don't have any appointments scheduled for today, so you are not currently in any queue.</p>
+                <a href="book-appointment.html" class="btn btn-primary" style="margin-top: 1.5rem; display: inline-block;">Book an Appointment</a>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        // Check session and load user info
+        fetch('../backend/check_session.php')
+            .then(res => res.json())
+            .then(data => {
+                if(!data.success) {
+                    window.location.href = '../login.html';
+                } else {
+                    document.getElementById('sidebar-name').textContent = data.user.name;
+                    document.getElementById('sidebar-avatar').textContent = data.user.name.charAt(0).toUpperCase();
+                }
+            });
+    </script>
+    <script src="../assets/js/queue-tracker.js"></script>
+</body>
+</html>

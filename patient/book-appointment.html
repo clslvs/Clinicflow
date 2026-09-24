@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - ClinicFlow</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/booking.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
+                    <span>ClinicFlow</span>
+                </a>
+            </div>
+
+            <div class="user-profile-section">
+                <div class="avatar" id="user-avatar">J</div>
+                <div class="user-info">
+                    <h3 class="user-name" id="user-name">Loading...</h3>
+                    <span class="user-role">Patient</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="book-appointment.html" class="nav-item active">
+                    <i data-lucide="book-open"></i>
+                    <span>Book Appointment</span>
+                </a>
+                <a href="my-appointments.html" class="nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>My Appointment</span>
+                </a>
+                <a href="queue-tracker.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span>Queue Tracker</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../login.html" class="nav-item sign-out" id="logout-btn">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content booking-content">
+            <header class="page-header">
+                <h1>Book Appointment</h1>
+                <p>Complete the steps below to schedule your visit.</p>
+            </header>
+
+            <div class="booking-container">
+                <div id="booking-flow">
+                    <!-- Stepper -->
+                    <div class="stepper">
+                        <div class="step active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <div class="step-label">Select Service</div>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">Choose Doctor</div>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">Pick Date & Time</div>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="4">
+                            <div class="step-circle">4</div>
+                            <div class="step-label">Confirm</div>
+                        </div>
+                    </div>
+
+                    <!-- Form Steps -->
+                    <form id="booking-form">
+                        <!-- Step 1: Select Service -->
+                        <div class="form-step active" id="step-1">
+                            <div class="services-grid">
+                                <div class="service-card" data-service="General Check up">
+                                    <div class="service-icon">🦷</div>
+                                    <h3>General Check up</h3>
+                                    <p>est. 45 min</p>
+                                    <div class="price">$45</div>
+                                </div>
+                                <div class="service-card" data-service="Cleaning">
+                                    <div class="service-icon">✨</div>
+                                    <h3>Cleaning</h3>
+                                    <p>est. 45 min</p>
+                                    <div class="price">$45</div>
+                                </div>
+                                <div class="service-card" data-service="Whitening">
+                                    <div class="service-icon">💎</div>
+                                    <h3>Whitening</h3>
+                                    <p>est. 45 min</p>
+                                    <div class="price">$45</div>
+                                </div>
+                                <div class="service-card" data-service="Orthodontics">
+                                    <div class="service-icon">🔩</div>
+                                    <h3>Orthodontics</h3>
+                                    <p>est. 45 min</p>
+                                    <div class="price">$45</div>
+                                </div>
+                                <div class="service-card" data-service="Root Canal">
+                                    <div class="service-icon">🏥</div>
+                                    <h3>Root Canal</h3>
+                                    <p>est. 45 min</p>
+                                    <div class="price">$45</div>
+                                </div>
+                                <div class="service-card" data-service="Dental Implants">
+                                    <div class="service-icon">🔬</div>
+                                    <h3>Dental Implants</h3>
+                                    <p>est. 45 min</p>
+                                    <div class="price">$45</div>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button type="button" class="btn btn-primary btn-next" disabled>Continue <i data-lucide="arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Choose Doctor -->
+                        <div class="form-step" id="step-2">
+                            <div class="doctors-list">
+                                <div class="doctor-list-card" data-doctor="1" data-doctor-name="Dr. Emily Chen">
+                                    <div class="doctor-list-avatar">EC</div>
+                                    <div class="doctor-list-info">
+                                        <h3>Dr. Emily Chen</h3>
+                                        <p class="status-available">Available</p>
+                                    </div>
+                                </div>
+                                <div class="doctor-list-card" data-doctor="2" data-doctor-name="Dr. Michael Smith">
+                                    <div class="doctor-list-avatar">MS</div>
+                                    <div class="doctor-list-info">
+                                        <h3>Dr. Michael Smith</h3>
+                                        <p class="status-available">Available</p>
+                                    </div>
+                                </div>
+                                <div class="doctor-list-card disabled" data-doctor="3"
+                                    data-doctor-name="Dr. Sarah Johnson">
+                                    <div class="doctor-list-avatar">SJ</div>
+                                    <div class="doctor-list-info">
+                                        <h3>Dr. Sarah Johnson</h3>
+                                        <p class="status-unavailable">On Leave or Booked</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left"></i> Back</button>
+                                <button type="button" class="btn btn-primary btn-next" disabled>Continue <i data-lucide="arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Pick Date & Time -->
+                        <div class="form-step" id="step-3">
+                            <div class="date-time-section">
+                                <div class="form-group">
+                                    <label for="appointment_date" class="section-label">DATE</label>
+                                    <input type="date" id="appointment_date" name="appointment_date" required min=""
+                                        class="styled-input">
+                                </div>
+
+                                <div class="form-group" id="time-slots-container" style="display: none;">
+                                    <label class="section-label">AVAILABLE TIME</label>
+                                    <div class="time-slots">
+                                        <div class="time-slot" data-time="08:00:00">8:00 AM</div>
+                                        <div class="time-slot" data-time="08:30:00">8:30 AM</div>
+                                        <div class="time-slot disabled" data-time="09:00:00">9:00 AM</div>
+                                        <div class="time-slot" data-time="09:30:00">9:30 AM</div>
+                                        <div class="time-slot" data-time="10:00:00">10:00 AM</div>
+
+                                        <div class="time-slot" data-time="10:30:00">10:30 AM</div>
+                                        <div class="time-slot" data-time="11:00:00">11:00 AM</div>
+                                        <div class="time-slot" data-time="11:30:00">11:30 AM</div>
+                                        <div class="time-slot" data-time="12:00:00">12:00 PM</div>
+                                        <div class="time-slot" data-time="12:30:00">12:30 PM</div>
+
+                                        <div class="time-slot disabled" data-time="13:00:00">1:00 PM</div>
+                                        <div class="time-slot" data-time="13:30:00">1:30 PM</div>
+                                        <div class="time-slot" data-time="14:00:00">2:00 PM</div>
+                                        <div class="time-slot" data-time="14:30:00">2:30 PM</div>
+                                        <div class="time-slot" data-time="15:30:00">3:30 PM</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="appointment_note" class="section-label">NOTE (OPTIONAL)</label>
+                                    <textarea id="appointment_note" name="appointment_note" class="styled-textarea"
+                                        placeholder="Any specific concerns...."></textarea>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left"></i> Back</button>
+                                <button type="button" class="btn btn-primary btn-next" disabled>Continue <i data-lucide="arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Confirm -->
+                        <div class="form-step" id="step-4">
+                            <label class="section-label">APPOINTMENT SUMMARY</label>
+                            <div class="confirmation-summary">
+                                <div class="summary-details">
+                                    <div class="summary-item">
+                                        <span class="label">Service</span>
+                                        <span class="value" id="summary-service"></span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="label">Doctor</span>
+                                        <span class="value" id="summary-doctor"></span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="label">Date</span>
+                                        <span class="value" id="summary-date"></span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="label">Time</span>
+                                        <span class="value" id="summary-time"></span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="label">Notes</span>
+                                        <span class="value" id="summary-notes">None</span>
+                                    </div>
+                                </div>
+                                <div id="booking-error" class="error-message"></div>
+                            </div>
+
+                            <div class="info-banner">
+                                You will receive a confirmation notification once your appointment is verified.
+                            </div>
+
+                            <div class="step-actions">
+                                <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left"></i> Back</button>
+                                        <button type="button" class="btn btn-primary" id="btn-submit">For Approval
+                                            <i data-lucide="arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div> <!-- End booking-flow -->
+
+                <!-- Success Screen -->
+                <div id="success-screen" class="success-screen" style="display: none;">
+                    <div class="success-header">
+                        <div class="success-icon-large">
+                            <div class="success-icon-inner">
+                                <i data-lucide="check" size="40" color="white" stroke-width="3"></i>
+                            </div>
+                        </div>
+                        <h2 class="playfair">Appointment Booked!</h2>
+                        <p>Your appointment has been confirmed.</p>
+                    </div>
+
+                    <div class="success-card">
+                        <div class="queue-number-section">
+                            <p>Your Queue No.</p>
+                            <h1 class="playfair" id="success-queue">0000</h1>
+                        </div>
+                        <div class="summary-details">
+                            <div class="summary-item">
+                                <span class="label">Service</span>
+                                <span class="value" id="success-service"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Doctor</span>
+                                <span class="value" id="success-doctor"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="label">Date & Time</span>
+                                <span class="value" id="success-datetime"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="success-actions">
+                        <a href="dashboard.html" class="btn btn-secondary">View My Appointments</a>
+                        <button class="btn btn-primary" onclick="location.reload()">Book Another Appointment</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Check session and load user info
+        fetch('../backend/check_session.php')
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) {
+                    window.location.href = '../login.html';
+                } else {
+                    document.getElementById('user-name').textContent = data.user.name;
+                    document.getElementById('user-avatar').textContent = data.user.name.charAt(0).toUpperCase();
+                }
+            });
+
+        // Set min date for datepicker
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('appointment_date').setAttribute('min', today);
+    </script>
+    <script src="../assets/js/booking.js"></script>
+</body>
+
+</html>

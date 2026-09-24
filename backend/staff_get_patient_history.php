@@ -1,0 +1,36 @@
+<?php
+// backend/staff_get_patient_history.php
+session_start();
+require 'db.php';
+
+header('Content-Type: application/json');
+
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'staff') {
+    echo json_encode(["success" => false, "message" => "Unauthorized"]);
+    exit;
+}
+
+if (!isset($_GET['patient_id'])) {
+    echo json_encode(["success" => false, "message" => "Missing patient_id"]);
+    exit;
+}
+
+$patient_id = $_GET['patient_id'];
+
+try {
+    $stmt = $pdo->prepare("
+        SELECT a.id, a.service, a.appointment_date, a.appointment_time, a.status, d.name as doctor_name
+        FROM appointments a
+        JOIN doctors d ON a.doctor_id = d.id
+        WHERE a.patient_id = ?
+        ORDER BY a.appointment_date DESC, a.appointment_time DESC
+    ");
+    $stmt->execute([$patient_id]);
+    $history = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode(["success" => true, "history" => $history]);
+
+} catch (PDOException $e) {
+    echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+}
+?>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Admin Portal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/staff.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .settings-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .settings-section-title {
+            font-size: 1.25rem;
+            color: var(--color-dark);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .setting-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .setting-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #4b5563;
+            font-size: 0.85rem;
+        }
+
+        .setting-group input, .setting-group select, .setting-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+        }
+    </style>
+</head>
+<body style="background-color: #f8f9fa;">
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar admin-sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
+                    <span>ClinicFlow</span>
+                </a>
+            </div>
+            
+            <div class="user-profile-section">
+                <div class="avatar" id="sidebar-avatar" style="background-color: white; color: black; font-weight: bold;">...</div>
+                <div class="user-info">
+                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                    <span class="user-role">Admin</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="users.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="appointments.html" class="nav-item">
+                    <i data-lucide="clock"></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="settings.html" class="nav-item active">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item sign-out">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" style="padding: 3rem 4rem;">
+            <header class="page-header" style="margin-bottom: 2rem;">
+                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Settings</h1>
+                <p style="color: #666; font-weight: 500; font-size: 1.05rem;">Manage clinic configuration, services, and doctors.</p>
+            </header>
+
+            <div class="admin-tabs">
+                <div class="admin-tab active" data-target="tab-config">General Config</div>
+                <div class="admin-tab" data-target="tab-services">Manage Services</div>
+                <div class="admin-tab" data-target="tab-doctors">Manage Doctors</div>
+            </div>
+
+            <!-- TAB: General Config -->
+            <div class="admin-tab-content active" id="tab-config">
+                <div class="settings-card">
+                    <h3 class="settings-section-title playfair">Clinic Profile</h3>
+                    <form id="form-config">
+                        <div class="form-grid">
+                            <div class="setting-group">
+                                <label>CLINIC NAME</label>
+                                <input type="text" id="config-clinic-name" required>
+                            </div>
+                            <div class="setting-group">
+                                <label>CONTACT EMAIL</label>
+                                <input type="email" id="config-clinic-email" required>
+                            </div>
+                            <div class="setting-group">
+                                <label>CONTACT PHONE</label>
+                                <input type="text" id="config-clinic-phone" required>
+                            </div>
+                        </div>
+
+                        <h3 class="settings-section-title playfair" style="margin-top: 1rem;">Operating Hours</h3>
+                        <div class="form-grid">
+                            <div class="setting-group">
+                                <label>OPENING TIME</label>
+                                <input type="time" id="config-open-time" required>
+                            </div>
+                            <div class="setting-group">
+                                <label>CLOSING TIME</label>
+                                <input type="time" id="config-close-time" required>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label>CLOSED DAYS</label>
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;" id="config-closed-days">
+                                <label class="checkbox-group"><input type="checkbox" value="Sunday"> Sunday</label>
+                                <label class="checkbox-group"><input type="checkbox" value="Monday"> Monday</label>
+                                <label class="checkbox-group"><input type="checkbox" value="Tuesday"> Tuesday</label>
+                                <label class="checkbox-group"><input type="checkbox" value="Wednesday"> Wednesday</label>
+                                <label class="checkbox-group"><input type="checkbox" value="Thursday"> Thursday</label>
+                                <label class="checkbox-group"><input type="checkbox" value="Friday"> Friday</label>
+                                <label class="checkbox-group"><input type="checkbox" value="Saturday"> Saturday</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-solid-teal">Save Configuration</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB: Services -->
+            <div class="admin-tab-content" id="tab-services">
+                <div class="settings-card" style="padding: 0;">
+                    <div style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                        <h3 class="playfair" style="margin: 0;">Dental Services</h3>
+                        <button class="btn-outline-teal" onclick="openServiceModal()">+ Add Service</button>
+                    </div>
+                    <table class="history-table" style="margin: 0; width: 100%;">
+                        <thead style="background: #f1f3f4;">
+                            <tr>
+                                <th style="padding: 1rem 2rem;">SERVICE NAME</th>
+                                <th style="padding: 1rem 2rem;">DESCRIPTION</th>
+                                <th style="padding: 1rem 2rem;">STATUS</th>
+                                <th style="padding: 1rem 2rem; text-align: right;">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="services-tbody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: Doctors -->
+            <div class="admin-tab-content" id="tab-doctors">
+                <div class="settings-card" style="padding: 0;">
+                    <div style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                        <h3 class="playfair" style="margin: 0;">Doctors Directory</h3>
+                        <button class="btn-outline-teal" onclick="openDoctorModal()">+ Add Doctor</button>
+                    </div>
+                    <table class="history-table" style="margin: 0; width: 100%;">
+                        <thead style="background: #f1f3f4;">
+                            <tr>
+                                <th style="padding: 1rem 2rem;">NAME</th>
+                                <th style="padding: 1rem 2rem;">SPECIALTY</th>
+                                <th style="padding: 1rem 2rem;">AVATAR</th>
+                                <th style="padding: 1rem 2rem; text-align: right;">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="doctors-tbody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modals for Services & Doctors can use simple JS prompts or custom modals.
+         For speed and simplicity, we will use basic window.prompt or small hidden forms inline. -->
+    
+    <script>
+        lucide.createIcons();
+
+        // Check Admin Session
+        fetch('../backend/check_session.php')
+            .then(res => res.json())
+            .then(data => {
+                if(!data.success || data.user.role !== 'admin') {
+                    window.location.href = '../login.html';
+                } else {
+                    document.getElementById('sidebar-name').textContent = data.user.name;
+                    document.getElementById('sidebar-avatar').textContent = data.user.name.charAt(0).toUpperCase();
+                }
+            });
+
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .then(() => window.location.href = '../index.html');
+        });
+
+        // Tab Switching Logic
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.target).classList.add('active');
+            });
+        });
+
+        // --- GENERAL CONFIG ---
+        function loadConfig() {
+            fetch('../backend/admin_manage_settings.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const settings = data.settings;
+                        document.getElementById('config-clinic-name').value = settings.clinic_name || '';
+                        document.getElementById('config-clinic-email').value = settings.clinic_email || '';
+                        document.getElementById('config-clinic-phone').value = settings.clinic_phone || '';
+                        document.getElementById('config-open-time').value = settings.open_time || '';
+                        document.getElementById('config-close-time').value = settings.close_time || '';
+                        
+                        const closedDays = JSON.parse(settings.closed_days || '[]');
+                        document.querySelectorAll('#config-closed-days input[type="checkbox"]').forEach(cb => {
+                            cb.checked = closedDays.includes(cb.value);
+                        });
+                    }
+                });
+        }
+
+        document.getElementById('form-config').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const closedDays = [];
+            document.querySelectorAll('#config-closed-days input[type="checkbox"]:checked').forEach(cb => {
+                closedDays.push(cb.value);
+            });
+
+            const payload = {
+                clinic_name: document.getElementById('config-clinic-name').value,
+                clinic_email: document.getElementById('config-clinic-email').value,
+                clinic_phone: document.getElementById('config-clinic-phone').value,
+                open_time: document.getElementById('config-open-time').value,
+                close_time: document.getElementById('config-close-time').value,
+                closed_days: JSON.stringify(closedDays)
+            };
+
+            fetch('../backend/admin_manage_settings.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) alert("Settings saved successfully!");
+                else alert(data.message);
+            });
+        });
+
+        // --- SERVICES ---
+        function loadServices() {
+            fetch('../backend/admin_manage_services.php')
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        const tbody = document.getElementById('services-tbody');
+                        tbody.innerHTML = '';
+                        data.services.forEach(s => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td style="padding: 1rem 2rem; font-weight:600;">${s.name}</td>
+                                <td style="padding: 1rem 2rem; color:#666;">${s.description}</td>
+                                <td style="padding: 1rem 2rem;">${s.is_active == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>'}</td>
+                                <td style="padding: 1rem 2rem; text-align: right;">
+                                    <button class="btn-action cancel" onclick="toggleService(${s.id}, ${s.is_active == 1 ? 0 : 1})">
+                                        ${s.is_active == 1 ? 'Deactivate' : 'Activate'}
+                                    </button>
+                                </td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+                    }
+                });
+        }
+
+        function openServiceModal() {
+            const name = prompt("Enter Service Name:");
+            if(!name) return;
+            const desc = prompt("Enter Description:");
+            
+            fetch('../backend/admin_manage_services.php', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ action: 'create', name: name, description: desc || '' })
+            }).then(() => loadServices());
+        }
+
+        function toggleService(id, isActive) {
+            fetch('../backend/admin_manage_services.php', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ action: 'update_status', id: id, is_active: isActive })
+            }).then(() => loadServices());
+        }
+
+        // --- DOCTORS ---
+        function loadDoctors() {
+            fetch('../backend/staff_get_doctors.php')
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        const tbody = document.getElementById('doctors-tbody');
+                        tbody.innerHTML = '';
+                        data.doctors.forEach(d => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td style="padding: 1rem 2rem; font-weight:600;">${d.name}</td>
+                                <td style="padding: 1rem 2rem; color:#666;">${d.specialty}</td>
+                                <td style="padding: 1rem 2rem;"><img src="${d.image_url}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='../assets/images/doctor1.png'"></td>
+                                <td style="padding: 1rem 2rem; text-align: right;">
+                                    <button class="btn-action cancel" onclick="deleteDoctor(${d.id})">Delete</button>
+                                </td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+                    }
+                });
+        }
+
+        function openDoctorModal() {
+            const name = prompt("Enter Doctor Name (e.g. Dr. John Doe):");
+            if(!name) return;
+            const specialty = prompt("Enter Specialty (e.g. Orthodontist):");
+            if(!specialty) return;
+            
+            fetch('../backend/admin_manage_doctors.php', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ action: 'create', name: name, specialty: specialty })
+            }).then(() => loadDoctors());
+        }
+
+        function deleteDoctor(id) {
+            if(!confirm("Delete this doctor?")) return;
+            fetch('../backend/admin_manage_doctors.php', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ action: 'delete', id: id })
+            }).then(() => loadDoctors());
+        }
+
+        // INIT
+        loadConfig();
+        loadServices();
+        loadDoctors();
+    </script>
+</body>
+</html>

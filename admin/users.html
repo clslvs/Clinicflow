@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - Admin Portal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/staff.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Slide-out Panel */
+        .slide-panel {
+            position: fixed;
+            top: 0;
+            right: -500px;
+            width: 450px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-panel.open {
+            right: 0;
+        }
+
+        .panel-header {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-body {
+            padding: 2rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .panel-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+        
+        .overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Role Badges */
+        .role-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .role-admin { background: #fee2e2; color: #ef4444; }
+        .role-staff { background: #e0f2fe; color: #0ea5e9; }
+        .role-patient { background: #dcfce7; color: #22c55e; }
+        
+        .status-badge {
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-active { background: #e6f6f4; color: #2b938f; }
+        .status-inactive { background: #f3f4f6; color: #9ca3af; }
+
+        /* Form elements */
+        .admin-form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #4b5563;
+            font-size: 0.85rem;
+        }
+        
+        .admin-form-group input, .admin-form-group select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+        
+        .admin-form-group input:focus, .admin-form-group select:focus {
+            outline: none;
+            border-color: var(--color-teal-500);
+            box-shadow: 0 0 0 3px rgba(36, 128, 126, 0.1);
+        }
+    </style>
+</head>
+<body style="background-color: #f8f9fa;">
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar admin-sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
+                    <span>ClinicFlow</span>
+                </a>
+            </div>
+            
+            <div class="user-profile-section">
+                <div class="avatar" id="sidebar-avatar" style="background-color: white; color: black; font-weight: bold;">...</div>
+                <div class="user-info">
+                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                    <span class="user-role">Admin</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="users.html" class="nav-item active">
+                    <i data-lucide="users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="appointments.html" class="nav-item">
+                    <i data-lucide="clock"></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item sign-out">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" style="padding: 3rem 4rem;">
+            <header class="page-header" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Users</h1>
+                    <p style="color: #666; font-weight: 500; font-size: 1.05rem;">Manage staff, admins, and patient accounts.</p>
+                </div>
+                <button class="btn-solid-teal" id="btn-add-user" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <i data-lucide="plus" style="width: 18px; height: 18px;"></i> Add New User
+                </button>
+            </header>
+
+            <div class="appointments-toolbar">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="search-input" placeholder="Search by name, email, or role...">
+                </div>
+                
+                <div class="filter-pills" id="filter-pills">
+                    <button class="filter-pill active" data-filter="all">All</button>
+                    <button class="filter-pill" data-filter="admin">Admins</button>
+                    <button class="filter-pill" data-filter="staff">Staff</button>
+                    <button class="filter-pill" data-filter="patient">Patients</button>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eee;">
+                <table class="history-table" style="margin: 0; width: 100%;">
+                    <thead style="background: #f1f3f4; border-bottom: none;">
+                        <tr>
+                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">USER</th>
+                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">CONTACT INFO</th>
+                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">ROLE</th>
+                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">STATUS</th>
+                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">JOINED</th>
+                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem; text-align: right;">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody">
+                        <tr><td colspan="6" style="text-align: center; padding: 2rem;">Loading users...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Overlay & Slide Panel -->
+    <div class="overlay" id="overlay"></div>
+    <div class="slide-panel" id="user-panel">
+        <div class="panel-header">
+            <h2 class="playfair" id="panel-title" style="margin: 0;">Add New User</h2>
+            <button id="close-panel" style="background:none; border:none; cursor:pointer; color:#666;">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="panel-body">
+            <form id="user-form">
+                <input type="hidden" id="user-id">
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="admin-form-group">
+                        <label>FIRST NAME</label>
+                        <input type="text" id="user-first-name" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>LAST NAME</label>
+                        <input type="text" id="user-last-name" required>
+                    </div>
+                </div>
+
+                <div class="admin-form-group">
+                    <label>EMAIL ADDRESS</label>
+                    <input type="email" id="user-email" required>
+                </div>
+                
+                <div class="admin-form-group">
+                    <label>PHONE NUMBER</label>
+                    <input type="text" id="user-phone" required>
+                </div>
+
+                <div class="admin-form-group">
+                    <label>ROLE</label>
+                    <select id="user-role" required>
+                        <option value="patient">Patient</option>
+                        <option value="staff">Staff Member</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+
+                <div class="admin-form-group" id="password-group">
+                    <label>PASSWORD <span id="password-hint" style="font-weight:normal; color:#888;"></span></label>
+                    <input type="password" id="user-password" placeholder="••••••••">
+                </div>
+            </form>
+        </div>
+        <div class="panel-footer">
+            <button class="btn-outline-teal" id="btn-cancel" style="border-color: #d1d5db; color: #4b5563;">Cancel</button>
+            <button class="btn-solid-teal" id="btn-save-user">Save User</button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Check Admin Session
+        fetch('../backend/check_session.php')
+            .then(res => res.json())
+            .then(data => {
+                if(!data.success || data.user.role !== 'admin') {
+                    window.location.href = '../login.html';
+                } else {
+                    document.getElementById('sidebar-name').textContent = data.user.name;
+                    document.getElementById('sidebar-avatar').textContent = data.user.name.charAt(0).toUpperCase();
+                }
+            });
+
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .then(() => window.location.href = '../index.html');
+        });
+
+        // Data State
+        let allUsers = [];
+        let currentFilter = 'all';
+
+        // Load Users
+        function loadUsers() {
+            fetch('../backend/admin_get_users.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        allUsers = data.users;
+                        renderTable();
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                });
+        }
+
+        // Live Search & Filter
+        document.getElementById('search-input').addEventListener('input', renderTable);
+        
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.filter;
+                renderTable();
+            });
+        });
+
+        function renderTable() {
+            const tbody = document.getElementById('users-tbody');
+            const search = document.getElementById('search-input').value.toLowerCase();
+            tbody.innerHTML = '';
+
+            const filtered = allUsers.filter(user => {
+                // Filter by role pill
+                if (currentFilter !== 'all' && user.role !== currentFilter) {
+                    return false;
+                }
+                
+                // Live search
+                const searchStr = `${user.first_name} ${user.last_name} ${user.email} ${user.role}`.toLowerCase();
+                if (!searchStr.includes(search)) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #999;">No users found.</td></tr>';
+                return;
+            }
+
+            filtered.forEach(user => {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = "1px solid #eee";
+                
+                // Styling based on active state
+                const rowOpacity = user.is_active == 1 ? "1" : "0.5";
+                
+                let toggleAction = user.is_active == 1 
+                    ? `<button class="btn-action cancel" onclick="toggleStatus(${user.id}, 0)" title="Deactivate"><i data-lucide="user-minus" style="width:16px; height:16px;"></i></button>`
+                    : `<button class="btn-action confirm" onclick="toggleStatus(${user.id}, 1)" title="Reactivate"><i data-lucide="user-check" style="width:16px; height:16px;"></i></button>`;
+
+                tr.innerHTML = `
+                    <td style="padding: 1rem 1.5rem; opacity: ${rowOpacity};">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-teal-100); color: var(--color-teal-800); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem;">
+                                ${user.first_name.charAt(0)}${user.last_name.charAt(0)}
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; color: #333;">${user.first_name} ${user.last_name}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="padding: 1.5rem; color: #555; opacity: ${rowOpacity};">
+                        <div>${user.email}</div>
+                        <div style="font-size: 0.85rem; color: #888;">${user.phone}</div>
+                    </td>
+                    <td style="padding: 1.5rem; opacity: ${rowOpacity};">
+                        <span class="role-badge role-${user.role}">${user.role}</span>
+                    </td>
+                    <td style="padding: 1.5rem;">
+                        <span class="status-badge ${user.is_active == 1 ? 'status-active' : 'status-inactive'}">${user.is_active == 1 ? 'Active' : 'Inactive'}</span>
+                    </td>
+                    <td style="padding: 1.5rem; color: #666; opacity: ${rowOpacity};">${user.formatted_date}</td>
+                    <td style="padding: 1.5rem; text-align: right;">
+                        <div class="table-actions" style="justify-content: flex-end;">
+                            <button class="btn-action confirm" onclick='openEditPanel(${JSON.stringify(user)})' style="border-color:var(--color-teal-500); color:var(--color-teal-500);" title="Edit"><i data-lucide="edit-2" style="width:16px; height:16px;"></i></button>
+                            ${toggleAction}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            
+            // Re-init icons for newly added HTML
+            lucide.createIcons();
+        }
+
+        // Panel Logic
+        const panel = document.getElementById('user-panel');
+        const overlay = document.getElementById('overlay');
+        const form = document.getElementById('user-form');
+
+        function closePanel() {
+            panel.classList.remove('open');
+            overlay.classList.remove('show');
+            form.reset();
+        }
+
+        document.getElementById('btn-add-user').addEventListener('click', () => {
+            document.getElementById('panel-title').textContent = "Add New User";
+            document.getElementById('user-id').value = "";
+            document.getElementById('password-hint').textContent = "(Required)";
+            document.getElementById('user-password').required = true;
+            
+            panel.classList.add('open');
+            overlay.classList.add('show');
+        });
+
+        function openEditPanel(user) {
+            document.getElementById('panel-title').textContent = "Edit User";
+            document.getElementById('user-id').value = user.id;
+            document.getElementById('user-first-name').value = user.first_name;
+            document.getElementById('user-last-name').value = user.last_name;
+            document.getElementById('user-email').value = user.email;
+            document.getElementById('user-phone').value = user.phone;
+            document.getElementById('user-role').value = user.role;
+            
+            document.getElementById('password-hint').textContent = "(Leave blank to keep current)";
+            document.getElementById('user-password').required = false;
+
+            panel.classList.add('open');
+            overlay.classList.add('show');
+        }
+
+        document.getElementById('close-panel').addEventListener('click', closePanel);
+        document.getElementById('btn-cancel').addEventListener('click', closePanel);
+        overlay.addEventListener('click', closePanel);
+
+        // Save User
+        document.getElementById('btn-save-user').addEventListener('click', () => {
+            if(!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const payload = {
+                id: document.getElementById('user-id').value,
+                first_name: document.getElementById('user-first-name').value,
+                last_name: document.getElementById('user-last-name').value,
+                email: document.getElementById('user-email').value,
+                phone: document.getElementById('user-phone').value,
+                role: document.getElementById('user-role').value,
+                password: document.getElementById('user-password').value
+            };
+
+            fetch('../backend/admin_save_user.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    closePanel();
+                    loadUsers();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Connection error.");
+            });
+        });
+
+        // Toggle Status (Deactivate/Activate)
+        function toggleStatus(id, newStatus) {
+            const action = newStatus === 1 ? 'reactivate' : 'deactivate';
+            if(!confirm(`Are you sure you want to ${action} this user?`)) return;
+
+            fetch('../backend/admin_toggle_user_status.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id, is_active: newStatus })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    loadUsers();
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
+
+        // Init
+        loadUsers();
+    </script>
+</body>
+</html>

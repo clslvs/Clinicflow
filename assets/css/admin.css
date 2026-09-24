@@ -1,0 +1,223 @@
+/* admin.css */
+
+/* Dark Sidebar Override */
+.admin-sidebar {
+    background-color: #111111;
+    color: white;
+}
+
+.admin-sidebar .logo {
+    color: white;
+}
+
+.admin-sidebar .user-name {
+    color: white;
+}
+
+.admin-sidebar .user-role {
+    color: #aaaaaa;
+}
+
+.admin-sidebar .nav-item {
+    color: #dddddd;
+}
+
+.admin-sidebar .nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.admin-sidebar .nav-item.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-radius: 8px;
+}
+
+.admin-sidebar .sign-out {
+    color: #ff6b6b;
+}
+
+.admin-sidebar .sign-out:hover {
+    background-color: rgba(255, 107, 107, 0.1);
+}
+
+/* Appointments Page Specifics */
+.appointments-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.search-box {
+    position: relative;
+    width: 350px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.8rem;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.search-box input:focus {
+    border-color: var(--color-teal-500);
+    box-shadow: 0 0 0 3px rgba(36, 128, 126, 0.1);
+}
+
+.filter-pills {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filter-pill {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    background: white;
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-pill:hover {
+    background: #f5f5f5;
+}
+
+.filter-pill.active {
+    background: #555;
+    color: white;
+    border-color: #555;
+}
+
+/* Status Pills (Mockup Specific) */
+.status-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+}
+
+.status-pill.confirmed {
+    background-color: #e6f6f4;
+    color: #2b938f;
+}
+
+.status-pill.pending {
+    background-color: #fff8e1;
+    color: #fbbc05;
+}
+
+.status-pill.cancelled {
+    background-color: #fce8e6;
+    color: #e57373;
+}
+
+.status-pill.completed {
+    background-color: #f1f3f4;
+    color: #7f8c8d;
+}
+
+.status-pill.rescheduling {
+    background-color: #fff8e1;
+    color: #fbbc05;
+}
+
+/* Action Buttons in Table */
+.btn-action {
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.btn-action.cancel {
+    background: transparent;
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+.btn-action.cancel:hover {
+    background: #ff6b6b;
+    color: white;
+}
+
+.btn-action.confirm {
+    background: transparent;
+    border-color: #63b398;
+    color: #63b398;
+}
+
+.btn-action.confirm:hover {
+    background: #63b398;
+    color: white;
+}
+
+.btn-action.done {
+    background: #6ab04c;
+    color: white;
+}
+
+.btn-action.done:hover {
+    background: #5e9c43;
+}
+
+.table-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Tabs */
+.admin-tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.admin-tab {
+    padding: 1rem 2rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.admin-tab:hover {
+    color: var(--color-teal-600);
+}
+
+.admin-tab.active {
+    color: var(--color-teal-600);
+    border-bottom-color: var(--color-teal-600);
+}
+
+.admin-tab-content {
+    display: none;
+}
+
+.admin-tab-content.active {
+    display: block;
+}

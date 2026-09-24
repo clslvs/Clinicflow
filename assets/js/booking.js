@@ -1,0 +1,295 @@
+// booking.js
+document.addEventListener('DOMContentLoaded', () => {
+    let currentStep = 1;
+    const totalSteps = 4;
+    
+    // State
+    const bookingData = {
+        service: null,
+        doctorId: null,
+        doctorName: null,
+        date: null,
+        time: null
+    };
+
+    // DOM Elements
+    const form = document.getElementById('booking-form');
+    const steps = document.querySelectorAll('.form-step');
+    const stepperCircles = document.querySelectorAll('.step');
+    const stepperLines = document.querySelectorAll('.step-line');
+    
+    // Buttons
+    const nextBtns = document.querySelectorAll('.btn-next');
+    const prevBtns = document.querySelectorAll('.btn-prev');
+    const submitBtn = document.getElementById('btn-submit');
+    
+    const timeSlots = document.querySelectorAll('.time-slot');
+    const dateInput = document.getElementById('appointment_date');
+
+    // Dynamic Loading
+    function loadServices() {
+        fetch('../backend/get_active_services.php')
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const grid = document.querySelector('.services-grid');
+                    grid.innerHTML = '';
+                    data.services.forEach(s => {
+                        const div = document.createElement('div');
+                        div.className = 'service-card';
+                        div.dataset.service = s.name;
+                        div.innerHTML = `
+                            <div class="service-icon">🦷</div>
+                            <h3>${s.name}</h3>
+                            <p>est. 45 min</p>
+                        `;
+                        div.addEventListener('click', () => {
+                            document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+                            div.classList.add('selected');
+                            bookingData.service = s.name;
+                            updateNextButtonState();
+                        });
+                        grid.appendChild(div);
+                    });
+                }
+            });
+    }
+
+    function loadDoctors() {
+        fetch('../backend/staff_get_doctors.php')
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    const list = document.querySelector('.doctors-list');
+                    list.innerHTML = '';
+                    data.doctors.forEach(d => {
+                        const div = document.createElement('div');
+                        div.className = 'doctor-list-card';
+                        div.dataset.doctor = d.id;
+                        div.dataset.doctorName = d.name;
+                        div.innerHTML = `
+                            <div class="doctor-list-avatar"><img src="${d.image_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" onerror="this.src='../assets/images/doctor1.png'"></div>
+                            <div class="doctor-list-info">
+                                <h3>${d.name}</h3>
+                                <p class="status-available">${d.specialty}</p>
+                            </div>
+                        `;
+                        div.addEventListener('click', () => {
+                            document.querySelectorAll('.doctor-list-card').forEach(c => c.classList.remove('selected'));
+                            div.classList.add('selected');
+                            bookingData.doctorId = d.id;
+                            bookingData.doctorName = d.name;
+                            updateNextButtonState();
+                        });
+                        list.appendChild(div);
+                    });
+                }
+            });
+    }
+
+    // Call them
+    loadServices();
+    loadDoctors();
+
+    // Validation update function
+    const updateNextButtonState = () => {
+        const currentStepContainer = document.getElementById(`step-${currentStep}`);
+        const nextBtn = currentStepContainer.querySelector('.btn-next');
+        if (!nextBtn) return; // Last step has submit button instead
+
+        let isValid = false;
+        if (currentStep === 1) isValid = bookingData.service !== null;
+        if (currentStep === 2) isValid = bookingData.doctorId !== null;
+        if (currentStep === 3) isValid = bookingData.date !== null && bookingData.time !== null;
+
+        nextBtn.disabled = !isValid;
+    };
+
+    // Step Navigation
+    const updateStepperUI = () => {
+        // Update Form Steps
+        steps.forEach((step, index) => {
+            if (index + 1 === currentStep) {
+                step.classList.add('active');
+            } else {
+                step.classList.remove('active');
+            }
+        });
+
+        // Update Stepper Header
+        stepperCircles.forEach((circle, index) => {
+            const stepNum = index + 1;
+            circle.classList.remove('active', 'completed');
+            if (stepNum === currentStep) {
+                circle.classList.add('active');
+            } else if (stepNum < currentStep) {
+                circle.classList.add('completed');
+            }
+        });
+
+        stepperLines.forEach((line, index) => {
+            if (index + 1 < currentStep) {
+                line.classList.add('active');
+            } else {
+                line.classList.remove('active');
+            }
+        });
+
+        // Update Summary if on last step
+        if (currentStep === 4) {
+            document.getElementById('summary-service').textContent = bookingData.service;
+            document.getElementById('summary-doctor').textContent = bookingData.doctorName;
+            
+            // Format date nicer
+            const dateObj = new Date(bookingData.date);
+            const formattedDate = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            document.getElementById('summary-date').textContent = formattedDate;
+            
+            // Format time nicely
+            const [hours, minutes] = bookingData.time.split(':');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const hr = hours % 12 || 12;
+            document.getElementById('summary-time').textContent = `${hr}:${minutes} ${ampm}`;
+
+            // Notes
+            document.getElementById('summary-notes').textContent = bookingData.note || 'None';
+        }
+    };
+
+    nextBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateStepperUI();
+                updateNextButtonState();
+            }
+        });
+    });
+
+    prevBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepperUI();
+                updateNextButtonState();
+            }
+        });
+    });
+
+
+
+    // Step 3: Date & Time
+    const timeSlotsContainer = document.getElementById('time-slots-container');
+    let closedDays = [];
+
+    fetch('../backend/get_public_settings.php')
+        .then(res => res.json())
+        .then(data => {
+            if(data.success && data.settings.closed_days) {
+                closedDays = JSON.parse(data.settings.closed_days);
+            }
+        });
+    
+    dateInput.addEventListener('change', (e) => {
+        bookingData.date = e.target.value;
+        if(bookingData.date) {
+            const dateObj = new Date(bookingData.date);
+            const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dayName = daysOfWeek[dateObj.getDay()];
+            
+            if(closedDays.includes(dayName)) {
+                alert(`Sorry, the clinic is closed on ${dayName}s. Please select another date.`);
+                e.target.value = '';
+                bookingData.date = null;
+                timeSlotsContainer.style.display = 'none';
+                return;
+            }
+        }
+
+        // Show time slots when a date is selected
+        if (bookingData.date) {
+            timeSlotsContainer.style.display = 'block';
+        } else {
+            timeSlotsContainer.style.display = 'none';
+        }
+        
+        // reset time selection when date changes
+        timeSlots.forEach(slot => slot.classList.remove('selected'));
+        bookingData.time = null;
+        updateNextButtonState();
+    });
+
+    timeSlots.forEach(slot => {
+        slot.addEventListener('click', () => {
+            if (slot.classList.contains('disabled')) return;
+            
+            if (!bookingData.date) {
+                alert("Please select a date first.");
+                return;
+            }
+            timeSlots.forEach(s => s.classList.remove('selected'));
+            slot.classList.add('selected');
+            bookingData.time = slot.dataset.time;
+            updateNextButtonState();
+        });
+    });
+
+    // Capture optional note on submit or when changed
+    const noteInput = document.getElementById('appointment_note');
+    if (noteInput) {
+        noteInput.addEventListener('input', (e) => {
+            bookingData.note = e.target.value;
+        });
+    }
+
+    // Submission
+    submitBtn.addEventListener('click', async () => {
+        const errorDiv = document.getElementById('booking-error');
+        errorDiv.textContent = '';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+
+        try {
+            const response = await fetch('../backend/book_appointment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(bookingData)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Hide booking flow, show success screen
+                document.getElementById('booking-flow').style.display = 'none';
+                
+                // Populate success screen
+                document.getElementById('success-queue').textContent = data.queue_number;
+                document.getElementById('success-service').textContent = bookingData.service;
+                document.getElementById('success-doctor').textContent = bookingData.doctorName;
+                
+                const dateObj = new Date(bookingData.date);
+                const formattedDate = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
+                
+                const [hours, minutes] = bookingData.time.split(':');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const hr = hours % 12 || 12;
+                
+                document.getElementById('success-datetime').textContent = `${formattedDate} ${hr}:${minutes}${ampm}`;
+
+                document.getElementById('success-screen').style.display = 'flex';
+            } else {
+                errorDiv.textContent = data.message || 'Failed to book appointment. Please try again.';
+                errorDiv.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'For Approval ->';
+            }
+
+        } catch (error) {
+            errorDiv.textContent = 'Network error. Please try again.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Confirm Appointment';
+        }
+    });
+});
