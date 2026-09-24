@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else if (result.role === 'staff') {
                         window.location.href = 'staff/dashboard.html';
                     } else if (result.role === 'admin') {
-                        window.location.href = 'admin/appointments.html';
+                        window.location.href = 'admin/users.html';
                     }
                 } else {
                     showAlert(alertBox, result.message, 'error');
