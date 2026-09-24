@@ -91,26 +91,19 @@
                 <h2>Meet the Doctors</h2>
             </div>
 
-            <div class="doctors-grid">
-                <div class="doctor-card bg-blue fade-up stagger-1">
-                    <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Name - Orthodontist">
+            <div class="doctors-grid" id="landing-doctors-grid">
+                <div class="doctor-card bg-teal fade-up stagger-1">
+                    <img src="assets/images/doctor_maria.jpg" alt="Dr. Maria Santos - General Dentistry & Orthodontics">
                     <div class="doctor-info">
-                        <h3>Dr. Name</h3>
-                        <p>Orthodontist</p>
+                        <h3>Dr. Maria Santos</h3>
+                        <p>General Dentistry & Orthodontics</p>
                     </div>
                 </div>
-                <div class="doctor-card bg-teal fade-up stagger-2">
-                    <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Name - General Dentistry">
+                <div class="doctor-card bg-blue fade-up stagger-2">
+                    <img src="assets/images/doctor_alex.jpg" alt="Dr. Alex Rivera - Oral Surgery & Endodontics">
                     <div class="doctor-info">
-                        <h3>Dr. Name</h3>
-                        <p>General Dentistry</p>
-                    </div>
-                </div>
-                <div class="doctor-card bg-grey fade-up stagger-3">
-                    <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Name - Cosmetic Dentistry">
-                    <div class="doctor-info">
-                        <h3>Dr. Name</h3>
-                        <p>Cosmetic Dentistry</p>
+                        <h3>Dr. Alex Rivera</h3>
+                        <p>Oral Surgery & Endodontics</p>
                     </div>
                 </div>
             </div>
@@ -148,6 +141,39 @@
         </div>
     </footer>
     <script src="assets/js/animations.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dynamically sync doctors directly from the MySQL database
+            fetch('backend/staff_get_doctors.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.doctors && data.doctors.length > 0) {
+                        const grid = document.getElementById('landing-doctors-grid');
+                        if (!grid) return;
+                        grid.innerHTML = '';
+                        const colorThemes = ['bg-teal', 'bg-blue', 'bg-grey'];
+
+                        data.doctors.forEach((doc, index) => {
+                            const card = document.createElement('div');
+                            const theme = colorThemes[index % colorThemes.length];
+                            card.className = `doctor-card ${theme} fade-up stagger-${(index % 3) + 1} visible`;
+                            
+                            const img = doc.image_url || (index % 2 === 0 ? 'assets/images/doctor_maria.jpg' : 'assets/images/doctor_alex.jpg');
+
+                            card.innerHTML = `
+                                <img src="${img}" alt="${doc.name} - ${doc.specialty}" onerror="this.src='assets/images/doctor_maria.jpg'">
+                                <div class="doctor-info">
+                                    <h3>${doc.name}</h3>
+                                    <p>${doc.specialty || 'General Dentist'}</p>
+                                </div>
+                            `;
+                            grid.appendChild(card);
+                        });
+                    }
+                })
+                .catch(err => console.log('Doctors sync note:', err));
+        });
+    </script>
 </body>
 
 </html>

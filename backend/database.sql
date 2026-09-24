@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS doctors (
 );
 
 -- Seed initial doctors
-INSERT IGNORE INTO doctors (id, name, specialty) VALUES 
-(1, 'Dr. Maria Santos', 'General Dentistry & Orthodontics'),
-(2, 'Dr. Alex Rivera', 'Oral Surgery & Endodontics');
+INSERT IGNORE INTO doctors (id, name, specialty, image_url) VALUES 
+(1, 'Dr. Maria Santos', 'General Dentistry & Orthodontics', 'assets/images/doctor_maria.jpg'),
+(2, 'Dr. Alex Rivera', 'Oral Surgery & Endodontics', 'assets/images/doctor_alex.jpg');
 
 -- Create appointments table
 CREATE TABLE IF NOT EXISTS appointments (
