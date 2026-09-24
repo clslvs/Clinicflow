@@ -30,6 +30,11 @@ CREATE TABLE IF NOT EXISTS doctors (
     image_url VARCHAR(255)
 );
 
+-- Seed initial doctors
+INSERT IGNORE INTO doctors (id, name, specialty) VALUES 
+(1, 'Dr. Maria Santos', 'General Dentistry & Orthodontics'),
+(2, 'Dr. Alex Rivera', 'Oral Surgery & Endodontics');
+
 -- Create appointments table
 CREATE TABLE IF NOT EXISTS appointments (
     id INT AUTO_INCREMENT PRIMARY KEY,
