@@ -15,9 +15,11 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert a default admin for testing (password is 'admin123')
-INSERT INTO users (first_name, last_name, email, phone, password, role) 
-VALUES ('System', 'Admin', 'admin@clinicflow.com', '09123456789', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin')
+-- Insert initial default accounts (Password is 'admin123' for all)
+INSERT INTO users (first_name, last_name, email, phone, password, role) VALUES 
+('System', 'Admin', 'imadmin123@gmail.com', '09123456789', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
+('Clinic', 'Staff', 'admin@clinicflow.com', '09123456788', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'staff'),
+('Jane', 'Doe', 'patient@clinicflow.com', '09123456787', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'patient')
 ON DUPLICATE KEY UPDATE email=email;
 
 -- Create doctors table
@@ -27,12 +29,6 @@ CREATE TABLE IF NOT EXISTS doctors (
     specialty VARCHAR(100) NOT NULL,
     image_url VARCHAR(255)
 );
-
--- Insert dummy doctors
-INSERT INTO doctors (name, specialty, image_url) VALUES 
-('Dr. Emily Chen', 'General Dentist', '../assets/images/doctor1.png'),
-('Dr. Michael Smith', 'Orthodontist', '../assets/images/doctor2.png'),
-('Dr. Sarah Johnson', 'Endodontist', '../assets/images/doctor3.png');
 
 -- Create appointments table
 CREATE TABLE IF NOT EXISTS appointments (
