@@ -158,10 +158,11 @@
                             const theme = colorThemes[index % colorThemes.length];
                             card.className = `doctor-card ${theme} fade-up stagger-${(index % 3) + 1} visible`;
                             
-                            const img = doc.image_url || (index % 2 === 0 ? 'assets/images/doctor_maria.jpg' : 'assets/images/doctor_alex.jpg');
+                            const fallbackImg = doc.name.toLowerCase().includes('maria') ? 'assets/images/doctor_maria.jpg' : 'assets/images/doctor_alex.jpg';
+                            const img = doc.image_url || fallbackImg;
 
                             card.innerHTML = `
-                                <img src="${img}" alt="${doc.name} - ${doc.specialty}" onerror="this.src='assets/images/doctor_maria.jpg'">
+                                <img src="${img}" alt="${doc.name} - ${doc.specialty}" onerror="this.src='${fallbackImg}'">
                                 <div class="doctor-info">
                                     <h3>${doc.name}</h3>
                                     <p>${doc.specialty || 'General Dentist'}</p>
