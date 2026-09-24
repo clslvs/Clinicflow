@@ -26,6 +26,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeSlots = document.querySelectorAll('.time-slot');
     const dateInput = document.getElementById('appointment_date');
 
+    // Helper to get tailored icons, estimated time, and prices for services
+    function getServiceDetails(serviceName) {
+        const lower = (serviceName || '').toLowerCase();
+        if (lower.includes('clean')) return { icon: '✨', est: 'est. 45 min', price: '$45' };
+        if (lower.includes('whiten')) return { icon: '💎', est: 'est. 60 min', price: '$85' };
+        if (lower.includes('ortho') || lower.includes('brace')) return { icon: '🔩', est: 'est. 45 min', price: '$90' };
+        if (lower.includes('root') || lower.includes('canal')) return { icon: '🏥', est: 'est. 60 min', price: '$120' };
+        if (lower.includes('extract') || lower.includes('remov')) return { icon: '🩹', est: 'est. 30 min', price: '$60' };
+        if (lower.includes('consult')) return { icon: '🩺', est: 'est. 30 min', price: '$35' };
+        if (lower.includes('implant')) return { icon: '🔬', est: 'est. 90 min', price: '$150' };
+        return { icon: '🦷', est: 'est. 45 min', price: '$45' };
+    }
+
     // Dynamic Loading
     function loadServices() {
         fetch('../backend/get_active_services.php')
@@ -38,10 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         const div = document.createElement('div');
                         div.className = 'service-card';
                         div.dataset.service = s.name;
+                        const details = getServiceDetails(s.name);
                         div.innerHTML = `
-                            <div class="service-icon">🦷</div>
+                            <div class="service-icon">${details.icon}</div>
                             <h3>${s.name}</h3>
-                            <p>est. 45 min</p>
+                            <p>${s.description || details.est}</p>
+                            <div class="price">${details.price}</div>
                         `;
                         div.addEventListener('click', () => {
                             document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
