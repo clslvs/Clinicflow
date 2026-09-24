@@ -5,10 +5,8 @@ require 'db.php';
 
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'staff') {
-    echo json_encode(["success" => false, "message" => "Unauthorized"]);
-    exit;
-}
+// Allow patients, staff, and visitors to view active clinic doctors
+
 
 try {
     $stmt = $pdo->query("SELECT id, name, specialty FROM doctors ORDER BY name ASC");

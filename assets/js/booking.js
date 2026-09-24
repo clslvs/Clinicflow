@@ -74,19 +74,33 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('../backend/staff_get_doctors.php')
             .then(res => res.json())
             .then(data => {
-                if(data.success) {
+                if(data.success && data.doctors) {
                     const list = document.querySelector('.doctors-list');
+                    if (!list) return;
                     list.innerHTML = '';
+
+                    if (data.doctors.length === 0) {
+                        list.innerHTML = '<p style="color: var(--light-text); font-style: italic; padding: 1rem;">No doctors currently available. Please contact clinic reception.</p>';
+                        return;
+                    }
+
                     data.doctors.forEach(d => {
                         const div = document.createElement('div');
                         div.className = 'doctor-list-card';
                         div.dataset.doctor = d.id;
                         div.dataset.doctorName = d.name;
+
+                        // Calculate initials e.g. "Dr. Maria Santos" -> "MS"
+                        const names = d.name.replace(/^Dr\.\s*/i, '').trim().split(' ');
+                        const initials = names.length > 1 
+                            ? (names[0][0] + names[names.length - 1][0]).toUpperCase() 
+                            : d.name.slice(0, 2).toUpperCase();
+
                         div.innerHTML = `
-                            <div class="doctor-list-avatar"><img src="${d.image_url}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" onerror="this.src='../assets/images/doctor1.png'"></div>
+                            <div class="doctor-list-avatar">${initials}</div>
                             <div class="doctor-list-info">
                                 <h3>${d.name}</h3>
-                                <p class="status-available">${d.specialty}</p>
+                                <p class="status-available">${d.specialty || 'Available'}</p>
                             </div>
                         `;
                         div.addEventListener('click', () => {

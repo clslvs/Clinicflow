@@ -155,28 +155,7 @@
                         <!-- Step 2: Choose Doctor -->
                         <div class="form-step" id="step-2">
                             <div class="doctors-list">
-                                <div class="doctor-list-card" data-doctor="1" data-doctor-name="Dr. Emily Chen">
-                                    <div class="doctor-list-avatar">EC</div>
-                                    <div class="doctor-list-info">
-                                        <h3>Dr. Emily Chen</h3>
-                                        <p class="status-available">Available</p>
-                                    </div>
-                                </div>
-                                <div class="doctor-list-card" data-doctor="2" data-doctor-name="Dr. Michael Smith">
-                                    <div class="doctor-list-avatar">MS</div>
-                                    <div class="doctor-list-info">
-                                        <h3>Dr. Michael Smith</h3>
-                                        <p class="status-available">Available</p>
-                                    </div>
-                                </div>
-                                <div class="doctor-list-card disabled" data-doctor="3"
-                                    data-doctor-name="Dr. Sarah Johnson">
-                                    <div class="doctor-list-avatar">SJ</div>
-                                    <div class="doctor-list-info">
-                                        <h3>Dr. Sarah Johnson</h3>
-                                        <p class="status-unavailable">On Leave or Booked</p>
-                                    </div>
-                                </div>
+                                <!-- Loaded dynamically from database -->
                             </div>
                             <div class="step-actions">
                                 <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left"></i> Back</button>
@@ -198,7 +177,7 @@
                                     <div class="time-slots">
                                         <div class="time-slot" data-time="08:00:00">8:00 AM</div>
                                         <div class="time-slot" data-time="08:30:00">8:30 AM</div>
-                                        <div class="time-slot disabled" data-time="09:00:00">9:00 AM</div>
+                                        <div class="time-slot" data-time="09:00:00">9:00 AM</div>
                                         <div class="time-slot" data-time="09:30:00">9:30 AM</div>
                                         <div class="time-slot" data-time="10:00:00">10:00 AM</div>
 
@@ -208,7 +187,7 @@
                                         <div class="time-slot" data-time="12:00:00">12:00 PM</div>
                                         <div class="time-slot" data-time="12:30:00">12:30 PM</div>
 
-                                        <div class="time-slot disabled" data-time="13:00:00">1:00 PM</div>
+                                        <div class="time-slot" data-time="13:00:00">1:00 PM</div>
                                         <div class="time-slot" data-time="13:30:00">1:30 PM</div>
                                         <div class="time-slot" data-time="14:00:00">2:00 PM</div>
                                         <div class="time-slot" data-time="14:30:00">2:30 PM</div>
@@ -331,7 +310,7 @@
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('appointment_date').setAttribute('min', today);
     </script>
-    <script src="../assets/js/booking.js?v=2"></script>
+    <script src="../assets/js/booking.js?v=3"></script>
 </body>
 
 </html>
