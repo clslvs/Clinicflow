@@ -367,10 +367,11 @@
                         tbody.innerHTML = '';
                         data.doctors.forEach(d => {
                             const tr = document.createElement('tr');
+                            const imgPath = d.image_url ? (d.image_url.startsWith('../') ? d.image_url : '../' + d.image_url) : '../assets/images/temporarypicdoctor.jpg';
                             tr.innerHTML = `
                                 <td style="padding: 1rem 2rem; font-weight:600;">${d.name}</td>
                                 <td style="padding: 1rem 2rem; color:#666;">${d.specialty}</td>
-                                <td style="padding: 1rem 2rem;"><img src="${d.image_url}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='../assets/images/doctor1.png'"></td>
+                                <td style="padding: 1rem 2rem;"><img src="${imgPath}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='../assets/images/temporarypicdoctor.jpg'"></td>
                                 <td style="padding: 1rem 2rem; text-align: right;">
                                     <button class="btn-action cancel" onclick="deleteDoctor(${d.id})">Delete</button>
                                 </td>
