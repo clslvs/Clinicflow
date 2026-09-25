@@ -93,17 +93,24 @@
 
             <div class="doctors-grid" id="landing-doctors-grid">
                 <div class="doctor-card bg-teal fade-up stagger-1">
-                    <img src="assets/images/doctor_maria.jpg" alt="Dr. Maria Santos - General Dentistry & Orthodontics">
+                    <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. John Doe - General Dentistry">
                     <div class="doctor-info">
-                        <h3>Dr. Maria Santos</h3>
-                        <p>General Dentistry & Orthodontics</p>
+                        <h3>Dr. John Doe</h3>
+                        <p>General Dentistry</p>
                     </div>
                 </div>
                 <div class="doctor-card bg-blue fade-up stagger-2">
-                    <img src="assets/images/doctor_alex.jpg" alt="Dr. Alex Rivera - Oral Surgery & Endodontics">
+                    <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Jane Smith - Orthodontics">
                     <div class="doctor-info">
-                        <h3>Dr. Alex Rivera</h3>
-                        <p>Oral Surgery & Endodontics</p>
+                        <h3>Dr. Jane Smith</h3>
+                        <p>Orthodontics</p>
+                    </div>
+                </div>
+                <div class="doctor-card bg-grey fade-up stagger-3">
+                    <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Robert Lee - Periodontics">
+                    <div class="doctor-info">
+                        <h3>Dr. Robert Lee</h3>
+                        <p>Periodontics</p>
                     </div>
                 </div>
             </div>
@@ -158,14 +165,14 @@
                             const theme = colorThemes[index % colorThemes.length];
                             card.className = `doctor-card ${theme} fade-up stagger-${(index % 3) + 1} visible`;
                             
-                            const fallbackImg = doc.name.toLowerCase().includes('maria') ? 'assets/images/doctor_maria.jpg' : 'assets/images/doctor_alex.jpg';
+                            const fallbackImg = 'assets/images/temporarypicdoctor.jpg';
                             const img = doc.image_url || fallbackImg;
 
                             card.innerHTML = `
                                 <img src="${img}" alt="${doc.name} - ${doc.specialty}" onerror="this.src='${fallbackImg}'">
                                 <div class="doctor-info">
                                     <h3>${doc.name}</h3>
-                                    <p>${doc.specialty || 'General Dentist'}</p>
+                                    <p>${doc.specialty || 'General Dentistry'}</p>
                                 </div>
                             `;
                             grid.appendChild(card);
