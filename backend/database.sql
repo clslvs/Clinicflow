@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Insert initial default accounts (Password is 'admin123' for all)
 INSERT INTO users (first_name, last_name, email, phone, password, role) VALUES 
-('System', 'Admin', 'imadmin123@gmail.com', '09123456789', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
-('Clinic', 'Staff', 'admin@clinicflow.com', '09123456788', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'staff'),
-('Jane', 'Doe', 'patient@clinicflow.com', '09123456787', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'patient')
+('System', 'Admin', 'imadmin123@gmail.com', '09123456789', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'admin'),
+('Clinic', 'Staff', 'admin@clinicflow.com', '09123456788', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'staff'),
+('Jane', 'Doe', 'patient@clinicflow.com', '09123456787', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'patient')
 ON DUPLICATE KEY UPDATE email=email;
 
 -- Create doctors table
