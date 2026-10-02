@@ -57,7 +57,8 @@
 
 /* Main Area */
 .dashboard-layout:has(.staff-sidebar) .main-content {
-    background-color: #f2fcf9; /* Mint background from mockup */
+    background-color: #f2fcf9;
+    /* Mint background from mockup */
     min-height: 100vh;
 }
 
@@ -126,9 +127,20 @@
     letter-spacing: -2px;
 }
 
-.metric-value.primary { color: var(--color-teal-900); }
-.metric-value.yellow { color: #F2C94C; } /* Match mockup yellow */
-.metric-value.light { color: #5AB7AC; } /* Match mockup light teal */
+.metric-value.primary {
+    color: var(--color-teal-900);
+}
+
+.metric-value.yellow {
+    color: #F2C94C;
+}
+
+/* Match mockup yellow */
+.metric-value.light {
+    color: #5AB7AC;
+}
+
+/* Match mockup light teal */
 
 /* Today's Schedule Panel */
 .schedule-panel {
@@ -165,7 +177,7 @@
 
 .schedule-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .schedule-time {
@@ -222,6 +234,45 @@
     grid-template-columns: 380px 1fr;
     gap: 2rem;
     height: calc(100vh - 150px);
+}
+
+@media (max-width: 900px) {
+    .records-container {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    #patient-details-pane,
+    #full-history-pane,
+    #book-visit-pane {
+        position: fixed !important;
+        top: 80px !important;
+        bottom: 80px !important;
+        left: 5% !important;
+        transform: none !important;
+        width: 90% !important;
+        height: unset !important;
+        max-height: unset !important;
+        z-index: 900 !important;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5) !important;
+        overflow-y: auto !important;
+        border-radius: 16px !important;
+        padding: 1.5rem !important;
+        background: white !important;
+    }
+
+    #empty-state-pane {
+        display: none !important;
+    }
+
+    .btn-close-mobile {
+        display: block !important;
+    }
+
+    #full-history-pane .btn-close-mobile,
+    #book-visit-pane .btn-close-mobile {
+        display: none !important;
+    }
 }
 
 .records-list-pane {
@@ -429,15 +480,51 @@
 
 /* Patient Full History Layout */
 .full-history-pane {
-    display: none; /* toggled by JS */
+    display: none;
+    /* toggled by JS */
     flex-direction: column;
     gap: 2rem;
     animation: fadeIn 0.3s ease;
 }
 
+@media (max-width: 900px) {
+
+    .full-history-pane,
+    .book-visit-pane {
+        position: fixed !important;
+        top: 80px !important;
+        bottom: 80px !important;
+        left: 5% !important;
+        width: 90% !important;
+        height: unset !important;
+        z-index: 900 !important;
+        background: white !important;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5) !important;
+        overflow-y: auto !important;
+        border-radius: 16px !important;
+        padding: 1.5rem !important;
+    }
+
+    .full-history-pane .history-details-card,
+    .full-history-pane .history-table-card {
+        background: white;
+    }
+
+    .history-table-card {
+        overflow-x: hidden !important;
+    }
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .history-details-card {
@@ -509,13 +596,26 @@
     padding: 0;
     margin-right: 12px;
 }
+
 .action-link:last-child {
     margin-right: 0;
 }
-.action-link.teal { color: var(--color-teal-300); }
-.action-link.teal:hover { color: var(--color-teal-700); }
-.action-link.red { color: #e57373; }
-.action-link.red:hover { color: #d32f2f; }
+
+.action-link.teal {
+    color: var(--color-teal-300);
+}
+
+.action-link.teal:hover {
+    color: var(--color-teal-700);
+}
+
+.action-link.red {
+    color: #e57373;
+}
+
+.action-link.red:hover {
+    color: #d32f2f;
+}
 
 .history-actions {
     display: flex;
@@ -528,6 +628,12 @@
     display: flex;
     gap: 2rem;
     margin-bottom: 2.5rem;
+}
+
+@media (max-width: 900px) {
+    .queue-metrics-container {
+        flex-direction: column;
+    }
 }
 
 .queue-metric-card {
@@ -558,12 +664,32 @@
 }
 
 /* Colors for metrics and circles */
-.text-yellow { color: #F2C94C; }
-.text-teal { color: var(--color-teal-700); }
-.text-grey { color: #8F959E; }
-.bg-yellow { background-color: #F2C94C; color: white; }
-.bg-light-teal { background-color: #e0f2f1; color: var(--color-teal-700); }
-.bg-grey { background-color: #f1f5f9; color: #a0aec0; }
+.text-yellow {
+    color: #F2C94C;
+}
+
+.text-teal {
+    color: var(--color-teal-700);
+}
+
+.text-grey {
+    color: #8F959E;
+}
+
+.bg-yellow {
+    background-color: #F2C94C;
+    color: white;
+}
+
+.bg-light-teal {
+    background-color: #e0f2f1;
+    color: var(--color-teal-700);
+}
+
+.bg-grey {
+    background-color: #f1f5f9;
+    color: #a0aec0;
+}
 
 .queue-list-card {
     background: white;
@@ -574,7 +700,8 @@
 }
 
 .queue-list-header {
-    background-color: #f0fdfa; /* Very light teal */
+    background-color: #f0fdfa;
+    /* Very light teal */
     padding: 1.25rem 2rem;
     font-size: 0.85rem;
     font-weight: 700;
@@ -647,7 +774,8 @@
 }
 
 .btn-q-solid-green {
-    background-color: #5AB7AC; /* Match mockup green */
+    background-color: #5AB7AC;
+    /* Match mockup green */
     color: white;
 }
 
@@ -688,6 +816,24 @@
     margin-bottom: 2.5rem;
 }
 
+@media (max-width: 900px) {
+    .doctor-cards-container {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 1rem;
+        /* Space for scrollbar if visible */
+        gap: 1rem;
+        scroll-snap-type: x mandatory;
+    }
+
+    .doc-card {
+        min-width: 240px !important;
+        scroll-snap-align: start;
+        flex: 0 0 auto;
+    }
+}
+
 .doc-card {
     background: white;
     border: 1px solid #e0f2f1;
@@ -707,7 +853,8 @@
 }
 
 .doc-card.active {
-    background: #f0fdfa; /* Light teal tint */
+    background: #f0fdfa;
+    /* Light teal tint */
     border: 2px solid var(--color-teal-700);
 }
 
@@ -723,9 +870,17 @@
     color: white;
 }
 
-.doc-avatar.green { background-color: #5AB7AC; }
-.doc-avatar.yellow { background-color: #F2C94C; }
-.doc-avatar.purple { background-color: #7C4DFF; }
+.doc-avatar.green {
+    background-color: #5AB7AC;
+}
+
+.doc-avatar.yellow {
+    background-color: #F2C94C;
+}
+
+.doc-avatar.purple {
+    background-color: #7C4DFF;
+}
 
 .doc-info h4 {
     font-size: 1rem;
@@ -746,6 +901,27 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+@media (max-width: 900px) {
+    .calendar-container {
+        overflow: visible !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .calendar-header {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+        padding: 1rem 1.25rem !important;
+        position: sticky;
+        left: 0;
+    }
+
+    .calendar-header h3 {
+        font-size: 0.95rem;
+    }
 }
 
 .calendar-header {
@@ -792,6 +968,12 @@
     min-height: 400px;
 }
 
+@media (max-width: 900px) {
+    .calendar-grid {
+        min-width: 600px;
+    }
+}
+
 .calendar-day-col {
     border-right: 1px solid #e0f2f1;
     display: flex;
@@ -832,22 +1014,124 @@
 }
 
 .appt-block {
-    background-color: #fff9e6; /* Light yellow */
+    background-color: #fff9e6;
+    /* Light yellow */
     border-left: 4px solid #F2C94C;
     border-radius: 4px;
     padding: 0.75rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .appt-block .appt-patient {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #bfa136; /* Darker yellow/gold text for contrast */
+    color: #bfa136;
+    /* Darker yellow/gold text for contrast */
     margin-bottom: 2px;
 }
 
-.appt-block .appt-issue, .appt-block .appt-time {
+.appt-block .appt-issue,
+.appt-block .appt-time {
     font-size: 0.75rem;
     color: #8F959E;
     margin-bottom: 1px;
+}
+
+/* ========== Staff Mobile Responsiveness ========== */
+@media (max-width: 800px) {
+
+    /* Teal bottom nav bar */
+    .staff-sidebar {
+        background-color: var(--color-teal-900) !important;
+    }
+
+    .staff-sidebar .nav-item {
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    .staff-sidebar .nav-item.active,
+    .staff-sidebar .nav-item:hover {
+        color: white !important;
+        background: transparent !important;
+    }
+
+    /* Schedule items stack on mobile */
+    .schedule-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 1rem !important;
+    }
+
+    .schedule-time {
+        width: auto;
+        font-size: 0.95rem;
+    }
+
+    /* Queue items stack on mobile */
+    .queue-row {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.75rem;
+        padding: 1rem !important;
+    }
+
+    .queue-status-col {
+        width: auto;
+    }
+
+    .queue-actions-col {
+        min-width: 0;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    /* Settings card padding */
+    .settings-card {
+        padding: 1.25rem !important;
+    }
+
+    .settings-container {
+        max-width: 100% !important;
+    }
+
+    /* History table card layout */
+    .history-table,
+    .history-table thead,
+    .history-table tbody,
+    .history-table tr,
+    .history-table th,
+    .history-table td {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .history-table thead tr {
+        display: none !important;
+    }
+
+    .history-table tbody tr {
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #e0f2f1;
+        padding: 0.5rem 0;
+    }
+
+    .history-table td {
+        padding: 0.5rem 1rem !important;
+        text-align: right !important;
+        border: none !important;
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .history-table td:last-child {
+        border-bottom: none !important;
+    }
+
+    .history-table td[colspan] {
+        text-align: center !important;
+        display: block !important;
+    }
 }

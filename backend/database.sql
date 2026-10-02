@@ -12,16 +12,18 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     role ENUM('patient', 'staff', 'admin') NOT NULL DEFAULT 'patient',
     is_active BOOLEAN DEFAULT TRUE,
+    is_priority BOOLEAN DEFAULT FALSE,
     allergies TEXT DEFAULT NULL,
     medical_conditions TEXT DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Insert initial default accounts (Password is 'admin123' for all)
-INSERT INTO users (first_name, last_name, email, phone, password, role, allergies, medical_conditions) VALUES 
-('System', 'Admin', 'imadmin123@gmail.com', '09123456789', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'admin', NULL, NULL),
-('Clinic', 'Staff', 'admin@clinicflow.com', '09123456788', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'staff', NULL, NULL),
-('Jane', 'Doe', 'patient@clinicflow.com', '09123456787', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'patient', 'Penicillin', 'None')
+INSERT INTO users (first_name, last_name, email, phone, password, role, allergies, medical_conditions, is_priority, linked_doctor_id) VALUES 
+('System', 'Admin', 'imadmin123@gmail.com', '09123456789', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'admin', NULL, NULL, FALSE, NULL),
+('Clinic', 'Staff', 'admin@clinicflow.com', '09123456788', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'staff', NULL, NULL, FALSE, NULL),
+('Jane', 'Doe', 'patient@clinicflow.com', '09123456787', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'patient', 'Penicillin', 'None', FALSE, NULL),
+('John', 'Doe', 'doctor@clinicflow.com', '09123456786', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'doctor', NULL, NULL, FALSE, 1)
 ON DUPLICATE KEY UPDATE email=email;
 
 -- Create doctors table
@@ -48,8 +50,9 @@ CREATE TABLE IF NOT EXISTS appointments (
     doctor_id INT NOT NULL,
     service VARCHAR(100) NOT NULL,
     appointment_date DATE NOT NULL,
-    appointment_time TIME NOT NULL,
+    appointment_time TIME NULL,
     status ENUM('pending', 'confirmed', 'in_progress', 'completed', 'cancelled', 'rescheduling') DEFAULT 'pending',
+    notes TEXT DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (doctor_id) REFERENCES doctors(id) ON DELETE CASCADE

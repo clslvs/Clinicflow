@@ -14,14 +14,14 @@ try {
     // Get all appointments for today
     $stmt = $pdo->prepare("
         SELECT a.id, a.service, a.status, a.appointment_time, 
-               u.first_name, u.last_name, 
+               u.first_name, u.last_name, u.is_priority,
                d.name as doctor_name, d.id as doctor_id
         FROM appointments a
         JOIN users u ON a.patient_id = u.id
         JOIN doctors d ON a.doctor_id = d.id
         WHERE a.appointment_date = CURDATE()
           AND a.status != 'cancelled'
-        ORDER BY a.appointment_time ASC
+        ORDER BY u.is_priority DESC, a.created_at ASC
     ");
     $stmt->execute();
     $appointments = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -53,7 +53,8 @@ try {
             "doctor_name" => $appt['doctor_name'],
             "room_no" => "Room " . $appt['doctor_id'], // Simulated Room No based on doctor ID
             "status" => $logical_status, // 'waiting', 'in_progress', 'completed'
-            "raw_status" => $appt['status'] // Original status if needed
+            "raw_status" => $appt['status'], // Original status if needed
+            "is_priority" => (bool)$appt['is_priority']
         ];
         
         $queue_number++;

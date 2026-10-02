@@ -19,66 +19,80 @@
 </head>
 
 <body>
-    <div class="auth-container">
+    <div class="auth-page">
+        <!-- Decorative background elements -->
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="bg-shape shape-3"></div>
 
-        <div class="auth-banner">
-            <a href="index.html" class="logo">
-                <img src="assets/images/logo.png" alt="ClinicFlow Logo" />
-                <span>ClinicFlow</span>
-            </a>
-
-            <div class="auth-banner-content">
-                <h1>Your smile<br>deserves the<br><span class="highlight">best care.</span></h1>
-                <p>Sign in to book appointments, track your queue position in real time, and manage your dental health
-                    history.</p>
+        <div class="auth-card">
+            <div class="auth-showcase">
+                <a href="index.html" class="back-to-home">Back to Homepage &rarr;</a>
+                <div class="slide slide-1 active"></div>
+                <div class="slide slide-2"></div>
+                <div class="slide slide-3"></div>
+                
+                <div class="showcase-content">
+                    <h3 id="slide-title">Perfecting Smiles,<br>Restoring Confidence</h3>
+                    <p id="slide-desc">Experience the best dental care in the city.</p>
+                    <div class="slide-indicators">
+                        <div class="indicator active" onclick="setSlide(0)"></div>
+                        <div class="indicator" onclick="setSlide(1)"></div>
+                        <div class="indicator" onclick="setSlide(2)"></div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="auth-form-container">
-            <div class="auth-form-wrapper">
-                <div class="auth-header">
+            <div class="auth-form-section">
+                <div class="auth-header-new">
+                    <a href="index.html" class="logo">
+                        <img src="assets/images/logo.png" alt="ClinicFlow Logo" />
+                        <span>ClinicFlow</span>
+                    </a>
                     <h2>Create Account</h2>
-                    <p>Join ClinicFlow</p>
+                    <p>Join us at ClinicFlow</p>
                 </div>
 
-                <div class="auth-tabs">
-                    <a href="login.html" class="auth-tab">Sign In</a>
-                    <a href="register.html" class="auth-tab active">Register</a>
+            <div class="auth-tabs">
+                <a href="login.html" class="auth-tab">Sign In</a>
+                <a href="register.html" class="auth-tab active">Register</a>
+            </div>
+
+            <form class="auth-form" id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="Juan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Dela Cruz" required>
+                    </div>
                 </div>
 
-                <form class="auth-form" id="registerForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" placeholder="Juan" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" placeholder="Dela Cruz" required>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="you@example.com" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="you@example.com" required>
-                    </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="0912 345 6789" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" placeholder="0912 345 6789" required>
-                    </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="•••••••" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="•••••••" required>
-                    </div>
 
-                    <button type="submit" class="btn btn-primary">Create Account</button>
-                </form>
+
+                <button type="submit" class="btn btn-primary btn-glow">Create Account</button>
+            </form>
             </div>
         </div>
     </div>
-    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/auth.js?v=5"></script>
 </body>
 
 </html>

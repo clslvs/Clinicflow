@@ -121,6 +121,13 @@
                             <label>MEDICAL CONDITIONS</label>
                             <input type="text" id="input-conditions" class="settings-input" readonly>
                         </div>
+                        <div class="input-group full-width" style="display: flex; flex-direction: column; gap: 5px; margin-top: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="input-priority" class="settings-input" style="width: 20px; height: 20px; cursor: not-allowed;" disabled>
+                                <label for="input-priority" style="margin: 0; cursor: not-allowed;">I am a Senior Citizen / PWD (Priority Queue)</label>
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--color-grey); margin-top: 4px;">*Priority status can only be updated by Clinic Staff upon ID presentation.</p>
+                        </div>
                         <div class="card-actions">
                             <button type="button" class="btn-settings-action" id="btn-edit-medical">Edit</button>
                             <button type="submit" class="btn-settings-action primary" id="btn-save-medical" style="display: none;">Save</button>

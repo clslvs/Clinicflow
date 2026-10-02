@@ -20,6 +20,9 @@ if (!isset($data['appointment_id']) || !isset($data['status'])) {
 
 $appointment_id = $data['appointment_id'];
 $status = $data['status']; // Should be 'in_progress', 'completed', or 'cancelled'
+$notes = $data['notes'] ?? null;
+$follow_up_date = $data['follow_up_date'] ?? null;
+$follow_up_service = $data['follow_up_service'] ?? 'Follow-up';
 
 $allowed_statuses = ['pending', 'confirmed', 'in_progress', 'completed', 'cancelled'];
 if (!in_array($status, $allowed_statuses)) {
@@ -28,8 +31,20 @@ if (!in_array($status, $allowed_statuses)) {
 }
 
 try {
-    $stmt = $pdo->prepare("UPDATE appointments SET status = ? WHERE id = ?");
-    $stmt->execute([$status, $appointment_id]);
+    $stmt = $pdo->prepare("UPDATE appointments SET status = ?, notes = ? WHERE id = ?");
+    $stmt->execute([$status, $notes, $appointment_id]);
+
+    if ($status === 'completed' && !empty($follow_up_date)) {
+        // Fetch current appointment details to create the new one
+        $currStmt = $pdo->prepare("SELECT patient_id, doctor_id FROM appointments WHERE id = ?");
+        $currStmt->execute([$appointment_id]);
+        $currAppt = $currStmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($currAppt) {
+            $newStmt = $pdo->prepare("INSERT INTO appointments (patient_id, doctor_id, service, appointment_date) VALUES (?, ?, ?, ?)");
+            $newStmt->execute([$currAppt['patient_id'], $currAppt['doctor_id'], $follow_up_service, $follow_up_date]);
+        }
+    }
 
     echo json_encode(["success" => true, "message" => "Status updated"]);
 

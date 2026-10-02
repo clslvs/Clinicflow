@@ -19,68 +19,80 @@
 </head>
 
 <body>
-    <div class="auth-container">
+    <div class="auth-page">
+        <!-- Decorative background elements -->
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="bg-shape shape-3"></div>
 
-        <div class="auth-banner">
-            <a href="index.html" class="logo">
-                <img src="assets/images/logo.png" alt="ClinicFlow Logo" />
-                <span>ClinicFlow</span>
-            </a>
-
-            <div class="auth-banner-content">
-                <h1>Your smile<br>deserves the<br><span class="highlight">best care.</span></h1>
-                <p>Sign in to book appointments, track your queue position in real time, and manage your dental health
-                    history.</p>
+        <div class="auth-card">
+            <div class="auth-showcase">
+                <a href="index.html" class="back-to-home">Back to Homepage &rarr;</a>
+                <div class="slide slide-1 active"></div>
+                <div class="slide slide-2"></div>
+                <div class="slide slide-3"></div>
+                
+                <div class="showcase-content">
+                    <h3 id="slide-title">Perfecting Smiles,<br>Restoring Confidence</h3>
+                    <p id="slide-desc">Experience the best dental care in the city.</p>
+                    <div class="slide-indicators">
+                        <div class="indicator active" onclick="setSlide(0)"></div>
+                        <div class="indicator" onclick="setSlide(1)"></div>
+                        <div class="indicator" onclick="setSlide(2)"></div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="auth-form-container">
-            <div class="auth-form-wrapper">
-                <div class="auth-header">
+            <div class="auth-form-section">
+                <div class="auth-header-new">
+                    <a href="index.html" class="logo">
+                        <img src="assets/images/logo.png" alt="ClinicFlow Logo" />
+                        <span>ClinicFlow</span>
+                    </a>
                     <h2>Welcome Back</h2>
-                    <p>Sign in to access your dashboard</p>
+                    <p>Sign in to your account</p>
                 </div>
 
-                <div class="auth-tabs">
-                    <a href="login.html" class="auth-tab active">Sign In</a>
-                    <a href="register.html" class="auth-tab">Register</a>
+            <div class="auth-tabs">
+                <a href="login.html" class="auth-tab active">Sign In</a>
+                <a href="register.html" class="auth-tab">Register</a>
+            </div>
+
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <label>I AM A</label>
+                    <div class="role-selector">
+                        <label class="role-option">
+                            <input type="radio" name="role" value="patient" checked>
+                            <div class="role-label">
+                                <span class="role-icon">👱</span> Patient
+                            </div>
+                        </label>
+                        <label class="role-option">
+                            <input type="radio" name="role" value="staff">
+                            <div class="role-label">
+                                <span class="role-icon">👩‍⚕️</span> Staff / Doctor
+                            </div>
+                        </label>
+                    </div>
                 </div>
 
-                <form class="auth-form" id="loginForm">
-                    <div class="form-group">
-                        <label>I AM A</label>
-                        <div class="role-selector">
-                            <label class="role-option">
-                                <input type="radio" name="role" value="patient" checked>
-                                <div class="role-label">
-                                    <span class="role-icon">👱</span> Patient
-                                </div>
-                            </label>
-                            <label class="role-option">
-                                <input type="radio" name="role" value="staff">
-                                <div class="role-label">
-                                    <span class="role-icon">👩‍⚕️</span> Staff / Admin
-                                </div>
-                            </label>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="you@example.com" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="you@example.com" required>
-                    </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="•••••••" required>
+                </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="•••••••" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Sign In</button>
-                </form>
+                <button type="submit" class="btn btn-primary btn-glow">Sign In</button>
+            </form>
             </div>
         </div>
     </div>
-    <script src="assets/js/auth.js?v=3"></script>
+    <script src="assets/js/auth.js?v=5"></script>
 </body>
 
 </html>

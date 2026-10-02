@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let isValid = false;
         if (currentStep === 1) isValid = bookingData.service !== null;
         if (currentStep === 2) isValid = bookingData.doctorId !== null;
-        if (currentStep === 3) isValid = bookingData.date !== null && bookingData.time !== null;
+        if (currentStep === 3) isValid = bookingData.date !== null;
 
         nextBtn.disabled = !isValid;
     };
@@ -173,12 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const dateObj = new Date(bookingData.date);
             const formattedDate = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
             document.getElementById('summary-date').textContent = formattedDate;
-            
-            // Format time nicely
-            const [hours, minutes] = bookingData.time.split(':');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const hr = hours % 12 || 12;
-            document.getElementById('summary-time').textContent = `${hr}:${minutes} ${ampm}`;
 
             // Notes
             document.getElementById('summary-notes').textContent = bookingData.note || 'None';
@@ -243,25 +237,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // reset time selection when date changes
-        timeSlots.forEach(slot => slot.classList.remove('selected'));
         bookingData.time = null;
         updateNextButtonState();
     });
 
-    timeSlots.forEach(slot => {
-        slot.addEventListener('click', () => {
-            if (slot.classList.contains('disabled')) return;
-            
-            if (!bookingData.date) {
-                alert("Please select a date first.");
-                return;
-            }
-            timeSlots.forEach(s => s.classList.remove('selected'));
-            slot.classList.add('selected');
-            bookingData.time = slot.dataset.time;
-            updateNextButtonState();
-        });
-    });
+    // Removed time slot selection logic
 
     // Capture optional note on submit or when changed
     const noteInput = document.getElementById('appointment_note');
@@ -301,11 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dateObj = new Date(bookingData.date);
                 const formattedDate = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
                 
-                const [hours, minutes] = bookingData.time.split(':');
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                const hr = hours % 12 || 12;
-                
-                document.getElementById('success-datetime').textContent = `${formattedDate} ${hr}:${minutes}${ampm}`;
+                document.getElementById('success-datetime').textContent = `${formattedDate}`;
 
                 document.getElementById('success-screen').style.display = 'flex';
             } else {

@@ -18,8 +18,8 @@ try {
     $stmt = $pdo->prepare("
         SELECT id, doctor_id, status, appointment_time, appointment_date 
         FROM appointments 
-        WHERE patient_id = ? AND appointment_date >= ? AND status IN ('pending', 'in_progress')
-        ORDER BY appointment_date ASC, appointment_time ASC
+        WHERE patient_id = ? AND appointment_date >= ? AND status IN ('pending', 'in_progress', 'confirmed')
+        ORDER BY appointment_date ASC, created_at ASC
         LIMIT 1
     ");
     $stmt->execute([$user_id, $today]);
@@ -43,11 +43,11 @@ try {
 
     // 2. Fetch all appointments for this doctor on that specific date
     $queueStmt = $pdo->prepare("
-        SELECT a.id, a.status, a.patient_id, a.service, a.appointment_time, CONCAT(u.first_name, ' ', u.last_name) as patient_name
+        SELECT a.id, a.status, a.patient_id, a.service, a.appointment_time, u.is_priority, CONCAT(u.first_name, ' ', u.last_name) as patient_name
         FROM appointments a
         JOIN users u ON a.patient_id = u.id
-        WHERE a.doctor_id = ? AND a.appointment_date = ? AND a.status IN ('pending', 'in_progress')
-        ORDER BY a.appointment_time ASC, a.id ASC
+        WHERE a.doctor_id = ? AND a.appointment_date = ? AND a.status IN ('pending', 'in_progress', 'confirmed')
+        ORDER BY u.is_priority DESC, a.created_at ASC
     ");
     $queueStmt->execute([$doctor_id, $queue_date]);
     $allAppointments = $queueStmt->fetchAll();

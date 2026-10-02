@@ -221,3 +221,108 @@
 .admin-tab-content.active {
     display: block;
 }
+
+/* ========== Admin Mobile Responsiveness ========== */
+@media (max-width: 800px) {
+
+    /* Dark bottom nav bar */
+    .admin-sidebar {
+        background-color: #111111 !important;
+    }
+
+    .admin-sidebar .nav-item {
+        color: #aaa !important;
+    }
+
+    .admin-sidebar .nav-item.active,
+    .admin-sidebar .nav-item:hover {
+        color: white !important;
+        background: transparent !important;
+    }
+
+    /* Toolbar stacking */
+    .appointments-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100% !important;
+    }
+
+    .filter-pills {
+        flex-wrap: wrap;
+    }
+
+    /* Page header flex stack */
+    .page-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1rem;
+    }
+
+    /* Slide panel full width on mobile */
+    .slide-panel {
+        width: 100% !important;
+        right: -100% !important;
+    }
+
+    .slide-panel.open {
+        right: 0 !important;
+    }
+
+    /* Admin tables → card layout */
+    .history-table,
+    .history-table thead,
+    .history-table tbody,
+    .history-table tr,
+    .history-table th,
+    .history-table td {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .history-table thead tr {
+        display: none !important;
+    }
+
+    .history-table tbody tr {
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #eee;
+        padding: 0.5rem 0;
+    }
+
+    .history-table td {
+        padding: 0.6rem 1rem !important;
+        text-align: right !important;
+        border: none !important;
+        border-bottom: 1px solid #f5f5f5 !important;
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .history-table td:last-child {
+        border-bottom: none !important;
+    }
+
+    .history-table td[colspan] {
+        text-align: center !important;
+        display: block !important;
+    }
+
+    /* Table action buttons stack */
+    .table-actions {
+        justify-content: flex-end;
+    }
+
+    /* Settings form grid stack */
+    .form-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .settings-card {
+        padding: 1.25rem !important;
+    }
+}

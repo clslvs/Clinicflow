@@ -58,6 +58,7 @@ ClinicFlow is a modern, responsive web application for dental clinics featuring 
 | Role | Email | Password |
 |---|---|---|
 | **Admin** | `imadmin123@gmail.com` | `admin123` |
+| **Doctor** | `doctor@clinicflow.com` | `admin123` |
 | **Staff** | `admin@clinicflow.com` | `admin123` |
 | **Patient** | `patient@clinicflow.com` (or register new) | `admin123` |
 

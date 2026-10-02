@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicFlow - Doctor Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/staff.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
+                    <span>ClinicFlow</span>
+                </a>
+            </div>
+            
+            <div class="user-profile-section">
+                <div class="avatar" id="user-avatar">J</div>
+                <div class="user-info">
+                    <h3 class="user-name" id="user-name">Loading...</h3>
+                    <span class="user-role">Doctor</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>My Schedule</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span>My Patients</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1 id="greeting">Good Day!</h1>
+                <p>Here is today's clinic overview - <span id="current-date">August 00, 0000</span></p>
+            </header>
+
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Today's<br>Appointment</h3>
+                    <div class="metric-value primary" id="metric-appointments">00</div>
+                </div>
+                <div class="metric-card">
+                    <h3>In<br>Queue</h3>
+                    <div class="metric-value yellow" id="metric-queue">00</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Doctors on<br>Duty</h3>
+                    <div class="metric-value primary" id="metric-doctors">00</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Completed<br>Today</h3>
+                    <div class="metric-value light" id="metric-completed">00</div>
+                </div>
+            </section>
+
+            <section class="schedule-panel">
+                <h2>Today's Schedule</h2>
+                <div class="schedule-list" id="schedule-list">
+                    <!-- Populated via JS -->
+                    <p class="loading">Loading schedule...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        // Format current date
+        const options = { month: 'long', day: '2-digit', year: 'numeric' };
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', options);
+
+        // Check session and load user info
+        fetch('../backend/check_session.php')
+            .then(res => res.json())
+            .then(data => {
+                if(!data.success || data.user.role !== 'doctor') {
+                    window.location.href = '../login.html';
+                } else {
+                    const name = data.user.name;
+                    document.getElementById('user-name').textContent = name;
+                    document.getElementById('greeting').textContent = `Good Day, ${name.split(' ')[0]}!`;
+                    document.getElementById('user-avatar').textContent = name.charAt(0);
+                    
+                    // Fetch dashboard data
+                    fetchDashboardData();
+                }
+            })
+            .catch(() => window.location.href = '../login.html');
+
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .then(() => window.location.href = '../index.html');
+        });
+
+        function fetchDashboardData() {
+            fetch('../backend/doctor_get_dashboard.php')
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        // Update metrics
+                        document.getElementById('metric-appointments').textContent = String(data.metrics.total_appointments).padStart(2, '0');
+                        document.getElementById('metric-queue').textContent = String(data.metrics.in_queue).padStart(2, '0');
+                        document.getElementById('metric-doctors').textContent = String(data.metrics.doctors_on_duty).padStart(2, '0');
+                        document.getElementById('metric-completed').textContent = String(data.metrics.completed_today).padStart(2, '0');
+
+                        // Update schedule list
+                        const list = document.getElementById('schedule-list');
+                        list.innerHTML = '';
+
+                        if (data.schedule.length === 0) {
+                            list.innerHTML = '<p>No appointments scheduled for today.</p>';
+                            return;
+                        }
+
+                        data.schedule.forEach(appt => {
+                            // Format time (assuming H:i:s format from DB)
+                            const timeParts = appt.appointment_time.split(':');
+                            const dateObj = new Date();
+                            dateObj.setHours(timeParts[0], timeParts[1]);
+                            const formattedTime = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+                            let statusClass = 'status-waiting';
+                            let statusText = 'Waiting';
+
+                            if (appt.status === 'completed') {
+                                statusClass = 'status-completed';
+                                statusText = 'Completed';
+                            } else if (appt.status === 'in_progress') {
+                                statusClass = 'status-in-progress';
+                                statusText = 'In Progress';
+                            }
+
+                            const item = document.createElement('div');
+                            item.className = 'schedule-item';
+                            item.innerHTML = `
+                                <div class="schedule-time">${formattedTime}</div>
+                                <div class="schedule-info">
+                                    <h4>${appt.service}</h4>
+                                    <p>${appt.patient_name}</p>
+                                </div>
+                                <div class="status-pill ${statusClass}">${statusText}</div>
+                            `;
+                            list.appendChild(item);
+                        });
+                    }
+                });
+        }
+    </script>
+</body>
+</html>

@@ -101,6 +101,25 @@
         </main>
     </div>
 
+    <!-- Completion Modal -->
+    <div id="completion-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 2rem; border-radius: 12px; width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+            <h2 class="playfair" style="margin-bottom: 1.5rem; color: var(--color-dark);">Complete Appointment</h2>
+            <div class="form-group" style="margin-bottom: 1rem;">
+                <label style="display:block; margin-bottom: 0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">NOTES FOR PATIENT (OPTIONAL)</label>
+                <textarea id="modal-notes" rows="3" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); font-family: inherit; resize: vertical;"></textarea>
+            </div>
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label style="display:block; margin-bottom: 0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">RECOMMENDED FOLLOW-UP DATE (OPTIONAL)</label>
+                <input type="date" id="modal-followup-date" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100);">
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <button type="button" class="btn-outline-teal" onclick="closeCompletionModal()">Cancel</button>
+                <button type="button" class="btn-solid-teal" id="btn-confirm-complete">Mark Done</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         lucide.createIcons();
 
@@ -165,7 +184,7 @@
                 } else if (item.status === 'in_progress') {
                     circleClass = 'bg-yellow';
                     statusPill = '<div class="status-pill status-in-progress">In Progress</div>';
-                    actionsHtml = `<button class="btn-q-action btn-q-solid-green" onclick="updateStatus(${item.id}, 'completed')">Mark Done</button>`;
+                    actionsHtml = `<button class="btn-q-action btn-q-solid-green" onclick="openCompletionModal(${item.id})">Mark Done</button>`;
                 } else if (item.status === 'waiting') {
                     circleClass = 'bg-light-teal';
                     statusPill = '<div class="status-pill status-waiting">Waiting</div>';
@@ -175,12 +194,14 @@
                     `;
                 }
 
+                let priorityBadge = item.is_priority ? '<span class="status-pill bg-yellow" style="color:var(--color-dark); margin-left:10px; padding: 2px 8px; font-size: 0.75rem;">PWD/Senior</span>' : '';
+
                 el.innerHTML = `
                     <div class="queue-num-circle ${circleClass}">
                         ${circleContent}
                     </div>
                     <div class="queue-details">
-                        <h4>${item.patient_name} | Queue No. ${item.queue_no}</h4>
+                        <h4>${item.patient_name} | Queue No. ${item.queue_no} ${priorityBadge}</h4>
                         <p>${item.service} - ${item.doctor_name} | ${item.room_no}</p>
                     </div>
                     <div class="queue-status-col">
@@ -195,11 +216,13 @@
             lucide.createIcons();
         }
 
-        function updateStatus(appointmentId, newStatus) {
+        function updateStatus(appointmentId, newStatus, extraData = {}) {
+            const payload = { appointment_id: appointmentId, status: newStatus, ...extraData };
+            
             fetch('../backend/staff_update_queue_status.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ appointment_id: appointmentId, status: newStatus })
+                body: JSON.stringify(payload)
             })
             .then(res => res.json())
             .then(data => {
@@ -210,6 +233,29 @@
                 }
             });
         }
+        
+        let pendingCompletionId = null;
+        
+        function openCompletionModal(appointmentId) {
+            pendingCompletionId = appointmentId;
+            document.getElementById('modal-notes').value = '';
+            document.getElementById('modal-followup-date').value = '';
+            document.getElementById('completion-modal').style.display = 'flex';
+        }
+        
+        function closeCompletionModal() {
+            document.getElementById('completion-modal').style.display = 'none';
+            pendingCompletionId = null;
+        }
+        
+        document.getElementById('btn-confirm-complete').addEventListener('click', () => {
+            if (pendingCompletionId) {
+                const notes = document.getElementById('modal-notes').value;
+                const followupDate = document.getElementById('modal-followup-date').value;
+                updateStatus(pendingCompletionId, 'completed', { notes: notes, follow_up_date: followupDate });
+                closeCompletionModal();
+            }
+        });
 
         // Initial Load
         loadQueue();

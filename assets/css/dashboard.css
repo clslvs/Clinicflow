@@ -1,6 +1,7 @@
 /* Dashboard Layout */
 body {
-    background-color: #F8FBFC; /* Light clean background */
+    background-color: #F8FBFC;
+    /* Light clean background */
 }
 
 .dashboard-layout {
@@ -167,7 +168,8 @@ body {
 }
 
 .metric-card.bg-teal {
-    background-color: #4A8C88; /* Teal matching the reference */
+    background-color: #4A8C88;
+    /* Teal matching the reference */
     border: none;
     justify-content: space-between;
 }
@@ -269,7 +271,7 @@ body {
 
 .appointment-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .icon-box {
@@ -338,7 +340,8 @@ body {
 
 .status-pending {
     background-color: var(--color-accent-light);
-    color: #B49615; /* Darker yellow for text readability */
+    color: #B49615;
+    /* Darker yellow for text readability */
 }
 
 .btn-full-width {
@@ -352,4 +355,155 @@ body {
 
 .btn-full-width:hover {
     background-color: var(--color-teal-900);
+}
+
+/* Mobile Responsiveness for Dashboards */
+@media (max-width: 1000px) {
+    .main-content {
+        padding: 30px;
+    }
+
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 75px;
+        flex-direction: row;
+        border-right: none;
+        border-top: 1px solid #E5E7EB;
+        z-index: 1000;
+        background-color: white;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+        padding: 0;
+        overflow: visible;
+        justify-content: flex-start;
+    }
+
+    .sidebar-header,
+    .user-profile-section {
+        display: none;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+        justify-content: space-evenly;
+        align-items: center;
+        flex: 1;
+        gap: 0;
+    }
+
+    .sidebar-footer {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 0;
+        margin: 0;
+        z-index: 1100;
+    }
+
+    .sidebar-footer .nav-item {
+        flex-direction: row;
+        background-color: #D32F2F !important;
+        color: white !important;
+        padding: 8px 14px;
+        border-radius: 20px;
+        gap: 6px;
+        box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+        min-width: auto;
+    }
+
+    .sidebar-footer .nav-item i {
+        width: 16px;
+        height: 16px;
+    }
+
+    .sidebar-footer .nav-item span {
+        font-size: 0.8rem;
+        font-weight: 700;
+        display: block;
+    }
+
+    .nav-item {
+        flex-direction: column;
+        padding: 8px 2px;
+        gap: 4px;
+        font-size: 0.6rem;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0;
+        color: var(--color-grey);
+        flex: 1;
+        min-width: 0;
+    }
+
+    .nav-item i {
+        width: 22px;
+        height: 22px;
+    }
+
+    .nav-item span {
+        text-align: center;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+        background: transparent;
+        color: var(--color-teal-900);
+    }
+
+    .nav-item.active i {
+        stroke-width: 2.5px;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        padding: 20px !important;
+        padding-top: 80px !important;
+        /* Extra space for top-right sign out button */
+        padding-bottom: 90px !important;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    /* Appointment List Fixes */
+    .appointment-item {
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+    }
+
+    .icon-box {
+        margin-bottom: 15px;
+    }
+
+    .appointment-time {
+        margin: 15px 0;
+        text-align: left;
+    }
+
+    .appointment-status {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
 }

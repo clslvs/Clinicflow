@@ -27,9 +27,9 @@ $patient_id = $_SESSION['user_id'];
 $service = $data['service'] ?? '';
 $doctor_id = $data['doctorId'] ?? '';
 $date = $data['date'] ?? '';
-$time = $data['time'] ?? '';
+$time = !empty($data['time']) ? $data['time'] : null;
 
-if (empty($service) || empty($doctor_id) || empty($date) || empty($time)) {
+if (empty($service) || empty($doctor_id) || empty($date)) {
     echo json_encode(["success" => false, "message" => "All fields are required."]);
     exit;
 }

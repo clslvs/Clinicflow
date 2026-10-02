@@ -53,32 +53,32 @@
 
             <div class="services-grid">
                 <div class="service-card fade-up stagger-1">
-                    <div class="icon">🦷</div>
+                    <div class="icon"><i data-lucide="stethoscope"></i></div>
                     <h3>General Check up</h3>
                     <p>Comprehensive oral health exam and professional cleaning.</p>
                 </div>
                 <div class="service-card fade-up stagger-2">
-                    <div class="icon">🪄</div>
+                    <div class="icon"><i data-lucide="sparkles"></i></div>
                     <h3>Teeth Whitening</h3>
                     <p>Professional whitening for a brighter, confident smile.</p>
                 </div>
                 <div class="service-card fade-up stagger-3">
-                    <div class="icon">🔩</div>
+                    <div class="icon"><i data-lucide="smile"></i></div>
                     <h3>Orthodontics</h3>
                     <p>Braces and clear aligners for perfectly aligned teeth.</p>
                 </div>
                 <div class="service-card fade-up stagger-4">
-                    <div class="icon">🏥</div>
+                    <div class="icon"><i data-lucide="heart-pulse"></i></div>
                     <h3>Root Canal</h3>
                     <p>Pain-free treatment to save your natural teeth.</p>
                 </div>
                 <div class="service-card fade-up stagger-5">
-                    <div class="icon">💎</div>
+                    <div class="icon"><i data-lucide="activity"></i></div>
                     <h3>Dental Implants</h3>
                     <p>Permanent tooth replacement that looks and feels natural.</p>
                 </div>
                 <div class="service-card fade-up stagger-6">
-                    <div class="icon">🛡️</div>
+                    <div class="icon"><i data-lucide="shield-check"></i></div>
                     <h3>Preventive Care</h3>
                     <p>Regular care to keep your smile healthy for life.</p>
                 </div>
@@ -147,9 +147,12 @@
             </div>
         </div>
     </footer>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="assets/js/animations.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
             // Dynamically sync doctors directly from the MySQL database
             fetch('backend/staff_get_doctors.php')
                 .then(res => res.json())

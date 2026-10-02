@@ -1,6 +1,8 @@
 // queue-tracker.js
 
-document.addEventListener('DOMContentLoaded', () => {
+let previousStatus = null;
+
+function fetchQueueData() {
     fetch('../backend/get_queue_data.php')
         .then(res => res.json())
         .then(data => {
@@ -20,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const listContainer = document.getElementById('queue-list-container');
                 listContainer.innerHTML = '';
+                
+                let currentUserState = null;
 
                 data.queue_list.forEach(item => {
                     const el = document.createElement('div');
@@ -34,17 +38,40 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="queue-item-status">${item.stateLabel}</div>
                     `;
                     listContainer.appendChild(el);
+                    
+                    if (item.queue_number === data.user_queue_number) {
+                        currentUserState = item.state;
+                    }
                 });
+                
+                // Check if patient was just called
+                if (previousStatus && previousStatus !== 'active' && currentUserState === 'active') {
+                    // Patient is now being served
+                    playNotificationSound();
+                }
+                
+                previousStatus = currentUserState;
+                
             } else if (data.success && !data.has_queue) {
                 document.getElementById('queue-content').style.display = 'none';
                 document.getElementById('no-queue-msg').style.display = 'block';
                 document.getElementById('queue-subtitle').textContent = "No active queue found.";
             } else {
-                alert(data.message || "Failed to load queue data.");
+                console.error(data.message || "Failed to load queue data.");
             }
         })
         .catch(err => {
-            console.error(err);
-            alert("Error connecting to server.");
+            console.error("Error connecting to server.", err);
         });
+}
+
+function playNotificationSound() {
+    const audio = new Audio('../assets/sound/mixkit-happy-bells-notification-937.wav');
+    audio.play().catch(e => console.error("Audio play failed, user interaction may be required:", e));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchQueueData();
+    // Poll every 5 seconds
+    setInterval(fetchQueueData, 5000);
 });

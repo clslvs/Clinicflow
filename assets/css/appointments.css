@@ -6,7 +6,9 @@
     border-radius: var(--border-radius);
     padding: 0;
     margin-bottom: 2rem;
-    overflow: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
 }
 
 /* Filters */
@@ -42,6 +44,7 @@
 /* Table */
 .appointments-table {
     width: 100%;
+    min-width: 650px;
     border-collapse: collapse;
 }
 
@@ -143,4 +146,73 @@
 
 .action-link.cancel:hover {
     color: #DC2626;
+}
+
+
+@media (max-width: 900px) {
+    .appointments-container {
+        border: none !important;
+        background: transparent !important;
+        margin-bottom: 5rem;
+        overflow-x: hidden !important;
+    }
+
+    .appointments-table {
+        min-width: 0 !important;
+        width: 100% !important;
+        table-layout: auto !important;
+    }
+    
+    .appointments-table, 
+    .appointments-table thead, 
+    .appointments-table tbody, 
+    .appointments-table tr, 
+    .appointments-table th, 
+    .appointments-table td {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+    
+    .appointments-table thead tr {
+        display: none !important;
+    }
+    
+    .appointments-table tbody tr {
+        margin-bottom: 1rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        overflow: hidden;
+    }
+    
+    .appointments-table td {
+        border: none !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+        padding: 0.85rem 1rem !important;
+        text-align: right !important;
+    }
+    
+    .appointments-table td:not([colspan]) {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .appointments-table td:last-child {
+        border-bottom: none !important;
+    }
+
+    .appointments-table td:not([colspan]):nth-child(1)::before { content: "Service"; font-weight: 700; color: var(--color-teal-700); font-size: 0.75rem; text-transform: uppercase; text-align: left; }
+    .appointments-table td:not([colspan]):nth-child(2)::before { content: "Doctor"; font-weight: 700; color: var(--color-teal-700); font-size: 0.75rem; text-transform: uppercase; text-align: left; }
+    .appointments-table td:not([colspan]):nth-child(3)::before { content: "Date & Time"; font-weight: 700; color: var(--color-teal-700); font-size: 0.75rem; text-transform: uppercase; text-align: left; }
+    .appointments-table td:not([colspan]):nth-child(4)::before { content: "Status"; font-weight: 700; color: var(--color-teal-700); font-size: 0.75rem; text-transform: uppercase; text-align: left; }
+    .appointments-table td:not([colspan]):nth-child(5)::before { content: "Action"; font-weight: 700; color: var(--color-teal-700); font-size: 0.75rem; text-transform: uppercase; text-align: left; }
+    
+    .appointments-table td[colspan] {
+        text-align: center !important;
+        padding: 2rem 1rem !important;
+        color: var(--color-grey);
+    }
 }

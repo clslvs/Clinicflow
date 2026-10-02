@@ -101,6 +101,7 @@
                             <h2 id="detail-name">John Doe</h2>
                             <p id="detail-pt-id">PT ID: #PT-0001</p>
                         </div>
+                        <button class="btn-close-mobile" id="btn-close-details" style="display:none; margin-left: auto; background: none; border: none; color: var(--color-grey); cursor: pointer;"><i data-lucide="x" style="width: 24px; height: 24px;"></i></button>
                     </div>
 
                     <div class="detail-grid">
@@ -324,7 +325,14 @@
             document.getElementById('detail-doctor').textContent = patient.primary_doctor;
             document.getElementById('detail-allergies').textContent = patient.allergies;
             document.getElementById('detail-conditions').textContent = patient.medical_conditions;
+            lucide.createIcons();
         }
+
+        // Close Mobile Popup Logic
+        document.getElementById('btn-close-details').addEventListener('click', () => {
+            document.getElementById('patient-details-pane').style.display = 'none';
+            document.getElementById('empty-state-pane').style.display = 'flex';
+        });
 
         // View Full History Button Logic
         document.getElementById('btn-view-full-history').addEventListener('click', () => {

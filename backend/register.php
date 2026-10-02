@@ -28,6 +28,7 @@ $email = trim($data['email'] ?? '');
 $phone = trim($data['phone'] ?? '');
 $password = $data['password'] ?? '';
 $role = $data['role'] ?? 'patient';
+$is_priority = !empty($data['is_priority']) ? 1 : 0;
 
 // Basic validation
 if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($password)) {
@@ -59,8 +60,8 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Insert into database
 try {
-    $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, phone, password, role) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$firstName, $lastName, $email, $phone, $hashedPassword, $role]);
+    $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, phone, password, role, is_priority) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$firstName, $lastName, $email, $phone, $hashedPassword, $role, $is_priority]);
     
     // Automatically log the user in after registration (optional, but good UX)
     $userId = $pdo->lastInsertId();

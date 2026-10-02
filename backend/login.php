@@ -44,14 +44,17 @@ try {
         // Verify password
         if (password_verify($password, $user['password'])) {
             
-            // Check if the role they selected matches their actual database role
-            // Since "Staff / Admin" radio submits "staff", allow both staff and admin
-            if ($role === 'staff' && !in_array($user['role'], ['staff', 'admin'])) {
-                echo json_encode(["success" => false, "message" => "Your account is not registered as Staff or Admin."]);
-                exit;
-            } else if ($role === 'patient' && $user['role'] !== 'patient') {
-                echo json_encode(["success" => false, "message" => "Your account is not registered as a Patient."]);
-                exit;
+            // If the user is an admin, let them login regardless of which radio button they chose
+            if ($user['role'] !== 'admin') {
+                // Check if the role they selected matches their actual database role
+                // Since "Staff / Admin" radio submits "staff", allow staff, admin, and doctor
+                if ($role === 'staff' && !in_array($user['role'], ['staff', 'doctor'])) {
+                    echo json_encode(["success" => false, "message" => "Your account is not registered as Staff or Doctor."]);
+                    exit;
+                } else if ($role === 'patient' && $user['role'] !== 'patient') {
+                    echo json_encode(["success" => false, "message" => "Your account is not registered as a Patient."]);
+                    exit;
+                }
             }
 
             // Login successful, set session variables

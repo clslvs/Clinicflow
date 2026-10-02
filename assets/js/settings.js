@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Populate Medical Information
                 document.getElementById('input-allergies').value = user.allergies || '';
                 document.getElementById('input-conditions').value = user.medical_conditions || '';
+                document.getElementById('input-priority').checked = user.is_priority === 1 || user.is_priority === true;
             } else {
                 alert(data.message || "Failed to load settings.");
             }
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSaveMedical = document.getElementById('btn-save-medical');
     const inputAllergies = document.getElementById('input-allergies');
     const inputConditions = document.getElementById('input-conditions');
+    const inputPriority = document.getElementById('input-priority');
     const medicalForm = document.getElementById('medical-form');
 
     btnEditMedical.addEventListener('click', () => {
@@ -63,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const payload = {
             allergies: inputAllergies.value.trim(),
-            medical_conditions: inputConditions.value.trim()
+            medical_conditions: inputConditions.value.trim(),
+            is_priority: inputPriority.checked
         };
 
         // Disable button while saving
