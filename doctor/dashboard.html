@@ -41,13 +41,17 @@
                     <i data-lucide="layout-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="my-schedule.html" class="nav-item">
                     <i data-lucide="calendar"></i>
                     <span>My Schedule</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="my-patients.html" class="nav-item">
                     <i data-lucide="users"></i>
                     <span>My Patients</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
                 </a>
             </nav>
 
@@ -76,8 +80,8 @@
                     <div class="metric-value yellow" id="metric-queue">00</div>
                 </div>
                 <div class="metric-card">
-                    <h3>Doctors on<br>Duty</h3>
-                    <div class="metric-value primary" id="metric-doctors">00</div>
+                    <h3>Total<br>Patients</h3>
+                    <div class="metric-value primary" id="metric-patients">00</div>
                 </div>
                 <div class="metric-card">
                     <h3>Completed<br>Today</h3>
@@ -134,7 +138,7 @@
                         // Update metrics
                         document.getElementById('metric-appointments').textContent = String(data.metrics.total_appointments).padStart(2, '0');
                         document.getElementById('metric-queue').textContent = String(data.metrics.in_queue).padStart(2, '0');
-                        document.getElementById('metric-doctors').textContent = String(data.metrics.doctors_on_duty).padStart(2, '0');
+                        document.getElementById('metric-patients').textContent = String(data.metrics.total_patients).padStart(2, '0');
                         document.getElementById('metric-completed').textContent = String(data.metrics.completed_today).padStart(2, '0');
 
                         // Update schedule list

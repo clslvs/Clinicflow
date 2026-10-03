@@ -10,11 +10,12 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ENUM('patient', 'staff', 'admin') NOT NULL DEFAULT 'patient',
+    role ENUM('patient', 'staff', 'admin', 'doctor') NOT NULL DEFAULT 'patient',
     is_active BOOLEAN DEFAULT TRUE,
     is_priority BOOLEAN DEFAULT FALSE,
     allergies TEXT DEFAULT NULL,
     medical_conditions TEXT DEFAULT NULL,
+    linked_doctor_id INT DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -36,12 +37,7 @@ CREATE TABLE IF NOT EXISTS doctors (
 
 -- Seed initial doctors
 INSERT IGNORE INTO doctors (id, name, specialty, image_url) VALUES 
-(1, 'Dr. John Doe', 'General Dentistry', 'assets/images/temporarypicdoctor.jpg'),
-(2, 'Dr. Jane Smith', 'Orthodontics', 'assets/images/temporarypicdoctor.jpg'),
-(3, 'Dr. Robert Lee', 'Periodontics', 'assets/images/temporarypicdoctor.jpg'),
-(4, 'Dr. Emily Davis', 'Endodontics', 'assets/images/temporarypicdoctor.jpg'),
-(5, 'Dr. Michael Brown', 'Oral Surgery', 'assets/images/temporarypicdoctor.jpg'),
-(6, 'Dr. Sarah Wilson', 'Cosmetic Dentistry', 'assets/images/temporarypicdoctor.jpg');
+(1, 'Dr. John Doe', 'General Dentistry', 'assets/images/temporarypicdoctor.jpg');
 
 -- Create appointments table
 CREATE TABLE IF NOT EXISTS appointments (
@@ -89,3 +85,15 @@ INSERT IGNORE INTO system_settings (setting_key, setting_value) VALUES
 ('closed_days', '["Sunday"]'),
 ('open_time', '09:00'),
 ('close_time', '17:00');
+
+-- Create doctor availability table
+CREATE TABLE IF NOT EXISTS doctor_availability (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    doctor_id INT NOT NULL,
+    day_of_week ENUM('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday') NOT NULL,
+    start_time TIME NOT NULL DEFAULT '09:00:00',
+    end_time TIME NOT NULL DEFAULT '17:00:00',
+    is_available BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (doctor_id) REFERENCES doctors(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_doctor_day (doctor_id, day_of_week)
+);

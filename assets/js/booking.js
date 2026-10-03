@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let isValid = false;
         if (currentStep === 1) isValid = bookingData.service !== null;
         if (currentStep === 2) isValid = bookingData.doctorId !== null;
-        if (currentStep === 3) isValid = bookingData.date !== null;
+        if (currentStep === 3) isValid = bookingData.date !== null && bookingData.time !== null;
 
         nextBtn.disabled = !isValid;
     };
@@ -172,7 +172,18 @@ document.addEventListener('DOMContentLoaded', () => {
             // Format date nicer
             const dateObj = new Date(bookingData.date);
             const formattedDate = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-            document.getElementById('summary-date').textContent = formattedDate;
+            
+            // Format time nicer
+            let formattedTime = bookingData.time;
+            if (formattedTime) {
+                const [h, m] = formattedTime.split(':');
+                const hour = parseInt(h);
+                const ampm = hour >= 12 ? 'PM' : 'AM';
+                const hour12 = hour % 12 || 12;
+                formattedTime = `${hour12}:${m} ${ampm}`;
+            }
+
+            document.getElementById('summary-date').textContent = `${formattedDate} at ${formattedTime}`;
 
             // Notes
             document.getElementById('summary-notes').textContent = bookingData.note || 'None';
@@ -229,19 +240,60 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Show time slots when a date is selected
-        if (bookingData.date) {
-            timeSlotsContainer.style.display = 'block';
-        } else {
-            timeSlotsContainer.style.display = 'none';
-        }
-        
         // reset time selection when date changes
         bookingData.time = null;
         updateNextButtonState();
-    });
 
-    // Removed time slot selection logic
+        // Show time slots when a date is selected
+        if (bookingData.date && bookingData.doctorId) {
+            timeSlotsContainer.style.display = 'block';
+            const grid = document.getElementById('time-grid');
+            const msg = document.getElementById('no-slots-msg');
+            grid.innerHTML = '<p style="color:var(--color-grey); grid-column:1/-1;">Loading slots...</p>';
+            msg.style.display = 'none';
+
+            fetch(`../backend/get_available_times.php?doctor_id=${bookingData.doctorId}&date=${bookingData.date}`)
+                .then(res => res.json())
+                .then(data => {
+                    grid.innerHTML = '';
+                    if (data.success && data.slots && data.slots.length > 0) {
+                        data.slots.forEach(time => {
+                            // format HH:mm to 12-hour
+                            const [h, m] = time.split(':');
+                            const hour = parseInt(h);
+                            const ampm = hour >= 12 ? 'PM' : 'AM';
+                            const hour12 = hour % 12 || 12;
+                            const displayTime = `${hour12}:${m} ${ampm}`;
+
+                            const slot = document.createElement('div');
+                            slot.className = 'time-slot';
+                            slot.textContent = displayTime;
+                            slot.dataset.time = time;
+                            
+                            slot.addEventListener('click', () => {
+                                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                                slot.classList.add('selected');
+                                bookingData.time = time;
+                                updateNextButtonState();
+                            });
+                            grid.appendChild(slot);
+                        });
+                    } else {
+                        msg.style.display = 'block';
+                        if (data.message) {
+                            msg.textContent = data.message;
+                        }
+                    }
+                })
+                .catch(err => {
+                    grid.innerHTML = '';
+                    msg.style.display = 'block';
+                    msg.textContent = 'Error loading slots.';
+                });
+        } else {
+            timeSlotsContainer.style.display = 'none';
+        }
+    });
 
     // Capture optional note on submit or when changed
     const noteInput = document.getElementById('appointment_note');
@@ -281,7 +333,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dateObj = new Date(bookingData.date);
                 const formattedDate = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
                 
-                document.getElementById('success-datetime').textContent = `${formattedDate}`;
+                let formattedTime = bookingData.time;
+                if (formattedTime) {
+                    const [h, m] = formattedTime.split(':');
+                    const hour = parseInt(h);
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    const hour12 = hour % 12 || 12;
+                    formattedTime = `${hour12}:${m} ${ampm}`;
+                }
+
+                document.getElementById('success-datetime').textContent = `${formattedDate} at ${formattedTime}`;
 
                 document.getElementById('success-screen').style.display = 'flex';
             } else {

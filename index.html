@@ -44,6 +44,16 @@
             </div>
         </section>
 
+        <!-- Live Queue Tracker Banner -->
+        <section class="live-queue-banner" style="display:none;" id="live-queue-banner">
+            <div class="queue-content fade-up">
+                <div class="queue-indicator"></div>
+                <div class="queue-text">
+                    Live Clinic Queue: <span class="queue-number" id="public-queue-number">0</span> Patients waiting or in treatment
+                </div>
+            </div>
+        </section>
+
         <section class="services">
             <div class="section-header fade-up">
                 <span class="subtitle">WHAT WE OFFER</span>
@@ -152,6 +162,19 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+
+            // Fetch Live Queue
+            fetch('backend/get_public_queue.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.queue_length > 0) {
+                        const banner = document.getElementById('live-queue-banner');
+                        const numberEl = document.getElementById('public-queue-number');
+                        numberEl.textContent = data.queue_length;
+                        banner.style.display = 'flex';
+                    }
+                })
+                .catch(err => console.log('Queue fetch error:', err));
 
             // Dynamically sync doctors directly from the MySQL database
             fetch('backend/staff_get_doctors.php')

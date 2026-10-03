@@ -35,6 +35,15 @@ try {
     $stmt->execute([$doctor_id]);
     $metrics = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Get total patients count for this doctor
+    $patientStmt = $pdo->prepare("
+        SELECT COUNT(DISTINCT patient_id) as total_patients 
+        FROM appointments 
+        WHERE doctor_id = ?
+    ");
+    $patientStmt->execute([$doctor_id]);
+    $patientData = $patientStmt->fetch(PDO::FETCH_ASSOC);
+
     // 2. Get today's schedule specific to THIS doctor
     $stmtSched = $pdo->prepare("
         SELECT a.id, a.service, a.status, a.appointment_time, a.notes, 
@@ -52,7 +61,7 @@ try {
         "metrics" => [
             "total_appointments" => $metrics['total_appointments'] ?? 0,
             "in_queue" => $metrics['in_queue'] ?? 0,
-            "doctors_on_duty" => 1, // Just them
+            "total_patients" => $patientData['total_patients'] ?? 0,
             "completed_today" => $metrics['completed_today'] ?? 0
         ],
         "schedule" => $schedule

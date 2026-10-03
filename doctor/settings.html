@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicFlow - Doctor Settings</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/staff.css">
+    <link rel="stylesheet" href="../assets/css/settings.css">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar staff-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="logo">
+                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
+                    <span>ClinicFlow</span>
+                </a>
+            </div>
+            
+            <div class="user-profile-section">
+                <div class="avatar" id="user-avatar">J</div>
+                <div class="user-info">
+                    <h3 class="user-name" id="user-name">Loading...</h3>
+                    <span class="user-role">Doctor</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="my-schedule.html" class="nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>My Schedule</span>
+                </a>
+                <a href="my-patients.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span>My Patients</span>
+                </a>
+                <a href="settings.html" class="nav-item active">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="nav-item">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" style="padding: 3rem 4rem;">
+            <header class="page-header" style="margin-bottom: 2.5rem;">
+                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Settings</h1>
+                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;">Manage your profile and security.</p>
+            </header>
+
+            <div class="settings-container">
+                <!-- Profile Card -->
+                <div class="settings-card">
+                    <div class="profile-header">
+                        <div class="settings-avatar" id="settings-avatar">J</div>
+                        <div class="settings-user-info">
+                            <h3 id="settings-name">Loading...</h3>
+                            <p id="settings-id">Loading...</p>
+                        </div>
+                    </div>
+
+                    <h4 class="settings-section-title">PERSONAL INFORMATION</h4>
+                    <div class="settings-grid">
+                        <div class="input-group">
+                            <label>FIRST NAME</label>
+                            <input type="text" class="settings-input" id="first-name" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>LAST NAME</label>
+                            <input type="text" class="settings-input" id="last-name" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>EMAIL</label>
+                            <input type="email" class="settings-input" id="email" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>PHONE NUMBER</label>
+                            <input type="text" class="settings-input" id="phone" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Change Password Card -->
+                <div class="settings-card">
+                    <h4 class="settings-section-title">CHANGE PASSWORD</h4>
+                    <div class="settings-grid">
+                        <div class="input-group">
+                            <label>CURRENT PASSWORD</label>
+                            <input type="password" class="settings-input" id="current-password" placeholder="Enter current password">
+                        </div>
+                        <div class="input-group">
+                            <label>NEW PASSWORD</label>
+                            <input type="password" class="settings-input" id="new-password" placeholder="Enter new password">
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <span id="password-status" style="color: var(--color-teal-700); font-weight: 600; font-size: 0.9rem; margin-right: 1rem;"></span>
+                        <button class="btn-settings-action" id="btn-change-password">Change Password</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Auth check and load data
+        fetch('../backend/check_session.php')
+            .then(res => res.json())
+            .then(data => {
+                if(!data.success || data.user.role !== 'doctor') {
+                    window.location.href = '../login.html';
+                } else {
+                    document.getElementById('user-name').textContent = data.user.name;
+                    document.getElementById('user-avatar').textContent = data.user.name.charAt(0);
+                    loadSettings();
+                }
+            })
+            .catch(() => window.location.href = '../login.html');
+
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php').then(() => window.location.href = '../index.html');
+        });
+
+        function loadSettings() {
+            fetch('../backend/get_user_settings.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const u = data.user;
+                        document.getElementById('settings-name').textContent = `${u.first_name} ${u.last_name}`;
+                        document.getElementById('settings-id').textContent = `#DR-${String(u.id).padStart(4, '0')}`;
+                        document.getElementById('settings-avatar').textContent = u.first_name.charAt(0);
+                        document.getElementById('first-name').value = u.first_name;
+                        document.getElementById('last-name').value = u.last_name;
+                        document.getElementById('email').value = u.email;
+                        document.getElementById('phone').value = u.phone;
+                    }
+                });
+        }
+
+        document.getElementById('btn-change-password').addEventListener('click', () => {
+            const current = document.getElementById('current-password').value;
+            const newPass = document.getElementById('new-password').value;
+            const statusEl = document.getElementById('password-status');
+
+            if (!current || !newPass) {
+                statusEl.textContent = 'Please fill in both fields.';
+                statusEl.style.color = '#dc2626';
+                return;
+            }
+
+            if (newPass.length < 6) {
+                statusEl.textContent = 'New password must be at least 6 characters.';
+                statusEl.style.color = '#dc2626';
+                return;
+            }
+
+            fetch('../backend/update_password.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ current_password: current, new_password: newPass })
+            })
+            .then(res => res.json())
+            .then(data => {
+                statusEl.textContent = data.message;
+                statusEl.style.color = data.success ? 'var(--color-teal-700)' : '#dc2626';
+                if (data.success) {
+                    document.getElementById('current-password').value = '';
+                    document.getElementById('new-password').value = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
