@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,18 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
-    
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
     <div class="dashboard-layout">
         <!-- Sidebar -->
@@ -27,7 +31,7 @@
                     <span>ClinicFlow</span>
                 </a>
             </div>
-            
+
             <div class="user-profile-section">
                 <div class="avatar" id="sidebar-avatar">...</div>
                 <div class="user-info">
@@ -98,13 +102,14 @@
                         </div>
                         <div class="queue-number" id="dashboard-queue-number">--</div>
                     </div>
-                    <a href="queue-tracker.html" class="btn btn-tracker" style="display:block; text-align:center; text-decoration:none;">Open Tracker</a>
+                    <a href="queue-tracker.html" class="btn btn-tracker"
+                        style="display:block; text-align:center; text-decoration:none;">Open Tracker</a>
                 </div>
             </div>
 
             <section class="appointments-section">
                 <h2>Upcoming appointments</h2>
-                
+
                 <div class="appointment-list" id="upcoming-appointments-list">
                     <!-- Dynamic appointments will be injected here -->
                     <p class="text-center" style="color: var(--light-text); padding: 1rem;">Loading appointments...</p>
@@ -147,13 +152,29 @@
                 }
 
                 // Fetch real-time queue number for the card
-                fetch('../backend/get_queue_data.php')
-                    .then(res => res.json())
-                    .then(qData => {
-                        if (qData.success && qData.has_queue) {
-                            document.getElementById('dashboard-queue-number').textContent = qData.user_queue_number;
-                        }
-                    });
+                function updateQueue() {
+                    fetch('../backend/get_queue_data.php')
+                        .then(res => res.json())
+                        .then(qData => {
+                            if (qData.success && qData.has_queue) {
+                                document.getElementById('dashboard-queue-number').textContent = qData.user_queue_number;
+
+                                // Play sound if called
+                                if (qData.patient_status === 'in_progress') {
+                                    if (window.lastKnownStatus !== 'in_progress') {
+                                        const audio = new Audio('../assets/sound/mixkit-happy-bells-notification-937.wav');
+                                        audio.play().catch(e => console.log('Audio blocked', e));
+                                        window.lastKnownStatus = 'in_progress';
+
+                                        // Refresh the appointments list to show the new status
+                                        window.location.reload();
+                                    }
+                                }
+                            }
+                        });
+                }
+                updateQueue();
+                setInterval(updateQueue, 5000);
 
                 // Update Upcoming Appointments List
                 const listContainer = document.getElementById('upcoming-appointments-list');
@@ -162,7 +183,7 @@
                 if (data.upcoming_appointments && data.upcoming_appointments.length > 0) {
                     data.upcoming_appointments.forEach(apt => {
                         const statusClass = apt.status === 'confirmed' ? 'status-confirmed' : 'status-pending';
-                        
+
                         const itemHtml = `
                             <div class="appointment-item">
                                 <div class="icon-box">
@@ -177,7 +198,7 @@
                                     <div class="time-text">${apt.time_text}</div>
                                 </div>
                                 <div class="appointment-status ${statusClass}" style="text-transform: capitalize;">
-                                    ${apt.status}
+                                    ${apt.status_display}
                                 </div>
                             </div>
                         `;
@@ -194,4 +215,5 @@
             });
     </script>
 </body>
+
 </html>

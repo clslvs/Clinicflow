@@ -22,3 +22,6 @@ desktop.ini
 
 # Log files
 *.log
+
+# Local ignore directory
+ignore/

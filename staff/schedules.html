@@ -256,10 +256,13 @@
                             const colBody = document.getElementById('col-' + appt.date);
                             if (colBody) {
                                 // Format time (e.g. 09:00 -> 9:00 AM)
-                                const timeParts = appt.time.split(':');
-                                const d = new Date();
-                                d.setHours(timeParts[0], timeParts[1]);
-                                const timeStr = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                                let timeStr = 'Time not set';
+                                if (appt.time) {
+                                    const timeParts = appt.time.split(':');
+                                    const d = new Date();
+                                    d.setHours(timeParts[0], timeParts[1] || 0);
+                                    timeStr = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                                }
 
                                 const block = document.createElement('div');
                                 block.className = 'appt-block';

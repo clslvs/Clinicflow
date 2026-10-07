@@ -128,24 +128,37 @@
 }
 
 .action-link {
-    color: var(--light-text);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    background: #f1f5f9;
+    color: var(--color-teal-900);
     text-decoration: none;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
 }
 
 .action-link:hover {
-    color: var(--text-color);
+    background: var(--color-teal-50);
+    border-color: var(--color-teal-300);
+    color: var(--color-teal-900);
+    transform: translateY(-1px);
 }
 
 .action-link.cancel {
-    color: #F87171;
+    background: #fef2f2;
+    color: #dc2626;
 }
 
 .action-link.cancel:hover {
-    color: #DC2626;
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #b91c1c;
 }
 
 

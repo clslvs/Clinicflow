@@ -70,6 +70,63 @@
         .checkbox-group input {
             width: auto;
         }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+        
+        .overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Slide-out Panel */
+        .slide-panel {
+            position: fixed;
+            top: 0;
+            right: -500px;
+            width: 450px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-panel.open {
+            right: 0;
+        }
+
+        .panel-header {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-body {
+            padding: 2rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .panel-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
     </style>
 </head>
 <body style="background-color: #f8f9fa;">
@@ -226,8 +283,59 @@
         </main>
     </div>
 
-    <!-- Modals for Services & Doctors can use simple JS prompts or custom modals.
-         For speed and simplicity, we will use basic window.prompt or small hidden forms inline. -->
+    <!-- Overlay & Slide Panel -->
+    <div class="overlay" id="overlay"></div>
+    <div class="slide-panel" id="doctor-panel">
+        <div class="panel-header" style="padding: 1.5rem 2rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+            <h2 class="playfair" id="panel-title" style="margin: 0;">Add New Doctor</h2>
+            <button onclick="closePanel()" style="background:none; border:none; cursor:pointer; color:#666;">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="panel-body" style="padding: 2rem; overflow-y: auto; flex-grow: 1;">
+            <form id="doctor-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="setting-group" style="margin: 0;">
+                        <label>FIRST NAME</label>
+                        <input type="text" id="doc-first-name" required>
+                    </div>
+                    <div class="setting-group" style="margin: 0;">
+                        <label>LAST NAME</label>
+                        <input type="text" id="doc-last-name" required>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>EMAIL ADDRESS</label>
+                    <input type="email" id="doc-email" required>
+                </div>
+                
+                <div class="setting-group">
+                    <label>PHONE NUMBER</label>
+                    <input type="text" id="doc-phone" required>
+                </div>
+
+                <div class="setting-group">
+                    <label>SPECIALTY</label>
+                    <input type="text" id="doc-specialty" placeholder="e.g. Orthodontist" required>
+                </div>
+
+                <div class="setting-group" id="password-group">
+                    <label>PASSWORD <span style="font-weight:normal; color:#888;">(Required)</span></label>
+                    <input type="password" id="doc-password" required placeholder="••••••••">
+                </div>
+
+                <div class="setting-group">
+                    <label>PROFILE AVATAR <span style="font-weight:normal; color:#888;">(Optional)</span></label>
+                    <input type="file" id="doc-avatar" accept="image/*" style="background: white;">
+                </div>
+            </form>
+        </div>
+        <div class="panel-footer" style="padding: 1.5rem 2rem; border-top: 1px solid #eee; background: #f8f9fa; display: flex; justify-content: flex-end; gap: 1rem;">
+            <button class="btn-outline-teal" onclick="closePanel()" style="border-color: #d1d5db; color: #4b5563;">Cancel</button>
+            <button class="btn-solid-teal" onclick="submitDoctor(event)">Save Doctor</button>
+        </div>
+    </div>
     
     <script>
         lucide.createIcons();
@@ -382,17 +490,63 @@
                 });
         }
 
+        function closePanel() {
+            document.getElementById('doctor-panel').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+            document.getElementById('doctor-form').reset();
+        }
+
         function openDoctorModal() {
-            const name = prompt("Enter Doctor Name (e.g. Dr. John Doe):");
-            if(!name) return;
-            const specialty = prompt("Enter Specialty (e.g. Orthodontist):");
-            if(!specialty) return;
+            document.getElementById('doctor-form').reset();
+            document.getElementById('doctor-panel').classList.add('open');
+            document.getElementById('overlay').classList.add('show');
+        }
+
+        function submitDoctor(e) {
+            e.preventDefault();
+            const form = document.getElementById('doctor-form');
+            if(!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const firstName = document.getElementById('doc-first-name').value.trim();
+            const lastName = document.getElementById('doc-last-name').value.trim();
+            const email = document.getElementById('doc-email').value.trim();
+            const phone = document.getElementById('doc-phone').value.trim();
+            const password = document.getElementById('doc-password').value.trim();
+            const specialty = document.getElementById('doc-specialty').value.trim();
+            const avatarFile = document.getElementById('doc-avatar').files[0];
+
+            const formData = new FormData();
+            formData.append('action', 'create_doctor');
+            formData.append('first_name', firstName);
+            formData.append('last_name', lastName);
+            formData.append('email', email);
+            formData.append('phone', phone);
+            formData.append('password', password);
+            formData.append('role', 'doctor');
+            formData.append('specialty', specialty);
             
-            fetch('../backend/admin_manage_doctors.php', {
+            if (avatarFile) {
+                formData.append('avatar', avatarFile);
+            }
+
+            fetch('../backend/admin_save_user.php', {
                 method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({ action: 'create', name: name, specialty: specialty })
-            }).then(() => loadDoctors());
+                body: formData
+            }).then(res => res.json())
+              .then(data => {
+                  if (data.success) {
+                      closePanel();
+                      loadDoctors();
+                  } else {
+                      alert(data.message || "Failed to add doctor.");
+                  }
+              }).catch(err => {
+                  console.error(err);
+                  alert("An error occurred while uploading. Check console.");
+              });
         }
 
         function deleteDoctor(id) {

@@ -67,10 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add dot after month abbreviation if needed to match mockup (e.g. "Aug. 27, 2026")
             formattedDate = formattedDate.replace(/([a-zA-Z]{3})\s/, '$1. ');
 
-            const [hours, minutes] = app.appointment_time.split(':');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const hr = hours % 12 || 12;
-            const formattedTime = `${hr}:${minutes}${ampm}`;
+            let formattedTime = 'Time not set';
+            if (app.appointment_time) {
+                const [hours, minutes] = app.appointment_time.split(':');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const hr = hours % 12 || 12;
+                formattedTime = `${hr}:${minutes} ${ampm}`;
+            }
             
             // Status Pill
             let statusPillClass = '';
@@ -81,12 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'confirmed':
                     statusPillClass = 'status-confirmed';
                     statusText = 'Confirmed';
-                    actionLinks = `<a href="#" class="action-link" onclick="alert('Reschedule logic here')">Reschedule</a> <a href="#" class="action-link cancel" onclick="cancelAppointment(${app.id})">Cancel</a>`;
+                    actionLinks = `<a href="#" class="action-link" onclick="openRescheduleModal(${app.id})"><i data-lucide="calendar"></i> Reschedule</a> <a href="#" class="action-link cancel" onclick="cancelAppointment(${app.id})"><i data-lucide="x-circle"></i> Cancel</a>`;
                     break;
                 case 'pending':
                     statusPillClass = 'status-pending';
                     statusText = 'Pending';
-                    actionLinks = `<a href="#" class="action-link" onclick="alert('Reschedule logic here')">Reschedule</a> <a href="#" class="action-link cancel" onclick="cancelAppointment(${app.id})">Cancel</a>`;
+                    actionLinks = `<a href="#" class="action-link" onclick="openRescheduleModal(${app.id})"><i data-lucide="calendar"></i> Reschedule</a> <a href="#" class="action-link cancel" onclick="cancelAppointment(${app.id})"><i data-lucide="x-circle"></i> Cancel</a>`;
                     break;
                 case 'cancelled':
                     statusPillClass = 'status-cancelled';
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'completed':
                     statusPillClass = 'status-completed';
                     statusText = 'Completed';
-                    actionLinks = `<a href="#" class="action-link" onclick="alert('View details')">Details</a>`;
+                    actionLinks = `<a href="#" class="action-link" onclick="showDetails(${app.id})"><i data-lucide="file-text"></i> Details</a>`;
                     break;
                 default:
                     statusPillClass = 'status-pending';
@@ -113,7 +116,37 @@ document.addEventListener('DOMContentLoaded', () => {
             
             tbody.appendChild(tr);
         });
+        
+        if (window.lucide) {
+            lucide.createIcons();
+        }
     }
+
+    // Assign globally to be callable from onclick
+    window.showDetails = function(appId) {
+        const app = allAppointments.find(a => a.id == appId);
+        if(!app) return;
+
+        document.getElementById('modal-service').textContent = app.service;
+        document.getElementById('modal-doctor').textContent = app.doctor_name;
+        
+        const dateObj = new Date(app.appointment_date);
+        let formattedTime = 'Time not set';
+        if (app.appointment_time) {
+            const [hours, minutes] = app.appointment_time.split(':');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const hr = hours % 12 || 12;
+            formattedTime = `${hr}:${minutes} ${ampm}`;
+        }
+        document.getElementById('modal-datetime').textContent = `${dateObj.toLocaleDateString()} at ${formattedTime}`;
+        
+        document.getElementById('modal-notes').textContent = app.notes || "No notes added by doctor.";
+        
+        const modal = document.getElementById('details-modal');
+        if(modal) {
+            modal.style.display = 'flex';
+        }
+    };
 
     // Global cancel function
     window.cancelAppointment = function(appointmentId) {
@@ -144,5 +177,83 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("Error connecting to server.");
             });
         }
+    };
+
+    window.openRescheduleModal = function(appId) {
+        const app = allAppointments.find(a => a.id == appId);
+        if(!app) return;
+
+        document.getElementById('reschedule-id').value = app.id;
+        document.getElementById('reschedule-doctor-id').value = app.doctor_id;
+        document.getElementById('reschedule-date').value = app.appointment_date;
+        
+        // Reset time dropdown
+        document.getElementById('reschedule-time').innerHTML = '<option value="">Select a date first</option>';
+        
+        document.getElementById('reschedule-modal').style.display = 'flex';
+        
+        // Load times for the current date
+        window.loadAvailableTimes();
+    };
+
+    window.loadAvailableTimes = function() {
+        const date = document.getElementById('reschedule-date').value;
+        const doctorId = document.getElementById('reschedule-doctor-id').value;
+        const timeSelect = document.getElementById('reschedule-time');
+        
+        if(!date || !doctorId) return;
+
+        timeSelect.innerHTML = '<option value="">Loading times...</option>';
+
+        fetch(`../backend/get_available_times.php?doctor_id=${doctorId}&date=${date}`)
+            .then(res => res.json())
+            .then(data => {
+                timeSelect.innerHTML = '';
+                if(data.success && data.times.length > 0) {
+                    data.times.forEach(t => {
+                        // Format the label
+                        const timeParts = t.split(':');
+                        const d = new Date();
+                        d.setHours(timeParts[0], timeParts[1]);
+                        const formatted = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                        timeSelect.innerHTML += `<option value="${t}">${formatted}</option>`;
+                    });
+                } else {
+                    timeSelect.innerHTML = '<option value="">No times available</option>';
+                }
+            })
+            .catch(err => {
+                timeSelect.innerHTML = '<option value="">Error loading times</option>';
+            });
+    };
+
+    window.submitReschedule = function(e) {
+        e.preventDefault();
+        const appId = document.getElementById('reschedule-id').value;
+        const date = document.getElementById('reschedule-date').value;
+        const time = document.getElementById('reschedule-time').value;
+
+        if(!time) {
+            alert("Please select a valid time.");
+            return;
+        }
+
+        fetch('../backend/reschedule_appointment.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ appointment_id: appId, date: date, time: time })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) {
+                alert("Appointment rescheduled successfully!");
+                location.reload();
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(err => {
+            alert("Error connecting to server.");
+        });
     };
 });

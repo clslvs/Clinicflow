@@ -588,13 +588,17 @@
 
 /* Action text links */
 .action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-    margin-right: 12px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    margin-right: 8px;
 }
 
 .action-link:last-child {
@@ -602,19 +606,26 @@
 }
 
 .action-link.teal {
-    color: var(--color-teal-300);
+    background: #f1f5f9;
+    color: var(--color-teal-900);
 }
 
 .action-link.teal:hover {
-    color: var(--color-teal-700);
+    background: var(--color-teal-50);
+    border-color: var(--color-teal-300);
+    transform: translateY(-1px);
 }
 
 .action-link.red {
-    color: #e57373;
+    background: #fef2f2;
+    color: #dc2626;
 }
 
 .action-link.red:hover {
-    color: #d32f2f;
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #b91c1c;
+    transform: translateY(-1px);
 }
 
 .history-actions {

@@ -192,14 +192,23 @@
                 let actionsHtml = '';
                 if (statusClass === 'pending' || statusClass === 'rescheduling') {
                     actionsHtml = `
-                        <button class="btn-action confirm" onclick="updateStatus(${app.id}, 'confirmed')">Confirm</button>
-                        <button class="btn-action done" onclick="updateStatus(${app.id}, 'completed')">Done</button>
+                        <button class="btn-action confirm" onclick="updateStatus(${app.id}, 'confirmed')"><i data-lucide="check-circle"></i> Confirm</button>
+                        <button class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')"><i data-lucide="x-circle"></i> Cancel</button>
+                        <button class="btn-action done" onclick="updateStatus(${app.id}, 'completed')"><i data-lucide="check-square"></i> Done</button>
                     `;
                 } else if (statusClass === 'confirmed') {
                     actionsHtml = `
-                        <button class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')">Cancel</button>
-                        <button class="btn-action done" onclick="updateStatus(${app.id}, 'completed')">Done</button>
+                        <button class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')"><i data-lucide="x-circle"></i> Cancel</button>
+                        <button class="btn-action done" onclick="updateStatus(${app.id}, 'completed')"><i data-lucide="check-square"></i> Done</button>
                     `;
+                } else if (statusClass === 'in_progress') {
+                    displayStatus = 'In Progress';
+                    actionsHtml = `
+                        <button class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')"><i data-lucide="x-circle"></i> Cancel</button>
+                        <button class="btn-action done" onclick="updateStatus(${app.id}, 'completed')"><i data-lucide="check-square"></i> Done</button>
+                    `;
+                } else {
+                    actionsHtml = `<span style="color: #999; font-style: italic; font-size: 0.9rem;">No actions</span>`;
                 }
 
                 tr.innerHTML = `
@@ -216,6 +225,10 @@
                 `;
                 tbody.appendChild(tr);
             });
+            
+            if (window.lucide) {
+                lucide.createIcons();
+            }
         }
 
         // Handle Action Buttons

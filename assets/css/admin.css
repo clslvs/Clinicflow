@@ -143,6 +143,9 @@
 
 /* Action Buttons in Table */
 .btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
     font-size: 0.85rem;

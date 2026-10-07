@@ -18,10 +18,10 @@ try {
     $dateObj = new DateTime($date);
     $dayOfWeek = $dateObj->format('l'); // e.g., 'Monday'
     
-    $settingsStmt = $pdo->query("SELECT closed_days FROM settings LIMIT 1");
+    $settingsStmt = $pdo->query("SELECT setting_value FROM system_settings WHERE setting_key = 'closed_days' LIMIT 1");
     $settings = $settingsStmt->fetch(PDO::FETCH_ASSOC);
-    if ($settings && !empty($settings['closed_days'])) {
-        $closedDays = json_decode($settings['closed_days'], true);
+    if ($settings && !empty($settings['setting_value'])) {
+        $closedDays = json_decode($settings['setting_value'], true);
         if (in_array($dayOfWeek, $closedDays)) {
             echo json_encode(["success" => true, "slots" => [], "message" => "Clinic is closed."]);
             exit;

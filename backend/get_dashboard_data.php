@@ -57,11 +57,15 @@ try {
         $next = $appointments[0];
         
         $dateObj = new DateTime($next['appointment_date']);
-        $timeObj = new DateTime($next['appointment_time']);
+        $time_display = 'Time not set';
+        if (!empty($next['appointment_time'])) {
+            $timeObj = new DateTime($next['appointment_time']);
+            $time_display = $timeObj->format('h:i A');
+        }
 
         $response['next_appointment'] = [
             "date_display" => $dateObj->format('F d'),
-            "time_display" => $timeObj->format('h:i A'),
+            "time_display" => $time_display,
             "doctor_name" => $next['doctor_name']
         ];
     }
@@ -69,15 +73,25 @@ try {
     // Format all upcoming appointments for the list
     foreach ($appointments as $apt) {
         $dateObj = new DateTime($apt['appointment_date']);
-        $timeObj = new DateTime($apt['appointment_time']);
         
+        $time_text = 'Time not set';
+        if (!empty($apt['appointment_time'])) {
+            $timeObj = new DateTime($apt['appointment_time']);
+            $time_text = $timeObj->format('h:i A');
+        }
+        
+        // Format status cleanly (e.g. "in_progress" -> "In progress")
+        $status_display = str_replace('_', ' ', $apt['status']);
+        $status_display = ucfirst($status_display);
+
         $response['upcoming_appointments'][] = [
             "id" => $apt['id'],
             "service" => $apt['service'],
             "doctor_name" => $apt['doctor_name'],
             "date_text" => $dateObj->format('F d, Y'),
-            "time_text" => $timeObj->format('h:i A'),
-            "status" => $apt['status']
+            "time_text" => $time_text,
+            "status" => $apt['status'],
+            "status_display" => $status_display
         ];
     }
 

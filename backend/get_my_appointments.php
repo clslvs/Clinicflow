@@ -17,10 +17,12 @@ try {
     $stmt = $pdo->prepare("
         SELECT 
             a.id, 
+            a.doctor_id,
             a.service, 
             a.appointment_date, 
             a.appointment_time, 
             a.status,
+            a.notes,
             d.name as doctor_name
         FROM appointments a
         JOIN doctors d ON a.doctor_id = d.id
