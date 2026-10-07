@@ -26,24 +26,24 @@ ClinicFlow is a modern, responsive web application for dental clinics featuring 
 ## 🛠️ Technology Stack
 - **Frontend**: HTML5, Vanilla CSS3 (Custom design system, dark mode & glassmorphism), Vanilla JavaScript (Fetch API).
 - **Backend**: PHP 8+ (RESTful JSON endpoints, PDO prepared statements).
-- **Database**: MySQL / MariaDB (via XAMPP).
+- **Database**: MySQL / MariaDB (via Laragon).
 
 ---
 
 ## 🚀 Setup & Local Installation
 
 ### 1. Requirements
-- [XAMPP](https://www.apachefriends.org/) (Apache + MySQL)
+- [Laragon](https://laragon.org/) (Apache/Nginx + MySQL)
 - Web browser (Chrome, Edge, Firefox)
 
 ### 2. Installation Steps
-1. Clone or extract this repository into your XAMPP web root:
+1. Clone or extract this repository into your Laragon web root:
    ```bash
-   C:\xampp\htdocs\clinicflow
+   C:\laragon\www\clinicflow
    # or
-   E:\xampp\htdocs\clinicflow
+   E:\laragon\www\clinicflow
    ```
-2. Start **Apache** and **MySQL** from the XAMPP Control Panel.
+2. Start **Apache** and **MySQL** from the Laragon Control Panel.
 3. Open phpMyAdmin: [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
 4. Create a database named `clinicflow` (or import directly from `backend/database.sql`).
 5. Open your browser and navigate to:

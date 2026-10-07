@@ -1,11 +1,11 @@
 <?php
 // db.php
-// Database connection configuration for XAMPP
+// Database connection configuration for Laragon
 
 $host = '127.0.0.1'; // or localhost
 $db   = 'clinicflow';
-$user = 'root'; // default XAMPP user
-$pass = ''; // default XAMPP password is empty
+$user = 'root'; // default Laragon user
+$pass = ''; // default Laragon password is empty
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -21,7 +21,7 @@ try {
     // If the database doesn't exist, this will fail.
     // Ensure you have created the database and imported database.sql in phpMyAdmin
     header('Content-Type: application/json');
-    echo json_encode(["success" => false, "message" => "Database connection failed. Please ensure XAMPP MySQL is running and the 'clinicflow' database exists."]);
+    echo json_encode(["success" => false, "message" => "Database connection failed. Please ensure Laragon MySQL is running and the 'clinicflow' database exists."]);
     exit;
 }
 ?>

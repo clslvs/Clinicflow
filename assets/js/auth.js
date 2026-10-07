@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error(error);
-                showAlert(alertBox, 'A network error occurred. Make sure XAMPP is running and the database is configured.', 'error');
+                showAlert(alertBox, 'A network error occurred. Make sure Laragon is running and the database is configured.', 'error');
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
             }
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error(error);
-                showAlert(alertBox, 'A network error occurred. Make sure XAMPP is running and the database is configured.', 'error');
+                showAlert(alertBox, 'A network error occurred. Make sure Laragon is running and the database is configured.', 'error');
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
             }
