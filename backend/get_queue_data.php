@@ -74,8 +74,8 @@ try {
             $currentPatientIndex = $index;
         } else if (!$activePatientFound) {
 
-            $state = 'in-progress';
-            $stateLabel = 'In Progress';
+            $state = 'waiting';
+            $stateLabel = 'Waiting';
             $activePatientFound = true;
             $currentPatientIndex = $index;
         }
