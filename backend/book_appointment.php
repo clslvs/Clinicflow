@@ -39,8 +39,26 @@ try {
     $stmt->execute([$patient_id, $doctor_id, $service, $date, $time]);
     
     $appointment_id = $pdo->lastInsertId();
-    $queue_number = str_pad($appointment_id, 4, '0', STR_PAD_LEFT);
+    
+    $globalQueueStmt = $pdo->prepare("
+        SELECT a.id
+        FROM appointments a
+        JOIN users u ON a.patient_id = u.id
+        WHERE a.appointment_date = ? AND a.status != 'cancelled'
+        ORDER BY u.is_priority DESC, a.created_at ASC
+    ");
+    $globalQueueStmt->execute([$date]);
+    $globalAppointments = $globalQueueStmt->fetchAll(PDO::FETCH_COLUMN);
+    
+    $global_q = 0;
+    foreach ($globalAppointments as $i => $app_id) {
+        if ($app_id == $appointment_id) {
+            $global_q = $i + 1;
+            break;
+        }
+    }
 
+    $queue_number = str_pad($global_q, 2, '0', STR_PAD_LEFT);
     echo json_encode([
         "success" => true, 
         "message" => "Appointment booked successfully!",
