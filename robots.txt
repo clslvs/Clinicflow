@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /backend/
+Disallow: /admin/
+Disallow: /doctor/
+Disallow: /patient/
+Disallow: /staff/
+Disallow: /assets/
+Allow: /assets/css/
+Allow: /assets/images/
+
+Sitemap: https://clinicflow.infinityfree.me/sitemap.xml

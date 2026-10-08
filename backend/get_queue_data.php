@@ -18,7 +18,7 @@ try {
     $stmt = $pdo->prepare("
         SELECT id, doctor_id, status, appointment_time, appointment_date 
         FROM appointments 
-        WHERE patient_id = ? AND appointment_date >= ? AND status IN ('pending', 'in_progress', 'confirmed')
+        WHERE patient_id = ? AND appointment_date = ? AND status IN ('pending', 'in_progress', 'confirmed')
         ORDER BY appointment_date ASC, created_at ASC
         LIMIT 1
     ");

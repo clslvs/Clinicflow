@@ -199,8 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
             .then(data => {
                 timeSelect.innerHTML = '';
-                if(data.success && data.times.length > 0) {
-                    data.times.forEach(t => {
+                if(data.success && data.slots.length > 0) {
+                    data.slots.forEach(t => {
 
                         const timeParts = t.split(':');
                         const d = new Date();
