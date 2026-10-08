@@ -22,6 +22,7 @@ $appointment_id = $data['appointment_id'];
 $status = $data['status']; // Should be 'in_progress', 'completed', or 'cancelled'
 $notes = $data['notes'] ?? null;
 $follow_up_date = $data['follow_up_date'] ?? null;
+$follow_up_time = $data['follow_up_time'] ?? null;
 $follow_up_service = $data['follow_up_service'] ?? 'Follow-up';
 
 $allowed_statuses = ['pending', 'confirmed', 'in_progress', 'completed', 'cancelled'];
@@ -41,8 +42,8 @@ try {
         $currAppt = $currStmt->fetch(PDO::FETCH_ASSOC);
 
         if ($currAppt) {
-            $newStmt = $pdo->prepare("INSERT INTO appointments (patient_id, doctor_id, service, appointment_date) VALUES (?, ?, ?, ?)");
-            $newStmt->execute([$currAppt['patient_id'], $currAppt['doctor_id'], $follow_up_service, $follow_up_date]);
+            $newStmt = $pdo->prepare("INSERT INTO appointments (patient_id, doctor_id, service, appointment_date, appointment_time) VALUES (?, ?, ?, ?, ?)");
+            $newStmt->execute([$currAppt['patient_id'], $currAppt['doctor_id'], $follow_up_service, $follow_up_date, $follow_up_time]);
         }
     }
 

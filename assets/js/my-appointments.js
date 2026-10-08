@@ -57,7 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
         filtered.forEach(app => {
             const tr = document.createElement('tr');
 
-            const dateObj = new Date(`${app.appointment_date}T${app.appointment_time}`);
+            let dateObj;
+            if (app.appointment_time) {
+                dateObj = new Date(`${app.appointment_date}T${app.appointment_time}`);
+            } else {
+                dateObj = new Date(app.appointment_date + 'T00:00:00'); // Safe fallback
+            }
+            
             let formattedDate = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
             formattedDate = formattedDate.replace(/([a-zA-Z]{3})\s/, '$1. ');
