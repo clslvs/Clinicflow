@@ -82,7 +82,11 @@ try {
 
         if ($isUser) {
             $state = 'your-turn';
-            $stateLabel = 'Your Turn';
+            if ($index === $currentPatientIndex) {
+                $stateLabel = 'Your Turn';
+            } else {
+                $stateLabel = 'You';
+            }
         }
 
         $qnum = str_pad($app['id'], 3, '0', STR_PAD_LEFT);
