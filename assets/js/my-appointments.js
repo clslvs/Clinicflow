@@ -148,33 +148,38 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.cancelAppointment = function(appointmentId) {
-        if (confirm("Are you sure you want to cancel this appointment?")) {
-            fetch('../backend/cancel_appointment.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ appointment_id: appointmentId })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
+        document.getElementById('cancel-appointment-id').value = appointmentId;
+        document.getElementById('cancel-modal').style.display = 'flex';
+    };
 
-                    const appToUpdate = allAppointments.find(app => app.id == appointmentId);
-                    if (appToUpdate) {
-                        appToUpdate.status = 'cancelled';
-                    }
-                    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-                    renderAppointments(activeFilter);
-                } else {
-                    alert(data.message || "Failed to cancel appointment.");
+    window.confirmCancelAppointment = function() {
+        const appointmentId = document.getElementById('cancel-appointment-id').value;
+        fetch('../backend/cancel_appointment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ appointment_id: appointmentId })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                const appToUpdate = allAppointments.find(app => app.id == appointmentId);
+                if (appToUpdate) {
+                    appToUpdate.status = 'cancelled';
                 }
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Error connecting to server.");
-            });
-        }
+                const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+                renderAppointments(activeFilter);
+                document.getElementById('cancel-modal').style.display = 'none';
+                alert("Appointment cancelled successfully.");
+            } else {
+                alert(data.message || "Failed to cancel appointment.");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Error connecting to server.");
+        });
     };
 
     window.openRescheduleModal = function(appId) {

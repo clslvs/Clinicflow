@@ -162,6 +162,23 @@
         </div>
     </div>
 
+    <div id="cancel-modal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content" style="background: white; border-radius: 12px; padding: 2rem; max-width: 400px; width: 90%; text-align: center;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: #fee2e2; color: #ef4444; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                <i data-lucide="alert-triangle"></i>
+            </div>
+            <h3 class="playfair" style="margin-bottom: 0.5rem; font-size: 1.5rem; color: var(--color-dark);">Cancel Appointment</h3>
+            <p style="color: var(--color-grey); margin-bottom: 1.5rem; font-size: 0.95rem;">Are you sure you want to cancel this appointment? This action cannot be undone.</p>
+            
+            <input type="hidden" id="cancel-appointment-id">
+            
+            <div style="display: flex; gap: 1rem;">
+                <button type="button" onclick="document.getElementById('cancel-modal').style.display='none'" class="btn-outline-teal" style="flex: 1;">Keep it</button>
+                <button type="button" onclick="confirmCancelAppointment()" class="btn-solid-teal" style="flex: 1; background: #ef4444; border-color: #ef4444;">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         lucide.createIcons();
 
