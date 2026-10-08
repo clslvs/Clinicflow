@@ -1,5 +1,5 @@
 <?php
-// backend/doctor_get_patients.php
+
 session_start();
 require 'db.php';
 
@@ -22,7 +22,6 @@ try {
 
     $doctor_id = $userRow['linked_doctor_id'];
 
-    // Get all unique patients who have appointments with this doctor
     $stmt = $pdo->prepare("
         SELECT 
             u.id,

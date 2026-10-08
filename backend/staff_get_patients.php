@@ -1,5 +1,5 @@
 <?php
-// backend/staff_get_patients.php
+
 session_start();
 require 'db.php';
 
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['staff', 
 }
 
 try {
-    // Get all patients
+
     $stmt = $pdo->prepare("
         SELECT id, first_name, last_name, email, phone, allergies, medical_conditions 
         FROM users 
@@ -21,17 +21,14 @@ try {
     $stmt->execute();
     $patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Prepare data
     $result = [];
     foreach ($patients as $p) {
         $pt_id = "#PT-" . str_pad($p['id'], 4, '0', STR_PAD_LEFT);
-        
-        // Calculate Total Visits (completed appointments)
+
         $visitStmt = $pdo->prepare("SELECT COUNT(*) FROM appointments WHERE patient_id = ? AND status = 'completed'");
         $visitStmt->execute([$p['id']]);
         $total_visits = $visitStmt->fetchColumn();
 
-        // Get Primary Doctor (most visited doctor)
         $docStmt = $pdo->prepare("
             SELECT d.name 
             FROM appointments a 

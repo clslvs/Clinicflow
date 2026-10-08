@@ -14,12 +14,12 @@
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/staff.css">
     
-    <!-- Lucide Icons -->
+    
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+        
         <aside class="sidebar staff-sidebar">
             <div class="sidebar-header">
                 <a href="dashboard.html" class="logo">
@@ -67,7 +67,7 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        
         <main class="main-content" style="padding: 3rem 4rem;">
             <header class="page-header" style="margin-bottom: 2.5rem;">
                 <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Doctor Schedules</h1>
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="calendar-grid" id="calendar-grid">
-                    <!-- Day columns will be dynamically injected here -->
+                    
                 </div>
             </div>
 
@@ -103,7 +103,6 @@
                 .then(() => window.location.href = '../index.html');
         });
 
-        // Load Sidebar Info
         fetch('../backend/check_session.php')
             .then(res => res.json())
             .then(data => {
@@ -119,8 +118,7 @@
         let currentDoctorId = null;
         let currentDoctorName = "";
         let currentWeekStart = new Date();
-        
-        // Find the most recent Monday
+
         const dayOfWeek = currentWeekStart.getDay();
         const diffToMonday = currentWeekStart.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // adjust when day is sunday
         currentWeekStart.setDate(diffToMonday);
@@ -140,7 +138,6 @@
 
         const colors = ['green', 'yellow', 'purple'];
 
-        // Load Doctors
         fetch('../backend/staff_get_doctors.php')
             .then(res => res.json())
             .then(data => {
@@ -174,13 +171,11 @@
 
                         container.appendChild(el);
 
-                        // Select the first doctor by default
                         if (index === 0) el.click();
                     });
                 }
             });
 
-        // Navigation
         document.getElementById('btn-prev-week').addEventListener('click', () => {
             currentWeekStart.setDate(currentWeekStart.getDate() - 7);
             renderCalendar();
@@ -197,7 +192,6 @@
             const weekEnd = new Date(currentWeekStart);
             weekEnd.setDate(currentWeekStart.getDate() + 5); // Saturday
 
-            // Update Title
             const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             const m1 = monthNames[currentWeekStart.getMonth()];
             const d1 = currentWeekStart.getDate();
@@ -210,7 +204,6 @@
 
             document.getElementById('calendar-title').textContent = `${currentDoctorName} - Week of ${dateStr}, ${year}`;
 
-            // Create Grid Structure
             const grid = document.getElementById('calendar-grid');
             grid.innerHTML = '';
 
@@ -244,7 +237,6 @@
                 dayColumns.push(body);
             }
 
-            // Fetch Appointments for the week
             const startStr = formatDateToYMD(currentWeekStart);
             const endStr = formatDateToYMD(weekEnd);
 
@@ -255,7 +247,7 @@
                         data.schedule.forEach(appt => {
                             const colBody = document.getElementById('col-' + appt.date);
                             if (colBody) {
-                                // Format time (e.g. 09:00 -> 9:00 AM)
+
                                 let timeStr = 'Time not set';
                                 if (appt.time) {
                                     const timeParts = appt.time.split(':');

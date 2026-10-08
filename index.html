@@ -44,12 +44,12 @@
             </div>
         </section>
 
-        <!-- Live Queue Tracker Banner -->
         <section class="live-queue-banner" style="display:none;" id="live-queue-banner">
             <div class="queue-content fade-up">
                 <div class="queue-indicator"></div>
                 <div class="queue-text">
-                    Live Clinic Queue: <span class="queue-number" id="public-queue-number">0</span> Patients waiting or in treatment
+                    Live Clinic Queue: <span class="queue-number" id="public-queue-number">0</span> Patients waiting or
+                    in treatment
                 </div>
             </div>
         </section>
@@ -163,7 +163,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
 
-            // Fetch Live Queue
             fetch('backend/get_public_queue.php')
                 .then(res => res.json())
                 .then(data => {
@@ -176,7 +175,6 @@
                 })
                 .catch(err => console.log('Queue fetch error:', err));
 
-            // Dynamically sync doctors directly from the MySQL database
             fetch('backend/staff_get_doctors.php')
                 .then(res => res.json())
                 .then(data => {
@@ -190,7 +188,7 @@
                             const card = document.createElement('div');
                             const theme = colorThemes[index % colorThemes.length];
                             card.className = `doctor-card ${theme} fade-up stagger-${(index % 3) + 1} visible`;
-                            
+
                             const fallbackImg = 'assets/images/temporarypicdoctor.jpg';
                             const img = doc.image_url || fallbackImg;
 

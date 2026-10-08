@@ -1,5 +1,5 @@
 <?php
-// backend/staff_update_queue_status.php
+
 session_start();
 require 'db.php';
 
@@ -35,7 +35,7 @@ try {
     $stmt->execute([$status, $notes, $appointment_id]);
 
     if ($status === 'completed' && !empty($follow_up_date)) {
-        // Fetch current appointment details to create the new one
+
         $currStmt = $pdo->prepare("SELECT patient_id, doctor_id FROM appointments WHERE id = ?");
         $currStmt->execute([$appointment_id]);
         $currAppt = $currStmt->fetch(PDO::FETCH_ASSOC);

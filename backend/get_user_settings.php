@@ -1,5 +1,5 @@
 <?php
-// backend/get_user_settings.php
+
 session_start();
 require 'db.php';
 

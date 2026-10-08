@@ -1,6 +1,6 @@
-/* booking.css */
 
-/* Stepper */
+
+
 .stepper {
     display: flex;
     justify-content: space-between;
@@ -71,7 +71,7 @@
     background-color: var(--color-teal-900);
 }
 
-/* Form Steps */
+
 .form-step {
     display: none;
     animation: fadeIn 0.4s ease-in-out;
@@ -86,7 +86,7 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Services Grid */
+
 .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -124,7 +124,7 @@
 
 .service-card.selected {
     border-color: var(--color-teal-900);
-    background-color: rgba(69, 133, 119, 0.05); /* very light primary */
+    background-color: rgba(69, 133, 119, 0.05); 
 }
 
 .service-icon {
@@ -150,7 +150,7 @@
     font-size: 1.1rem;
 }
 
-/* Doctors List */
+
 .doctors-list {
     display: flex;
     flex-wrap: wrap;
@@ -168,7 +168,7 @@
     gap: 1.5rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: calc(50% - 0.75rem); /* two columns */
+    width: calc(50% - 0.75rem); 
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
@@ -232,7 +232,7 @@
     color: var(--light-text);
 }
 
-/* Date and Time Section */
+
 .date-time-section {
     display: flex;
     flex-direction: column;
@@ -256,7 +256,7 @@
     padding: 1rem;
     border: 1px solid var(--color-teal-300);
     border-radius: var(--border-radius);
-    background-color: rgba(69, 133, 119, 0.05); /* very light teal background like the image */
+    background-color: rgba(69, 133, 119, 0.05); 
     color: var(--text-color);
     font-size: 1rem;
     font-weight: 600;
@@ -269,7 +269,7 @@
     padding: 1rem;
     border: 1px solid var(--color-teal-300);
     border-radius: var(--border-radius);
-    background-color: rgba(69, 133, 119, 0.05); /* very light teal background like the image */
+    background-color: rgba(69, 133, 119, 0.05); 
     color: var(--text-color);
     font-size: 1rem;
     font-family: var(--font-body);
@@ -308,13 +308,13 @@
     background: white;
     border: 1px solid #e2e8f0;
     padding: 0.65rem;
-    border-radius: 20px; /* Enhanced squircle look */
+    border-radius: 20px; 
     text-align: center;
     cursor: pointer;
     font-weight: 500;
     font-size: 0.9rem;
     transition: all 0.2s ease;
-    color: var(--color-teal-900); /* matches the text color in screenshot */
+    color: var(--color-teal-900); 
 }
 
 .time-slot:hover:not(.disabled) {
@@ -336,7 +336,7 @@
     text-decoration: line-through;
 }
 
-/* Summary */
+
 .confirmation-summary {
     background: white;
     border: 1px solid var(--color-teal-300);
@@ -381,7 +381,7 @@
     margin-bottom: 2rem;
 }
 
-/* Actions */
+
 .step-actions {
     display: flex;
     justify-content: center;
@@ -391,7 +391,7 @@
     padding-top: 1rem;
 }
 
-/* Success Screen */
+
 .success-screen {
     display: flex;
     flex-direction: column;
@@ -409,7 +409,7 @@
 .success-icon-large {
     width: 120px;
     height: 120px;
-    background-color: var(--color-teal-100); /* Light teal/grey circle */
+    background-color: var(--color-teal-100); 
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -420,8 +420,8 @@
 .success-icon-inner {
     width: 60px;
     height: 60px;
-    background-color: #92B56A; /* Light green square */
-    border-radius: 8px; /* Rounded corners */
+    background-color: #92B56A; 
+    border-radius: 8px; 
     display: flex;
     align-items: center;
     justify-content: center;

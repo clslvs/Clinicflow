@@ -1,5 +1,5 @@
 <?php
-// backend/admin_manage_services.php
+
 session_start();
 require 'db.php';
 

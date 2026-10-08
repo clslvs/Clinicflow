@@ -19,13 +19,13 @@
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/booking.css">
 
-    <!-- Lucide Icons -->
+    
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+        
         <aside class="sidebar">
             <div class="sidebar-header">
                 <a href="../index.html" class="logo">
@@ -73,7 +73,7 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        
         <main class="main-content booking-content">
             <header class="page-header">
                 <h1>Book Appointment</h1>
@@ -82,7 +82,7 @@
 
             <div class="booking-container">
                 <div id="booking-flow">
-                    <!-- Stepper -->
+                    
                     <div class="stepper">
                         <div class="step active" data-step="1">
                             <div class="step-circle">1</div>
@@ -105,9 +105,9 @@
                         </div>
                     </div>
 
-                    <!-- Form Steps -->
+                    
                     <form id="booking-form">
-                        <!-- Step 1: Select Service -->
+                        
                         <div class="form-step active" id="step-1">
                             <div class="services-grid">
                                 <div class="service-card" data-service="General Check up">
@@ -152,10 +152,10 @@
                             </div>
                         </div>
 
-                        <!-- Step 2: Choose Doctor -->
+                        
                         <div class="form-step" id="step-2">
                             <div class="doctors-list">
-                                <!-- Loaded dynamically from database -->
+                                
                             </div>
                             <div class="step-actions">
                                 <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left"></i> Back</button>
@@ -163,7 +163,7 @@
                             </div>
                         </div>
 
-                        <!-- Step 3: Pick Date & Time -->
+                        
                         <div class="form-step" id="step-3">
                             <div class="date-time-section">
                                 <div class="form-group">
@@ -175,7 +175,7 @@
                                 <div class="form-group" id="time-slots-container" style="display: none;">
                                     <label class="section-label">SELECT TIME</label>
                                     <div class="time-slots" id="time-grid">
-                                        <!-- Populated via JS -->
+                                        
                                     </div>
                                     <p id="no-slots-msg" style="display:none; color:var(--color-grey); font-size: 0.9rem;">No available slots for this date.</p>
                                 </div>
@@ -192,7 +192,7 @@
                             </div>
                         </div>
 
-                        <!-- Step 4: Confirm -->
+                        
                         <div class="form-step" id="step-4">
                             <label class="section-label">APPOINTMENT SUMMARY</label>
                             <div class="confirmation-summary">
@@ -209,7 +209,7 @@
                                         <span class="label">Date</span>
                                         <span class="value" id="summary-date"></span>
                                     </div>
-                                    <!-- Time field removed -->
+                                    
                                     <div class="summary-item">
                                         <span class="label">Notes</span>
                                         <span class="value" id="summary-notes">None</span>
@@ -229,9 +229,9 @@
                             </div>
                         </div>
                     </form>
-                </div> <!-- End booking-flow -->
+                </div> 
 
-                <!-- Success Screen -->
+                
                 <div id="success-screen" class="success-screen" style="display: none;">
                     <div class="success-header">
                         <div class="success-icon-large">
@@ -276,7 +276,6 @@
     <script>
         lucide.createIcons();
 
-        // Check session and load user info
         fetch('../backend/check_session.php')
             .then(res => res.json())
             .then(data => {
@@ -288,7 +287,6 @@
                 }
             });
 
-        // Set min date for datepicker
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('appointment_date').setAttribute('min', today);
     </script>

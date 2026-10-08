@@ -18,7 +18,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        /* Slide-out Panel */
+        
         .slide-panel {
             position: fixed;
             top: 0;
@@ -75,7 +75,7 @@
             pointer-events: all;
         }
 
-        /* Role Badges */
+        
         .role-badge {
             padding: 0.3rem 0.8rem;
             border-radius: 12px;
@@ -99,7 +99,7 @@
         .status-active { background: #e6f6f4; color: #2b938f; }
         .status-inactive { background: #f3f4f6; color: #9ca3af; }
 
-        /* Form elements */
+        
         .admin-form-group {
             margin-bottom: 1.5rem;
         }
@@ -129,7 +129,7 @@
 </head>
 <body style="background-color: #f8f9fa;">
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+        
         <aside class="sidebar admin-sidebar">
             <div class="sidebar-header">
                 <a href="../index.html" class="logo">
@@ -169,7 +169,7 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        
         <main class="main-content" style="padding: 3rem 4rem;">
             <header class="page-header" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
                 <div>
@@ -196,7 +196,7 @@
                 </div>
             </div>
 
-            <!-- Table Card -->
+            
             <div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eee;">
                 <table class="history-table" style="margin: 0; width: 100%;">
                     <thead style="background: #f1f3f4; border-bottom: none;">
@@ -217,7 +217,7 @@
         </main>
     </div>
 
-    <!-- Overlay & Slide Panel -->
+    
     <div class="overlay" id="overlay"></div>
     <div class="slide-panel" id="user-panel">
         <div class="panel-header">
@@ -275,7 +275,6 @@
     <script>
         lucide.createIcons();
 
-        // Check Admin Session
         fetch('../backend/check_session.php')
             .then(res => res.json())
             .then(data => {
@@ -293,11 +292,9 @@
                 .then(() => window.location.href = '../index.html');
         });
 
-        // Data State
         let allUsers = [];
         let currentFilter = 'all';
 
-        // Load Users
         function loadUsers() {
             fetch('../backend/admin_get_users.php')
                 .then(res => res.json())
@@ -311,7 +308,6 @@
                 });
         }
 
-        // Live Search & Filter
         document.getElementById('search-input').addEventListener('input', renderTable);
         
         document.querySelectorAll('.filter-pill').forEach(pill => {
@@ -329,12 +325,11 @@
             tbody.innerHTML = '';
 
             const filtered = allUsers.filter(user => {
-                // Filter by role pill
+
                 if (currentFilter !== 'all' && user.role !== currentFilter) {
                     return false;
                 }
-                
-                // Live search
+
                 const searchStr = `${user.first_name} ${user.last_name} ${user.email} ${user.role}`.toLowerCase();
                 if (!searchStr.includes(search)) {
                     return false;
@@ -351,8 +346,7 @@
             filtered.forEach(user => {
                 const tr = document.createElement('tr');
                 tr.style.borderBottom = "1px solid #eee";
-                
-                // Styling based on active state
+
                 const rowOpacity = user.is_active == 1 ? "1" : "0.5";
                 
                 let toggleAction = user.is_active == 1 
@@ -390,12 +384,10 @@
                 `;
                 tbody.appendChild(tr);
             });
-            
-            // Re-init icons for newly added HTML
+
             lucide.createIcons();
         }
 
-        // Panel Logic
         const panel = document.getElementById('user-panel');
         const overlay = document.getElementById('overlay');
         const form = document.getElementById('user-form');
@@ -436,7 +428,6 @@
         document.getElementById('btn-cancel').addEventListener('click', closePanel);
         overlay.addEventListener('click', closePanel);
 
-        // Save User
         document.getElementById('btn-save-user').addEventListener('click', () => {
             if(!form.checkValidity()) {
                 form.reportValidity();
@@ -473,7 +464,6 @@
             });
         });
 
-        // Toggle Status (Deactivate/Activate)
         function toggleStatus(id, newStatus) {
             const action = newStatus === 1 ? 'reactivate' : 'deactivate';
             if(!confirm(`Are you sure you want to ${action} this user?`)) return;
@@ -493,7 +483,6 @@
             });
         }
 
-        // Init
         loadUsers();
     </script>
 </body>

@@ -1,5 +1,5 @@
 <?php
-// backend/staff_get_patient_history.php
+
 session_start();
 require 'db.php';
 

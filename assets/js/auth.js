@@ -1,8 +1,7 @@
-// assets/js/auth.js
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- LOGIN FORM HANDLING ---
+
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (result.success) {
-                    // Redirect based on role
+
                     if (result.role === 'patient') {
                         window.location.href = 'patient/dashboard.html';
                     } else if (result.role === 'staff') {
@@ -59,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- REGISTER FORM HANDLING ---
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
         registerForm.addEventListener('submit', async (e) => {
@@ -112,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Utility function to show alerts
     function showAlert(element, message, type) {
         if (!element) return;
         element.textContent = message;
@@ -121,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- SLIDESHOW HANDLING ---
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const indicators = document.querySelectorAll('.indicator');
@@ -138,17 +134,14 @@ const slideDescs = [
 
 function setSlide(index) {
     if (slides.length === 0) return;
-    
-    // Remove active class from all
+
     slides.forEach(s => s.classList.remove('active'));
     indicators.forEach(i => i.classList.remove('active'));
-    
-    // Set new active
+
     currentSlide = index;
     slides[currentSlide].classList.add('active');
     indicators[currentSlide].classList.add('active');
-    
-    // Update text
+
     const titleEl = document.getElementById('slide-title');
     const descEl = document.getElementById('slide-desc');
     if (titleEl && descEl) {
@@ -157,7 +150,6 @@ function setSlide(index) {
     }
 }
 
-// Auto-advance slides every 5 seconds
 if (slides.length > 0) {
     setInterval(() => {
         let next = (currentSlide + 1) % slides.length;

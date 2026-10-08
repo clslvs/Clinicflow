@@ -485,7 +485,7 @@ body {
         font-size: 2rem;
     }
 
-    /* Appointment List Fixes */
+    
     .appointment-item {
         flex-direction: column;
         align-items: flex-start;

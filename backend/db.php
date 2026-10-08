@@ -1,6 +1,6 @@
 <?php
-// db.php
-// Database connection configuration for Laragon
+
+
 
 $host = '127.0.0.1'; // or localhost
 $db   = 'clinicflow';
@@ -17,9 +17,14 @@ $options = [
 
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
+    
+    // Set Timezone for PHP and MySQL so it matches your local time (Philippines +08:00)
+    date_default_timezone_set('Asia/Manila');
+    $pdo->exec("SET time_zone = '+08:00';");
+    
 } catch (\PDOException $e) {
-    // If the database doesn't exist, this will fail.
-    // Ensure you have created the database and imported database.sql in phpMyAdmin
+
+
     header('Content-Type: application/json');
     echo json_encode(["success" => false, "message" => "Database connection failed. Please ensure Laragon MySQL is running and the 'clinicflow' database exists."]);
     exit;

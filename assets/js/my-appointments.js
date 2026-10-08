@@ -1,11 +1,10 @@
-// my-appointments.js
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const tbody = document.getElementById('appointments-tbody');
     const filterBtns = document.querySelectorAll('.filter-btn');
     let allAppointments = [];
-    
-    // Fetch appointments
+
     fetch('../backend/get_my_appointments.php')
         .then(res => res.json())
         .then(data => {
@@ -21,14 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
             tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--light-text);">Error connecting to server.</td></tr>`;
         });
 
-    // Filter logic
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Update active state
+
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            // Render filtered
+
             renderAppointments(btn.dataset.filter);
         });
     });
@@ -39,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = new Date();
         
         let filtered = allAppointments.filter(app => {
-            // Compare dates only so today's appointments don't disappear when time passes
+
             const appDateObj = new Date(app.appointment_date);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -59,12 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         filtered.forEach(app => {
             const tr = document.createElement('tr');
-            
-            // Format Date & Time
+
             const dateObj = new Date(`${app.appointment_date}T${app.appointment_time}`);
             let formattedDate = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-            
-            // Add dot after month abbreviation if needed to match mockup (e.g. "Aug. 27, 2026")
+
             formattedDate = formattedDate.replace(/([a-zA-Z]{3})\s/, '$1. ');
 
             let formattedTime = 'Time not set';
@@ -74,8 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const hr = hours % 12 || 12;
                 formattedTime = `${hr}:${minutes} ${ampm}`;
             }
-            
-            // Status Pill
+
             let statusPillClass = '';
             let statusText = '';
             let actionLinks = '';
@@ -122,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Assign globally to be callable from onclick
     window.showDetails = function(appId) {
         const app = allAppointments.find(a => a.id == appId);
         if(!app) return;
@@ -148,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Global cancel function
     window.cancelAppointment = function(appointmentId) {
         if (confirm("Are you sure you want to cancel this appointment?")) {
             fetch('../backend/cancel_appointment.php', {
@@ -161,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    // Update status in local list and re-render
+
                     const appToUpdate = allAppointments.find(app => app.id == appointmentId);
                     if (appToUpdate) {
                         appToUpdate.status = 'cancelled';
@@ -186,13 +178,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('reschedule-id').value = app.id;
         document.getElementById('reschedule-doctor-id').value = app.doctor_id;
         document.getElementById('reschedule-date').value = app.appointment_date;
-        
-        // Reset time dropdown
+
         document.getElementById('reschedule-time').innerHTML = '<option value="">Select a date first</option>';
         
         document.getElementById('reschedule-modal').style.display = 'flex';
-        
-        // Load times for the current date
+
         window.loadAvailableTimes();
     };
 
@@ -211,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 timeSelect.innerHTML = '';
                 if(data.success && data.times.length > 0) {
                     data.times.forEach(t => {
-                        // Format the label
+
                         const timeParts = t.split(':');
                         const d = new Date();
                         d.setHours(timeParts[0], timeParts[1]);

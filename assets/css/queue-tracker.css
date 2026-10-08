@@ -1,4 +1,4 @@
-/* queue-tracker.css */
+
 
 .queue-grid {
     display: grid;
@@ -6,7 +6,7 @@
     gap: 2rem;
 }
 
-/* Left Column */
+
 .current-position-card {
     background-color: var(--color-teal-700);
     color: white;
@@ -76,7 +76,7 @@
     margin: 1.2rem 0;
 }
 
-/* Right Column */
+
 .queue-overview-card {
     background: white;
     border: 1px solid var(--color-teal-100);
@@ -110,7 +110,7 @@
     transition: all 0.2s ease;
 }
 
-/* Specific States */
+
 .queue-item.in-progress {
     background-color: #FFF9E6;
     border-color: #FDE68A;
@@ -126,7 +126,7 @@
     border-color: #C9DFDE;
 }
 
-/* Position Circle */
+
 .queue-position-circle {
     width: 44px;
     height: 44px;
@@ -155,7 +155,7 @@
     color: white;
 }
 
-/* Details */
+
 .queue-item-details {
     flex: 1;
     display: flex;
@@ -175,7 +175,7 @@
     font-weight: 500;
 }
 
-/* Status Badge */
+
 .queue-item-status {
     font-size: 0.85rem;
     font-weight: 600;

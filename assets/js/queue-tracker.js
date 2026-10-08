@@ -1,4 +1,4 @@
-// queue-tracker.js
+
 
 let previousStatus = null;
 
@@ -7,7 +7,7 @@ function fetchQueueData() {
         .then(res => res.json())
         .then(data => {
             if (data.success && data.has_queue) {
-                // Populate DOM
+
                 document.getElementById('queue-content').style.display = 'grid';
                 document.getElementById('no-queue-msg').style.display = 'none';
 
@@ -43,10 +43,9 @@ function fetchQueueData() {
                         currentUserState = item.state;
                     }
                 });
-                
-                // Check if patient was just called
+
                 if (previousStatus && previousStatus !== 'active' && currentUserState === 'active') {
-                    // Patient is now being served
+
                     playNotificationSound();
                 }
                 
@@ -72,6 +71,6 @@ function playNotificationSound() {
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchQueueData();
-    // Poll every 5 seconds
+
     setInterval(fetchQueueData, 5000);
 });

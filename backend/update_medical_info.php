@@ -1,5 +1,5 @@
 <?php
-// backend/update_medical_info.php
+
 session_start();
 require 'db.php';
 

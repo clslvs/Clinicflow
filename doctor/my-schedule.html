@@ -181,7 +181,7 @@
             background: var(--color-teal-700);
         }
 
-        /* Week Overview Card */
+        
         .week-overview {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -243,7 +243,7 @@
 </head>
 <body>
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+        
         <aside class="sidebar staff-sidebar">
             <div class="sidebar-header">
                 <a href="dashboard.html" class="logo">
@@ -287,7 +287,7 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        
         <main class="main-content" style="padding: 3rem 4rem;">
             <header class="page-header" style="margin-bottom: 2.5rem;">
                 <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">My Schedule</h1>
@@ -295,22 +295,22 @@
             </header>
 
             <div class="availability-container">
-                <!-- Week Overview -->
+                
                 <div class="availability-card">
                     <h2>Weekly Overview</h2>
                     <p>Your availability at a glance.</p>
                     <div class="week-overview" id="week-overview">
-                        <!-- Populated by JS -->
+                        
                     </div>
                 </div>
 
-                <!-- Availability Editor -->
+                
                 <div class="availability-card">
                     <h2>Set Availability</h2>
                     <p>Toggle each day ON or OFF and set your working hours.</p>
                     
                     <div id="availability-slots">
-                        <!-- Populated by JS -->
+                        
                     </div>
 
                     <div class="save-bar">
@@ -328,7 +328,6 @@
         const DAY_SHORT = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
         let currentAvailability = {};
 
-        // Auth check
         fetch('../backend/check_session.php')
             .then(res => res.json())
             .then(data => {
@@ -352,7 +351,7 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
-                        // Map DB data to lookup
+
                         data.availability.forEach(slot => {
                             currentAvailability[slot.day_of_week] = slot;
                         });
@@ -388,7 +387,6 @@
                 `;
                 container.appendChild(row);
 
-                // Toggle event
                 const checkbox = row.querySelector('input[type="checkbox"]');
                 checkbox.addEventListener('change', () => {
                     const inputs = row.querySelectorAll('input[type="time"]');
@@ -432,7 +430,6 @@
             return `${hr12}${ampm}`;
         }
 
-        // Save
         document.getElementById('btn-save').addEventListener('click', () => {
             const availability = [];
 
@@ -464,7 +461,6 @@
             });
         });
 
-        // Update overview when time inputs change
         document.addEventListener('input', (e) => {
             if (e.target.type === 'time') renderOverview();
         });

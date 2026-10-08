@@ -14,12 +14,12 @@
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/staff.css">
     
-    <!-- Lucide Icons -->
+    
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+        
         <aside class="sidebar staff-sidebar">
             <div class="sidebar-header">
                 <a href="dashboard.html" class="logo">
@@ -67,7 +67,7 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        
         <main class="main-content">
             <header class="dashboard-header">
                 <h1 id="greeting">Good Day!</h1>
@@ -96,7 +96,7 @@
             <section class="schedule-panel">
                 <h2>Today's Schedule</h2>
                 <div class="schedule-list" id="schedule-list">
-                    <!-- Populated via JS -->
+                    
                     <p class="loading">Loading schedule...</p>
                 </div>
             </section>
@@ -105,12 +105,10 @@
 
     <script>
         lucide.createIcons();
-        
-        // Format current date
+
         const options = { month: 'long', day: '2-digit', year: 'numeric' };
         document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', options);
 
-        // Check session and load user info
         fetch('../backend/check_session.php')
             .then(res => res.json())
             .then(data => {
@@ -121,8 +119,7 @@
                     document.getElementById('user-name').textContent = name;
                     document.getElementById('greeting').textContent = `Good Day, ${name.split(' ')[0]}!`;
                     document.getElementById('user-avatar').textContent = name.charAt(0);
-                    
-                    // Fetch dashboard data
+
                     fetchDashboardData();
                 }
             })
@@ -139,13 +136,12 @@
                 .then(res => res.json())
                 .then(data => {
                     if(data.success) {
-                        // Update metrics
+
                         document.getElementById('metric-appointments').textContent = String(data.metrics.total_appointments).padStart(2, '0');
                         document.getElementById('metric-queue').textContent = String(data.metrics.in_queue).padStart(2, '0');
                         document.getElementById('metric-doctors').textContent = String(data.metrics.doctors_on_duty).padStart(2, '0');
                         document.getElementById('metric-completed').textContent = String(data.metrics.completed_today).padStart(2, '0');
 
-                        // Update schedule list
                         const list = document.getElementById('schedule-list');
                         list.innerHTML = '';
 
@@ -155,7 +151,7 @@
                         }
 
                         data.schedule.forEach(appt => {
-                            // Format time (assuming H:i:s format from DB)
+
                             const timeParts = appt.appointment_time.split(':');
                             const dateObj = new Date();
                             dateObj.setHours(timeParts[0], timeParts[1]);

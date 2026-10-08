@@ -1,11 +1,10 @@
 <?php
-// backend/staff_get_doctors.php
+
 session_start();
 require 'db.php';
 
 header('Content-Type: application/json');
 
-// Allow patients, staff, and visitors to view active clinic doctors
 
 
 try {

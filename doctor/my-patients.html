@@ -23,7 +23,7 @@
             height: calc(100vh - 180px);
         }
 
-        /* Patient List */
+        
         .patients-list-pane {
             background: white;
             border: 1px solid #e0f2f1;
@@ -115,7 +115,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* Detail Pane */
+        
         .patient-detail-pane {
             background: white;
             border: 1px solid #e0f2f1;
@@ -206,7 +206,7 @@
             gap: 0.5rem;
         }
 
-        /* History Table */
+        
         .history-table {
             width: 100%;
             border-collapse: collapse;
@@ -234,7 +234,7 @@
             background: #f9fffe;
         }
 
-        /* Treatment Notes */
+        
         .notes-cell {
             max-width: 200px;
         }
@@ -257,7 +257,7 @@
             color: var(--color-grey);
         }
 
-        /* Notes Modal */
+        
         .notes-modal-overlay {
             display: none;
             position: fixed;
@@ -350,7 +350,7 @@
 </head>
 <body>
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+        
         <aside class="sidebar staff-sidebar">
             <div class="sidebar-header">
                 <a href="dashboard.html" class="logo">
@@ -394,7 +394,7 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        
         <main class="main-content" style="padding: 3rem 4rem;">
             <header class="page-header" style="margin-bottom: 2.5rem;">
                 <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">My Patients</h1>
@@ -402,7 +402,7 @@
             </header>
 
             <div class="patients-container">
-                <!-- Patient List -->
+                
                 <div class="patients-list-pane">
                     <div class="patients-search">
                         <input type="text" id="search-input" placeholder="Search patients...">
@@ -413,7 +413,7 @@
                     </div>
                 </div>
 
-                <!-- Patient Detail -->
+                
                 <div class="patient-detail-pane" id="detail-pane">
                     <div class="empty-detail">
                         <i data-lucide="user-round-search" style="width:64px;height:64px;opacity:0.3;color:var(--color-grey);"></i>
@@ -424,7 +424,7 @@
         </main>
     </div>
 
-    <!-- Treatment Notes Modal -->
+    
     <div class="notes-modal-overlay" id="notes-modal">
         <div class="notes-modal">
             <h3>Treatment Notes</h3>
@@ -442,7 +442,6 @@
         let allPatients = [];
         let currentNotesApptId = null;
 
-        // Auth check
         fetch('../backend/check_session.php')
             .then(res => res.json())
             .then(data => {
@@ -461,7 +460,6 @@
             fetch('../backend/logout.php').then(() => window.location.href = '../index.html');
         });
 
-        // Search
         document.getElementById('search-input').addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             renderPatientList(allPatients.filter(p => p.name.toLowerCase().includes(query)));
@@ -607,7 +605,6 @@
                 });
         }
 
-        // Notes Modal
         function openNotes(apptId, service, existingNotes) {
             currentNotesApptId = apptId;
             document.getElementById('notes-modal-subtitle').textContent = `${service} — Appointment #${apptId}`;
@@ -637,7 +634,7 @@
             .then(data => {
                 if (data.success) {
                     document.getElementById('notes-modal').classList.remove('show');
-                    // Reload the current patient detail
+
                     const activeItem = document.querySelector('.patient-list-item.active');
                     if (activeItem) activeItem.click();
                 } else {

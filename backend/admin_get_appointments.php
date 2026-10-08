@@ -1,5 +1,5 @@
 <?php
-// backend/admin_get_appointments.php
+
 session_start();
 require 'db.php';
 

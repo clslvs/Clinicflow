@@ -1,5 +1,5 @@
 <?php
-// backend/cancel_appointment.php
+
 session_start();
 require 'db.php';
 
@@ -26,7 +26,7 @@ if (empty($appointment_id)) {
 }
 
 try {
-    // We update the status to 'cancelled' instead of deleting
+
     $stmt = $pdo->prepare("UPDATE appointments SET status = 'cancelled' WHERE id = ? AND patient_id = ?");
     $stmt->execute([$appointment_id, $_SESSION['user_id']]);
     

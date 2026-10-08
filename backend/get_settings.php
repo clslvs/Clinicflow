@@ -1,5 +1,5 @@
 <?php
-// backend/get_settings.php
+
 session_start();
 require 'db.php';
 
@@ -18,7 +18,7 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        // Format Patient ID: e.g. #PT-0001
+
         $patient_id_formatted = "#PT-" . str_pad($user['id'], 4, '0', STR_PAD_LEFT);
 
         echo json_encode([

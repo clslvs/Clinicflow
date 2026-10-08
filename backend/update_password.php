@@ -1,5 +1,5 @@
 <?php
-// backend/update_password.php
+
 session_start();
 require 'db.php';
 
@@ -27,7 +27,7 @@ if (empty($old_password) || empty($new_password)) {
 }
 
 try {
-    // Verify old password
+
     $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
     $stmt->execute([$_SESSION['user_id']]);
     $user = $stmt->fetch();
@@ -37,7 +37,6 @@ try {
         exit;
     }
 
-    // Hash new password and update
     $hashed_new = password_hash($new_password, PASSWORD_DEFAULT);
     $updateStmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
     $updateStmt->execute([$hashed_new, $_SESSION['user_id']]);

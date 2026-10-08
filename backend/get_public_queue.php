@@ -1,10 +1,10 @@
 <?php
-// backend/get_public_queue.php
+
 require 'db.php';
 header('Content-Type: application/json');
 
 try {
-    // Count how many patients are waiting or currently being seen today
+
     $stmt = $pdo->prepare("
         SELECT COUNT(*) as queue_length 
         FROM appointments 
@@ -12,8 +12,7 @@ try {
     ");
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    // Also check if the clinic is currently "open" based on system settings (optional, keeping it simple for now)
+
     
     echo json_encode([
         "success" => true,

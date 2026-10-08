@@ -1,5 +1,5 @@
 <?php
-// backend/get_public_settings.php
+
 require 'db.php';
 
 header('Content-Type: application/json');

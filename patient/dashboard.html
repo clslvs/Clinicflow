@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
 
-    <!-- Lucide Icons -->
+    
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+        
         <aside class="sidebar">
             <div class="sidebar-header">
                 <a href="../index.html" class="logo">
@@ -71,7 +71,7 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+        
         <main class="main-content">
             <header class="page-header">
                 <h1>Good Day, <span id="header-name">...</span>!</h1>
@@ -79,21 +79,21 @@
             </header>
 
             <div class="metrics-grid">
-                <!-- Next Appointment Card -->
+                
                 <div class="metric-card">
                     <div class="card-subtitle">Next Appointment</div>
                     <div class="card-title playfair" id="next-apt-date">No Appointments</div>
                     <div class="card-desc" id="next-apt-desc">-</div>
                 </div>
 
-                <!-- Total Visits Card -->
+                
                 <div class="metric-card">
                     <div class="card-subtitle">Total Visits</div>
                     <div class="card-title" id="total-visits-count">0</div>
                     <div class="card-desc" id="member-since-text">Since -</div>
                 </div>
 
-                <!-- Live Queue Card -->
+                
                 <div class="metric-card bg-teal">
                     <div class="queue-header">
                         <div class="queue-info">
@@ -111,7 +111,7 @@
                 <h2>Upcoming appointments</h2>
 
                 <div class="appointment-list" id="upcoming-appointments-list">
-                    <!-- Dynamic appointments will be injected here -->
+                    
                     <p class="text-center" style="color: var(--light-text); padding: 1rem;">Loading appointments...</p>
                 </div>
 
@@ -125,7 +125,6 @@
     <script>
         lucide.createIcons();
 
-        // Fetch dynamic dashboard data
         fetch('../backend/get_dashboard_data.php')
             .then(res => res.json())
             .then(data => {
@@ -134,24 +133,20 @@
                     return;
                 }
 
-                // Update User Info
                 document.getElementById('sidebar-name').textContent = data.user.name;
                 document.getElementById('sidebar-avatar').textContent = data.user.initial;
-                // Get first name for header greeting
+
                 const firstName = data.user.name.split(' ')[0];
                 document.getElementById('header-name').textContent = firstName;
 
-                // Update Total Visits
                 document.getElementById('total-visits-count').textContent = data.total_visits;
                 document.getElementById('member-since-text').textContent = "Since " + data.member_since;
 
-                // Update Next Appointment
                 if (data.next_appointment) {
                     document.getElementById('next-apt-date').textContent = data.next_appointment.date_display;
                     document.getElementById('next-apt-desc').textContent = `${data.next_appointment.time_display} - ${data.next_appointment.doctor_name}`;
                 }
 
-                // Fetch real-time queue number for the card
                 function updateQueue() {
                     fetch('../backend/get_queue_data.php')
                         .then(res => res.json())
@@ -159,14 +154,12 @@
                             if (qData.success && qData.has_queue) {
                                 document.getElementById('dashboard-queue-number').textContent = qData.user_queue_number;
 
-                                // Play sound if called
                                 if (qData.patient_status === 'in_progress') {
                                     if (window.lastKnownStatus !== 'in_progress') {
                                         const audio = new Audio('../assets/sound/mixkit-happy-bells-notification-937.wav');
                                         audio.play().catch(e => console.log('Audio blocked', e));
                                         window.lastKnownStatus = 'in_progress';
 
-                                        // Refresh the appointments list to show the new status
                                         window.location.reload();
                                     }
                                 }
@@ -176,7 +169,6 @@
                 updateQueue();
                 setInterval(updateQueue, 5000);
 
-                // Update Upcoming Appointments List
                 const listContainer = document.getElementById('upcoming-appointments-list');
                 listContainer.innerHTML = ''; // clear loading text
 

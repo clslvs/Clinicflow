@@ -1,5 +1,5 @@
 <?php
-// backend/get_available_times.php
+
 session_start();
 require 'db.php';
 
@@ -14,7 +14,7 @@ if (empty($doctor_id) || empty($date)) {
 }
 
 try {
-    // 1. Check if the clinic is closed on this day
+
     $dateObj = new DateTime($date);
     $dayOfWeek = $dateObj->format('l'); // e.g., 'Monday'
     
@@ -28,12 +28,10 @@ try {
         }
     }
 
-    // 2. Get Doctor's custom availability for this day
     $availStmt = $pdo->prepare("SELECT is_available, start_time, end_time FROM doctor_availability WHERE doctor_id = ? AND day_of_week = ?");
     $availStmt->execute([$doctor_id, $dayOfWeek]);
     $availability = $availStmt->fetch(PDO::FETCH_ASSOC);
 
-    // If doctor hasn't set this day to available, return empty
     if (!$availability || $availability['is_available'] == 0) {
         echo json_encode(["success" => true, "slots" => [], "message" => "Doctor is not available."]);
         exit;
@@ -42,7 +40,6 @@ try {
     $start = $availability['start_time']; // e.g. "09:00:00"
     $end = $availability['end_time'];
 
-    // Generate 30 minute slots
     $slots = [];
     $current = strtotime($date . ' ' . $start);
     $endTime = strtotime($date . ' ' . $end);
@@ -52,7 +49,6 @@ try {
         $current = strtotime('+30 minutes', $current);
     }
 
-    // 3. Get existing bookings for this doctor on this date
     $bookStmt = $pdo->prepare("
         SELECT appointment_time 
         FROM appointments 
@@ -61,12 +57,10 @@ try {
     $bookStmt->execute([$doctor_id, $date]);
     $bookedTimes = $bookStmt->fetchAll(PDO::FETCH_COLUMN);
 
-    // Format booked times to H:i
     $bookedTimes = array_map(function($t) {
         return date('H:i', strtotime($t));
     }, $bookedTimes);
 
-    // Filter out booked slots
     $availableSlots = array_values(array_diff($slots, $bookedTimes));
 
     echo json_encode([

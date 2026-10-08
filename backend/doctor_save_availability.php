@@ -1,5 +1,5 @@
 <?php
-// backend/doctor_save_availability.php
+
 session_start();
 require 'db.php';
 

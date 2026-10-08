@@ -1,5 +1,5 @@
 <?php
-// backend/staff_get_weekly_schedule.php
+
 session_start();
 require 'db.php';
 

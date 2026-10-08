@@ -1,5 +1,5 @@
 <?php
-// backend/get_my_appointments.php
+
 session_start();
 require 'db.php';
 
@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 try {
-    // Fetch all appointments for the patient, join with doctors to get doctor name
+
     $stmt = $pdo->prepare("
         SELECT 
             a.id, 

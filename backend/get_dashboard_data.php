@@ -1,5 +1,5 @@
 <?php
-// backend/get_dashboard_data.php
+
 session_start();
 require 'db.php';
 
@@ -24,7 +24,7 @@ $response = [
 ];
 
 try {
-    // Get member since month/year
+
     $stmtUser = $pdo->prepare("SELECT created_at FROM users WHERE id = ?");
     $stmtUser->execute([$user_id]);
     $userData = $stmtUser->fetch();
@@ -33,14 +33,12 @@ try {
         $response['member_since'] = $date->format('F Y');
     }
 
-    // Get total visits (count all appointments for this user)
     $stmtTotal = $pdo->prepare("SELECT COUNT(*) as total FROM appointments WHERE patient_id = ?");
     $stmtTotal->execute([$user_id]);
     $totalData = $stmtTotal->fetch();
     $response['total_visits'] = $totalData['total'] ?? 0;
 
-    // Get upcoming appointments (appointments in the future)
-    // We'll join with doctors table to get doctor name
+
     $stmtUpcoming = $pdo->prepare("
         SELECT a.*, d.name as doctor_name 
         FROM appointments a
@@ -52,7 +50,6 @@ try {
     $stmtUpcoming->execute([$user_id]);
     $appointments = $stmtUpcoming->fetchAll();
 
-    // If there's at least one upcoming, the first one is the "next appointment"
     if (count($appointments) > 0) {
         $next = $appointments[0];
         
@@ -70,7 +67,6 @@ try {
         ];
     }
 
-    // Format all upcoming appointments for the list
     foreach ($appointments as $apt) {
         $dateObj = new DateTime($apt['appointment_date']);
         
@@ -79,8 +75,7 @@ try {
             $timeObj = new DateTime($apt['appointment_time']);
             $time_text = $timeObj->format('h:i A');
         }
-        
-        // Format status cleanly (e.g. "in_progress" -> "In progress")
+
         $status_display = str_replace('_', ' ', $apt['status']);
         $status_display = ucfirst($status_display);
 

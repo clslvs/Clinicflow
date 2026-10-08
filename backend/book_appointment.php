@@ -1,5 +1,5 @@
 <?php
-// backend/book_appointment.php
+
 session_start();
 require 'db.php';
 

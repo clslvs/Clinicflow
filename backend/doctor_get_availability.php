@@ -1,5 +1,5 @@
 <?php
-// backend/doctor_get_availability.php
+
 session_start();
 require 'db.php';
 
@@ -26,12 +26,10 @@ try {
     $stmt->execute([$doctor_id]);
     $availability = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Get doctor info
     $docStmt = $pdo->prepare("SELECT name, specialty FROM doctors WHERE id = ?");
     $docStmt->execute([$doctor_id]);
     $doctorInfo = $docStmt->fetch();
 
-    // Get this week's appointments count
     $weekStmt = $pdo->prepare("
         SELECT COUNT(*) as week_count FROM appointments 
         WHERE doctor_id = ? AND status != 'cancelled' 

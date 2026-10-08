@@ -1,11 +1,10 @@
 <?php
-// backend/admin_manage_settings.php
+
 session_start();
 require 'db.php';
 
 header('Content-Type: application/json');
 
-// Either GET to fetch settings, or POST to update them.
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         $stmt = $pdo->query("SELECT setting_key, setting_value FROM system_settings");

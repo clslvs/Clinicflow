@@ -1,5 +1,5 @@
 <?php
-// backend/reschedule_appointment.php
+
 session_start();
 require 'db.php';
 
@@ -34,7 +34,7 @@ if (empty($appointment_id) || empty($date)) {
 }
 
 try {
-    // Ensure the appointment belongs to this patient
+
     $stmtCheck = $pdo->prepare("SELECT id FROM appointments WHERE id = ? AND patient_id = ?");
     $stmtCheck->execute([$appointment_id, $patient_id]);
     if ($stmtCheck->rowCount() === 0) {

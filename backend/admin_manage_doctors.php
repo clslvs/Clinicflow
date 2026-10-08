@@ -1,5 +1,5 @@
 <?php
-// backend/admin_manage_doctors.php
+
 session_start();
 require 'db.php';
 

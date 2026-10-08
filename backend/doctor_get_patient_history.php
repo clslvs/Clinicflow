@@ -1,5 +1,5 @@
 <?php
-// backend/doctor_get_patient_history.php
+
 session_start();
 require 'db.php';
 
@@ -28,7 +28,6 @@ try {
 
     $doctor_id = $userRow['linked_doctor_id'];
 
-    // Get patient info
     $patStmt = $pdo->prepare("SELECT id, first_name, last_name, email, phone, allergies, medical_conditions FROM users WHERE id = ?");
     $patStmt->execute([$patient_id]);
     $patient = $patStmt->fetch();
@@ -38,7 +37,6 @@ try {
         exit;
     }
 
-    // Get appointment history with this doctor
     $histStmt = $pdo->prepare("
         SELECT a.id, a.service, a.appointment_date, a.appointment_time, a.status, a.notes, a.doctor_notes,
                d.name as doctor_name

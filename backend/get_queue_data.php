@@ -1,5 +1,5 @@
 <?php
-// backend/get_queue_data.php
+
 session_start();
 require 'db.php';
 
@@ -14,7 +14,7 @@ $user_id = $_SESSION['user_id'];
 $today = date('Y-m-d');
 
 try {
-    // 1. Find the user's next upcoming appointment (today or in the future)
+
     $stmt = $pdo->prepare("
         SELECT id, doctor_id, status, appointment_time, appointment_date 
         FROM appointments 
@@ -26,7 +26,7 @@ try {
     $userAppt = $stmt->fetch();
 
     if (!$userAppt) {
-        // No appointment today or in the future
+
         echo json_encode(["success" => true, "has_queue" => false]);
         exit;
     }
@@ -35,13 +35,11 @@ try {
     $user_appointment_id = $userAppt['id'];
     $queue_date = $userAppt['appointment_date'];
 
-    // Get doctor name
     $docStmt = $pdo->prepare("SELECT name FROM doctors WHERE id = ?");
     $docStmt->execute([$doctor_id]);
     $doctor = $docStmt->fetch();
     $doctor_name = $doctor ? $doctor['name'] : "Unknown Doctor";
 
-    // 2. Fetch all appointments for this doctor on that specific date
     $queueStmt = $pdo->prepare("
         SELECT a.id, a.status, a.patient_id, a.service, a.appointment_time, u.is_priority, CONCAT(u.first_name, ' ', u.last_name) as patient_name
         FROM appointments a
@@ -55,8 +53,7 @@ try {
     $queueList = [];
     $userPosition = 0;
     $currentPatientIndex = 0; // Find the first in_progress or pending
-    
-    // Determine the active patient
+
     $activePatientFound = false;
 
     foreach ($allAppointments as $index => $app) {
@@ -67,7 +64,6 @@ try {
             $userPosition = $pos;
         }
 
-        // Determine item state: 'in-progress', 'your-turn' (if user and it's their turn), or 'waiting'
         $state = 'waiting';
         $stateLabel = 'Waiting';
         
@@ -77,7 +73,7 @@ try {
             $activePatientFound = true;
             $currentPatientIndex = $index;
         } else if (!$activePatientFound) {
-            // First pending becomes active/in-progress conceptually if none are marked in_progress
+
             $state = 'in-progress';
             $stateLabel = 'In Progress';
             $activePatientFound = true;
@@ -88,8 +84,7 @@ try {
             $state = 'your-turn';
             $stateLabel = 'Your Turn';
         }
-        
-        // Ensure format is 012, 023, etc. using ID
+
         $qnum = str_pad($app['id'], 3, '0', STR_PAD_LEFT);
 
         $queueList[] = [
@@ -104,8 +99,7 @@ try {
 
     $peopleAhead = max(0, $userPosition - $currentPatientIndex - 1);
     $estimatedWaitMins = $peopleAhead * 30; // 30 mins per person
-    
-    // Format estimated wait
+
     if ($estimatedWaitMins >= 60) {
         $hrs = floor($estimatedWaitMins / 60);
         $mins = $estimatedWaitMins % 60;

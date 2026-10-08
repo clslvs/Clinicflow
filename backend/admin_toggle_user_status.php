@@ -1,5 +1,5 @@
 <?php
-// backend/admin_toggle_user_status.php
+
 session_start();
 require 'db.php';
 
@@ -17,7 +17,6 @@ if (!isset($data['id'], $data['is_active'])) {
     exit;
 }
 
-// Prevent admin from deactivating themselves
 if ($data['id'] == $_SESSION['user_id']) {
     echo json_encode(["success" => false, "message" => "You cannot deactivate your own account."]);
     exit;

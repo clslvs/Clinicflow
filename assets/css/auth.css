@@ -1,4 +1,4 @@
-/* assets/css/auth.css */
+
 body {
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@ body {
     background-color: #f8fbfa;
 }
 
-/* Background Animation & Mesh Gradient */
+
 .auth-page {
     position: relative;
     width: 100%;
@@ -64,7 +64,7 @@ body {
     100% { transform: translate(0, 0) scale(1); }
 }
 
-/* Glassmorphism Card (Split Layout) */
+
 .auth-card {
     position: relative;
     z-index: 10;
@@ -89,7 +89,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Left Showcase Area */
+
 .auth-showcase {
     flex: 1;
     position: relative;
@@ -143,7 +143,7 @@ body {
     opacity: 1;
 }
 
-/* Slide Gradients/Images */
+
 .slide-1 { background: linear-gradient(135deg, rgba(12,124,119,0.9), rgba(50,150,146,0.9)), url('../images/temporarypicdoctor.jpg') center/cover; }
 .slide-2 { background: linear-gradient(135deg, rgba(50,150,146,0.9), rgba(98,228,222,0.9)), url('../images/temporarypicdoctor.jpg') center/cover; }
 .slide-3 { background: linear-gradient(135deg, rgba(12,124,119,0.9), rgba(12,124,119,0.5)), url('../images/temporarypicdoctor.jpg') center/cover; }
@@ -184,7 +184,7 @@ body {
     background: white;
 }
 
-/* Right Form Section */
+
 .auth-form-section {
     flex: 1;
     padding: 40px;
@@ -228,7 +228,7 @@ body {
     font-weight: 500;
 }
 
-/* Tabs */
+
 .auth-tabs {
     display: flex;
     background: rgba(255, 255, 255, 0.5);
@@ -259,7 +259,7 @@ body {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* Form Styles */
+
 .auth-form {
     display: flex;
     flex-direction: column;
@@ -306,7 +306,7 @@ body {
     gap: 15px;
 }
 
-/* Role Selector */
+
 .role-selector {
     display: flex;
     gap: 15px;
@@ -349,7 +349,7 @@ body {
     font-size: 1.5rem;
 }
 
-/* Submit Button */
+
 .btn-glow {
     margin-top: 5px;
     width: 100%;
@@ -376,7 +376,7 @@ body {
     transform: translateY(0);
 }
 
-/* Alerts */
+
 .auth-alert {
     padding: 15px 20px;
     border-radius: 12px;

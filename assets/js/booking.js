@@ -1,9 +1,8 @@
-// booking.js
+
 document.addEventListener('DOMContentLoaded', () => {
     let currentStep = 1;
     const totalSteps = 4;
-    
-    // State
+
     const bookingData = {
         service: null,
         doctorId: null,
@@ -12,13 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
         time: null
     };
 
-    // DOM Elements
     const form = document.getElementById('booking-form');
     const steps = document.querySelectorAll('.form-step');
     const stepperCircles = document.querySelectorAll('.step');
     const stepperLines = document.querySelectorAll('.step-line');
-    
-    // Buttons
+
     const nextBtns = document.querySelectorAll('.btn-next');
     const prevBtns = document.querySelectorAll('.btn-prev');
     const submitBtn = document.getElementById('btn-submit');
@@ -26,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeSlots = document.querySelectorAll('.time-slot');
     const dateInput = document.getElementById('appointment_date');
 
-    // Helper to get tailored icons, estimated time, and prices for services
     function getServiceDetails(serviceName) {
         const lower = (serviceName || '').toLowerCase();
         if (lower.includes('clean')) return { icon: '✨', est: 'est. 45 min', price: '$45' };
@@ -39,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return { icon: '🦷', est: 'est. 45 min', price: '$45' };
     }
 
-    // Dynamic Loading
     function loadServices() {
         fetch('../backend/get_active_services.php')
             .then(res => res.json())
@@ -90,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         div.dataset.doctor = d.id;
                         div.dataset.doctorName = d.name;
 
-                        // Calculate initials e.g. "Dr. Maria Santos" -> "MS"
                         const names = d.name.replace(/^Dr\.\s*/i, '').trim().split(' ');
                         const initials = names.length > 1 
                             ? (names[0][0] + names[names.length - 1][0]).toUpperCase() 
@@ -116,11 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Call them
     loadServices();
     loadDoctors();
 
-    // Validation update function
     const updateNextButtonState = () => {
         const currentStepContainer = document.getElementById(`step-${currentStep}`);
         const nextBtn = currentStepContainer.querySelector('.btn-next');
@@ -134,9 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBtn.disabled = !isValid;
     };
 
-    // Step Navigation
     const updateStepperUI = () => {
-        // Update Form Steps
+
         steps.forEach((step, index) => {
             if (index + 1 === currentStep) {
                 step.classList.add('active');
@@ -145,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Update Stepper Header
         stepperCircles.forEach((circle, index) => {
             const stepNum = index + 1;
             circle.classList.remove('active', 'completed');
@@ -164,16 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Update Summary if on last step
         if (currentStep === 4) {
             document.getElementById('summary-service').textContent = bookingData.service;
             document.getElementById('summary-doctor').textContent = bookingData.doctorName;
-            
-            // Format date nicer
+
             const dateObj = new Date(bookingData.date);
             const formattedDate = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-            
-            // Format time nicer
+
             let formattedTime = bookingData.time;
             if (formattedTime) {
                 const [h, m] = formattedTime.split(':');
@@ -185,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.getElementById('summary-date').textContent = `${formattedDate} at ${formattedTime}`;
 
-            // Notes
             document.getElementById('summary-notes').textContent = bookingData.note || 'None';
         }
     };
@@ -210,9 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
-
-    // Step 3: Date & Time
     const timeSlotsContainer = document.getElementById('time-slots-container');
     let closedDays = [];
 
@@ -240,11 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // reset time selection when date changes
         bookingData.time = null;
         updateNextButtonState();
 
-        // Show time slots when a date is selected
         if (bookingData.date && bookingData.doctorId) {
             timeSlotsContainer.style.display = 'block';
             const grid = document.getElementById('time-grid');
@@ -258,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     grid.innerHTML = '';
                     if (data.success && data.slots && data.slots.length > 0) {
                         data.slots.forEach(time => {
-                            // format HH:mm to 12-hour
+
                             const [h, m] = time.split(':');
                             const hour = parseInt(h);
                             const ampm = hour >= 12 ? 'PM' : 'AM';
@@ -295,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Capture optional note on submit or when changed
     const noteInput = document.getElementById('appointment_note');
     if (noteInput) {
         noteInput.addEventListener('input', (e) => {
@@ -303,7 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Submission
     submitBtn.addEventListener('click', async () => {
         const errorDiv = document.getElementById('booking-error');
         errorDiv.textContent = '';
@@ -322,10 +301,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (data.success) {
-                // Hide booking flow, show success screen
+
                 document.getElementById('booking-flow').style.display = 'none';
-                
-                // Populate success screen
+
                 document.getElementById('success-queue').textContent = data.queue_number;
                 document.getElementById('success-service').textContent = bookingData.service;
                 document.getElementById('success-doctor').textContent = bookingData.doctorName;

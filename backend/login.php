@@ -1,5 +1,5 @@
 <?php
-// backend/login.php
+
 session_start();
 require 'db.php';
 
@@ -28,9 +28,9 @@ if (empty($email) || empty($password)) {
 }
 
 try {
-    // Check if user exists with the specified email AND role
-    // (If they try to login as admin but their role is patient, this will block it, 
-    // or we can just fetch by email and check role after. Fetch by email is better.)
+
+
+
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
@@ -41,13 +41,11 @@ try {
             exit;
         }
 
-        // Verify password
         if (password_verify($password, $user['password'])) {
-            
-            // If the user is an admin, let them login regardless of which radio button they chose
+
             if ($user['role'] !== 'admin') {
-                // Check if the role they selected matches their actual database role
-                // Since "Staff / Admin" radio submits "staff", allow staff, admin, and doctor
+
+
                 if ($role === 'staff' && !in_array($user['role'], ['staff', 'doctor'])) {
                     echo json_encode(["success" => false, "message" => "Your account is not registered as Staff or Doctor."]);
                     exit;
@@ -57,7 +55,6 @@ try {
                 }
             }
 
-            // Login successful, set session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_role'] = $user['role'];
             $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];

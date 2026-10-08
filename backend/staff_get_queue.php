@@ -1,5 +1,5 @@
 <?php
-// backend/staff_get_queue.php
+
 session_start();
 require 'db.php';
 
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'staff') {
 }
 
 try {
-    // Get all appointments for today
+
     $stmt = $pdo->prepare("
         SELECT a.id, a.service, a.status, a.appointment_time, 
                u.first_name, u.last_name, u.is_priority,
@@ -34,7 +34,7 @@ try {
     $queue_number = 1;
 
     foreach ($appointments as $appt) {
-        // Map 'pending' and 'confirmed' to 'waiting' for logic
+
         $logical_status = $appt['status'];
         if ($logical_status === 'pending' || $logical_status === 'confirmed') {
             $logical_status = 'waiting';

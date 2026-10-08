@@ -1,5 +1,5 @@
 <?php
-// backend/doctor_get_dashboard.php
+
 session_start();
 require 'db.php';
 
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'doctor') {
 }
 
 try {
-    // Get the linked_doctor_id for this user
+
     $userStmt = $pdo->prepare("SELECT linked_doctor_id FROM users WHERE id = ?");
     $userStmt->execute([$_SESSION['user_id']]);
     $userRow = $userStmt->fetch();
@@ -23,7 +23,6 @@ try {
 
     $doctor_id = $userRow['linked_doctor_id'];
 
-    // 1. Get today's metrics specific to THIS doctor
     $stmt = $pdo->prepare("
         SELECT 
             COUNT(*) as total_appointments,
@@ -35,7 +34,6 @@ try {
     $stmt->execute([$doctor_id]);
     $metrics = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Get total patients count for this doctor
     $patientStmt = $pdo->prepare("
         SELECT COUNT(DISTINCT patient_id) as total_patients 
         FROM appointments 
@@ -44,7 +42,6 @@ try {
     $patientStmt->execute([$doctor_id]);
     $patientData = $patientStmt->fetch(PDO::FETCH_ASSOC);
 
-    // 2. Get today's schedule specific to THIS doctor
     $stmtSched = $pdo->prepare("
         SELECT a.id, a.service, a.status, a.appointment_time, a.notes, 
                CONCAT(u.first_name, ' ', u.last_name) as patient_name

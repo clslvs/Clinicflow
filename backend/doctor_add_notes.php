@@ -1,5 +1,5 @@
 <?php
-// backend/doctor_add_notes.php
+
 session_start();
 require 'db.php';
 
@@ -31,7 +31,6 @@ try {
 
     $doctor_id = $userRow['linked_doctor_id'];
 
-    // Verify this appointment belongs to this doctor
     $stmt = $pdo->prepare("UPDATE appointments SET doctor_notes = ? WHERE id = ? AND doctor_id = ?");
     $stmt->execute([$notes, $appointment_id, $doctor_id]);
 

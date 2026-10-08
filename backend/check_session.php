@@ -1,5 +1,5 @@
 <?php
-// backend/check_session.php
+
 session_start();
 
 header('Content-Type: application/json');
@@ -19,7 +19,7 @@ if (isset($_SESSION['user_id'])) {
         ]);
         exit;
     } else {
-        // User was deleted from DB but session remained active.
+
         session_destroy();
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,22 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="../assets/css/variables.css">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/staff.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
-    
+
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         .settings-card {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             border: 1px solid #eee;
             padding: 2.5rem;
             margin-bottom: 2rem;
@@ -52,7 +55,9 @@
             font-size: 0.85rem;
         }
 
-        .setting-group input, .setting-group select, .setting-group textarea {
+        .setting-group input,
+        .setting-group select,
+        .setting-group textarea {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid #d1d5db;
@@ -66,27 +71,30 @@
             gap: 0.5rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .checkbox-group input {
             width: auto;
         }
 
         .overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
             z-index: 999;
         }
-        
+
         .overlay.show {
             opacity: 1;
             pointer-events: all;
         }
 
-        /* Slide-out Panel */
+
         .slide-panel {
             position: fixed;
             top: 0;
@@ -94,7 +102,7 @@
             width: 450px;
             height: 100vh;
             background: white;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
             transition: right 0.3s ease;
             z-index: 1000;
             display: flex;
@@ -129,9 +137,10 @@
         }
     </style>
 </head>
+
 <body style="background-color: #f8f9fa;">
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+
         <aside class="sidebar admin-sidebar">
             <div class="sidebar-header">
                 <a href="../index.html" class="logo">
@@ -139,9 +148,10 @@
                     <span>ClinicFlow</span>
                 </a>
             </div>
-            
+
             <div class="user-profile-section">
-                <div class="avatar" id="sidebar-avatar" style="background-color: white; color: black; font-weight: bold;">...</div>
+                <div class="avatar" id="sidebar-avatar"
+                    style="background-color: white; color: black; font-weight: bold;">...</div>
                 <div class="user-info">
                     <h3 class="user-name" id="sidebar-name">Loading...</h3>
                     <span class="user-role">Admin</span>
@@ -171,11 +181,13 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
+
         <main class="main-content" style="padding: 3rem 4rem;">
             <header class="page-header" style="margin-bottom: 2rem;">
-                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Settings</h1>
-                <p style="color: #666; font-weight: 500; font-size: 1.05rem;">Manage clinic configuration, services, and doctors.</p>
+                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">
+                    Settings</h1>
+                <p style="color: #666; font-weight: 500; font-size: 1.05rem;">Manage clinic configuration, services, and
+                    doctors.</p>
             </header>
 
             <div class="admin-tabs">
@@ -184,7 +196,7 @@
                 <div class="admin-tab" data-target="tab-doctors">Manage Doctors</div>
             </div>
 
-            <!-- TAB: General Config -->
+
             <div class="admin-tab-content active" id="tab-config">
                 <div class="settings-card">
                     <h3 class="settings-section-title playfair">Clinic Profile</h3>
@@ -215,14 +227,15 @@
                                 <input type="time" id="config-close-time" required>
                             </div>
                         </div>
-                        
+
                         <div class="setting-group">
                             <label>CLOSED DAYS</label>
                             <div style="display: flex; gap: 1rem; flex-wrap: wrap;" id="config-closed-days">
                                 <label class="checkbox-group"><input type="checkbox" value="Sunday"> Sunday</label>
                                 <label class="checkbox-group"><input type="checkbox" value="Monday"> Monday</label>
                                 <label class="checkbox-group"><input type="checkbox" value="Tuesday"> Tuesday</label>
-                                <label class="checkbox-group"><input type="checkbox" value="Wednesday"> Wednesday</label>
+                                <label class="checkbox-group"><input type="checkbox" value="Wednesday">
+                                    Wednesday</label>
                                 <label class="checkbox-group"><input type="checkbox" value="Thursday"> Thursday</label>
                                 <label class="checkbox-group"><input type="checkbox" value="Friday"> Friday</label>
                                 <label class="checkbox-group"><input type="checkbox" value="Saturday"> Saturday</label>
@@ -234,10 +247,11 @@
                 </div>
             </div>
 
-            <!-- TAB: Services -->
+
             <div class="admin-tab-content" id="tab-services">
                 <div class="settings-card" style="padding: 0;">
-                    <div style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                    <div
+                        style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
                         <h3 class="playfair" style="margin: 0;">Dental Services</h3>
                         <button class="btn-outline-teal" onclick="openServiceModal()">+ Add Service</button>
                     </div>
@@ -251,16 +265,17 @@
                             </tr>
                         </thead>
                         <tbody id="services-tbody">
-                            <!-- Populated via JS -->
+
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- TAB: Doctors -->
+
             <div class="admin-tab-content" id="tab-doctors">
                 <div class="settings-card" style="padding: 0;">
-                    <div style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
+                    <div
+                        style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
                         <h3 class="playfair" style="margin: 0;">Doctors Directory</h3>
                         <button class="btn-outline-teal" onclick="openDoctorModal()">+ Add Doctor</button>
                     </div>
@@ -274,7 +289,7 @@
                             </tr>
                         </thead>
                         <tbody id="doctors-tbody">
-                            <!-- Populated via JS -->
+
                         </tbody>
                     </table>
                 </div>
@@ -283,10 +298,11 @@
         </main>
     </div>
 
-    <!-- Overlay & Slide Panel -->
+
     <div class="overlay" id="overlay"></div>
     <div class="slide-panel" id="doctor-panel">
-        <div class="panel-header" style="padding: 1.5rem 2rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+        <div class="panel-header"
+            style="padding: 1.5rem 2rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
             <h2 class="playfair" id="panel-title" style="margin: 0;">Add New Doctor</h2>
             <button onclick="closePanel()" style="background:none; border:none; cursor:pointer; color:#666;">
                 <i data-lucide="x"></i>
@@ -309,7 +325,7 @@
                     <label>EMAIL ADDRESS</label>
                     <input type="email" id="doc-email" required>
                 </div>
-                
+
                 <div class="setting-group">
                     <label>PHONE NUMBER</label>
                     <input type="text" id="doc-phone" required>
@@ -331,20 +347,21 @@
                 </div>
             </form>
         </div>
-        <div class="panel-footer" style="padding: 1.5rem 2rem; border-top: 1px solid #eee; background: #f8f9fa; display: flex; justify-content: flex-end; gap: 1rem;">
-            <button class="btn-outline-teal" onclick="closePanel()" style="border-color: #d1d5db; color: #4b5563;">Cancel</button>
+        <div class="panel-footer"
+            style="padding: 1.5rem 2rem; border-top: 1px solid #eee; background: #f8f9fa; display: flex; justify-content: flex-end; gap: 1rem;">
+            <button class="btn-outline-teal" onclick="closePanel()"
+                style="border-color: #d1d5db; color: #4b5563;">Cancel</button>
             <button class="btn-solid-teal" onclick="submitDoctor(event)">Save Doctor</button>
         </div>
     </div>
-    
+
     <script>
         lucide.createIcons();
 
-        // Check Admin Session
         fetch('../backend/check_session.php')
             .then(res => res.json())
             .then(data => {
-                if(!data.success || data.user.role !== 'admin') {
+                if (!data.success || data.user.role !== 'admin') {
                     window.location.href = '../login.html';
                 } else {
                     document.getElementById('sidebar-name').textContent = data.user.name;
@@ -358,18 +375,16 @@
                 .then(() => window.location.href = '../index.html');
         });
 
-        // Tab Switching Logic
         document.querySelectorAll('.admin-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-                
+
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.target).classList.add('active');
             });
         });
 
-        // --- GENERAL CONFIG ---
         function loadConfig() {
             fetch('../backend/admin_manage_settings.php')
                 .then(res => res.json())
@@ -381,7 +396,7 @@
                         document.getElementById('config-clinic-phone').value = settings.clinic_phone || '';
                         document.getElementById('config-open-time').value = settings.open_time || '';
                         document.getElementById('config-close-time').value = settings.close_time || '';
-                        
+
                         const closedDays = JSON.parse(settings.closed_days || '[]');
                         document.querySelectorAll('#config-closed-days input[type="checkbox"]').forEach(cb => {
                             cb.checked = closedDays.includes(cb.value);
@@ -392,7 +407,7 @@
 
         document.getElementById('form-config').addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const closedDays = [];
             document.querySelectorAll('#config-closed-days input[type="checkbox"]:checked').forEach(cb => {
                 closedDays.push(cb.value);
@@ -412,19 +427,18 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success) alert("Settings saved successfully!");
-                else alert(data.message);
-            });
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) alert("Settings saved successfully!");
+                    else alert(data.message);
+                });
         });
 
-        // --- SERVICES ---
         function loadServices() {
             fetch('../backend/admin_manage_services.php')
                 .then(res => res.json())
                 .then(data => {
-                    if(data.success) {
+                    if (data.success) {
                         const tbody = document.getElementById('services-tbody');
                         tbody.innerHTML = '';
                         data.services.forEach(s => {
@@ -447,12 +461,12 @@
 
         function openServiceModal() {
             const name = prompt("Enter Service Name:");
-            if(!name) return;
+            if (!name) return;
             const desc = prompt("Enter Description:");
-            
+
             fetch('../backend/admin_manage_services.php', {
                 method: 'POST',
-                headers: {'Content-Type':'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ action: 'create', name: name, description: desc || '' })
             }).then(() => loadServices());
         }
@@ -460,17 +474,16 @@
         function toggleService(id, isActive) {
             fetch('../backend/admin_manage_services.php', {
                 method: 'POST',
-                headers: {'Content-Type':'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ action: 'update_status', id: id, is_active: isActive })
             }).then(() => loadServices());
         }
 
-        // --- DOCTORS ---
         function loadDoctors() {
             fetch('../backend/staff_get_doctors.php')
                 .then(res => res.json())
                 .then(data => {
-                    if(data.success) {
+                    if (data.success) {
                         const tbody = document.getElementById('doctors-tbody');
                         tbody.innerHTML = '';
                         data.doctors.forEach(d => {
@@ -505,7 +518,7 @@
         function submitDoctor(e) {
             e.preventDefault();
             const form = document.getElementById('doctor-form');
-            if(!form.checkValidity()) {
+            if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
             }
@@ -527,7 +540,7 @@
             formData.append('password', password);
             formData.append('role', 'doctor');
             formData.append('specialty', specialty);
-            
+
             if (avatarFile) {
                 formData.append('avatar', avatarFile);
             }
@@ -536,32 +549,32 @@
                 method: 'POST',
                 body: formData
             }).then(res => res.json())
-              .then(data => {
-                  if (data.success) {
-                      closePanel();
-                      loadDoctors();
-                  } else {
-                      alert(data.message || "Failed to add doctor.");
-                  }
-              }).catch(err => {
-                  console.error(err);
-                  alert("An error occurred while uploading. Check console.");
-              });
+                .then(data => {
+                    if (data.success) {
+                        closePanel();
+                        loadDoctors();
+                    } else {
+                        alert(data.message || "Failed to add doctor.");
+                    }
+                }).catch(err => {
+                    console.error(err);
+                    alert("An error occurred while uploading. Check console.");
+                });
         }
 
         function deleteDoctor(id) {
-            if(!confirm("Delete this doctor?")) return;
+            if (!confirm("Delete this doctor?")) return;
             fetch('../backend/admin_manage_doctors.php', {
                 method: 'POST',
-                headers: {'Content-Type':'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ action: 'delete', id: id })
             }).then(() => loadDoctors());
         }
 
-        // INIT
         loadConfig();
         loadServices();
         loadDoctors();
     </script>
 </body>
+
 </html>
