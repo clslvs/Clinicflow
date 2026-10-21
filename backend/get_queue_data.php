@@ -18,7 +18,7 @@ try {
     $stmt = $pdo->prepare("
         SELECT id, doctor_id, status, appointment_time, appointment_date 
         FROM appointments 
-        WHERE patient_id = ? AND appointment_date = ? AND status IN ('pending', 'in_progress', 'confirmed')
+        WHERE patient_id = ? AND appointment_date >= ? AND status IN ('pending', 'in_progress', 'confirmed')
         ORDER BY appointment_date ASC, created_at ASC
         LIMIT 1
     ");
@@ -50,22 +50,6 @@ try {
     $queueStmt->execute([$doctor_id, $queue_date]);
     $allAppointments = $queueStmt->fetchAll();
 
-    // Get global queue numbers for today to match staff dashboard
-    $globalQueueStmt = $pdo->prepare("
-        SELECT a.id
-        FROM appointments a
-        JOIN users u ON a.patient_id = u.id
-        WHERE a.appointment_date = ? AND a.status != 'cancelled'
-        ORDER BY u.is_priority DESC, a.created_at ASC
-    ");
-    $globalQueueStmt->execute([$queue_date]);
-    $globalAppointments = $globalQueueStmt->fetchAll(PDO::FETCH_COLUMN);
-    
-    $globalQueueMap = [];
-    foreach ($globalAppointments as $i => $app_id) {
-        $globalQueueMap[$app_id] = $i + 1;
-    }
-
     $queueList = [];
     $userPosition = 0;
     $currentPatientIndex = 0; // Find the first in_progress or pending
@@ -90,23 +74,18 @@ try {
             $currentPatientIndex = $index;
         } else if (!$activePatientFound) {
 
-            $state = 'waiting';
-            $stateLabel = 'Waiting';
+            $state = 'in-progress';
+            $stateLabel = 'In Progress';
             $activePatientFound = true;
             $currentPatientIndex = $index;
         }
 
         if ($isUser) {
             $state = 'your-turn';
-            if ($index === $currentPatientIndex) {
-                $stateLabel = 'Your Turn';
-            } else {
-                $stateLabel = 'You';
-            }
+            $stateLabel = 'Your Turn';
         }
 
-        $global_q = $globalQueueMap[$app['id']] ?? 0;
-        $qnum = str_pad($global_q, 2, '0', STR_PAD_LEFT);
+        $qnum = str_pad($app['id'], 3, '0', STR_PAD_LEFT);
 
         $queueList[] = [
             "position" => str_pad($pos, 2, '0', STR_PAD_LEFT), // 01, 02
@@ -138,7 +117,7 @@ try {
         "has_queue" => true,
         "doctor_name" => $doctor_name,
         "user_position" => str_pad($userPosition, 2, '0', STR_PAD_LEFT),
-        "user_queue_number" => str_pad($globalQueueMap[$userAppt['id']] ?? 0, 2, '0', STR_PAD_LEFT),
+        "user_queue_number" => str_pad($userAppt['id'], 3, '0', STR_PAD_LEFT),
         "current_patient" => $currentPatientStr,
         "people_ahead" => $peopleAhead,
         "estimated_wait" => $estWaitText,

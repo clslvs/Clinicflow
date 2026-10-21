@@ -57,13 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         filtered.forEach(app => {
             const tr = document.createElement('tr');
 
-            let dateObj;
-            if (app.appointment_time) {
-                dateObj = new Date(`${app.appointment_date}T${app.appointment_time}`);
-            } else {
-                dateObj = new Date(app.appointment_date + 'T00:00:00'); // Safe fallback
-            }
-            
+            const dateObj = new Date(`${app.appointment_date}T${app.appointment_time}`);
             let formattedDate = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
             formattedDate = formattedDate.replace(/([a-zA-Z]{3})\s/, '$1. ');
@@ -148,38 +142,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.cancelAppointment = function(appointmentId) {
-        document.getElementById('cancel-appointment-id').value = appointmentId;
-        document.getElementById('cancel-modal').style.display = 'flex';
-    };
+        if (confirm("Are you sure you want to cancel this appointment?")) {
+            fetch('../backend/cancel_appointment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ appointment_id: appointmentId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
 
-    window.confirmCancelAppointment = function() {
-        const appointmentId = document.getElementById('cancel-appointment-id').value;
-        fetch('../backend/cancel_appointment.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ appointment_id: appointmentId })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                const appToUpdate = allAppointments.find(app => app.id == appointmentId);
-                if (appToUpdate) {
-                    appToUpdate.status = 'cancelled';
+                    const appToUpdate = allAppointments.find(app => app.id == appointmentId);
+                    if (appToUpdate) {
+                        appToUpdate.status = 'cancelled';
+                    }
+                    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+                    renderAppointments(activeFilter);
+                } else {
+                    alert(data.message || "Failed to cancel appointment.");
                 }
-                const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-                renderAppointments(activeFilter);
-                document.getElementById('cancel-modal').style.display = 'none';
-                alert("Appointment cancelled successfully.");
-            } else {
-                alert(data.message || "Failed to cancel appointment.");
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            alert("Error connecting to server.");
-        });
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Error connecting to server.");
+            });
+        }
     };
 
     window.openRescheduleModal = function(appId) {
@@ -210,8 +199,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
             .then(data => {
                 timeSelect.innerHTML = '';
-                if(data.success && data.slots.length > 0) {
-                    data.slots.forEach(t => {
+                const availableTimes = data.times || data.slots || [];
+                if(data.success && availableTimes.length > 0) {
+                    availableTimes.forEach(t => {
 
                         const timeParts = t.split(':');
                         const d = new Date();
@@ -257,4 +247,13 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Error connecting to server.");
         });
     };
+
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .finally(() => window.location.href = '../login.html');
+        });
+    }
 });

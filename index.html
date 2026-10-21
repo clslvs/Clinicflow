@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClinicFlow - Your Brightest Smile Starts Here</title>
-    <meta name="description" content="ClinicFlow is a modern dental clinic offering comprehensive dental care, teeth whitening, orthodontics, and more. Book your appointment today.">
-    <link rel="canonical" href="https://clinicflow.infinityfree.me/" />
+    <meta name="description" content="ClinicFlow — Modern dental care with online booking, real-time queue tracking, and expert doctors. Your brightest smile starts here.">
     <link rel="icon" type="image/png" href="assets/images/logo.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,9 +14,9 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/variables.css">
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/variables.css?v=5">
+    <link rel="stylesheet" href="assets/css/global.css?v=5">
+    <link rel="stylesheet" href="assets/css/layout.css?v=5">
 </head>
 
 <body>
@@ -26,11 +25,22 @@
             <img src="assets/images/logo.png" alt="ClinicFlow Logo" />
             <span>ClinicFlow</span>
         </div>
-        <div class="header-actions">
-            <a href="login.html" class="btn btn-primary">Login</a>
-            <a href="register.html" class="btn btn-primary">Sign Up</a>
+        <div class="nav-container" id="nav-container">
+            <nav class="main-nav" id="main-nav">
+                <a href="#services">Services</a>
+                <a href="#doctors">Doctors</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="header-actions" id="header-actions">
+                <a href="login.html" class="btn btn-primary">Login</a>
+                <a href="register.html" class="btn btn-secondary">Register</a>
+            </div>
         </div>
+        <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
     </header>
+    <div class="mobile-backdrop" id="mobile-backdrop"></div>
 
     <main>
 
@@ -39,7 +49,7 @@
                 <h1>Your Brightest<br>Smile Starts<br><span class="highlight">Here.</span></h1>
                 <p>Modern dental care with a gentle touch. Book appointments online, track your queue in real time, and
                     leave with a smile.</p>
-                <a href="login.html" class="btn btn-light">Book Appointment</a>
+                <a href="login.html" class="btn btn-light">Login to Book</a>
             </div>
             <div class="hero-image">
                 <img src="assets/images/hero-clinic.jpg" alt="Modern Dental Clinic" />
@@ -56,7 +66,7 @@
             </div>
         </section>
 
-        <section class="services">
+        <section class="services" id="services">
             <div class="section-header fade-up">
                 <span class="subtitle">WHAT WE OFFER</span>
                 <h2>Comprehensive Dental Care</h2>
@@ -97,7 +107,7 @@
             </div>
         </section>
 
-        <section class="doctors">
+        <section class="doctors" id="doctors">
             <div class="section-header fade-up">
                 <span class="subtitle">OUR TEAM</span>
                 <h2>Meet the Doctors</h2>
@@ -131,13 +141,13 @@
         <section class="cta">
             <div class="cta-content fade-up">
                 <h2>Ready for Your Best Smile?</h2>
-                <p>BOOK AN APPOINTMENT TODAY. FRIENDLY CARE, FLEXIBLE HOURS, NO LONG WAITS.</p>
+                <p>Book an appointment today — friendly care, flexible hours, no long waits.</p>
                 <a href="login.html" class="btn btn-primary">Book Now!</a>
             </div>
         </section>
     </main>
 
-    <footer class="main-footer">
+    <footer class="main-footer" id="contact">
         <div class="footer-grid">
             <div class="footer-brand">
                 <h3>ClinicFlow</h3>
@@ -158,48 +168,48 @@
                 <p>Sunday: Closed</p>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ClinicFlow. All rights reserved.</p>
+        </div>
     </footer>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Dentist",
-      "name": "ClinicFlow",
-      "image": "https://clinicflow.infinityfree.me/assets/images/logo.png",
-      "@id": "",
-      "url": "https://clinicflow.infinityfree.me/",
-      "telephone": "+15551234567",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "123 Dental Avenue, Suite 100",
-        "addressLocality": "City",
-        "addressRegion": "State",
-        "postalCode": "12345",
-        "addressCountry": "US"
-      },
-      "openingHoursSpecification": [{
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "08:00",
-        "closes": "18:00"
-      },{
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Saturday",
-        "opens": "09:00",
-        "closes": "16:00"
-      }] 
-    }
-    </script>
-    <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/animations.js?v=2" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Immediate safety fallback so content is never blank even if observer is delayed
+            setTimeout(() => {
+                document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+            }, 600);
             lucide.createIcons();
+
+            // Hamburger menu toggle
+            const hamburger = document.getElementById('hamburger-btn');
+            const header = document.querySelector('.main-header');
+            const navContainer = document.getElementById('nav-container');
+            const backdrop = document.getElementById('mobile-backdrop');
+
+            function toggleMenu(open) {
+                const isOpen = open !== undefined ? open : !header.classList.contains('nav-open');
+                header.classList.toggle('nav-open', isOpen);
+                hamburger.classList.toggle('active', isOpen);
+                if (navContainer) navContainer.classList.toggle('open', isOpen);
+                if (backdrop) backdrop.classList.toggle('active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                document.body.style.overflow = isOpen ? 'hidden' : '';
+            }
+
+            if (hamburger) {
+                hamburger.addEventListener('click', () => toggleMenu());
+                if (backdrop) backdrop.addEventListener('click', () => toggleMenu(false));
+                document.querySelectorAll('.main-nav a, .header-actions a').forEach(link => {
+                    link.addEventListener('click', () => toggleMenu(false));
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && header.classList.contains('nav-open')) {
+                        toggleMenu(false);
+                    }
+                });
+            }
 
             fetch('backend/get_public_queue.php')
                 .then(res => res.json())

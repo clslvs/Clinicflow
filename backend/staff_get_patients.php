@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['staff', 
 try {
 
     $stmt = $pdo->prepare("
-        SELECT id, first_name, last_name, email, phone, allergies, medical_conditions, is_priority 
+        SELECT id, first_name, last_name, email, phone, allergies, medical_conditions 
         FROM users 
         WHERE role = 'patient' 
         ORDER BY first_name ASC
@@ -54,8 +54,7 @@ try {
             "allergies" => $p['allergies'] ? $p['allergies'] : 'None',
             "medical_conditions" => $p['medical_conditions'] ? $p['medical_conditions'] : 'None',
             "total_visits" => $total_visits,
-            "primary_doctor" => $primary_doctor,
-            "is_priority" => (bool)$p['is_priority']
+            "primary_doctor" => $primary_doctor
         ];
     }
 

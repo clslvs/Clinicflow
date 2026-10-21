@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const loginForm = document.getElementById('loginForm');
@@ -34,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (result.success) {
-
                     if (result.role === 'patient') {
                         window.location.href = 'patient/dashboard.html';
                     } else if (result.role === 'staff') {
@@ -51,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error(error);
-                showAlert(alertBox, 'A network error occurred. Make sure Laragon is running and the database is configured.', 'error');
+                showAlert(alertBox, 'A network error occurred. Make sure the server and database are configured.', 'error');
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
             }
@@ -103,17 +100,145 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error(error);
-                showAlert(alertBox, 'A network error occurred. Make sure Laragon is running and the database is configured.', 'error');
+                showAlert(alertBox, 'A network error occurred. Make sure the server and database are configured.', 'error');
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
             }
         });
     }
 
+    // Password Visibility Toggle (Show / Hide password)
+    const toggleButtons = document.querySelectorAll('.toggle-password-btn');
+    toggleButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const wrapper = btn.closest('.password-input-wrapper');
+            if (!wrapper) return;
+            const input = wrapper.querySelector('input');
+            if (!input) return;
+
+            const eyeIcon = btn.querySelector('.eye-icon');
+            const eyeOffIcon = btn.querySelector('.eye-off-icon');
+            const isPassword = input.type === 'password';
+
+            input.type = isPassword ? 'text' : 'password';
+
+            if (eyeIcon && eyeOffIcon) {
+                eyeIcon.style.display = isPassword ? 'none' : 'block';
+                eyeOffIcon.style.display = isPassword ? 'block' : 'none';
+            }
+
+            const labelText = isPassword ? 'Hide password' : 'Show password';
+            btn.setAttribute('aria-label', labelText);
+            btn.setAttribute('title', labelText);
+        });
+    });
+
+    // Forgot Password Modal Handlers
+    const forgotModal = document.getElementById('forgotPasswordModal');
+    const openForgotBtn = document.getElementById('forgotPasswordBtn');
+    const closeForgotBtn = document.getElementById('closeForgotModal');
+    const backToSignInLink = document.getElementById('backToSignInLink');
+    const forgotForm = document.getElementById('forgotPasswordForm');
+    const forgotEmailInput = document.getElementById('forgotEmail');
+    const forgotAlert = document.getElementById('forgot-alert');
+    const forgotSubmitBtn = document.getElementById('forgotSubmitBtn');
+
+    function openForgotModal() {
+        if (!forgotModal) return;
+        const loginEmail = document.getElementById('email');
+        if (loginEmail && loginEmail.value && forgotEmailInput) {
+            forgotEmailInput.value = loginEmail.value;
+        }
+        if (forgotAlert) {
+            forgotAlert.style.display = 'none';
+            forgotAlert.innerHTML = '';
+        }
+        forgotModal.classList.add('active');
+        forgotModal.setAttribute('aria-hidden', 'false');
+        setTimeout(() => {
+            if (forgotEmailInput) forgotEmailInput.focus();
+        }, 150);
+    }
+
+    function closeForgotModal() {
+        if (!forgotModal) return;
+        forgotModal.classList.remove('active');
+        forgotModal.setAttribute('aria-hidden', 'true');
+    }
+
+    if (openForgotBtn) {
+        openForgotBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openForgotModal();
+        });
+    }
+
+    if (closeForgotBtn) {
+        closeForgotBtn.addEventListener('click', closeForgotModal);
+    }
+
+    if (backToSignInLink) {
+        backToSignInLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeForgotModal();
+            const emailInput = document.getElementById('email');
+            if (emailInput) emailInput.focus();
+        });
+    }
+
+    if (forgotModal) {
+        forgotModal.addEventListener('click', (e) => {
+            if (e.target === forgotModal) closeForgotModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && forgotModal.classList.contains('active')) {
+                closeForgotModal();
+            }
+        });
+    }
+
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = forgotEmailInput.value.trim();
+            if (!email) return;
+
+            const originalBtnText = forgotSubmitBtn.textContent;
+            forgotSubmitBtn.textContent = 'Sending...';
+            forgotSubmitBtn.disabled = true;
+
+            try {
+                const response = await fetch('backend/forgot_password.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert(forgotAlert, result.message, 'success');
+                    if (!result.demo_mode) {
+                        forgotEmailInput.value = '';
+                    }
+                } else {
+                    showAlert(forgotAlert, result.message || 'Unable to process request.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showAlert(forgotAlert, 'A network error occurred. Please try again.', 'error');
+            } finally {
+                forgotSubmitBtn.textContent = originalBtnText;
+                forgotSubmitBtn.disabled = false;
+            }
+        });
+    }
+
     function showAlert(element, message, type) {
         if (!element) return;
-        element.textContent = message;
-        element.className = `auth-alert ${type}`; // Add classes like 'error' or 'success'
+        element.innerHTML = message;
+        element.className = `auth-alert ${type}`;
         element.style.display = 'block';
     }
 });

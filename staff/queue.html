@@ -60,7 +60,7 @@
             </nav>
 
             <div class="sidebar-footer">
-                <a href="#" id="logout-btn" class="nav-item">
+                <a href="../login.html" id="logout-btn" class="nav-item">
                     <i data-lucide="log-out"></i>
                     <span>Sign Out</span>
                 </a>
@@ -110,11 +110,8 @@
                 <textarea id="modal-notes" rows="3" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); font-family: inherit; resize: vertical;"></textarea>
             </div>
             <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label style="display:block; margin-bottom: 0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">RECOMMENDED FOLLOW-UP DATE & TIME (OPTIONAL)</label>
-                <div style="display: flex; gap: 0.5rem;">
-                    <input type="date" id="modal-followup-date" style="flex: 1; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100);">
-                    <input type="time" id="modal-followup-time" style="width: 120px; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100);">
-                </div>
+                <label style="display:block; margin-bottom: 0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">RECOMMENDED FOLLOW-UP DATE (OPTIONAL)</label>
+                <input type="date" id="modal-followup-date" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100);">
             </div>
             <div style="display: flex; gap: 1rem; justify-content: flex-end;">
                 <button type="button" class="btn-outline-teal" onclick="closeCompletionModal()">Cancel</button>
@@ -129,7 +126,7 @@
         document.getElementById('logout-btn').addEventListener('click', (e) => {
             e.preventDefault();
             fetch('../backend/logout.php')
-                .then(() => window.location.href = '../index.html');
+                .finally(() => window.location.href = '../login.html');
         });
 
         fetch('../backend/check_session.php')
@@ -240,7 +237,6 @@
             pendingCompletionId = appointmentId;
             document.getElementById('modal-notes').value = '';
             document.getElementById('modal-followup-date').value = '';
-            document.getElementById('modal-followup-time').value = '';
             document.getElementById('completion-modal').style.display = 'flex';
         }
         
@@ -253,12 +249,7 @@
             if (pendingCompletionId) {
                 const notes = document.getElementById('modal-notes').value;
                 const followupDate = document.getElementById('modal-followup-date').value;
-                const followupTime = document.getElementById('modal-followup-time').value;
-                updateStatus(pendingCompletionId, 'completed', { 
-                    notes: notes, 
-                    follow_up_date: followupDate,
-                    follow_up_time: followupTime 
-                });
+                updateStatus(pendingCompletionId, 'completed', { notes: notes, follow_up_date: followupDate });
                 closeCompletionModal();
             }
         });

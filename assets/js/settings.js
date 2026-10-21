@@ -27,90 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('input-conditions').value = user.medical_conditions || '';
                 document.getElementById('input-priority').checked = user.is_priority === 1 || user.is_priority === true;
             } else {
-                alert(data.message || "Failed to load settings.");
+                window.location.href = '../login.html';
             }
         })
         .catch(err => {
             console.error("Error fetching settings:", err);
         });
-
-    const btnEditPersonal = document.getElementById('btn-edit-personal');
-    const btnSavePersonal = document.getElementById('btn-save-personal');
-    const inputFirstName = document.getElementById('input-firstname');
-    const inputLastName = document.getElementById('input-lastname');
-    const inputEmail = document.getElementById('input-email');
-    const inputPhone = document.getElementById('input-phone');
-    const personalForm = document.getElementById('personal-form');
-
-    if (btnEditPersonal) {
-        btnEditPersonal.addEventListener('click', () => {
-            inputFirstName.removeAttribute('readonly');
-            inputLastName.removeAttribute('readonly');
-            inputEmail.removeAttribute('readonly');
-            inputPhone.removeAttribute('readonly');
-
-            btnEditPersonal.style.display = 'none';
-            btnSavePersonal.style.display = 'inline-block';
-
-            inputFirstName.focus();
-        });
-
-        personalForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const payload = {
-                first_name: inputFirstName.value.trim(),
-                last_name: inputLastName.value.trim(),
-                email: inputEmail.value.trim(),
-                phone: inputPhone.value.trim()
-            };
-
-            btnSavePersonal.disabled = true;
-            btnSavePersonal.textContent = 'Saving...';
-
-            fetch('../backend/update_personal_info.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(data => {
-                btnSavePersonal.disabled = false;
-                btnSavePersonal.textContent = 'Save';
-
-                if (data.success) {
-                    inputFirstName.setAttribute('readonly', true);
-                    inputLastName.setAttribute('readonly', true);
-                    inputEmail.setAttribute('readonly', true);
-                    inputPhone.setAttribute('readonly', true);
-
-                    btnSavePersonal.style.display = 'none';
-                    btnEditPersonal.style.display = 'inline-block';
-
-                    const initial = payload.first_name.charAt(0).toUpperCase();
-                    const fullName = `${payload.first_name} ${payload.last_name}`;
-                    const sidebarAvatar = document.getElementById('sidebar-avatar');
-                    if (sidebarAvatar) sidebarAvatar.textContent = initial;
-                    const sidebarName = document.getElementById('sidebar-name');
-                    if (sidebarName) sidebarName.textContent = fullName;
-                    const settingsAvatar = document.getElementById('settings-avatar');
-                    if (settingsAvatar) settingsAvatar.textContent = initial;
-                    const settingsName = document.getElementById('settings-name');
-                    if (settingsName) settingsName.textContent = fullName;
-
-                    alert("Personal information updated successfully.");
-                } else {
-                    alert(data.message || "Failed to update personal information.");
-                }
-            })
-            .catch(err => {
-                console.error("Error updating personal info:", err);
-                btnSavePersonal.disabled = false;
-                btnSavePersonal.textContent = 'Save';
-                alert("Error connecting to server.");
-            });
-        });
-    }
 
     const btnEditMedical = document.getElementById('btn-edit-medical');
     const btnSaveMedical = document.getElementById('btn-save-medical');
@@ -219,4 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Error connecting to server.");
         });
     });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.getElementById('logout-btn') || document.querySelector('.sign-out');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .finally(() => window.location.href = '../login.html');
+        });
+    }
 });

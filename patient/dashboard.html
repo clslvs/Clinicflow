@@ -64,7 +64,7 @@
             </nav>
 
             <div class="sidebar-footer">
-                <a href="../login.html" class="nav-item sign-out">
+                <a href="../login.html" class="nav-item sign-out" id="logout-btn">
                     <i data-lucide="log-out"></i>
                     <span>Sign Out</span>
                 </a>
@@ -124,6 +124,15 @@
 
     <script>
         lucide.createIcons();
+
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                fetch('../backend/logout.php')
+                    .finally(() => window.location.href = '../login.html');
+            });
+        }
 
         fetch('../backend/get_dashboard_data.php')
             .then(res => res.json())

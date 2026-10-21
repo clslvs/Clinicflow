@@ -19,7 +19,7 @@ $patient_id = $_GET['patient_id'];
 
 try {
     $stmt = $pdo->prepare("
-        SELECT a.id, a.doctor_id, a.service, a.appointment_date, a.appointment_time, a.status, a.notes, d.name as doctor_name
+        SELECT a.id, a.service, a.appointment_date, a.appointment_time, a.status, a.notes, d.name as doctor_name
         FROM appointments a
         JOIN doctors d ON a.doctor_id = d.id
         WHERE a.patient_id = ?

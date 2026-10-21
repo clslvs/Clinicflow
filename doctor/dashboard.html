@@ -60,7 +60,7 @@
             </nav>
 
             <div class="sidebar-footer">
-                <a href="#" id="logout-btn" class="nav-item">
+                <a href="../login.html" id="logout-btn" class="nav-item">
                     <i data-lucide="log-out"></i>
                     <span>Sign Out</span>
                 </a>
@@ -128,7 +128,7 @@
         document.getElementById('logout-btn').addEventListener('click', (e) => {
             e.preventDefault();
             fetch('../backend/logout.php')
-                .then(() => window.location.href = '../index.html');
+                .finally(() => window.location.href = '../login.html');
         });
 
         function fetchDashboardData() {

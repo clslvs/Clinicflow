@@ -1,3 +1,23 @@
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteBase /
+
+# If file or folder exists, serve directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Clean URL fallbacks: /login -> /login.html
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# Clean URL fallbacks: /register -> /register.html
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+</IfModule>
+
+# Handle 404 by directing to homepage instead of external InfinityFree error page
+ErrorDocument 404 /index.html
+ErrorDocument 403 /index.html

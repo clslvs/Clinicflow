@@ -25,3 +25,5 @@ desktop.ini
 
 # Local ignore directory
 ignore/
+.tokenade/
+*.zip

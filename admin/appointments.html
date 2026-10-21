@@ -58,7 +58,7 @@
             </nav>
 
             <div class="sidebar-footer">
-                <a href="#" id="logout-btn" class="nav-item sign-out">
+                <a href="../login.html" id="logout-btn" class="nav-item sign-out">
                     <i data-lucide="log-out"></i>
                     <span>Sign Out</span>
                 </a>
@@ -131,7 +131,7 @@
         document.getElementById('logout-btn').addEventListener('click', (e) => {
             e.preventDefault();
             fetch('../backend/logout.php')
-                .then(() => window.location.href = '../index.html');
+                .finally(() => window.location.href = '../login.html');
         });
 
         let allAppointments = [];

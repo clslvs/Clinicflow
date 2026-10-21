@@ -62,7 +62,7 @@
             </nav>
 
             <div class="sidebar-footer">
-                <a href="../login.html" class="nav-item sign-out">
+                <a href="../login.html" class="nav-item sign-out" id="logout-btn">
                     <i data-lucide="log-out"></i>
                     <span>Sign Out</span>
                 </a>
@@ -89,30 +89,24 @@
                     
                     <h4 class="settings-section-title">PERSONAL INFORMATION</h4>
                     
-                    <form id="personal-form">
-                        <div class="settings-grid">
-                            <div class="input-group">
-                                <label>FIRST NAME</label>
-                                <input type="text" id="input-firstname" class="settings-input" readonly required>
-                            </div>
-                            <div class="input-group">
-                                <label>LAST NAME</label>
-                                <input type="text" id="input-lastname" class="settings-input" readonly required>
-                            </div>
-                            <div class="input-group">
-                                <label>EMAIL</label>
-                                <input type="email" id="input-email" class="settings-input" readonly required>
-                            </div>
-                            <div class="input-group">
-                                <label>PHONE NUMBER</label>
-                                <input type="text" id="input-phone" class="settings-input" readonly>
-                            </div>
+                    <div class="settings-grid">
+                        <div class="input-group">
+                            <label>FIRST NAME</label>
+                            <input type="text" id="input-firstname" class="settings-input" readonly>
                         </div>
-                        <div class="card-actions">
-                            <button type="button" class="btn-settings-action" id="btn-edit-personal">Edit</button>
-                            <button type="submit" class="btn-settings-action primary" id="btn-save-personal" style="display: none;">Save</button>
+                        <div class="input-group">
+                            <label>LAST NAME</label>
+                            <input type="text" id="input-lastname" class="settings-input" readonly>
                         </div>
-                    </form>
+                        <div class="input-group">
+                            <label>EMAIL</label>
+                            <input type="email" id="input-email" class="settings-input" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label>PHONE NUMBER</label>
+                            <input type="text" id="input-phone" class="settings-input" readonly>
+                        </div>
+                    </div>
                 </div>
 
                 

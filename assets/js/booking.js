@@ -337,3 +337,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.getElementById('logout-btn') || document.querySelector('.sign-out');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .finally(() => window.location.href = '../login.html');
+        });
+    }
+});

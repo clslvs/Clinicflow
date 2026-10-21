@@ -74,3 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(fetchQueueData, 5000);
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('../backend/logout.php')
+                .finally(() => window.location.href = '../login.html');
+        });
+    }
+});

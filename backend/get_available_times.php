@@ -23,7 +23,7 @@ try {
     if ($settings && !empty($settings['setting_value'])) {
         $closedDays = json_decode($settings['setting_value'], true);
         if (in_array($dayOfWeek, $closedDays)) {
-            echo json_encode(["success" => true, "slots" => [], "message" => "Clinic is closed."]);
+            echo json_encode(["success" => true, "slots" => [], "times" => [], "message" => "Clinic is closed."]);
             exit;
         }
     }
@@ -33,7 +33,7 @@ try {
     $availability = $availStmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$availability || $availability['is_available'] == 0) {
-        echo json_encode(["success" => true, "slots" => [], "message" => "Doctor is not available."]);
+        echo json_encode(["success" => true, "slots" => [], "times" => [], "message" => "Doctor is not available."]);
         exit;
     }
 
@@ -65,7 +65,8 @@ try {
 
     echo json_encode([
         "success" => true,
-        "slots" => $availableSlots
+        "slots" => $availableSlots,
+        "times" => $availableSlots
     ]);
 
 } catch (PDOException $e) {
