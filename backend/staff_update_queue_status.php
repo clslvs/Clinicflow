@@ -5,7 +5,7 @@ require 'db.php';
 
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'staff') {
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['staff', 'admin'])) {
     echo json_encode(["success" => false, "message" => "Unauthorized"]);
     exit;
 }

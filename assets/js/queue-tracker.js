@@ -1,6 +1,40 @@
 
 
-let previousStatus = null;
+let isCurrentlyCalled = false;
+
+function dismissCallAlert() {
+    const banner = document.getElementById('call-alert-banner');
+    if (banner) banner.style.display = 'none';
+}
+
+function triggerCallNotification(data) {
+    // 1. Show glowing announcement banner
+    const banner = document.getElementById('call-alert-banner');
+    const titleEl = document.getElementById('call-banner-title');
+    const descEl = document.getElementById('call-banner-desc');
+    if (banner) {
+        if (titleEl) titleEl.textContent = `Queue #${data.user_queue_number} is being called!`;
+        if (descEl) descEl.textContent = `Please proceed to the consultation room for ${data.doctor_name}.`;
+        banner.style.display = 'block';
+    }
+
+    // 2. Play audio notification chime
+    playNotificationSound();
+
+    // 3. Spoken Voice Announcement via Web Speech API
+    if ('speechSynthesis' in window) {
+        try {
+            window.speechSynthesis.cancel();
+            const text = `Now serving, Queue Number ${data.user_queue_number}. Please proceed to your consultation with ${data.doctor_name}.`;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.95;
+            utterance.pitch = 1.0;
+            window.speechSynthesis.speak(utterance);
+        } catch (e) {
+            console.warn("Speech synthesis unavailable:", e);
+        }
+    }
+}
 
 function fetchQueueData() {
     fetch('../backend/get_queue_data.php')
@@ -23,8 +57,6 @@ function fetchQueueData() {
                 const listContainer = document.getElementById('queue-list-container');
                 listContainer.innerHTML = '';
                 
-                let currentUserState = null;
-
                 data.queue_list.forEach(item => {
                     const el = document.createElement('div');
                     el.className = `queue-item ${item.state}`;
@@ -38,23 +70,24 @@ function fetchQueueData() {
                         <div class="queue-item-status">${item.stateLabel}</div>
                     `;
                     listContainer.appendChild(el);
-                    
-                    if (item.queue_number === data.user_queue_number) {
-                        currentUserState = item.state;
-                    }
                 });
 
-                if (previousStatus && previousStatus !== 'active' && currentUserState === 'active') {
-
-                    playNotificationSound();
+                // Detect when staff calls this patient (status === 'in_progress')
+                if (data.is_called) {
+                    if (!isCurrentlyCalled) {
+                        isCurrentlyCalled = true;
+                        triggerCallNotification(data);
+                    }
+                } else {
+                    isCurrentlyCalled = false;
+                    dismissCallAlert();
                 }
-                
-                previousStatus = currentUserState;
                 
             } else if (data.success && !data.has_queue) {
                 document.getElementById('queue-content').style.display = 'none';
                 document.getElementById('no-queue-msg').style.display = 'block';
                 document.getElementById('queue-subtitle').textContent = "No active queue found.";
+                dismissCallAlert();
             } else {
                 console.error(data.message || "Failed to load queue data.");
             }
