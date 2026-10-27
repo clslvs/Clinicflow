@@ -21,7 +21,7 @@ try {
         JOIN doctors d ON a.doctor_id = d.id
         WHERE a.appointment_date = CURDATE()
           AND a.status != 'cancelled'
-        ORDER BY u.is_priority DESC, a.created_at ASC
+        ORDER BY u.is_priority DESC, COALESCE(NULLIF(a.appointment_time, ''), '23:59:59') ASC, a.created_at ASC
     ");
     $stmt->execute();
     $appointments = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -71,6 +71,6 @@ try {
     ]);
 
 } catch (PDOException $e) {
-    echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 }
 ?>

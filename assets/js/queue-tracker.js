@@ -2,6 +2,16 @@
 
 let isCurrentlyCalled = false;
 
+function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 function dismissCallAlert() {
     const banner = document.getElementById('call-alert-banner');
     if (banner) banner.style.display = 'none';
@@ -62,12 +72,12 @@ function fetchQueueData() {
                     el.className = `queue-item ${item.state}`;
                     
                     el.innerHTML = `
-                        <div class="queue-position-circle">${item.position}</div>
+                        <div class="queue-position-circle">${escapeHtml(item.position)}</div>
                         <div class="queue-item-details">
-                            <span class="queue-item-number">${item.queue_number}</span>
-                            <span class="queue-item-service">${item.service}</span>
+                            <span class="queue-item-number">${escapeHtml(item.queue_number)}</span>
+                            <span class="queue-item-service">${escapeHtml(item.service)}</span>
                         </div>
-                        <div class="queue-item-status">${item.stateLabel}</div>
+                        <div class="queue-item-status">${escapeHtml(item.stateLabel)}</div>
                     `;
                     listContainer.appendChild(el);
                 });

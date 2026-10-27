@@ -24,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // 2. Go to: Profile / Settings -> SMTP & API -> API Keys -> Generate a new API key.
 // 3. Paste your API key below and set your sender email (must be a verified email in Brevo).
 // =============================================================================
-define('BREVO_API_KEY', 'YOUR_BREVO_API_KEY_HERE');
-define('SENDER_EMAIL', 'no-reply@clinicflow.com'); // Put your Brevo verified sender email here
+define('BREVO_API_KEY', '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');
+define('SENDER_EMAIL', 'charleslhiansilva@gmail.com');
 define('SENDER_NAME', 'ClinicFlow Dental Care');
 
 $json = file_get_contents('php://input');
@@ -65,7 +65,16 @@ try {
         exit;
     }
 
-    // 2. Generate a secure, readable temporary password (e.g. CF-9K3p7X)
+    // 2. Ensure Email service is active before resetting credentials
+    if (BREVO_API_KEY === 'YOUR_BREVO_API_KEY_HERE' || empty(BREVO_API_KEY)) {
+        echo json_encode([
+            "success" => false,
+            "message" => "Automated password reset is currently unavailable. Please contact the clinic administrator to reset your password."
+        ]);
+        exit;
+    }
+
+    // 3. Generate a secure, readable temporary password (e.g. CF-9K3p7X)
     $chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     $randomCode = '';
     for ($i = 0; $i < 6; $i++) {
@@ -73,23 +82,12 @@ try {
     }
     $new_password = 'CF-' . $randomCode;
 
-    // 3. Hash and update password in database
+    // 4. Hash and update password in database
     $hashed_new = password_hash($new_password, PASSWORD_DEFAULT);
     $updateStmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
     $updateStmt->execute([$hashed_new, $user['id']]);
 
     $userName = trim($user['first_name'] . ' ' . $user['last_name']);
-
-    // 4. Send Email via Brevo REST API (HTTPS port 443 - works on InfinityFree)
-    if (BREVO_API_KEY === 'YOUR_BREVO_API_KEY_HERE' || empty(BREVO_API_KEY)) {
-        // Fallback / Demo Mode: When API key is not yet configured by the owner
-        echo json_encode([
-            "success" => true,
-            "demo_mode" => true,
-            "message" => "Password updated! New temporary password: <strong>" . htmlspecialchars($new_password) . "</strong><br><small style='opacity:0.85; display:block; margin-top:6px;'>(To send this to user's real email on InfinityFree, insert your free Brevo API key into <code>backend/forgot_password.php</code>)</small>"
-        ]);
-        exit;
-    }
 
     // Build Email HTML Content
     $emailSubject = "Your New ClinicFlow Password";
@@ -191,7 +189,7 @@ try {
     }
 
 } catch (PDOException $e) {
-    echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 } catch (Exception $e) {
     echo json_encode(["success" => false, "message" => "Server error: " . $e->getMessage()]);
 }

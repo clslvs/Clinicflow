@@ -50,6 +50,6 @@ try {
         "message" => "Appointment rescheduled successfully!"
     ]);
 } catch (PDOException $e) {
-    echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 }
 ?>

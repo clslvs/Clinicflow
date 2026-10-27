@@ -19,7 +19,7 @@ try {
         SELECT id, doctor_id, status, appointment_time, appointment_date 
         FROM appointments 
         WHERE patient_id = ? AND appointment_date >= ? AND status IN ('pending', 'in_progress', 'confirmed')
-        ORDER BY appointment_date ASC, created_at ASC
+        ORDER BY appointment_date ASC, COALESCE(NULLIF(appointment_time, ''), '23:59:59') ASC, created_at ASC
         LIMIT 1
     ");
     $stmt->execute([$user_id, $today]);
@@ -45,14 +45,14 @@ try {
         FROM appointments a
         JOIN users u ON a.patient_id = u.id
         WHERE a.doctor_id = ? AND a.appointment_date = ? AND a.status IN ('pending', 'in_progress', 'confirmed')
-        ORDER BY u.is_priority DESC, a.created_at ASC
+        ORDER BY u.is_priority DESC, COALESCE(NULLIF(a.appointment_time, ''), '23:59:59') ASC, a.created_at ASC
     ");
     $queueStmt->execute([$doctor_id, $queue_date]);
     $allAppointments = $queueStmt->fetchAll();
 
     $queueList = [];
     $userPosition = 0;
-    $currentPatientIndex = 0; // Find the first in_progress or pending
+    $currentPatientIndex = -1;
 
     $activePatientFound = false;
 
@@ -67,20 +67,14 @@ try {
         $state = 'waiting';
         $stateLabel = 'Waiting';
         
-        if ($app['status'] == 'in_progress') {
-            $state = 'in-progress';
-            $stateLabel = 'In Progress';
-            $activePatientFound = true;
-            $currentPatientIndex = $index;
-        } else if (!$activePatientFound) {
-
+        if ($app['status'] === 'in_progress') {
             $state = 'in-progress';
             $stateLabel = 'In Progress';
             $activePatientFound = true;
             $currentPatientIndex = $index;
         }
 
-        if ($isUser) {
+        if ($isUser && $app['status'] === 'in_progress') {
             $state = 'your-turn';
             $stateLabel = 'Your Turn';
         }
@@ -97,7 +91,14 @@ try {
         ];
     }
 
-    $peopleAhead = max(0, $userPosition - $currentPatientIndex - 1);
+    if ($activePatientFound) {
+        $peopleAhead = max(0, $userPosition - $currentPatientIndex - 1);
+        $currentPatientStr = "#" . str_pad($currentPatientIndex + 1, 2, '0', STR_PAD_LEFT);
+    } else {
+        $peopleAhead = max(0, $userPosition - 1);
+        $currentPatientStr = "--";
+    }
+
     $estimatedWaitMins = $peopleAhead * 30; // 30 mins per person
 
     if ($estimatedWaitMins >= 60) {
@@ -109,8 +110,6 @@ try {
     } else {
         $estWaitText = "Next";
     }
-
-    $currentPatientStr = "#" . str_pad($currentPatientIndex + 1, 2, '0', STR_PAD_LEFT);
 
     echo json_encode([
         "success" => true,
@@ -127,6 +126,6 @@ try {
     ]);
 
 } catch (PDOException $e) {
-    echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 }
 ?>

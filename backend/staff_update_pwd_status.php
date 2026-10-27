@@ -4,7 +4,7 @@ require 'db.php';
 
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'staff') {
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['staff', 'admin'])) {
     echo json_encode(["success" => false, "message" => "Unauthorized"]);
     exit;
 }
@@ -22,6 +22,6 @@ try {
 
     echo json_encode(["success" => true, "message" => "Status updated successfully!"]);
 } catch (PDOException $e) {
-    echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 }
 ?>

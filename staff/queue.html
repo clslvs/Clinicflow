@@ -155,6 +155,16 @@
                 });
         }
 
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         function renderQueue(queueItems) {
             const container = document.getElementById('queue-list-container');
             container.innerHTML = '';
@@ -193,13 +203,18 @@
 
                 let priorityBadge = item.is_priority ? '<span class="status-pill bg-yellow" style="color:var(--color-dark); margin-left:10px; padding: 2px 8px; font-size: 0.75rem;">PWD/Senior</span>' : '';
 
+                const safeName = escapeHtml(item.patient_name);
+                const safeService = escapeHtml(item.service);
+                const safeDoctor = escapeHtml(item.doctor_name);
+                const safeRoom = escapeHtml(item.room_no);
+
                 el.innerHTML = `
                     <div class="queue-num-circle ${circleClass}">
                         ${circleContent}
                     </div>
                     <div class="queue-details">
-                        <h4>${item.patient_name} | Queue No. ${item.queue_no} ${priorityBadge}</h4>
-                        <p>${item.service} - ${item.doctor_name} | ${item.room_no}</p>
+                        <h4>${safeName} | Queue No. ${item.queue_no} ${priorityBadge}</h4>
+                        <p>${safeService} - ${safeDoctor} | ${safeRoom}</p>
                     </div>
                     <div class="queue-status-col">
                         ${statusPill}

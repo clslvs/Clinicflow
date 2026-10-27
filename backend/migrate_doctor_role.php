@@ -1,4 +1,8 @@
 <?php
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    exit("Direct web access forbidden.");
+}
 require 'db.php';
 try {
     $pdo->exec("ALTER TABLE users MODIFY COLUMN role ENUM('patient', 'staff', 'admin', 'doctor') NOT NULL DEFAULT 'patient'");
