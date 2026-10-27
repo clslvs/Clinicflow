@@ -76,6 +76,13 @@
                 <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;" id="queue-subtitle">Loading queue information...</p>
             </header>
 
+            <!-- Audio Unlock Hint (browser autoplay policy) -->
+            <div id="audio-unlock-hint" style="display: flex; align-items: center; gap: 12px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 12px 18px; margin-bottom: 16px; font-size: 0.9rem; color: #92400e; font-weight: 500;">
+                <span style="font-size: 1.3rem;">🔔</span>
+                <span>Tap anywhere on this page to enable sound alerts when you're called.</span>
+                <button onclick="document.getElementById('audio-unlock-hint').style.display='none'" style="margin-left: auto; background: none; border: none; cursor: pointer; font-size: 1.1rem; color: #92400e;">✕</button>
+            </div>
+
             <!-- Real-Time Call Announcement Banner -->
             <div id="call-alert-banner" style="display: none; background: linear-gradient(135deg, #0d7a70, #065e57); color: white; padding: 22px 26px; border-radius: 18px; margin-bottom: 28px; box-shadow: 0 12px 32px rgba(13, 122, 112, 0.4); border: 2px solid #2dd4bf; animation: pulseCall 2s infinite alternate;">
                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
@@ -150,6 +157,14 @@
 
     <script>
         lucide.createIcons();
+
+        // Auto-hide the audio unlock hint on first interaction
+        ['click', 'keydown'].forEach(evt =>
+            document.addEventListener(evt, () => {
+                const hint = document.getElementById('audio-unlock-hint');
+                if (hint) hint.style.display = 'none';
+            }, { once: true })
+        );
 
         fetch('../backend/check_session.php')
             .then(res => res.json())
