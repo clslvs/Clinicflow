@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     appointment_time TIME NULL,
     status ENUM('pending', 'confirmed', 'in_progress', 'completed', 'cancelled', 'rescheduling') DEFAULT 'pending',
     notes TEXT DEFAULT NULL,
+    doctor_notes TEXT DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (doctor_id) REFERENCES doctors(id) ON DELETE CASCADE

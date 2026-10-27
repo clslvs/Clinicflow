@@ -35,6 +35,20 @@ if (empty($service) || empty($doctor_id) || empty($date)) {
 }
 
 try {
+    // Prevent double booking for this doctor at the selected date and time
+    if (!empty($time)) {
+        $checkSlot = $pdo->prepare("
+            SELECT id FROM appointments 
+            WHERE doctor_id = ? AND appointment_date = ? AND appointment_time = ? AND status != 'cancelled'
+            LIMIT 1
+        ");
+        $checkSlot->execute([$doctor_id, $date, $time]);
+        if ($checkSlot->fetch()) {
+            echo json_encode(["success" => false, "message" => "This time slot is already booked for this doctor. Please choose another time."]);
+            exit;
+        }
+    }
+
     $stmt = $pdo->prepare("INSERT INTO appointments (patient_id, doctor_id, service, appointment_date, appointment_time) VALUES (?, ?, ?, ?, ?)");
     $stmt->execute([$patient_id, $doctor_id, $service, $date, $time]);
     

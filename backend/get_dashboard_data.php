@@ -45,6 +45,7 @@ try {
         JOIN doctors d ON a.doctor_id = d.id
         WHERE a.patient_id = ? 
         AND a.appointment_date >= CURDATE()
+        AND a.status != 'cancelled'
         ORDER BY a.appointment_date ASC, a.appointment_time ASC
     ");
     $stmtUpcoming->execute([$user_id]);

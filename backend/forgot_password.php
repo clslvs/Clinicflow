@@ -24,9 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // 2. Go to: Profile / Settings -> SMTP & API -> API Keys -> Generate a new API key.
 // 3. Paste your API key below and set your sender email (must be a verified email in Brevo).
 // =============================================================================
-define('BREVO_API_KEY', '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');
-define('SENDER_EMAIL', 'charleslhiansilva@gmail.com');
-define('SENDER_NAME', 'ClinicFlow Dental Care');
+// Load credentials from untracked local config file if present, else fallback to constants
+if (file_exists(__DIR__ . '/config.local.php')) {
+    require_once __DIR__ . '/config.local.php';
+}
+if (!defined('BREVO_API_KEY')) define('BREVO_API_KEY', getenv('BREVO_API_KEY') ?: '');
+if (!defined('SENDER_EMAIL'))  define('SENDER_EMAIL', getenv('SENDER_EMAIL') ?: '');
+if (!defined('SENDER_NAME'))   define('SENDER_NAME', getenv('SENDER_NAME') ?: 'ClinicFlow Dental Care');
 
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
@@ -81,11 +85,6 @@ try {
         $randomCode .= $chars[random_int(0, strlen($chars) - 1)];
     }
     $new_password = 'CF-' . $randomCode;
-
-    // 4. Hash and update password in database
-    $hashed_new = password_hash($new_password, PASSWORD_DEFAULT);
-    $updateStmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
-    $updateStmt->execute([$hashed_new, $user['id']]);
 
     $userName = trim($user['first_name'] . ' ' . $user['last_name']);
 
@@ -175,6 +174,11 @@ try {
     }
 
     if ($httpCode >= 200 && $httpCode < 300) {
+        // Only update database when email has been verified as sent!
+        $hashed_new = password_hash($new_password, PASSWORD_DEFAULT);
+        $updateStmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
+        $updateStmt->execute([$hashed_new, $user['id']]);
+
         echo json_encode([
             "success" => true,
             "message" => "A new temporary password has been sent to your email! Please check your inbox and spam folder."

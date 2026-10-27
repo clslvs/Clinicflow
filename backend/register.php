@@ -36,10 +36,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-$validRoles = ['patient', 'staff', 'admin'];
-if (!in_array($role, $validRoles)) {
-    $role = 'patient';
-}
+$role = 'patient'; // Public registration is strictly for patients
 
 $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->execute([$email]);

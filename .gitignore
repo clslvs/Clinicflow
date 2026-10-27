@@ -2,6 +2,8 @@
 node_modules/
 .env
 .env.local
+backend/config.local.php
+deploy.config.ps1
 
 # Old local backup directories
 2026-08-10_20-03_Backup/

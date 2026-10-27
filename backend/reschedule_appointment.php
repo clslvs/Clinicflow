@@ -35,10 +35,16 @@ if (empty($appointment_id) || empty($date)) {
 
 try {
 
-    $stmtCheck = $pdo->prepare("SELECT id FROM appointments WHERE id = ? AND patient_id = ?");
+    $stmtCheck = $pdo->prepare("SELECT id, status FROM appointments WHERE id = ? AND patient_id = ?");
     $stmtCheck->execute([$appointment_id, $patient_id]);
-    if ($stmtCheck->rowCount() === 0) {
+    $apptRow = $stmtCheck->fetch();
+    if (!$apptRow) {
         echo json_encode(["success" => false, "message" => "Appointment not found or unauthorized."]);
+        exit;
+    }
+
+    if (!in_array($apptRow['status'], ['pending', 'confirmed'])) {
+        echo json_encode(["success" => false, "message" => "Only pending or confirmed appointments can be rescheduled."]);
         exit;
     }
 

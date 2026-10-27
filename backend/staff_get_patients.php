@@ -12,38 +12,39 @@ if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['staff', 
 
 try {
 
+    // 1. Fetch all patients and their completed visit count in a single query
     $stmt = $pdo->prepare("
-        SELECT id, first_name, last_name, email, phone, allergies, medical_conditions 
-        FROM users 
-        WHERE role = 'patient' 
-        ORDER BY first_name ASC
+        SELECT 
+            u.id, u.first_name, u.last_name, u.email, u.phone, u.allergies, u.medical_conditions,
+            COUNT(CASE WHEN a.status = 'completed' THEN 1 END) as total_visits
+        FROM users u
+        LEFT JOIN appointments a ON u.id = a.patient_id
+        WHERE u.role = 'patient'
+        GROUP BY u.id
+        ORDER BY u.first_name ASC
     ");
     $stmt->execute();
     $patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // 2. Fetch primary (most frequent) doctor for each patient in a single grouped query
+    $docStmt = $pdo->query("
+        SELECT a.patient_id, d.name as doctor_name
+        FROM appointments a
+        JOIN doctors d ON a.doctor_id = d.id
+        WHERE a.status = 'completed'
+        GROUP BY a.patient_id, a.doctor_id
+        ORDER BY COUNT(a.id) DESC
+    ");
+    $docMap = [];
+    while ($row = $docStmt->fetch(PDO::FETCH_ASSOC)) {
+        if (!isset($docMap[$row['patient_id']])) {
+            $docMap[$row['patient_id']] = $row['doctor_name'];
+        }
+    }
+
     $result = [];
     foreach ($patients as $p) {
         $pt_id = "#PT-" . str_pad($p['id'], 4, '0', STR_PAD_LEFT);
-
-        $visitStmt = $pdo->prepare("SELECT COUNT(*) FROM appointments WHERE patient_id = ? AND status = 'completed'");
-        $visitStmt->execute([$p['id']]);
-        $total_visits = $visitStmt->fetchColumn();
-
-        $docStmt = $pdo->prepare("
-            SELECT d.name 
-            FROM appointments a 
-            JOIN doctors d ON a.doctor_id = d.id 
-            WHERE a.patient_id = ? AND a.status = 'completed'
-            GROUP BY d.id 
-            ORDER BY COUNT(a.id) DESC 
-            LIMIT 1
-        ");
-        $docStmt->execute([$p['id']]);
-        $primary_doctor = $docStmt->fetchColumn();
-
-        if (!$primary_doctor) {
-            $primary_doctor = "None assigned";
-        }
 
         $result[] = [
             "id" => $p['id'],
@@ -51,10 +52,10 @@ try {
             "name" => $p['first_name'] . ' ' . $p['last_name'],
             "email" => $p['email'],
             "phone" => $p['phone'],
-            "allergies" => $p['allergies'] ? $p['allergies'] : 'None',
-            "medical_conditions" => $p['medical_conditions'] ? $p['medical_conditions'] : 'None',
-            "total_visits" => $total_visits,
-            "primary_doctor" => $primary_doctor
+            "allergies" => !empty($p['allergies']) ? $p['allergies'] : 'None',
+            "medical_conditions" => !empty($p['medical_conditions']) ? $p['medical_conditions'] : 'None',
+            "total_visits" => (int)$p['total_visits'],
+            "primary_doctor" => $docMap[$p['id']] ?? "None assigned"
         ];
     }
 
