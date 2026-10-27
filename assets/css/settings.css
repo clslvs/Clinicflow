@@ -95,12 +95,15 @@
     width: 100%;
 }
 
-.settings-input[readonly] {
+.settings-input[readonly],
+.settings-input:disabled {
     cursor: default;
     color: var(--color-dark);
+    opacity: 1;
+    -webkit-text-fill-color: var(--color-dark);
 }
 
-.settings-input:not([readonly]):focus {
+.settings-input:not([readonly]):not(:disabled):focus {
     border-color: var(--color-teal-300);
     background: white;
 }
@@ -125,6 +128,15 @@
 
 .btn-settings-action:hover {
     background: #E2E8F0;
+}
+
+.btn-settings-action.primary {
+    background: var(--color-teal-700);
+    color: white;
+}
+
+.btn-settings-action.primary:hover {
+    background: var(--color-teal-900);
 }
 
 @media (max-width: 768px) {

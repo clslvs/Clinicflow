@@ -212,7 +212,7 @@
                             </div>
                             <div class="setting-group">
                                 <label>CONTACT PHONE</label>
-                                <input type="text" id="config-clinic-phone" required>
+                                <input type="tel" id="config-clinic-phone" required maxlength="11" pattern="[0-9]{11}" placeholder="09123456789">
                             </div>
                         </div>
 
@@ -328,7 +328,11 @@
 
                 <div class="setting-group">
                     <label>PHONE NUMBER</label>
-                    <input type="text" id="doc-phone" required>
+                    <input type="tel" id="doc-phone" required maxlength="11" pattern="[0-9]{11}" placeholder="09123456789">
+                    <div class="phone-hint" id="admin-doc-phone-hint" style="display: flex;">
+                        <span>Exact 11 digits (e.g. 09123456789)</span>
+                        <span id="admin-doc-phone-counter">0/11</span>
+                    </div>
                 </div>
 
                 <div class="setting-group">
@@ -338,7 +342,21 @@
 
                 <div class="setting-group" id="password-group">
                     <label>PASSWORD <span style="font-weight:normal; color:#888;">(Required)</span></label>
-                    <input type="password" id="doc-password" required placeholder="••••••••">
+                    <div class="password-input-wrapper">
+                        <input type="password" id="doc-password" required placeholder="••••••••">
+                        <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
+                            <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                                <line x1="2" y1="2" x2="22" y2="22"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="setting-group">
@@ -527,6 +545,12 @@
             const lastName = document.getElementById('doc-last-name').value.trim();
             const email = document.getElementById('doc-email').value.trim();
             const phone = document.getElementById('doc-phone').value.trim();
+            if (phone.length !== 11) {
+                alert("Phone number must be exactly 11 digits (e.g., 09123456789).");
+                document.getElementById('doc-phone').focus();
+                return;
+            }
+
             const password = document.getElementById('doc-password').value.trim();
             const specialty = document.getElementById('doc-specialty').value.trim();
             const avatarFile = document.getElementById('doc-avatar').files[0];
@@ -570,6 +594,65 @@
                 body: JSON.stringify({ action: 'delete', id: id })
             }).then(() => loadDoctors());
         }
+
+        // Phone Formatter & Counters in Admin Settings
+        const docPhoneInput = document.getElementById('doc-phone');
+        const docPhoneCounter = document.getElementById('admin-doc-phone-counter');
+        const docPhoneHint = document.getElementById('admin-doc-phone-hint');
+
+        function updateDocPhoneCounter(val) {
+            if (!docPhoneCounter) return;
+            const len = (val || '').length;
+            docPhoneCounter.textContent = `${len}/11`;
+            if (docPhoneHint) {
+                docPhoneHint.classList.remove('valid', 'invalid');
+                if (len === 11) {
+                    docPhoneHint.classList.add('valid');
+                } else if (len > 0) {
+                    docPhoneHint.classList.add('invalid');
+                }
+            }
+        }
+
+        if (docPhoneInput) {
+            docPhoneInput.addEventListener('input', () => {
+                docPhoneInput.value = docPhoneInput.value.replace(/\D/g, '').slice(0, 11);
+                updateDocPhoneCounter(docPhoneInput.value);
+            });
+        }
+
+        const clinicPhoneInput = document.getElementById('config-clinic-phone');
+        if (clinicPhoneInput) {
+            clinicPhoneInput.addEventListener('input', () => {
+                clinicPhoneInput.value = clinicPhoneInput.value.replace(/\D/g, '').slice(0, 11);
+            });
+        }
+
+        // Password Visibility Toggle
+        document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const wrapper = btn.closest('.password-input-wrapper');
+                if (!wrapper) return;
+                const input = wrapper.querySelector('input');
+                if (!input) return;
+
+                const eyeIcon = btn.querySelector('.eye-icon');
+                const eyeOffIcon = btn.querySelector('.eye-off-icon');
+                const isPassword = input.type === 'password';
+
+                input.type = isPassword ? 'text' : 'password';
+
+                if (eyeIcon && eyeOffIcon) {
+                    eyeIcon.style.display = isPassword ? 'none' : 'block';
+                    eyeOffIcon.style.display = isPassword ? 'block' : 'none';
+                }
+
+                const labelText = isPassword ? 'Hide password' : 'Show password';
+                btn.setAttribute('aria-label', labelText);
+                btn.setAttribute('title', labelText);
+            });
+        });
 
         loadConfig();
         loadServices();

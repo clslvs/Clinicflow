@@ -248,7 +248,11 @@
                 
                 <div class="admin-form-group">
                     <label>PHONE NUMBER</label>
-                    <input type="text" id="user-phone" required>
+                    <input type="tel" id="user-phone" required maxlength="11" pattern="[0-9]{11}" placeholder="09123456789">
+                    <div class="phone-hint" id="admin-user-phone-hint" style="display: flex;">
+                        <span>Exact 11 digits (e.g. 09123456789)</span>
+                        <span id="admin-user-phone-counter">0/11</span>
+                    </div>
                 </div>
 
                 <div class="admin-form-group">
@@ -262,7 +266,21 @@
 
                 <div class="admin-form-group" id="password-group">
                     <label>PASSWORD <span id="password-hint" style="font-weight:normal; color:#888;"></span></label>
-                    <input type="password" id="user-password" placeholder="••••••••">
+                    <div class="password-input-wrapper">
+                        <input type="password" id="user-password" placeholder="••••••••">
+                        <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
+                            <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                                <line x1="2" y1="2" x2="22" y2="22"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -428,9 +446,41 @@
         document.getElementById('btn-cancel').addEventListener('click', closePanel);
         overlay.addEventListener('click', closePanel);
 
+        const userPhoneInput = document.getElementById('user-phone');
+        const userPhoneCounter = document.getElementById('admin-user-phone-counter');
+        const userPhoneHint = document.getElementById('admin-user-phone-hint');
+
+        function updateUserPhoneCounter(val) {
+            if (!userPhoneCounter) return;
+            const len = (val || '').length;
+            userPhoneCounter.textContent = `${len}/11`;
+            if (userPhoneHint) {
+                userPhoneHint.classList.remove('valid', 'invalid');
+                if (len === 11) {
+                    userPhoneHint.classList.add('valid');
+                } else if (len > 0) {
+                    userPhoneHint.classList.add('invalid');
+                }
+            }
+        }
+
+        if (userPhoneInput) {
+            userPhoneInput.addEventListener('input', () => {
+                userPhoneInput.value = userPhoneInput.value.replace(/\D/g, '').slice(0, 11);
+                updateUserPhoneCounter(userPhoneInput.value);
+            });
+        }
+
         document.getElementById('btn-save-user').addEventListener('click', () => {
             if(!form.checkValidity()) {
                 form.reportValidity();
+                return;
+            }
+
+            const phoneVal = userPhoneInput.value.trim();
+            if (phoneVal.length !== 11) {
+                alert("Phone number must be exactly 11 digits (e.g., 09123456789).");
+                userPhoneInput.focus();
                 return;
             }
 
@@ -439,7 +489,7 @@
                 first_name: document.getElementById('user-first-name').value,
                 last_name: document.getElementById('user-last-name').value,
                 email: document.getElementById('user-email').value,
-                phone: document.getElementById('user-phone').value,
+                phone: phoneVal,
                 role: document.getElementById('user-role').value,
                 password: document.getElementById('user-password').value
             };
@@ -461,6 +511,32 @@
             .catch(err => {
                 console.error(err);
                 alert("Connection error.");
+            });
+        });
+
+        // Password Visibility Toggle
+        document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const wrapper = btn.closest('.password-input-wrapper');
+                if (!wrapper) return;
+                const input = wrapper.querySelector('input');
+                if (!input) return;
+
+                const eyeIcon = btn.querySelector('.eye-icon');
+                const eyeOffIcon = btn.querySelector('.eye-off-icon');
+                const isPassword = input.type === 'password';
+
+                input.type = isPassword ? 'text' : 'password';
+
+                if (eyeIcon && eyeOffIcon) {
+                    eyeIcon.style.display = isPassword ? 'none' : 'block';
+                    eyeOffIcon.style.display = isPassword ? 'block' : 'none';
+                }
+
+                const labelText = isPassword ? 'Hide password' : 'Show password';
+                btn.setAttribute('aria-label', labelText);
+                btn.setAttribute('title', labelText);
             });
         });
 

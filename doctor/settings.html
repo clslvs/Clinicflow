@@ -82,43 +82,97 @@
                     </div>
 
                     <h4 class="settings-section-title">PERSONAL INFORMATION</h4>
-                    <div class="settings-grid">
-                        <div class="input-group">
-                            <label>FIRST NAME</label>
-                            <input type="text" class="settings-input" id="first-name" readonly>
+                    
+                    <form id="personal-form">
+                        <div class="settings-grid">
+                            <div class="input-group">
+                                <label>FIRST NAME</label>
+                                <input type="text" class="settings-input" id="first-name" readonly required>
+                            </div>
+                            <div class="input-group">
+                                <label>MIDDLE NAME <span style="font-weight: 400; text-transform: none; color: var(--color-grey); font-size: 0.75rem;">(Optional)</span></label>
+                                <input type="text" class="settings-input" id="middle-name" readonly placeholder="None">
+                            </div>
+                            <div class="input-group">
+                                <label>LAST NAME</label>
+                                <input type="text" class="settings-input" id="last-name" readonly required>
+                            </div>
+                            <div class="input-group">
+                                <label>SEX</label>
+                                <select id="sex" class="settings-input" disabled>
+                                    <option value="">Not specified</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>EMAIL</label>
+                                <input type="email" class="settings-input" id="email" readonly required>
+                            </div>
+                            <div class="input-group">
+                                <label>PHONE NUMBER</label>
+                                <input type="tel" class="settings-input" id="phone" readonly maxlength="11" pattern="[0-9]{11}" inputmode="numeric" placeholder="09123456789" required>
+                                <div class="phone-hint" id="personal-phone-hint" style="display: none;">
+                                    <span>Exact 11 digits (e.g. 09123456789)</span>
+                                    <span id="personal-phone-counter">0/11</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <label>LAST NAME</label>
-                            <input type="text" class="settings-input" id="last-name" readonly>
+                        <div class="card-actions">
+                            <button type="button" class="btn-settings-action" id="btn-edit-personal">Edit</button>
+                            <button type="submit" class="btn-settings-action primary" id="btn-save-personal" style="display: none;">Save</button>
                         </div>
-                        <div class="input-group">
-                            <label>EMAIL</label>
-                            <input type="email" class="settings-input" id="email" readonly>
-                        </div>
-                        <div class="input-group">
-                            <label>PHONE NUMBER</label>
-                            <input type="text" class="settings-input" id="phone" readonly>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
                 
                 <div class="settings-card">
                     <h4 class="settings-section-title">CHANGE PASSWORD</h4>
-                    <div class="settings-grid">
-                        <div class="input-group">
-                            <label>CURRENT PASSWORD</label>
-                            <input type="password" class="settings-input" id="current-password" placeholder="Enter current password">
+                    <form id="password-form">
+                        <div class="settings-grid">
+                            <div class="input-group">
+                                <label>CURRENT PASSWORD</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" class="settings-input" id="current-password" placeholder="Enter current password" required autocomplete="current-password">
+                                    <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
+                                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
+                                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                                            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                                            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                                            <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                                            <line x1="2" y1="2" x2="22" y2="22"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>NEW PASSWORD</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" class="settings-input" id="new-password" placeholder="Enter new password" required autocomplete="new-password">
+                                    <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
+                                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
+                                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                                            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                                            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                                            <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                                            <line x1="2" y1="2" x2="22" y2="22"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <label>NEW PASSWORD</label>
-                            <input type="password" class="settings-input" id="new-password" placeholder="Enter new password">
+                        <div class="card-actions">
+                            <span id="password-status" style="color: var(--color-teal-700); font-weight: 600; font-size: 0.9rem; margin-right: 1rem;"></span>
+                            <button type="submit" class="btn-settings-action primary" id="btn-change-password">Save</button>
                         </div>
-                    </div>
-                    <div class="card-actions">
-                        <span id="password-status" style="color: var(--color-teal-700); font-weight: 600; font-size: 0.9rem; margin-right: 1rem;"></span>
-                        <button class="btn-settings-action" id="btn-change-password">Change Password</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </main>
@@ -126,6 +180,40 @@
 
     <script>
         lucide.createIcons();
+
+        const inputFirstName = document.getElementById('first-name');
+        const inputMiddleName = document.getElementById('middle-name');
+        const inputLastName = document.getElementById('last-name');
+        const inputSex = document.getElementById('sex');
+        const inputEmail = document.getElementById('email');
+        const inputPhone = document.getElementById('phone');
+        const personalPhoneHint = document.getElementById('personal-phone-hint');
+        const personalPhoneCounter = document.getElementById('personal-phone-counter');
+
+        const btnEditPersonal = document.getElementById('btn-edit-personal');
+        const btnSavePersonal = document.getElementById('btn-save-personal');
+        const personalForm = document.getElementById('personal-form');
+
+        function updatePhoneCounter(val) {
+            if (!personalPhoneCounter) return;
+            const len = (val || '').length;
+            personalPhoneCounter.textContent = `${len}/11`;
+            if (personalPhoneHint) {
+                personalPhoneHint.classList.remove('valid', 'invalid');
+                if (len === 11) {
+                    personalPhoneHint.classList.add('valid');
+                } else if (len > 0) {
+                    personalPhoneHint.classList.add('invalid');
+                }
+            }
+        }
+
+        if (inputPhone) {
+            inputPhone.addEventListener('input', () => {
+                inputPhone.value = inputPhone.value.replace(/\D/g, '').slice(0, 11);
+                updatePhoneCounter(inputPhone.value);
+            });
+        }
 
         fetch('../backend/check_session.php')
             .then(res => res.json())
@@ -151,21 +239,117 @@
                 .then(data => {
                     if (data.success) {
                         const u = data.user;
-                        document.getElementById('settings-name').textContent = `${u.first_name} ${u.last_name}`;
+                        const initial = u.first_name ? u.first_name.charAt(0).toUpperCase() : 'D';
+                        const middleInitial = u.middle_name ? ` ${u.middle_name.charAt(0)}.` : '';
+                        const fullName = `Dr. ${u.first_name || ''}${middleInitial} ${u.last_name || ''}`.trim() || u.name;
+
+                        document.getElementById('settings-name').textContent = fullName;
                         document.getElementById('settings-id').textContent = `#DR-${String(u.id).padStart(4, '0')}`;
-                        document.getElementById('settings-avatar').textContent = u.first_name.charAt(0);
-                        document.getElementById('first-name').value = u.first_name;
-                        document.getElementById('last-name').value = u.last_name;
-                        document.getElementById('email').value = u.email;
-                        document.getElementById('phone').value = u.phone;
+                        document.getElementById('settings-avatar').textContent = initial;
+
+                        inputFirstName.value = u.first_name || '';
+                        inputMiddleName.value = u.middle_name || '';
+                        inputLastName.value = u.last_name || '';
+                        if (inputSex) inputSex.value = u.sex || '';
+                        inputEmail.value = u.email || '';
+                        inputPhone.value = u.phone || '';
+                        updatePhoneCounter(inputPhone.value);
                     }
                 });
         }
 
-        document.getElementById('btn-change-password').addEventListener('click', () => {
+        // Personal Information Edit / Save
+        if (btnEditPersonal && personalForm) {
+            btnEditPersonal.addEventListener('click', () => {
+                inputFirstName.removeAttribute('readonly');
+                inputMiddleName.removeAttribute('readonly');
+                inputLastName.removeAttribute('readonly');
+                inputEmail.removeAttribute('readonly');
+                inputPhone.removeAttribute('readonly');
+                if (inputSex) inputSex.removeAttribute('disabled');
+
+                if (personalPhoneHint) personalPhoneHint.style.display = 'flex';
+                updatePhoneCounter(inputPhone.value);
+
+                btnEditPersonal.style.display = 'none';
+                btnSavePersonal.style.display = 'inline-block';
+                inputFirstName.focus();
+            });
+
+            personalForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const phoneVal = inputPhone.value.trim();
+                if (phoneVal.length !== 11) {
+                    alert("Phone number must be exactly 11 digits (e.g., 09123456789).");
+                    inputPhone.focus();
+                    return;
+                }
+
+                btnSavePersonal.disabled = true;
+                btnSavePersonal.textContent = 'Saving...';
+
+                const payload = {
+                    first_name: inputFirstName.value.trim(),
+                    middle_name: inputMiddleName.value.trim(),
+                    last_name: inputLastName.value.trim(),
+                    sex: inputSex ? inputSex.value : null,
+                    email: inputEmail.value.trim(),
+                    phone: phoneVal
+                };
+
+                fetch('../backend/update_personal_info.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    btnSavePersonal.disabled = false;
+                    btnSavePersonal.textContent = 'Save';
+
+                    if (data.success) {
+                        inputFirstName.setAttribute('readonly', true);
+                        inputMiddleName.setAttribute('readonly', true);
+                        inputLastName.setAttribute('readonly', true);
+                        inputEmail.setAttribute('readonly', true);
+                        inputPhone.setAttribute('readonly', true);
+                        if (inputSex) inputSex.setAttribute('disabled', true);
+
+                        if (personalPhoneHint) personalPhoneHint.style.display = 'none';
+                        btnSavePersonal.style.display = 'none';
+                        btnEditPersonal.style.display = 'inline-block';
+
+                        const initial = payload.first_name.charAt(0).toUpperCase();
+                        const middleInitial = payload.middle_name ? ` ${payload.middle_name.charAt(0)}.` : '';
+                        const fullName = `Dr. ${payload.first_name}${middleInitial} ${payload.last_name}`.trim();
+
+                        document.getElementById('user-avatar').textContent = initial;
+                        document.getElementById('user-name').textContent = fullName;
+                        document.getElementById('settings-avatar').textContent = initial;
+                        document.getElementById('settings-name').textContent = fullName;
+
+                        alert("Personal information updated successfully.");
+                    } else {
+                        alert(data.message || "Failed to update personal information.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error updating personal info:", err);
+                    btnSavePersonal.disabled = false;
+                    btnSavePersonal.textContent = 'Save';
+                    alert("Error connecting to server.");
+                });
+            });
+        }
+
+        // Change Password
+        document.getElementById('password-form').addEventListener('submit', (e) => {
+            e.preventDefault();
             const current = document.getElementById('current-password').value;
             const newPass = document.getElementById('new-password').value;
             const statusEl = document.getElementById('password-status');
+            const submitBtn = document.getElementById('btn-change-password');
 
             if (!current || !newPass) {
                 statusEl.textContent = 'Please fill in both fields.';
@@ -179,19 +363,57 @@
                 return;
             }
 
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+
             fetch('../backend/update_password.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ current_password: current, new_password: newPass })
+                body: JSON.stringify({ old_password: current, new_password: newPass })
             })
             .then(res => res.json())
             .then(data => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Save';
                 statusEl.textContent = data.message;
                 statusEl.style.color = data.success ? 'var(--color-teal-700)' : '#dc2626';
                 if (data.success) {
                     document.getElementById('current-password').value = '';
                     document.getElementById('new-password').value = '';
+                    alert('Password updated successfully!');
                 }
+            })
+            .catch(err => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Save';
+                statusEl.textContent = 'Error connecting to server.';
+                statusEl.style.color = '#dc2626';
+            });
+        });
+
+        // Password Visibility Toggle (Show / Hide password)
+        document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const wrapper = btn.closest('.password-input-wrapper');
+                if (!wrapper) return;
+                const input = wrapper.querySelector('input');
+                if (!input) return;
+
+                const eyeIcon = btn.querySelector('.eye-icon');
+                const eyeOffIcon = btn.querySelector('.eye-off-icon');
+                const isPassword = input.type === 'password';
+
+                input.type = isPassword ? 'text' : 'password';
+
+                if (eyeIcon && eyeOffIcon) {
+                    eyeIcon.style.display = isPassword ? 'none' : 'block';
+                    eyeOffIcon.style.display = isPassword ? 'block' : 'none';
+                }
+
+                const labelText = isPassword ? 'Hide password' : 'Show password';
+                btn.setAttribute('aria-label', labelText);
+                btn.setAttribute('title', labelText);
             });
         });
     </script>

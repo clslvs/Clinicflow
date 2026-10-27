@@ -104,3 +104,69 @@ ul {
 .stagger-4 { transition-delay: 400ms; }
 .stagger-5 { transition-delay: 500ms; }
 .stagger-6 { transition-delay: 600ms; }
+
+/* Password Visibility Toggle */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.password-input-wrapper input {
+    padding-right: 46px !important;
+    width: 100%;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 6px;
+    margin: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-teal-700);
+    border-radius: 8px;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+    z-index: 2;
+}
+
+.toggle-password-btn:hover {
+    color: var(--color-teal-900);
+    background-color: rgba(12, 124, 119, 0.08);
+}
+
+.toggle-password-btn:active {
+    transform: translateY(-50%) scale(0.92);
+}
+
+.toggle-password-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+/* Phone input helper */
+.phone-hint {
+    font-size: 0.75rem;
+    color: var(--color-grey);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.phone-hint.invalid {
+    color: #dc2626;
+}
+
+.phone-hint.valid {
+    color: #16a34a;
+}

@@ -89,6 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            if (phone.trim().length !== 11) {
+                showAlert(alertBox, 'Phone number must be exactly 11 digits (e.g., 09123456789).', 'error');
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+                document.getElementById('phone').focus();
+                return;
+            }
+
             try {
                 const response = await fetch('backend/register.php', {
                     method: 'POST',
@@ -113,6 +121,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 showAlert(alertBox, 'A network error occurred. Make sure the server and database are configured.', 'error');
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
+            }
+        });
+    }
+
+    // Phone Live Digit Formatter & Counter
+    const phoneInput = document.getElementById('phone');
+    const phoneCounter = document.getElementById('phoneCounter');
+    const phoneHint = document.getElementById('phoneHint');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', () => {
+            phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 11);
+            const len = phoneInput.value.length;
+            if (phoneCounter) {
+                phoneCounter.textContent = `${len}/11`;
+                if (len === 11) {
+                    phoneCounter.style.color = '#16a34a';
+                    if (phoneHint) phoneHint.style.color = '#16a34a';
+                } else if (len > 0) {
+                    phoneCounter.style.color = '#dc2626';
+                    if (phoneHint) phoneHint.style.color = '#dc2626';
+                } else {
+                    phoneCounter.style.color = 'var(--color-grey)';
+                    if (phoneHint) phoneHint.style.color = 'var(--color-grey)';
+                }
             }
         });
     }

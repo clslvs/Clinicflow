@@ -30,12 +30,22 @@ if (empty($firstName) || empty($lastName) || empty($email)) {
     exit;
 }
 
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode(["success" => false, "message" => "Invalid email format."]);
+    exit;
+}
+
+if (!empty($phone) && !preg_match('/^[0-9]{11}$/', $phone)) {
+    echo json_encode(["success" => false, "message" => "Phone number must be exactly 11 digits (e.g., 09123456789)."]);
+    exit;
+}
+
 try {
     // Check if email exists for another user
     $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
     $stmt->execute([$email, $_SESSION['user_id']]);
     if ($stmt->fetch()) {
-        echo json_encode(["success" => false, "message" => "Email is already in use."]);
+        echo json_encode(["success" => false, "message" => "Email is already in use by another account."]);
         exit;
     }
 

@@ -38,6 +38,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
+if (!preg_match('/^[0-9]{11}$/', $phone)) {
+    echo json_encode(["success" => false, "message" => "Phone number must be exactly 11 digits (e.g., 09123456789)."]);
+    exit;
+}
+
 if (empty($data['terms_agreed'])) {
     echo json_encode(["success" => false, "message" => "You must agree to the Terms & Conditions and Privacy Policy."]);
     exit;

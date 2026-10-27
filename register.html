@@ -92,8 +92,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" placeholder="0912 345 6789" required>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                        <label for="phone">Phone Number</label>
+                        <span id="phoneCounter" style="font-size: 0.75rem; color: var(--color-grey); font-weight: 600;">0/11</span>
+                    </div>
+                    <input type="tel" id="phone" placeholder="09123456789" maxlength="11" pattern="[0-9]{11}" inputmode="numeric" required>
+                    <small id="phoneHint" style="font-size: 0.75rem; color: var(--color-grey); margin-top: 4px; display: block;">Must be exactly 11 digits (e.g., 09123456789)</small>
                 </div>
 
                 <div class="form-group">

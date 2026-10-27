@@ -18,22 +18,26 @@ if (!isset($_SESSION['user_id'])) {
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
-$old_password = $data['old_password'] ?? '';
+$old_password = $data['old_password'] ?? $data['current_password'] ?? '';
 $new_password = $data['new_password'] ?? '';
 
 if (empty($old_password) || empty($new_password)) {
-    echo json_encode(["success" => false, "message" => "Both old and new passwords are required."]);
+    echo json_encode(["success" => false, "message" => "Both current and new passwords are required."]);
+    exit;
+}
+
+if (strlen($new_password) < 6) {
+    echo json_encode(["success" => false, "message" => "New password must be at least 6 characters long."]);
     exit;
 }
 
 try {
-
     $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
     $stmt->execute([$_SESSION['user_id']]);
     $user = $stmt->fetch();
 
     if (!$user || !password_verify($old_password, $user['password'])) {
-        echo json_encode(["success" => false, "message" => "Incorrect old password."]);
+        echo json_encode(["success" => false, "message" => "Incorrect old/current password."]);
         exit;
     }
 
@@ -44,6 +48,7 @@ try {
     echo json_encode(["success" => true, "message" => "Password updated successfully."]);
 
 } catch (PDOException $e) {
-    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
+    error_log($e->getMessage()); 
+    echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 }
 ?>
