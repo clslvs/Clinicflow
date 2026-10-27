@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const user = data.data;
 
                 const initial = user.first_name.charAt(0).toUpperCase();
-                const fullName = `${user.first_name} ${user.last_name}`;
+                const middleInitial = user.middle_name ? ` ${user.middle_name.charAt(0)}.` : '';
+                const fullName = `${user.first_name}${middleInitial} ${user.last_name}`;
 
                 document.getElementById('sidebar-avatar').textContent = initial;
                 document.getElementById('sidebar-name').textContent = fullName;
@@ -19,7 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('settings-patient-id').textContent = `Patient ID: ${user.patient_id_formatted}`;
 
                 document.getElementById('input-firstname').value = user.first_name;
+                if (document.getElementById('input-middlename')) {
+                    document.getElementById('input-middlename').value = user.middle_name || '';
+                }
                 document.getElementById('input-lastname').value = user.last_name;
+                if (document.getElementById('input-sex')) {
+                    document.getElementById('input-sex').value = user.sex || '';
+                }
                 document.getElementById('input-email').value = user.email;
                 document.getElementById('input-phone').value = user.phone;
 

@@ -66,7 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
 
             const firstName = document.getElementById('firstName').value;
+            const middleName = document.getElementById('middleName') ? document.getElementById('middleName').value.trim() : '';
             const lastName = document.getElementById('lastName').value;
+            const sex = document.getElementById('sex') ? document.getElementById('sex').value : '';
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
             const password = document.getElementById('password').value;
@@ -91,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch('backend/register.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ firstName, lastName, email, phone, password, role: 'patient', is_priority: isPriority, terms_agreed: agreeTerms })
+                    body: JSON.stringify({ firstName, middleName, lastName, sex, email, phone, password, role: 'patient', is_priority: isPriority, terms_agreed: agreeTerms })
                 });
 
                 const result = await response.json();

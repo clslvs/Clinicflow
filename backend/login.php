@@ -68,7 +68,8 @@ try {
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_role'] = $user['role'];
-            $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
+            $midInitial = !empty($user['middle_name']) ? ' ' . mb_substr($user['middle_name'], 0, 1) . '.' : '';
+            $_SESSION['user_name'] = $user['first_name'] . $midInitial . ' ' . $user['last_name'];
 
             echo json_encode([
                 "success" => true,

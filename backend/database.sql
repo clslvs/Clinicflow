@@ -6,11 +6,13 @@ USE clinicflow;
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
+    middle_name VARCHAR(50) DEFAULT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
     role ENUM('patient', 'staff', 'admin', 'doctor') NOT NULL DEFAULT 'patient',
+    sex ENUM('Male', 'Female', 'Other') DEFAULT NULL,
     is_active BOOLEAN DEFAULT TRUE,
     is_priority BOOLEAN DEFAULT FALSE,
     allergies TEXT DEFAULT NULL,

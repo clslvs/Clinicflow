@@ -15,7 +15,7 @@ try {
     // 1. Fetch all patients and their completed visit count in a single query
     $stmt = $pdo->prepare("
         SELECT 
-            u.id, u.first_name, u.last_name, u.email, u.phone, u.allergies, u.medical_conditions,
+            u.id, u.first_name, u.middle_name, u.last_name, u.sex, u.email, u.phone, u.allergies, u.medical_conditions,
             COUNT(CASE WHEN a.status = 'completed' THEN 1 END) as total_visits
         FROM users u
         LEFT JOIN appointments a ON u.id = a.patient_id
@@ -45,11 +45,13 @@ try {
     $result = [];
     foreach ($patients as $p) {
         $pt_id = "#PT-" . str_pad($p['id'], 4, '0', STR_PAD_LEFT);
+        $mid = !empty($p['middle_name']) ? ' ' . mb_substr($p['middle_name'], 0, 1) . '.' : '';
 
         $result[] = [
             "id" => $p['id'],
             "pt_id" => $pt_id,
-            "name" => $p['first_name'] . ' ' . $p['last_name'],
+            "name" => $p['first_name'] . $mid . ' ' . $p['last_name'],
+            "sex" => $p['sex'] ?? 'Not specified',
             "email" => $p['email'],
             "phone" => $p['phone'],
             "allergies" => !empty($p['allergies']) ? $p['allergies'] : 'None',

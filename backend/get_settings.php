@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 try {
-    $stmt = $pdo->prepare("SELECT id, first_name, last_name, email, phone, allergies, medical_conditions, is_priority FROM users WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT id, first_name, middle_name, last_name, sex, email, phone, allergies, medical_conditions, is_priority FROM users WHERE id = ?");
     $stmt->execute([$user_id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -25,7 +25,9 @@ try {
             "success" => true,
             "data" => [
                 "first_name" => $user['first_name'],
+                "middle_name" => $user['middle_name'] ?? "",
                 "last_name" => $user['last_name'],
+                "sex" => $user['sex'] ?? "",
                 "email" => $user['email'],
                 "phone" => $user['phone'],
                 "patient_id_formatted" => $patient_id_formatted,

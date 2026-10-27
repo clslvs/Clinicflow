@@ -19,7 +19,9 @@ $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
 $firstName = trim($data['first_name'] ?? '');
+$middleName = !empty($data['middle_name']) ? trim($data['middle_name']) : null;
 $lastName = trim($data['last_name'] ?? '');
+$sex = !empty($data['sex']) && in_array($data['sex'], ['Male', 'Female', 'Other']) ? $data['sex'] : null;
 $email = trim($data['email'] ?? '');
 $phone = trim($data['phone'] ?? '');
 
@@ -37,8 +39,10 @@ try {
         exit;
     }
 
-    $stmt = $pdo->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE id = ?");
-    $stmt->execute([$firstName, $lastName, $email, $phone, $_SESSION['user_id']]);
+    $stmt = $pdo->prepare("UPDATE users SET first_name = ?, middle_name = ?, last_name = ?, sex = ?, email = ?, phone = ? WHERE id = ?");
+    $stmt->execute([$firstName, $middleName, $lastName, $sex, $email, $phone, $_SESSION['user_id']]);
+
+    $_SESSION['user_name'] = $firstName . ($middleName ? ' ' . $middleName : '') . ' ' . $lastName;
 
     echo json_encode(["success" => true, "message" => "Personal information updated successfully."]);
 } catch (PDOException $e) {
