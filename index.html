@@ -168,8 +168,13 @@
                 <p>Sunday: Closed</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 ClinicFlow. All rights reserved.</p>
+        <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <p>&copy; 2026 ClinicFlow. All rights reserved.</p>
+            <div style="display: flex; gap: 16px; font-size: 0.85rem;">
+                <a href="legal.html#privacy" style="color: var(--color-teal-300); text-decoration: none;">Privacy Policy</a>
+                <a href="legal.html#terms" style="color: var(--color-teal-300); text-decoration: none;">Terms of Service</a>
+                <a href="legal.html#cookies" style="color: var(--color-teal-300); text-decoration: none;">Cookie Policy</a>
+            </div>
         </div>
     </footer>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -254,6 +259,7 @@
                 .catch(err => console.log('Doctors sync note:', err));
         });
     </script>
+    <script src="assets/js/cookie-consent.js"></script>
 </body>
 
 </html>

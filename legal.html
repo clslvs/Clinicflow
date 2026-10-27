@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal & Policies - ClinicFlow</title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+
+    <style>
+        body {
+            background-color: #F8FBFC;
+            color: var(--color-dark);
+            font-family: var(--font-body);
+            line-height: 1.7;
+        }
+
+        .legal-header {
+            background: white;
+            border-bottom: 1px solid var(--color-teal-100);
+            padding: 1.25rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .legal-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--color-dark);
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .legal-header .logo img {
+            height: 34px;
+            width: auto;
+        }
+
+        .legal-nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .legal-container {
+            max-width: 1000px;
+            margin: 2.5rem auto 5rem;
+            padding: 0 1.5rem;
+        }
+
+        .legal-hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .legal-hero h1 {
+            font-family: var(--font-heading);
+            font-size: 2.4rem;
+            color: var(--color-teal-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-hero p {
+            color: var(--color-grey);
+            font-size: 1rem;
+        }
+
+        .legal-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .legal-tab-btn {
+            background: white;
+            border: 1px solid var(--color-teal-300);
+            color: var(--color-teal-900);
+            padding: 0.65rem 1.4rem;
+            border-radius: 999px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .legal-tab-btn:hover, .legal-tab-btn.active {
+            background: var(--color-teal-900);
+            color: white;
+            border-color: var(--color-teal-900);
+            box-shadow: 0 4px 14px rgba(12, 124, 119, 0.25);
+        }
+
+        .legal-card {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border: 1px solid var(--color-teal-100);
+            margin-bottom: 2rem;
+        }
+
+        .legal-card h2 {
+            font-family: var(--font-heading);
+            color: var(--color-teal-900);
+            font-size: 1.7rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--color-teal-100);
+        }
+
+        .legal-card h3 {
+            font-size: 1.15rem;
+            color: var(--color-dark);
+            margin-top: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .legal-card p, .legal-card ul {
+            color: #4a4a4a;
+            margin-bottom: 1rem;
+            font-size: 0.96rem;
+        }
+
+        .legal-card ul {
+            padding-left: 1.5rem;
+        }
+
+        .legal-card li {
+            margin-bottom: 0.4rem;
+        }
+
+        .badge-updated {
+            display: inline-block;
+            background: var(--color-teal-100);
+            color: var(--color-teal-900);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cookie-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.92rem;
+        }
+
+        .cookie-table th, .cookie-table td {
+            border: 1px solid var(--color-teal-100);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .cookie-table th {
+            background: var(--color-teal-50);
+            color: var(--color-teal-900);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="legal-header">
+        <a href="index.html" class="logo">
+            <img src="assets/images/logo.png" alt="ClinicFlow Logo">
+            <span>ClinicFlow</span>
+        </a>
+        <div class="legal-nav-links">
+            <a href="index.html" class="btn btn-outline" style="padding: 6px 16px; font-size: 0.88rem; text-decoration: none;">Home</a>
+            <a href="login.html" class="btn btn-primary" style="padding: 6px 18px; font-size: 0.88rem; text-decoration: none;">Sign In</a>
+        </div>
+    </header>
+
+    <div class="legal-container">
+        <div class="legal-hero">
+            <h1>Trust, Safety & Legal Policies</h1>
+            <p>Our commitment to transparent dental care, patient privacy, and data security.</p>
+        </div>
+
+        <div class="legal-tabs">
+            <a href="#terms" class="legal-tab-btn active" id="tab-terms" onclick="switchSection('terms')">Terms & Conditions</a>
+            <a href="#privacy" class="legal-tab-btn" id="tab-privacy" onclick="switchSection('privacy')">Privacy Policy</a>
+            <a href="#cookies" class="legal-tab-btn" id="tab-cookies" onclick="switchSection('cookies')">Cookie Policy</a>
+        </div>
+
+        <!-- 1. TERMS AND CONDITIONS -->
+        <section id="terms" class="legal-section">
+            <div class="legal-card">
+                <span class="badge-updated">Last Updated: October 2026</span>
+                <h2>Terms & Conditions of Service</h2>
+
+                <p>Welcome to <strong>ClinicFlow</strong>. By creating an account, scheduling an appointment, or using our clinic management platform, you agree to comply with and be bound by the following terms.</p>
+
+                <h3>1. Clinic Services & Consultations</h3>
+                <p>ClinicFlow provides digital appointment scheduling, queue progression tracking, and medical record management for dental consultations and procedures. Digital confirmations do not replace professional in-person clinical examinations.</p>
+
+                <h3>2. Patient Responsibilities</h3>
+                <ul>
+                    <li>You agree to provide true, accurate, and complete information regarding your identity, contact details, medical allergies, and existing conditions.</li>
+                    <li>You are responsible for keeping your account credentials confidential. Any activity under your account remains your responsibility.</li>
+                    <li>Patients must arrive at least 10 minutes prior to their estimated consultation time or queue call.</li>
+                </ul>
+
+                <h3>3. Appointments & Queue Etiquette</h3>
+                <ul>
+                    <li><strong>Booking & Rescheduling:</strong> Pending and confirmed appointments may be rescheduled through your patient portal prior to your appointment time. Completed or in-progress appointments cannot be altered.</li>
+                    <li><strong>Queue Progression:</strong> Live queue positions and estimated wait times are approximations based on average consultation durations. Urgent or emergency treatments take clinical priority.</li>
+                    <li><strong>Cancellations:</strong> If you are unable to attend, please cancel your booking promptly through your dashboard so the slot can be released to waiting patients.</li>
+                </ul>
+
+                <h3>4. Priority Patients</h3>
+                <p>In accordance with accessible healthcare standards, Senior Citizens, Persons with Disabilities (PWD), and patients requiring urgent dental intervention are prioritized in our live queue system.</p>
+
+                <h3>5. Modifications to Service</h3>
+                <p>ClinicFlow reserves the right to modify operating hours, doctor availability schedules, and system terms with reasonable notice posted on the platform.</p>
+            </div>
+        </section>
+
+        <!-- 2. PRIVACY POLICY -->
+        <section id="privacy" class="legal-section" style="display: none;">
+            <div class="legal-card">
+                <span class="badge-updated">Last Updated: October 2026</span>
+                <h2>Privacy Policy & Medical Data Protection</h2>
+
+                <p>Your privacy and the security of your dental and personal health records are of paramount importance to <strong>ClinicFlow</strong>. This policy describes how we collect, store, and safeguard your health data.</p>
+
+                <h3>1. Information We Collect</h3>
+                <ul>
+                    <li><strong>Account Information:</strong> Name, email address, phone number, and encrypted password.</li>
+                    <li><strong>Dental & Medical Data:</strong> Reported allergies, pre-existing health conditions, PWD/senior priority classification, visit history, consultation notes, and doctor treatment plans.</li>
+                    <li><strong>Operational Logs:</strong> Queue numbers, appointment dates, and visit progression statuses.</li>
+                </ul>
+
+                <h3>2. How We Use Your Information</h3>
+                <ul>
+                    <li>To facilitate appointment bookings and manage doctor schedules.</li>
+                    <li>To operate the live patient calling system and voice announcement notifications.</li>
+                    <li>To provide doctors and authorized clinic staff with your clinical medical history during treatment.</li>
+                    <li>To send automated password reset tokens and critical service updates.</li>
+                </ul>
+
+                <h3>3. Confidentiality & Security</h3>
+                <p>All passwords are encrypted with industry-standard bcrypt hashing. Only authenticated clinic personnel (your attending dentist and authorized reception staff) have access to your clinical dental notes. We never sell, rent, or trade your personal or medical data to third parties.</p>
+
+                <h3>4. Your Patient Rights</h3>
+                <p>You have the right to review your personal profile, update your contact and medical allergy details via your Patient Settings, and request an account deactivation at any time by speaking with clinic administration.</p>
+            </div>
+        </section>
+
+        <!-- 3. COOKIE POLICY -->
+        <section id="cookies" class="legal-section" style="display: none;">
+            <div class="legal-card">
+                <span class="badge-updated">Last Updated: October 2026</span>
+                <h2>Cookie & Local Storage Policy</h2>
+
+                <p>ClinicFlow is designed to be privacy-friendly. We do <strong>not</strong> use third-party marketing, ad-tracking, or cross-site profiling cookies.</p>
+
+                <h3>1. What Are Cookies & Local Storage?</h3>
+                <p>Cookies are small data files stored in your browser by websites you visit. Local storage is a browser feature that allows websites to remember simple preferences without transmitting data across external servers.</p>
+
+                <h3>2. How ClinicFlow Uses Cookies</h3>
+                <table class="cookie-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Provider</th>
+                            <th>Purpose</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PHPSESSID</strong></td>
+                            <td>ClinicFlow (First-party)</td>
+                            <td>Essential session identifier that keeps you securely logged into your portal.</td>
+                            <td>Session (deleted upon browser close)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>clinicflow_cookie_consent</strong></td>
+                            <td>Browser LocalStorage</td>
+                            <td>Remembers that you have acknowledged our privacy and cookie banner.</td>
+                            <td>Persistent until cleared</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>3. Managing Cookies</h3>
+                <p>Because our cookie is strictly necessary for portal authentication and security, disabling cookies in your browser settings will prevent you from logging into your account.</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function switchSection(target) {
+            const sections = ['terms', 'privacy', 'cookies'];
+            sections.forEach(s => {
+                const secEl = document.getElementById(s);
+                const tabEl = document.getElementById('tab-' + s);
+                if (s === target) {
+                    secEl.style.display = 'block';
+                    tabEl.classList.add('active');
+                } else {
+                    secEl.style.display = 'none';
+                    tabEl.classList.remove('active');
+                }
+            });
+        }
+
+        // Check URL hash on page load (e.g. legal.html#privacy)
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (['terms', 'privacy', 'cookies'].includes(hash)) {
+                switchSection(hash);
+            }
+        });
+    </script>
+</body>
+</html>

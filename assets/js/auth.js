@@ -71,7 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const phone = document.getElementById('phone').value;
             const password = document.getElementById('password').value;
             const isPriority = document.getElementById('isPriority') ? document.getElementById('isPriority').checked : false;
-            
+            const agreeTerms = document.getElementById('agreeTerms') ? document.getElementById('agreeTerms').checked : false;
+
             let alertBox = document.getElementById('auth-alert');
             if (!alertBox) {
                 alertBox = document.createElement('div');
@@ -79,11 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 registerForm.insertBefore(alertBox, registerForm.firstChild);
             }
 
+            if (!agreeTerms) {
+                showAlert(alertBox, 'You must agree to the Terms & Conditions and Privacy Policy.', 'error');
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+                return;
+            }
+
             try {
                 const response = await fetch('backend/register.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ firstName, lastName, email, phone, password, role: 'patient', is_priority: isPriority })
+                    body: JSON.stringify({ firstName, lastName, email, phone, password, role: 'patient', is_priority: isPriority, terms_agreed: agreeTerms })
                 });
 
                 const result = await response.json();

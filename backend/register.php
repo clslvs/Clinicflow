@@ -36,6 +36,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
+if (empty($data['terms_agreed'])) {
+    echo json_encode(["success" => false, "message" => "You must agree to the Terms & Conditions and Privacy Policy."]);
+    exit;
+}
+
 $role = 'patient'; // Public registration is strictly for patients
 
 $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
