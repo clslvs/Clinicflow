@@ -39,7 +39,12 @@ try {
     $stmt->execute([$patient_id, $doctor_id, $service, $date, $time]);
     
     $appointment_id = $pdo->lastInsertId();
-    $queue_number = str_pad($appointment_id, 4, '0', STR_PAD_LEFT);
+    
+    // Calculate the patient's daily queue sequence for this doctor and date
+    $countStmt = $pdo->prepare("SELECT COUNT(*) FROM appointments WHERE doctor_id = ? AND appointment_date = ? AND status != 'cancelled'");
+    $countStmt->execute([$doctor_id, $date]);
+    $dailyNumber = (int)$countStmt->fetchColumn();
+    $queue_number = str_pad($dailyNumber, 3, '0', STR_PAD_LEFT);
 
     echo json_encode([
         "success" => true, 

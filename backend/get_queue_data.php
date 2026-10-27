@@ -79,7 +79,7 @@ try {
             $stateLabel = 'Your Turn';
         }
 
-        $qnum = str_pad($app['id'], 3, '0', STR_PAD_LEFT);
+        $qnum = str_pad($pos, 3, '0', STR_PAD_LEFT);
 
         $queueList[] = [
             "position" => str_pad($pos, 2, '0', STR_PAD_LEFT), // 01, 02
@@ -118,7 +118,7 @@ try {
         "user_status" => $userAppt['status'],
         "is_called" => ($userAppt['status'] === 'in_progress'),
         "user_position" => str_pad($userPosition, 2, '0', STR_PAD_LEFT),
-        "user_queue_number" => str_pad($userAppt['id'], 3, '0', STR_PAD_LEFT),
+        "user_queue_number" => str_pad($userPosition, 3, '0', STR_PAD_LEFT),
         "current_patient" => $currentPatientStr,
         "people_ahead" => $peopleAhead,
         "estimated_wait" => $estWaitText,

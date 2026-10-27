@@ -47,7 +47,7 @@ try {
 
         $queue[] = [
             "id" => $appt['id'],
-            "queue_no" => str_pad($queue_number, 2, '0', STR_PAD_LEFT),
+            "queue_no" => str_pad($queue_number, 3, '0', STR_PAD_LEFT),
             "patient_name" => $appt['first_name'] . ' ' . $appt['last_name'],
             "service" => $appt['service'],
             "doctor_name" => $appt['doctor_name'],
