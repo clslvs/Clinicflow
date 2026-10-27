@@ -1,8 +1,19 @@
 # Prevent directory browsing
 Options -Indexes
 
-# Block direct access to sensitive file types
-<FilesMatch "\.(sql|ps1|md|zip|log|ini|sh|env)$">
+# Block direct access to hidden/dot files and directories (.git, .env, etc.)
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Block direct access to sensitive file types and dumps
+<FilesMatch "\.(sql|ps1|md|zip|log|ini|sh|env|bak)$|dummydata\.txt|config\.local\.sample\.php">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -16,6 +27,8 @@ Options -Indexes
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 </IfModule>
 
 DirectoryIndex index.php index.html

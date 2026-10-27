@@ -337,6 +337,22 @@
             });
         });
 
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function openEditPanelById(id) {
+            const user = allUsers.find(u => u.id == id);
+            if (!user) return;
+            openEditPanel(user);
+        }
+
         function renderTable() {
             const tbody = document.getElementById('users-tbody');
             const search = document.getElementById('search-input').value.toLowerCase();
@@ -371,31 +387,39 @@
                     ? `<button class="btn-action cancel" onclick="toggleStatus(${user.id}, 0)" title="Deactivate"><i data-lucide="user-minus" style="width:16px; height:16px;"></i></button>`
                     : `<button class="btn-action confirm" onclick="toggleStatus(${user.id}, 1)" title="Reactivate"><i data-lucide="user-check" style="width:16px; height:16px;"></i></button>`;
 
+                const safeFirst = escapeHtml(user.first_name);
+                const safeLast = escapeHtml(user.last_name);
+                const safeEmail = escapeHtml(user.email);
+                const safePhone = escapeHtml(user.phone);
+                const safeRole = escapeHtml(user.role);
+                const safeDate = escapeHtml(user.formatted_date);
+                const initials = escapeHtml(((user.first_name || '').charAt(0) + (user.last_name || '').charAt(0)).toUpperCase());
+
                 tr.innerHTML = `
                     <td style="padding: 1rem 1.5rem; opacity: ${rowOpacity};">
                         <div style="display: flex; align-items: center; gap: 1rem;">
                             <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-teal-100); color: var(--color-teal-800); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem;">
-                                ${user.first_name.charAt(0)}${user.last_name.charAt(0)}
+                                ${initials}
                             </div>
                             <div>
-                                <div style="font-weight: 600; color: #333;">${user.first_name} ${user.last_name}</div>
+                                <div style="font-weight: 600; color: #333;">${safeFirst} ${safeLast}</div>
                             </div>
                         </div>
                     </td>
                     <td style="padding: 1.5rem; color: #555; opacity: ${rowOpacity};">
-                        <div>${user.email}</div>
-                        <div style="font-size: 0.85rem; color: #888;">${user.phone}</div>
+                        <div>${safeEmail}</div>
+                        <div style="font-size: 0.85rem; color: #888;">${safePhone}</div>
                     </td>
                     <td style="padding: 1.5rem; opacity: ${rowOpacity};">
-                        <span class="role-badge role-${user.role}">${user.role}</span>
+                        <span class="role-badge role-${safeRole}">${safeRole}</span>
                     </td>
                     <td style="padding: 1.5rem;">
                         <span class="status-badge ${user.is_active == 1 ? 'status-active' : 'status-inactive'}">${user.is_active == 1 ? 'Active' : 'Inactive'}</span>
                     </td>
-                    <td style="padding: 1.5rem; color: #666; opacity: ${rowOpacity};">${user.formatted_date}</td>
+                    <td style="padding: 1.5rem; color: #666; opacity: ${rowOpacity};">${safeDate}</td>
                     <td style="padding: 1.5rem; text-align: right;">
                         <div class="table-actions" style="justify-content: flex-end;">
-                            <button class="btn-action confirm" onclick='openEditPanel(${JSON.stringify(user)})' style="border-color:var(--color-teal-500); color:var(--color-teal-500);" title="Edit"><i data-lucide="edit-2" style="width:16px; height:16px;"></i></button>
+                            <button class="btn-action confirm" onclick="openEditPanelById(${user.id})" style="border-color:var(--color-teal-500); color:var(--color-teal-500);" title="Edit"><i data-lucide="edit-2" style="width:16px; height:16px;"></i></button>
                             ${toggleAction}
                         </div>
                     </td>

@@ -477,6 +477,22 @@
                 });
         }
 
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        window.openNotesById = function(apptId) {
+            const item = (window.currentPatientHistory || []).find(h => h.id == apptId);
+            if (!item) return;
+            openNotes(item.id, item.service, item.doctor_notes || '');
+        };
+
         function renderPatientList(patients) {
             const container = document.getElementById('patients-list');
             container.innerHTML = '';
@@ -487,14 +503,18 @@
             }
 
             patients.forEach(p => {
-                const initials = p.name.split(' ').map(n => n[0]).join('');
+                const initials = escapeHtml((p.name || '').split(' ').map(n => n[0]).join('').toUpperCase());
+                const safeName = escapeHtml(p.name);
+                const safeVisits = parseInt(p.total_visits || 0);
+                const safeLast = escapeHtml(p.last_visit || 'N/A');
+
                 const item = document.createElement('div');
                 item.className = 'patient-list-item';
                 item.innerHTML = `
                     <div class="patient-list-avatar">${initials}</div>
                     <div class="patient-list-info">
-                        <h4>${p.name}</h4>
-                        <p>${p.total_visits} visit${p.total_visits != 1 ? 's' : ''} · Last: ${p.last_visit || 'N/A'}</p>
+                        <h4>${safeName}</h4>
+                        <p>${safeVisits} visit${safeVisits != 1 ? 's' : ''} · Last: ${safeLast}</p>
                     </div>
                 `;
                 item.addEventListener('click', () => {
@@ -514,16 +534,23 @@
                 .then(res => res.json())
                 .then(data => {
                     if (!data.success) {
-                        pane.innerHTML = `<p style="padding:1rem;color:red;">${data.message}</p>`;
+                        pane.innerHTML = `<p style="padding:1rem;color:red;">${escapeHtml(data.message)}</p>`;
                         return;
                     }
 
+                    window.currentPatientHistory = data.history || [];
+
                     const p = data.patient;
-                    const fullName = `${p.first_name} ${p.last_name}`;
-                    const initials = `${p.first_name[0]}${p.last_name[0]}`;
+                    const fullName = escapeHtml(`${p.first_name} ${p.last_name}`);
+                    const initials = escapeHtml(`${(p.first_name || '')[0] || ''}${(p.last_name || '')[0] || ''}`.toUpperCase());
+                    const safeEmail = escapeHtml(p.email);
+                    const safePhone = escapeHtml(p.phone);
+                    const safeAllergies = escapeHtml(p.allergies || 'None');
+                    const safeConditions = escapeHtml(p.medical_conditions || 'None');
+                    const safeVisits = parseInt(patientBasic.total_visits || 0);
 
                     let historyRows = '';
-                    if (data.history.length === 0) {
+                    if (!data.history || data.history.length === 0) {
                         historyRows = '<tr><td colspan="5" style="text-align:center;color:var(--color-grey);">No appointment history.</td></tr>';
                     } else {
                         data.history.forEach(h => {
@@ -539,16 +566,15 @@
                                 'cancelled': '<span class="status-pill" style="background:#fee2e2;color:#dc2626;">Cancelled</span>',
                             };
 
-                            const notesBtn = h.doctor_notes
-                                ? `<span class="notes-badge" onclick="openNotes(${h.id}, '${h.service}', \`${(h.doctor_notes || '').replace(/`/g, "'")}\`)">📋 View</span>`
-                                : `<span class="notes-badge empty" onclick="openNotes(${h.id}, '${h.service}', '')">+ Add</span>`;
+                            const hasNotes = Boolean(h.doctor_notes && h.doctor_notes.trim());
+                            const notesBtn = `<span class="notes-badge ${hasNotes ? '' : 'empty'}" onclick="openNotesById(${h.id})">${hasNotes ? '📋 View' : '+ Add'}</span>`;
 
                             historyRows += `
                                 <tr>
-                                    <td>${h.service}</td>
-                                    <td>${dateStr}</td>
-                                    <td>${timeStr}</td>
-                                    <td>${statusMap[h.status] || h.status}</td>
+                                    <td>${escapeHtml(h.service)}</td>
+                                    <td>${escapeHtml(dateStr)}</td>
+                                    <td>${escapeHtml(timeStr)}</td>
+                                    <td>${statusMap[h.status] || escapeHtml(h.status)}</td>
                                     <td class="notes-cell">${notesBtn}</td>
                                 </tr>
                             `;
@@ -560,26 +586,26 @@
                             <div class="detail-avatar">${initials}</div>
                             <div class="detail-name">
                                 <h2>${fullName}</h2>
-                                <p>${patientBasic.total_visits} total visit${patientBasic.total_visits != 1 ? 's' : ''}</p>
+                                <p>${safeVisits} total visit${safeVisits != 1 ? 's' : ''}</p>
                             </div>
                         </div>
 
                         <div class="detail-info-grid">
                             <div class="detail-info-item">
                                 <label>Email</label>
-                                <span>${p.email}</span>
+                                <span>${safeEmail}</span>
                             </div>
                             <div class="detail-info-item">
                                 <label>Phone</label>
-                                <span>${p.phone}</span>
+                                <span>${safePhone}</span>
                             </div>
                             <div class="detail-info-item">
                                 <label>Known Allergies</label>
-                                <span>${p.allergies || 'None'}</span>
+                                <span>${safeAllergies}</span>
                             </div>
                             <div class="detail-info-item">
                                 <label>Medical Conditions</label>
-                                <span>${p.medical_conditions || 'None'}</span>
+                                <span>${safeConditions}</span>
                             </div>
                         </div>
 

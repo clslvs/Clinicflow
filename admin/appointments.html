@@ -161,6 +161,16 @@
             });
         });
 
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         function renderTable() {
             const tbody = document.getElementById('appointments-tbody');
             const search = document.getElementById('search-input').value.toLowerCase();
@@ -214,13 +224,20 @@
                     actionsHtml = `<span style="color: #999; font-style: italic; font-size: 0.9rem;">No actions</span>`;
                 }
 
+                const safePatient = escapeHtml(app.patient_name);
+                const safeService = escapeHtml(app.service);
+                const safeDoctor = escapeHtml(app.doctor_name);
+                const safeDate = escapeHtml(app.formatted_date);
+                const safeTime = escapeHtml(app.formatted_time);
+                const safeStatus = escapeHtml(displayStatus);
+
                 tr.innerHTML = `
-                    <td style="padding: 1.5rem; font-weight: 600; color: #333;">${app.patient_name}</td>
-                    <td style="padding: 1.5rem; color: #666;">${app.service}</td>
-                    <td style="padding: 1.5rem; color: #666;">${app.doctor_name}</td>
-                    <td style="padding: 1.5rem; color: #666;">${app.formatted_date} | ${app.formatted_time}</td>
+                    <td style="padding: 1.5rem; font-weight: 600; color: #333;">${safePatient}</td>
+                    <td style="padding: 1.5rem; color: #666;">${safeService}</td>
+                    <td style="padding: 1.5rem; color: #666;">${safeDoctor}</td>
+                    <td style="padding: 1.5rem; color: #666;">${safeDate} | ${safeTime}</td>
                     <td style="padding: 1.5rem;">
-                        <span class="status-pill ${statusClass}">${displayStatus}</span>
+                        <span class="status-pill ${statusClass}">${safeStatus}</span>
                     </td>
                     <td style="padding: 1.5rem;">
                         <div class="table-actions">${actionsHtml}</div>

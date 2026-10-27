@@ -32,15 +32,35 @@ $email = trim($data['email'] ?? '');
 $password = $data['password'] ?? '';
 $role = $data['role'] ?? 'patient'; // The role selected on the login page
 
+// Rate limiting: max 5 failed attempts per 5 minutes per session
+$maxAttempts = 5;
+$lockoutSeconds = 300;
+
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['login_first_attempt'] = time();
+}
+
+if ($_SESSION['login_attempts'] >= $maxAttempts) {
+    if ((time() - $_SESSION['login_first_attempt']) < $lockoutSeconds) {
+        $remaining = $lockoutSeconds - (time() - $_SESSION['login_first_attempt']);
+        echo json_encode([
+            "success" => false,
+            "message" => "Too many failed login attempts. Please wait " . ceil($remaining / 60) . " minute(s) before trying again."
+        ]);
+        exit;
+    } else {
+        $_SESSION['login_attempts'] = 0;
+        $_SESSION['login_first_attempt'] = time();
+    }
+}
+
 if (empty($email) || empty($password)) {
     echo json_encode(["success" => false, "message" => "Email and password are required."]);
     exit;
 }
 
 try {
-
-
-
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
@@ -54,8 +74,6 @@ try {
         if (password_verify($password, $user['password'])) {
 
             if ($user['role'] !== 'admin') {
-
-
                 if ($role === 'staff' && !in_array($user['role'], ['staff', 'doctor'])) {
                     echo json_encode(["success" => false, "message" => "Your account is not registered as Staff or Doctor."]);
                     exit;
@@ -64,6 +82,9 @@ try {
                     exit;
                 }
             }
+
+            // Reset failed login tracking on success
+            unset($_SESSION['login_attempts'], $_SESSION['login_first_attempt']);
 
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user['id'];
@@ -76,12 +97,14 @@ try {
                 "message" => "Login successful!",
                 "role" => $user['role']
             ]);
-        } else {
-            echo json_encode(["success" => false, "message" => "Incorrect password."]);
+            exit;
         }
-    } else {
-        echo json_encode(["success" => false, "message" => "Account not found."]);
     }
+
+    // Authentication failed: increment attempt counter and return generic message
+    $_SESSION['login_attempts']++;
+    echo json_encode(["success" => false, "message" => "Invalid email or password."]);
+    exit;
 } catch (PDOException $e) {
     error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 }

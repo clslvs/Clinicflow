@@ -41,6 +41,6 @@ try {
     }
 } catch (PDOException $e) {
     error_log($e->getMessage()); 
-    echo json_encode(["success" => false, "message" => "A database error occurred: " . $e->getMessage()]);
+    echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 }
 ?>

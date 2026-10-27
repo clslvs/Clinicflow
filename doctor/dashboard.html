@@ -150,12 +150,25 @@
                             return;
                         }
 
+                        function escapeHtml(str) {
+                            if (str === null || str === undefined) return '';
+                            return String(str)
+                                .replace(/&/g, '&amp;')
+                                .replace(/</g, '&lt;')
+                                .replace(/>/g, '&gt;')
+                                .replace(/"/g, '&quot;')
+                                .replace(/'/g, '&#039;');
+                        }
+
                         data.schedule.forEach(appt => {
 
-                            const timeParts = appt.appointment_time.split(':');
-                            const dateObj = new Date();
-                            dateObj.setHours(timeParts[0], timeParts[1]);
-                            const formattedTime = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                            let formattedTime = 'Time not set';
+                            if (appt.appointment_time) {
+                                const timeParts = appt.appointment_time.split(':');
+                                const dateObj = new Date();
+                                dateObj.setHours(timeParts[0], timeParts[1]);
+                                formattedTime = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                            }
 
                             let statusClass = 'status-waiting';
                             let statusText = 'Waiting';
@@ -171,12 +184,12 @@
                             const item = document.createElement('div');
                             item.className = 'schedule-item';
                             item.innerHTML = `
-                                <div class="schedule-time">${formattedTime}</div>
+                                <div class="schedule-time">${escapeHtml(formattedTime)}</div>
                                 <div class="schedule-info">
-                                    <h4>${appt.service}</h4>
-                                    <p>${appt.patient_name}</p>
+                                    <h4>${escapeHtml(appt.service)}</h4>
+                                    <p>${escapeHtml(appt.patient_name)}</p>
                                 </div>
-                                <div class="status-pill ${statusClass}">${statusText}</div>
+                                <div class="status-pill ${statusClass}">${escapeHtml(statusText)}</div>
                             `;
                             list.appendChild(item);
                         });

@@ -1,6 +1,16 @@
 <?php
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'domain' => '',
+        'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+    session_start();
+}
 require 'db.php';
 
 header('Content-Type: application/json');
@@ -30,6 +40,11 @@ $is_priority = !empty($data['is_priority']) ? 1 : 0;
 
 if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($password)) {
     echo json_encode(["success" => false, "message" => "All fields are required."]);
+    exit;
+}
+
+if (strlen($password) < 6) {
+    echo json_encode(["success" => false, "message" => "Password must be at least 6 characters long."]);
     exit;
 }
 

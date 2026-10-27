@@ -178,6 +178,16 @@
                 updateQueue();
                 setInterval(updateQueue, 5000);
 
+                function escapeHtml(str) {
+                    if (str === null || str === undefined) return '';
+                    return String(str)
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#039;');
+                }
+
                 const listContainer = document.getElementById('upcoming-appointments-list');
                 listContainer.innerHTML = ''; // clear loading text
 
@@ -185,21 +195,27 @@
                     data.upcoming_appointments.forEach(apt => {
                         const statusClass = apt.status === 'confirmed' ? 'status-confirmed' : 'status-pending';
 
+                        const safeService = escapeHtml(apt.service);
+                        const safeDoctor = escapeHtml(apt.doctor_name);
+                        const safeDate = escapeHtml(apt.date_text);
+                        const safeTime = escapeHtml(apt.time_text);
+                        const safeStatus = escapeHtml(apt.status_display);
+
                         const itemHtml = `
                             <div class="appointment-item">
                                 <div class="icon-box">
                                     <i data-lucide="calendar-days"></i>
                                 </div>
                                 <div class="appointment-details">
-                                    <h4>${apt.service}</h4>
-                                    <p class="doctor-name">${apt.doctor_name}</p>
+                                    <h4>${safeService}</h4>
+                                    <p class="doctor-name">${safeDoctor}</p>
                                 </div>
                                 <div class="appointment-time">
-                                    <div class="date-text">${apt.date_text}</div>
-                                    <div class="time-text">${apt.time_text}</div>
+                                    <div class="date-text">${safeDate}</div>
+                                    <div class="time-text">${safeTime}</div>
                                 </div>
                                 <div class="appointment-status ${statusClass}" style="text-transform: capitalize;">
-                                    ${apt.status_display}
+                                    ${safeStatus}
                                 </div>
                             </div>
                         `;

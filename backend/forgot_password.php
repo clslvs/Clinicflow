@@ -47,24 +47,27 @@ if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
+// Rate limiting: allow at most one request every 60 seconds per session
+if (isset($_SESSION['last_reset_request']) && (time() - $_SESSION['last_reset_request']) < 60) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Please wait 60 seconds before requesting another password reset."
+    ]);
+    exit;
+}
+$_SESSION['last_reset_request'] = time();
+
 try {
     // 1. Find user by email
     $stmt = $pdo->prepare("SELECT id, first_name, last_name, email, is_active FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
-    if (!$user) {
+    if (!$user || (isset($user['is_active']) && $user['is_active'] == 0)) {
+        // Generic success message to prevent account enumeration
         echo json_encode([
-            "success" => false,
-            "message" => "No account found with this email address."
-        ]);
-        exit;
-    }
-
-    if (isset($user['is_active']) && $user['is_active'] == 0) {
-        echo json_encode([
-            "success" => false,
-            "message" => "This account is inactive. Please contact clinic administration."
+            "success" => true,
+            "message" => "If an account matches that email address, password reset instructions have been sent. Please check your inbox and spam folder."
         ]);
         exit;
     }
@@ -181,20 +184,23 @@ try {
 
         echo json_encode([
             "success" => true,
-            "message" => "A new temporary password has been sent to your email! Please check your inbox and spam folder."
+            "message" => "If an account matches that email address, password reset instructions have been sent. Please check your inbox and spam folder."
         ]);
     } else {
         $respData = json_decode($response, true);
         $errMsg = $respData['message'] ?? 'Unable to send email via Brevo.';
+        error_log("Brevo API error: " . $errMsg);
         echo json_encode([
             "success" => false,
-            "message" => "Email sending error: " . $errMsg
+            "message" => "Unable to send reset email at this time. Please try again later or contact the clinic."
         ]);
     }
 
 } catch (PDOException $e) {
-    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
+    error_log($e->getMessage()); 
+    echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 } catch (Exception $e) {
-    echo json_encode(["success" => false, "message" => "Server error: " . $e->getMessage()]);
+    error_log($e->getMessage());
+    echo json_encode(["success" => false, "message" => "An error occurred while processing your request. Please try again later."]);
 }
 ?>

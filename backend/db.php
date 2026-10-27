@@ -1,4 +1,20 @@
 <?php
+// Apply baseline security headers
+if (!headers_sent()) {
+    header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: SAMEORIGIN');
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+}
+
+// Ensure session cookies are protected across all endpoints
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', '1');
+    ini_set('session.use_only_cookies', '1');
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        ini_set('session.cookie_secure', '1');
+    }
+}
+
 // Smart environment detection: local Laragon vs live InfinityFree hosting
 $is_local = (
     php_sapi_name() === 'cli' ||

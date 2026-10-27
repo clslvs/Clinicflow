@@ -36,22 +36,42 @@ try {
 
         $avatarPath = 'assets/images/temporarypicdoctor.jpg';
         if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+            // Cap upload size at 2MB
+            if ($_FILES['avatar']['size'] > 2 * 1024 * 1024) {
+                echo json_encode(["success" => false, "message" => "Avatar image must be under 2MB."]);
+                exit;
+            }
+
+            // Verify content is a genuine image (magic bytes)
+            $imageInfo = @getimagesize($_FILES['avatar']['tmp_name']);
+            if ($imageInfo === false) {
+                echo json_encode(["success" => false, "message" => "Uploaded file is not a valid image."]);
+                exit;
+            }
+
+            $allowedMimes = [
+                'image/jpeg' => 'jpg',
+                'image/png'  => 'png',
+                'image/webp' => 'webp'
+            ];
+
+            if (!isset($allowedMimes[$imageInfo['mime']])) {
+                echo json_encode(["success" => false, "message" => "Only JPG, PNG, and WebP images are allowed."]);
+                exit;
+            }
+
             $uploadDir = '../assets/images/uploads/';
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
+
+            // Derive extension purely from validated MIME type
+            $ext = $allowedMimes[$imageInfo['mime']];
+            $newFilename = uniqid('doc_') . '.' . $ext;
+            $targetFile = $uploadDir . $newFilename;
             
-            $fileInfo = pathinfo($_FILES['avatar']['name']);
-            $ext = strtolower($fileInfo['extension']);
-            $allowedExts = ['jpg', 'jpeg', 'png', 'webp'];
-            
-            if (in_array($ext, $allowedExts)) {
-                $newFilename = uniqid('doc_') . '.' . $ext;
-                $targetFile = $uploadDir . $newFilename;
-                
-                if (move_uploaded_file($_FILES['avatar']['tmp_name'], $targetFile)) {
-                    $avatarPath = 'assets/images/uploads/' . $newFilename;
-                }
+            if (move_uploaded_file($_FILES['avatar']['tmp_name'], $targetFile)) {
+                $avatarPath = 'assets/images/uploads/' . $newFilename;
             }
         }
 

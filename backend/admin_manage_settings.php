@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         echo json_encode(["success" => true, "settings" => $settings]);
     } catch (PDOException $e) {
-        echo json_encode(["success" => false, "message" => $e->getMessage()]);
+        error_log($e->getMessage());
+        echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
     }
     exit;
 }
@@ -36,7 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         echo json_encode(["success" => true]);
     } catch (PDOException $e) {
-        echo json_encode(["success" => false, "message" => $e->getMessage()]);
+        error_log($e->getMessage());
+        echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
     }
 }
 ?>
