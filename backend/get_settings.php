@@ -13,33 +13,34 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 try {
-    $stmt = $pdo->prepare("SELECT id, first_name, middle_name, last_name, sex, email, phone, allergies, medical_conditions, is_priority FROM users WHERE id = ?");
+    // Use SELECT * so query never fails if optional columns (middle_name, sex) are not yet migrated
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
     $stmt->execute([$user_id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-
         $patient_id_formatted = "#PT-" . str_pad($user['id'], 4, '0', STR_PAD_LEFT);
 
         echo json_encode([
             "success" => true,
             "data" => [
-                "first_name" => $user['first_name'],
+                "first_name" => $user['first_name'] ?? "",
                 "middle_name" => $user['middle_name'] ?? "",
-                "last_name" => $user['last_name'],
+                "last_name" => $user['last_name'] ?? "",
                 "sex" => $user['sex'] ?? "",
-                "email" => $user['email'],
-                "phone" => $user['phone'],
+                "email" => $user['email'] ?? "",
+                "phone" => $user['phone'] ?? "",
                 "patient_id_formatted" => $patient_id_formatted,
                 "allergies" => $user['allergies'] ?? "",
                 "medical_conditions" => $user['medical_conditions'] ?? "",
-                "is_priority" => (bool)$user['is_priority']
+                "is_priority" => (bool)($user['is_priority'] ?? false)
             ]
         ]);
     } else {
         echo json_encode(["success" => false, "message" => "User not found"]);
     }
 } catch (PDOException $e) {
-    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
+    error_log($e->getMessage()); 
+    echo json_encode(["success" => false, "message" => "A database error occurred: " . $e->getMessage()]);
 }
 ?>

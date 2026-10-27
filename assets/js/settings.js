@@ -33,8 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('input-allergies').value = user.allergies || '';
                 document.getElementById('input-conditions').value = user.medical_conditions || '';
                 document.getElementById('input-priority').checked = user.is_priority === 1 || user.is_priority === true;
-            } else {
+            } else if (data.message === 'Unauthorized' || data.message === 'Not logged in.') {
                 window.location.href = '../login.html';
+            } else {
+                console.error("Failed to load settings:", data.message);
+                alert(data.message || 'Could not load settings.');
             }
         })
         .catch(err => {

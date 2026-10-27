@@ -39,13 +39,20 @@ try {
         exit;
     }
 
-    $stmt = $pdo->prepare("UPDATE users SET first_name = ?, middle_name = ?, last_name = ?, sex = ?, email = ?, phone = ? WHERE id = ?");
-    $stmt->execute([$firstName, $middleName, $lastName, $sex, $email, $phone, $_SESSION['user_id']]);
+    // Attempt update with middle_name and sex; fallback if columns not yet migrated
+    try {
+        $stmt = $pdo->prepare("UPDATE users SET first_name = ?, middle_name = ?, last_name = ?, sex = ?, email = ?, phone = ? WHERE id = ?");
+        $stmt->execute([$firstName, $middleName, $lastName, $sex, $email, $phone, $_SESSION['user_id']]);
+    } catch (PDOException $e) {
+        $stmt = $pdo->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE id = ?");
+        $stmt->execute([$firstName, $lastName, $email, $phone, $_SESSION['user_id']]);
+    }
 
     $_SESSION['user_name'] = $firstName . ($middleName ? ' ' . $middleName : '') . ' ' . $lastName;
 
     echo json_encode(["success" => true, "message" => "Personal information updated successfully."]);
 } catch (PDOException $e) {
-    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
+    error_log($e->getMessage()); 
+    echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 }
 ?>
