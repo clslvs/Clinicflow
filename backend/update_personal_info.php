@@ -25,8 +25,8 @@ $sex = !empty($data['sex']) && in_array($data['sex'], ['Male', 'Female', 'Other'
 $email = trim($data['email'] ?? '');
 $phone = trim($data['phone'] ?? '');
 
-if (empty($firstName) || empty($lastName) || empty($email)) {
-    echo json_encode(["success" => false, "message" => "First name, last name, and email are required."]);
+if (empty($firstName) || empty($lastName) || empty($email) || empty($phone)) {
+    echo json_encode(["success" => false, "message" => "First name, last name, email, and phone number are required."]);
     exit;
 }
 
@@ -35,7 +35,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-if (!empty($phone) && !preg_match('/^[0-9]{11}$/', $phone)) {
+if (!preg_match('/^[0-9]{11}$/', $phone)) {
     echo json_encode(["success" => false, "message" => "Phone number must be exactly 11 digits (e.g., 09123456789)."]);
     exit;
 }
