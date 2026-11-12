@@ -1,92 +1,86 @@
-# 🦷 ClinicFlow - Dental Clinic Management System
+# ClinicFlow
 
-ClinicFlow is a modern, responsive web application for dental clinics featuring multi-role access control for Patients, Staff members, and Administrators.
+ClinicFlow is a dental clinic management web application for NgipinSolution Biñan. It provides separate portals for patients, staff, doctors, and administrators using PHP 8+, MySQL or MariaDB via PDO, and vanilla HTML, CSS, and JavaScript with no build step.
 
----
+## Portals and features
 
-## 🌟 Key Features
+### Patient portal (`patient/`)
 
-### 👤 Patient Portal
-- **Online Booking**: Dynamic service selection, doctor selection, and automated day-blocking based on clinic operating hours.
-- **Appointment Tracking**: Real-time status tracking (Pending, Confirmed, In Progress, Completed, Cancelled).
-- **Personal Records**: Manage patient medical history and personal profile.
+Patients can book appointments by service, dentist, and available time slot (`book-appointment.html`), check their live queue position (`queue-tracker.html`), view, reschedule, or cancel bookings (`my-appointments.html`), and update personal details and medical disclosures such as allergies (`settings.html`).
 
-### 👩‍⚕️ Staff Portal
-- **Daily Queue Management**: Live status progression for patients currently in clinic.
-- **Weekly Schedule & Appointments**: View, confirm, reschedule, or cancel patient bookings.
-- **Patient Records & History**: Searchable medical records and past visit history.
+### Staff portal (`staff/`)
 
-### 🛡️ Admin Portal
-- **Master Appointments Hub**: Live search and status filtering across all appointments clinic-wide.
-- **User Management**: Add, update, and manage Patients, Staff, and Administrators with an ethical soft-delete mechanism (`is_active` flag) preserving historical medical records.
-- **Settings & Dynamic Config**: Manage clinic operating hours, closed days (e.g. Sundays), active dental services, and doctor profiles dynamically stored in MySQL.
+Staff manage the daily walk-in and scheduled queue (`queue.html`), review weekly schedules (`schedules.html`), search patient records and visit history (`records.html`), and toggle priority status for senior citizens or persons with disabilities.
 
----
+### Doctor portal (`doctor/`)
 
-## 🛠️ Technology Stack
-- **Frontend**: HTML5, Vanilla CSS3 (Custom design system, dark mode & glassmorphism), Vanilla JavaScript (Fetch API).
-- **Backend**: PHP 8+ (RESTful JSON endpoints, PDO prepared statements).
-- **Database**: MySQL / MariaDB (via Laragon).
+Doctors can review their assigned patients and prior visit records (`my-patients.html`), add consultation notes, view their schedule (`my-schedule.html`), and manage account settings (`settings.html`).
 
----
+### Admin portal (`admin/`)
 
-## 🚀 Setup & Local Installation
+Administrators can search and update appointments across the clinic (`appointments.html`), create or deactivate accounts with a two-step permanent deletion flow that anonymizes user data while keeping medical history (`users.html`), and configure clinic hours, closed days, services, doctor profiles with avatar uploads, and Monday to Saturday doctor availability (`settings.html`).
 
-### 1. Requirements
-- [Laragon](https://laragon.org/) (Apache/Nginx + MySQL)
-- Web browser (Chrome, Edge, Firefox)
+Public pages at the repository root include the landing page with live queue status (`index.html`), role-aware sign-in and password reset (`login.html`), patient registration (`register.html`), and terms, privacy, and cookie notices (`legal.html`).
 
-### 2. Installation Steps
-1. Clone or extract this repository into your Laragon web root:
-   ```bash
-   C:\laragon\www\clinicflow
-   # or
-   E:\laragon\www\clinicflow
-   ```
-2. Start **Apache** and **MySQL** from the Laragon Control Panel.
-3. Open phpMyAdmin: [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
-4. Create a database named `clinicflow` (or import directly from `backend/database.sql`).
-5. Open your browser and navigate to:
-   ```
-   http://localhost/clinicflow/
-   ```
+## Tech stack
 
----
+- Frontend: HTML5, CSS3 (`tokens.css`, `base.css`, and per-portal stylesheets), vanilla ES6+ JavaScript (`Fetch API`), and bundled Lucide icons (`assets/js/lucide.min.js`).
+- Backend: Procedural PHP 8+ JSON endpoints with session authentication and PDO prepared statements.
+- Database: MySQL or MariaDB (`backend/database.sql`).
+- Email: Brevo REST API over HTTPS (`backend/forgot_password.php`) for password reset codes on hosts that block SMTP ports.
 
-## 🔑 Default Credentials
+## Local setup
+
+### Requirements
+
+- Laragon (Apache and MySQL) or an equivalent PHP 8+ and MySQL/MariaDB stack
+- A web browser
+
+### Steps
+
+1. Clone or extract this repository into your Laragon web root (for example `E:\laragon\www\clinicflow`).
+2. Start Apache and MySQL from Laragon.
+3. Import `backend/database.sql` in phpMyAdmin or the MySQL CLI to create the `clinicflow` database, schema, default settings, and sample accounts. If you are updating an older database, run `setup_db.sql` as well.
+4. Copy `backend/config.local.sample.php` to `backend/config.local.php` and fill in `BREVO_API_KEY`, `SENDER_EMAIL`, and `DB_PASS` for production. Local Laragon defaults (`127.0.0.1`, database `clinicflow`, user `root`, blank password) work without editing `backend/db.php`.
+5. Open `http://clinicflow.test/` or `http://localhost/clinicflow/` in your browser.
+
+## Default accounts
+
+All accounts seeded by `backend/database.sql` use the password `admin123`. Change or remove them before deploying to production.
 
 | Role | Email | Password |
 |---|---|---|
-| **Admin** | `imadmin123@gmail.com` | `admin123` |
-| **Doctor** | `doctor@clinicflow.com` | `admin123` |
-| **Staff** | `admin@clinicflow.com` | `admin123` |
-| **Patient** | `patient@clinicflow.com` (or register new) | `admin123` |
+| Admin | `admin@clinicflow.com` | `admin123` |
+| Staff | `staff@clinicflow.com` | `admin123` |
+| Doctor | `doctor@clinicflow.com` | `admin123` |
+| Patient | `patient@clinicflow.com` | `admin123` |
 
----
+## Project structure
 
-## 📁 Project Structure
-```
+```text
 clinicflow/
-├── admin/               # Admin dashboard & management interfaces
-│   ├── appointments.html
-│   ├── users.html
-│   └── settings.html
-├── assets/              # Stylesheets, JS scripts, icons, images
+├── admin/               # Admin appointments, user management, and settings
+├── assets/              # Stylesheets, client scripts, Lucide bundle, and images
 │   ├── css/
-│   ├── js/
-│   └── images/
-├── backend/             # PHP backend APIs & MySQL schema
-│   ├── database.sql     # Master database schema & seed data
-│   ├── db.php           # PDO database connection
-│   └── *.php            # Endpoint scripts
-├── patient/             # Patient dashboard & booking pages
-├── staff/               # Staff queue, scheduling & records pages
-├── index.html           # Landing page
-├── login.html           # Authentication portal
-└── register.html        # Patient registration
+│   ├── images/
+│   └── js/
+├── backend/             # PHP endpoints, database schema, and local config sample
+│   ├── config.local.sample.php
+│   ├── database.sql
+│   ├── db.php
+│   └── *.php
+├── doctor/              # Doctor dashboard, patients, schedule, and settings
+├── patient/             # Patient dashboard, booking, appointments, queue, settings
+├── staff/               # Staff dashboard, queue, records, schedules, settings
+├── base.css             # Shared base styles
+├── tokens.css           # Design tokens
+├── index.html           # Public landing page
+├── legal.html           # Terms, privacy policy, and cookie policy
+├── login.html           # Sign-in and password reset
+├── register.html        # Patient registration
+└── setup_db.sql         # Incremental schema and seed script
 ```
 
----
+## License
 
-## 📄 License
-This project is for educational and dental clinic management purposes.
+For educational and dental clinic management use.
