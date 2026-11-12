@@ -35,6 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("UPDATE services SET is_active = ? WHERE id = ?");
             $stmt->execute([$data['is_active'], $data['id']]);
             echo json_encode(["success" => true]);
+        } else if ($action === 'delete') {
+            $serviceId = intval($data['id'] ?? 0);
+            if ($serviceId <= 0) {
+                echo json_encode(["success" => false, "message" => "Invalid service ID"]);
+                exit;
+            }
+            $stmt = $pdo->prepare("DELETE FROM services WHERE id = ?");
+            $stmt->execute([$serviceId]);
+            echo json_encode(["success" => true, "message" => "Service deleted successfully."]);
         }
     } catch (PDOException $e) {
         error_log($e->getMessage());

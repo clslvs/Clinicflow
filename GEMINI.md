@@ -58,3 +58,11 @@
 - **Database Migrations**: Do not run destructive queries (`DROP TABLE`, unbacked `TRUNCATE`, destructive column drops) without explicit confirmation.
 - **Environment Compatibility**: Preserve dual-environment logic in `backend/db.php` supporting both local Laragon (`127.0.0.1`) and production InfinityFree hosting.
 - **Dependencies**: Keep the app lightweight and native — avoid adding unnecessary external libraries or node dependencies unless requested.
+
+---
+
+## 🧠 Persistent Memory (Obsidian)
+- The project's persistent second brain lives in `notes/` (linked to Obsidian vault `Clinicflow Memory`).
+- **Reading**: Before designing new features, changing public endpoints, or debugging hosting quirks, consult `notes/Index.md` for established architecture patterns and previous gotchas.
+- **Writing**: Operate on a hybrid model. When solving tricky bugs or establishing new patterns, draft an update for `notes/` and propose it to the user.
+
