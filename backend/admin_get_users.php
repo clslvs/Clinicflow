@@ -12,9 +12,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
 
 try {
     try {
-        $stmt = $pdo->query("SELECT id, first_name, last_name, email, phone, role, is_active, created_at FROM users WHERE (is_deleted = 0 OR is_deleted IS NULL) ORDER BY created_at DESC");
+        $stmt = $pdo->query("SELECT id, first_name, last_name, email, phone, role, is_active, is_priority, created_at FROM users WHERE (is_deleted = 0 OR is_deleted IS NULL) ORDER BY created_at DESC");
     } catch (PDOException $colErr) {
-        $stmt = $pdo->query("SELECT id, first_name, last_name, email, phone, role, is_active, created_at FROM users ORDER BY created_at DESC");
+        $stmt = $pdo->query("SELECT id, first_name, last_name, email, phone, role, is_active, is_priority, created_at FROM users ORDER BY created_at DESC");
     }
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -22,6 +22,7 @@ try {
     foreach ($users as $user) {
         $dateObj = new DateTime($user['created_at']);
         $user['formatted_date'] = $dateObj->format('M. d, Y');
+        $user['is_priority'] = (bool)($user['is_priority'] ?? false);
         $formatted[] = $user;
     }
 

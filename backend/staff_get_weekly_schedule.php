@@ -20,8 +20,9 @@ $start_date = $_GET['start_date'];
 $end_date = $_GET['end_date'];
 
 try {
+    ensureAppointmentVisitType($pdo);
     $stmt = $pdo->prepare("
-        SELECT a.id, a.service, a.appointment_date, a.appointment_time, 
+        SELECT a.id, a.service, a.appointment_date, a.appointment_time, a.visit_type,
                u.first_name, u.last_name
         FROM appointments a
         JOIN users u ON a.patient_id = u.id
@@ -29,7 +30,7 @@ try {
           AND a.appointment_date >= ? 
           AND a.appointment_date <= ?
           AND a.status != 'cancelled'
-        ORDER BY a.appointment_date ASC, a.appointment_time ASC
+        ORDER BY a.appointment_date ASC, COALESCE(NULLIF(a.appointment_time, ''), '23:59:59') ASC, a.created_at ASC
     ");
     $stmt->execute([$doctor_id, $start_date, $end_date]);
     $appointments = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -39,7 +40,8 @@ try {
         $schedule[] = [
             "id" => $appt['id'],
             "date" => $appt['appointment_date'],
-            "time" => substr($appt['appointment_time'], 0, 5), // 'HH:MM'
+            "time" => !empty($appt['appointment_time']) ? substr($appt['appointment_time'], 0, 5) : null,
+            "visit_type" => $appt['visit_type'] ?? 'scheduled',
             "patient_name" => $appt['first_name'] . ' ' . $appt['last_name'],
             "service" => $appt['service']
         ];

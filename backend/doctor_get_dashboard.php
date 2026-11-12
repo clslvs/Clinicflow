@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'doctor') {
 }
 
 try {
+    ensureAppointmentVisitType($pdo);
 
     $userStmt = $pdo->prepare("SELECT linked_doctor_id FROM users WHERE id = ?");
     $userStmt->execute([$_SESSION['user_id']]);
@@ -43,12 +44,12 @@ try {
     $patientData = $patientStmt->fetch(PDO::FETCH_ASSOC);
 
     $stmtSched = $pdo->prepare("
-        SELECT a.id, a.service, a.status, a.appointment_time, a.notes, 
+        SELECT a.id, a.service, a.status, a.appointment_time, a.visit_type, a.notes, 
                CONCAT(u.first_name, ' ', u.last_name) as patient_name
         FROM appointments a
         JOIN users u ON a.patient_id = u.id
         WHERE a.appointment_date = CURDATE() AND a.status != 'cancelled' AND a.doctor_id = ?
-        ORDER BY a.appointment_time ASC
+        ORDER BY u.is_priority DESC, COALESCE(NULLIF(a.appointment_time, ''), '23:59:59') ASC, a.created_at ASC
     ");
     $stmtSched->execute([$doctor_id]);
     $schedule = $stmtSched->fetchAll(PDO::FETCH_ASSOC);

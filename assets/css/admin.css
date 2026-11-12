@@ -729,6 +729,39 @@ body {
   background: #14532d;
 }
 
+.priority-badge,
+.walkin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-outlier);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.priority-badge {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.walkin-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.btn-action.pwd-verified {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
 /* -------------------------------------------------------------
    SLIDE-OUT PANELS & OVERLAYS
    ------------------------------------------------------------- */
@@ -1796,4 +1829,158 @@ body {
 .admin-toast.error {
   background: #dc2626;
   color: #ffffff;
+}
+
+/* PWD Custom Confirmation Modal */
+.pwd-modal-card {
+  max-width: 480px;
+  background: var(--color-paper);
+  padding: var(--space-xl);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  box-shadow: 0 16px 40px -8px color-mix(in oklab, var(--color-ink) 18%, transparent);
+  box-sizing: border-box;
+  width: 100%;
+  animation: pwdModalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pwdModalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.pwd-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.pwd-modal-icon-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in oklab, #d97706 14%, var(--color-paper-2));
+  color: #b45309;
+  border: var(--rule-hair) solid color-mix(in oklab, #d97706 35%, transparent);
+}
+
+.pwd-modal-icon-badge.danger {
+  background: color-mix(in oklab, #dc2626 12%, var(--color-paper-2));
+  color: #dc2626;
+  border-color: color-mix(in oklab, #dc2626 30%, transparent);
+}
+
+.pwd-modal-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-2xs) 0;
+}
+
+.pwd-modal-desc {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.pwd-modal-patient-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px 14px;
+  background: var(--color-paper-2);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-input);
+  margin-bottom: var(--space-md);
+}
+
+.pwd-modal-patient-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.pwd-modal-patient-meta h4 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pwd-modal-patient-meta p {
+  margin: 2px 0 0 0;
+  font-family: var(--font-outlier);
+  font-size: var(--text-2xs);
+  color: var(--color-muted);
+}
+
+.pwd-modal-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-input);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+  background: color-mix(in oklab, #d97706 10%, var(--color-paper-2));
+  border: var(--rule-hair) solid color-mix(in oklab, #d97706 32%, var(--color-rule));
+  color: #92400e;
+  margin-bottom: var(--space-lg);
+}
+
+.pwd-modal-callout.danger {
+  background: color-mix(in oklab, #dc2626 8%, var(--color-paper-2));
+  border-color: color-mix(in oklab, #dc2626 28%, var(--color-rule));
+  color: #991b1b;
+}
+
+.pwd-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+}
+
+.pwd-modal-actions button {
+  min-width: 110px;
+}
+
+.btn-danger-red {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  background: #dc2626;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-danger-red:hover {
+  background: #b91c1c;
+}
+
+.btn-danger-red:active {
+  transform: translateY(1px);
 }

@@ -17,8 +17,9 @@ if (!isset($data['patient_id']) || !isset($data['is_priority'])) {
 }
 
 try {
+    $isPriority = (filter_var($data['is_priority'], FILTER_VALIDATE_BOOLEAN) || $data['is_priority'] === 1 || $data['is_priority'] === '1' || $data['is_priority'] === true) ? 1 : 0;
     $stmt = $pdo->prepare("UPDATE users SET is_priority = ? WHERE id = ?");
-    $stmt->execute([$data['is_priority'] ? 1 : 0, $data['patient_id']]);
+    $stmt->execute([$isPriority, $data['patient_id']]);
 
     echo json_encode(["success" => true, "message" => "Status updated successfully!"]);
 } catch (PDOException $e) {

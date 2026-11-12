@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="../tokens.css">
     <link rel="stylesheet" href="../base.css">
-    <link rel="stylesheet" href="../assets/css/staff.css">
+    <link rel="stylesheet" href="../assets/css/staff.css?v=2">
 
     <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -127,8 +127,11 @@
                 <div class="records-detail-pane" id="patient-details-pane" style="display: none;">
                     <div class="detail-header">
                         <div class="detail-avatar" id="detail-avatar">J</div>
-                        <div class="detail-name">
-                            <h2 id="detail-name" style="margin: 0; font-family: var(--font-display); font-size: var(--text-lg); color: var(--color-ink);">John Doe</h2>
+                        <div class="detail-name" style="flex: 1; min-width: 0;">
+                            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                <h2 id="detail-name" style="margin: 0; font-family: var(--font-display); font-size: var(--text-lg); color: var(--color-ink);">John Doe</h2>
+                                <span id="detail-pwd-badge" class="priority-badge" style="display: none;">PWD / Senior</span>
+                            </div>
                             <p id="detail-pt-id" style="margin: 2px 0 0 0; font-family: var(--font-outlier); font-size: var(--text-xs); color: var(--color-muted);">PT ID: #PT-0001</p>
                         </div>
                         <button class="btn-close-details" id="btn-close-details" aria-label="Close details pane">
@@ -160,6 +163,18 @@
                         <div class="detail-field">
                             <label>Medical Conditions</label>
                             <p id="detail-conditions">None</p>
+                        </div>
+                        <div class="detail-field detail-field-pwd" id="detail-field-pwd">
+                            <div>
+                                <label style="margin-bottom: 2px;">QUEUE PRIORITY ACCESS</label>
+                                <p id="detail-pwd-status-text" style="margin: 0; font-size: var(--text-sm); font-weight: 500; color: var(--color-ink);">
+                                    Standard Queue Status
+                                </p>
+                            </div>
+                            <button type="button" id="btn-toggle-pwd" class="pwd-confirm-btn" style="cursor: pointer;">
+                                <i data-lucide="shield-check" style="width: 14px; height: 14px;"></i>
+                                <span id="btn-toggle-pwd-label">Confirm PWD</span>
+                            </button>
                         </div>
                     </div>
 
@@ -218,6 +233,11 @@
                     <h2 style="color: var(--color-ink); margin: 0 0 var(--space-lg) 0; font-family: var(--font-display); font-size: var(--text-xl);">Schedule Next Dental Visit</h2>
                     
                     <form id="form-book-visit">
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--color-ink); margin-bottom: var(--space-md); cursor: pointer;">
+                            <input type="checkbox" id="book-walkin" style="width: auto;">
+                            <span>Walk-in visit today (add straight to live queue without a time slot)</span>
+                        </label>
+
                         <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-md);">
                             <div class="form-group">
                                 <label for="book-date">APPOINTMENT DATE</label>
@@ -287,6 +307,53 @@
         </div>
     </div>
 
+    <!-- PWD / Senior Priority Confirmation Custom Modal Dialog -->
+    <div id="pwd-confirm-modal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: color-mix(in oklab, var(--color-ink) 55%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: var(--space-md);" role="dialog" aria-modal="true" aria-labelledby="pwd-modal-title">
+        <div class="modal-content-card pwd-modal-card">
+            <div class="pwd-modal-header">
+                <div class="pwd-modal-icon-badge" id="pwd-modal-icon-badge">
+                    <i data-lucide="shield-check" id="pwd-modal-icon" style="width: 24px; height: 24px;"></i>
+                </div>
+                <button type="button" class="btn-close-details" id="pwd-modal-close-btn" aria-label="Close dialog">
+                    <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+                </button>
+            </div>
+
+            <div class="pwd-modal-body">
+                <h3 id="pwd-modal-title" class="pwd-modal-title">Verify PWD / Senior Priority</h3>
+
+                <p id="pwd-modal-desc" class="pwd-modal-desc">
+                    Grant priority queue access for today and future appointments.
+                </p>
+
+                <!-- Patient Identity Chip -->
+                <div class="pwd-modal-patient-chip">
+                    <div class="record-avatar" id="pwd-modal-patient-avatar">C</div>
+                    <div class="pwd-modal-patient-meta">
+                        <h4 id="pwd-modal-patient-name">Patient Name</h4>
+                        <p id="pwd-modal-patient-id">PT ID: #PT-0000</p>
+                    </div>
+                    <span id="pwd-modal-patient-status" class="priority-badge" style="margin-left: auto;">Queue Priority</span>
+                </div>
+
+                <!-- Verification Notice / Compliance Callout -->
+                <div class="pwd-modal-callout" id="pwd-modal-callout">
+                    <i data-lucide="info" id="pwd-modal-callout-icon" style="width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px;"></i>
+                    <span id="pwd-modal-callout-text">
+                        Please confirm that an official <strong>PWD ID</strong> or <strong>Senior Citizen ID</strong> was physically presented and verified at the front desk.
+                    </span>
+                </div>
+            </div>
+
+            <div class="pwd-modal-actions">
+                <button type="button" class="btn-outline-teal" id="pwd-modal-cancel-btn">Cancel</button>
+                <button type="button" class="btn-solid-teal" id="pwd-modal-confirm-btn">
+                    <span id="pwd-modal-confirm-label">Confirm Priority Access</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
 
     <script src="../assets/js/staff-nav.js"></script>
     <script>
@@ -325,6 +392,7 @@
 
         let patients = [];
         let currentPatientId = null;
+        let selectedPatientObj = null;
 
         fetch('../backend/staff_get_patients.php')
             .then(res => res.json())
@@ -349,7 +417,7 @@
 
             listToRender.forEach(p => {
                 const item = document.createElement('div');
-                item.className = 'record-list-item';
+                item.className = 'record-list-item' + (currentPatientId === p.id ? ' active' : '');
                 item.onclick = () => selectPatient(p, item);
 
                 const avatar = document.createElement('div');
@@ -360,7 +428,27 @@
                 info.className = 'record-info';
                 
                 const nameEl = document.createElement('h4');
-                nameEl.textContent = p.name;
+                nameEl.style.display = 'flex';
+                nameEl.style.alignItems = 'center';
+                nameEl.style.justifyContent = 'space-between';
+                nameEl.style.gap = '6px';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = p.name;
+                nameSpan.style.whiteSpace = 'nowrap';
+                nameSpan.style.overflow = 'hidden';
+                nameSpan.style.textOverflow = 'ellipsis';
+                nameEl.appendChild(nameSpan);
+
+                if (p.is_priority) {
+                    const prioBadge = document.createElement('span');
+                    prioBadge.className = 'priority-badge';
+                    prioBadge.style.fontSize = '10px';
+                    prioBadge.style.padding = '1px 6px';
+                    prioBadge.style.flexShrink = '0';
+                    prioBadge.textContent = 'PWD';
+                    nameEl.appendChild(prioBadge);
+                }
                 
                 const idEl = document.createElement('p');
                 idEl.textContent = p.pt_id || 'ID Pending';
@@ -375,8 +463,47 @@
             });
         }
 
+        function updatePwdDisplay(patient) {
+            const isPrio = !!patient.is_priority;
+            const badge = document.getElementById('detail-pwd-badge');
+            const statusText = document.getElementById('detail-pwd-status-text');
+            const pwdField = document.getElementById('detail-field-pwd');
+            const btn = document.getElementById('btn-toggle-pwd');
+            const btnLabel = document.getElementById('btn-toggle-pwd-label');
+
+            if (badge) {
+                badge.style.display = isPrio ? 'inline-flex' : 'none';
+            }
+            if (statusText) {
+                statusText.textContent = isPrio
+                    ? 'Priority Queue Access (PWD / Senior Citizen ID verified)'
+                    : 'Standard Queue Status (Regular)';
+                statusText.style.color = isPrio ? '#92400e' : 'var(--color-ink)';
+            }
+            if (pwdField) {
+                if (isPrio) {
+                    pwdField.classList.remove('is-regular');
+                } else {
+                    pwdField.classList.add('is-regular');
+                }
+            }
+            if (btn && btnLabel) {
+                if (isPrio) {
+                    btn.className = 'pwd-confirm-btn verified';
+                    btnLabel.textContent = 'PWD Verified (Click to Revoke)';
+                    btn.title = 'Click to revoke priority queue status';
+                } else {
+                    btn.className = 'pwd-confirm-btn';
+                    btnLabel.textContent = 'Confirm PWD / Senior';
+                    btn.title = 'Click to grant priority queue status upon ID verification';
+                }
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
         function selectPatient(patient, itemElement) {
             currentPatientId = patient.id;
+            selectedPatientObj = patient;
 
             document.querySelectorAll('.record-list-item').forEach(el => el.classList.remove('active'));
             if (itemElement) itemElement.classList.add('active');
@@ -394,8 +521,152 @@
             document.getElementById('detail-doctor').textContent = patient.primary_doctor || 'General Practice';
             document.getElementById('detail-allergies').textContent = patient.allergies || 'None reported';
             document.getElementById('detail-conditions').textContent = patient.medical_conditions || 'None reported';
-            lucide.createIcons();
+
+            updatePwdDisplay(patient);
         }
+
+        let pendingPwdPatient = null;
+        let pendingPwdMakePriority = false;
+
+        function openPwdConfirmModal(patient) {
+            if (!patient) return;
+            pendingPwdPatient = patient;
+            pendingPwdMakePriority = !patient.is_priority;
+
+            const modal = document.getElementById('pwd-confirm-modal');
+            const iconBadge = document.getElementById('pwd-modal-icon-badge');
+            const titleEl = document.getElementById('pwd-modal-title');
+            const descEl = document.getElementById('pwd-modal-desc');
+            const avatarEl = document.getElementById('pwd-modal-patient-avatar');
+            const nameEl = document.getElementById('pwd-modal-patient-name');
+            const idEl = document.getElementById('pwd-modal-patient-id');
+            const statusBadge = document.getElementById('pwd-modal-patient-status');
+            const calloutEl = document.getElementById('pwd-modal-callout');
+            const calloutText = document.getElementById('pwd-modal-callout-text');
+            const confirmBtn = document.getElementById('pwd-modal-confirm-btn');
+            const confirmLabel = document.getElementById('pwd-modal-confirm-label');
+
+            avatarEl.textContent = (patient.name || 'P').charAt(0).toUpperCase();
+            nameEl.textContent = patient.name || 'Unknown Patient';
+            idEl.textContent = `PT ID: ${patient.pt_id || '#PT-0000'}`;
+
+            if (pendingPwdMakePriority) {
+                iconBadge.className = 'pwd-modal-icon-badge';
+                iconBadge.innerHTML = '<i data-lucide="shield-check" style="width: 24px; height: 24px;"></i>';
+                titleEl.textContent = 'Verify PWD / Senior Priority';
+                descEl.textContent = `Grant priority queue access for ${patient.name} for today and future appointments.`;
+
+                statusBadge.className = 'priority-badge';
+                statusBadge.textContent = 'Priority Queue';
+                statusBadge.style.display = 'inline-flex';
+
+                calloutEl.className = 'pwd-modal-callout';
+                calloutText.innerHTML = 'Please confirm that an official <strong>PWD ID</strong> or <strong>Senior Citizen ID</strong> was physically presented and verified at the front desk.';
+
+                confirmBtn.className = 'btn-solid-teal';
+                confirmLabel.textContent = 'Confirm Priority Access';
+            } else {
+                iconBadge.className = 'pwd-modal-icon-badge danger';
+                iconBadge.innerHTML = '<i data-lucide="alert-circle" style="width: 24px; height: 24px;"></i>';
+                titleEl.textContent = 'Remove Priority Queue Access';
+                descEl.textContent = `Remove PWD / Senior Citizen priority queue status for ${patient.name}?`;
+
+                statusBadge.className = 'status-pill status-waiting';
+                statusBadge.textContent = 'Standard Queue';
+                statusBadge.style.display = 'inline-flex';
+
+                calloutEl.className = 'pwd-modal-callout danger';
+                calloutText.innerHTML = 'This patient will be returned to <strong>standard queue ordering</strong> for current and future appointments.';
+
+                confirmBtn.className = 'btn-danger-red';
+                confirmLabel.textContent = 'Remove Priority';
+            }
+
+            confirmBtn.disabled = false;
+            if (window.lucide) lucide.createIcons();
+
+            modal.style.display = 'flex';
+            confirmBtn.focus();
+        }
+
+        function closePwdConfirmModal() {
+            const modal = document.getElementById('pwd-confirm-modal');
+            if (modal) modal.style.display = 'none';
+            pendingPwdPatient = null;
+        }
+
+        document.getElementById('pwd-modal-close-btn').addEventListener('click', closePwdConfirmModal);
+        document.getElementById('pwd-modal-cancel-btn').addEventListener('click', closePwdConfirmModal);
+
+        document.getElementById('pwd-confirm-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'pwd-confirm-modal') {
+                closePwdConfirmModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('pwd-confirm-modal');
+                if (modal && modal.style.display !== 'none') {
+                    closePwdConfirmModal();
+                }
+            }
+        });
+
+        document.getElementById('pwd-modal-confirm-btn').addEventListener('click', () => {
+            if (!pendingPwdPatient) return;
+            const patient = pendingPwdPatient;
+            const makePriority = pendingPwdMakePriority;
+            const confirmBtn = document.getElementById('pwd-modal-confirm-btn');
+            const confirmLabel = document.getElementById('pwd-modal-confirm-label');
+
+            confirmBtn.disabled = true;
+            confirmLabel.textContent = 'Updating...';
+
+            fetch('../backend/staff_update_pwd_status.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ patient_id: patient.id, is_priority: makePriority })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    patient.is_priority = makePriority;
+                    const found = patients.find(p => p.id === patient.id);
+                    if (found) found.is_priority = makePriority;
+
+                    updatePwdDisplay(patient);
+
+                    const term = (document.getElementById('search-input').value || '').toLowerCase();
+                    const listToRender = term
+                        ? patients.filter(p =>
+                            (p.name && p.name.toLowerCase().includes(term)) ||
+                            (p.pt_id && p.pt_id.toLowerCase().includes(term)) ||
+                            (p.email && p.email.toLowerCase().includes(term)) ||
+                            (p.phone && p.phone.includes(term))
+                          )
+                        : patients;
+                    renderPatientList(listToRender);
+                    closePwdConfirmModal();
+                } else {
+                    alert(data.message || 'Failed to update priority status');
+                    confirmBtn.disabled = false;
+                    confirmLabel.textContent = makePriority ? 'Confirm Priority Access' : 'Remove Priority';
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Error connecting to server.");
+                confirmBtn.disabled = false;
+                confirmLabel.textContent = makePriority ? 'Confirm Priority Access' : 'Remove Priority';
+            });
+        });
+
+        document.getElementById('btn-toggle-pwd').addEventListener('click', () => {
+            if (selectedPatientObj) {
+                openPwdConfirmModal(selectedPatientObj);
+            }
+        });
 
         document.getElementById('btn-close-details').addEventListener('click', () => {
             document.getElementById('patient-details-pane').style.display = 'none';
@@ -413,6 +684,8 @@
             if (clonedActions) clonedActions.remove();
             const clonedClose = historyDetailsCard.querySelector('.btn-close-details');
             if (clonedClose) clonedClose.remove();
+            const clonedToggle = historyDetailsCard.querySelector('#btn-toggle-pwd');
+            if (clonedToggle) clonedToggle.remove();
 
             document.querySelector('.records-container').style.display = 'none';
             document.getElementById('full-history-pane').style.display = 'flex';
@@ -536,6 +809,8 @@
             if (clonedActions) clonedActions.remove();
             const clonedClose = bookVisitCard.querySelector('.btn-close-details');
             if (clonedClose) clonedClose.remove();
+            const clonedToggle = bookVisitCard.querySelector('#btn-toggle-pwd');
+            if (clonedToggle) clonedToggle.remove();
 
             fetch('../backend/staff_get_doctors.php')
                 .then(res => res.json())
@@ -602,15 +877,37 @@
             document.querySelector('.records-container').style.display = 'grid';
         });
 
+        document.getElementById('book-walkin').addEventListener('change', (e) => {
+            const isWalkin = e.target.checked;
+            const dateInput = document.getElementById('book-date');
+            const timeInput = document.getElementById('book-time');
+            if (isWalkin) {
+                const now = new Date();
+                const yyyy = now.getFullYear();
+                const mm = String(now.getMonth() + 1).padStart(2, '0');
+                const dd = String(now.getDate()).padStart(2, '0');
+                dateInput.value = `${yyyy}-${mm}-${dd}`;
+                timeInput.value = '';
+                timeInput.required = false;
+                timeInput.disabled = true;
+            } else {
+                timeInput.disabled = false;
+                timeInput.required = true;
+            }
+        });
+
         document.getElementById('form-book-visit').addEventListener('submit', (e) => {
             e.preventDefault();
-            
+            const isWalkin = document.getElementById('book-walkin').checked;
+
             const payload = {
                 patient_id: currentPatientId,
                 doctor_id: document.getElementById('book-doctor').value,
                 date: document.getElementById('book-date').value,
-                time: document.getElementById('book-time').value,
-                service: document.getElementById('book-reason').value
+                time: isWalkin ? null : document.getElementById('book-time').value,
+                visit_type: isWalkin ? 'walk_in' : 'scheduled',
+                service: document.getElementById('book-reason').value,
+                notes: document.getElementById('book-notes').value.trim()
             };
 
             fetch('../backend/staff_book_appointment.php', {
@@ -621,8 +918,10 @@
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
-                    alert('Appointment booked successfully!');
+                    alert(isWalkin ? 'Walk-in added to today\'s queue!' : 'Appointment booked successfully!');
                     document.getElementById('form-book-visit').reset();
+                    document.getElementById('book-time').disabled = false;
+                    document.getElementById('book-time').required = true;
                     document.getElementById('btn-cancel-book').click();
                 } else {
                     alert(data.message || 'Failed to book appointment');
@@ -634,6 +933,5 @@
             });
         });
     </script>
-    <script src="../assets/js/staff-nav.js"></script>
 </body>
 </html>

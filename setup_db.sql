@@ -1,8 +1,9 @@
 USE clinicflow;
 
--- Ensure soft-delete column exists on doctors and users
+-- Ensure soft-delete and walk-in columns exist
 ALTER TABLE doctors ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS is_deleted BOOLEAN DEFAULT FALSE;
+ALTER TABLE appointments ADD COLUMN IF NOT EXISTS visit_type ENUM('scheduled', 'walk_in') NOT NULL DEFAULT 'scheduled';
 
 CREATE TABLE IF NOT EXISTS services (
     id INT AUTO_INCREMENT PRIMARY KEY,

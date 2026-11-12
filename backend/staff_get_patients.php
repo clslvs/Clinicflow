@@ -13,17 +13,20 @@ if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['staff', 
 try {
 
     // 1. Fetch all patients and their completed visit count in a single query
-    $stmt = $pdo->prepare("
+    $baseSelect = "
         SELECT 
-            u.id, u.first_name, u.middle_name, u.last_name, u.sex, u.email, u.phone, u.allergies, u.medical_conditions,
+            u.id, u.first_name, u.middle_name, u.last_name, u.sex, u.email, u.phone, u.allergies, u.medical_conditions, u.is_priority,
             COUNT(CASE WHEN a.status = 'completed' THEN 1 END) as total_visits
         FROM users u
         LEFT JOIN appointments a ON u.id = a.patient_id
-        WHERE u.role = 'patient'
-        GROUP BY u.id
-        ORDER BY u.first_name ASC
-    ");
-    $stmt->execute();
+    ";
+    try {
+        $stmt = $pdo->prepare($baseSelect . " WHERE u.role = 'patient' AND (u.is_deleted = 0 OR u.is_deleted IS NULL) GROUP BY u.id ORDER BY u.first_name ASC");
+        $stmt->execute();
+    } catch (PDOException $colErr) {
+        $stmt = $pdo->prepare($baseSelect . " WHERE u.role = 'patient' GROUP BY u.id ORDER BY u.first_name ASC");
+        $stmt->execute();
+    }
     $patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // 2. Fetch primary (most frequent) doctor for each patient in a single grouped query
@@ -56,6 +59,7 @@ try {
             "phone" => $p['phone'],
             "allergies" => !empty($p['allergies']) ? $p['allergies'] : 'None',
             "medical_conditions" => !empty($p['medical_conditions']) ? $p['medical_conditions'] : 'None',
+            "is_priority" => (bool)($p['is_priority'] ?? false),
             "total_visits" => (int)$p['total_visits'],
             "primary_doctor" => $docMap[$p['id']] ?? "None assigned"
         ];

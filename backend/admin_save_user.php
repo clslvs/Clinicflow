@@ -98,6 +98,8 @@ try {
         exit;
     }
 
+    $isPriority = !empty($data['is_priority']) ? 1 : 0;
+
     if (empty($data['id'])) {
 
         if (empty($data['password'])) {
@@ -113,18 +115,18 @@ try {
         }
 
         $hashed = password_hash($data['password'], PASSWORD_DEFAULT);
-        $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, phone, role, password) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$data['first_name'], $data['last_name'], $data['email'], $data['phone'], $data['role'], $hashed]);
+        $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, phone, role, password, is_priority) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$data['first_name'], $data['last_name'], $data['email'], $data['phone'], $data['role'], $hashed, $isPriority]);
         
     } else {
 
         if (!empty($data['password'])) {
             $hashed = password_hash($data['password'], PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("UPDATE users SET first_name=?, last_name=?, email=?, phone=?, role=?, password=? WHERE id=?");
-            $stmt->execute([$data['first_name'], $data['last_name'], $data['email'], $data['phone'], $data['role'], $hashed, $data['id']]);
+            $stmt = $pdo->prepare("UPDATE users SET first_name=?, last_name=?, email=?, phone=?, role=?, is_priority=?, password=? WHERE id=?");
+            $stmt->execute([$data['first_name'], $data['last_name'], $data['email'], $data['phone'], $data['role'], $isPriority, $hashed, $data['id']]);
         } else {
-            $stmt = $pdo->prepare("UPDATE users SET first_name=?, last_name=?, email=?, phone=?, role=? WHERE id=?");
-            $stmt->execute([$data['first_name'], $data['last_name'], $data['email'], $data['phone'], $data['role'], $data['id']]);
+            $stmt = $pdo->prepare("UPDATE users SET first_name=?, last_name=?, email=?, phone=?, role=?, is_priority=? WHERE id=?");
+            $stmt->execute([$data['first_name'], $data['last_name'], $data['email'], $data['phone'], $data['role'], $isPriority, $data['id']]);
         }
     }
 

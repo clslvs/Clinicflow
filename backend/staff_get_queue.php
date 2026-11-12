@@ -11,9 +11,10 @@ if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'], ['staff', 
 }
 
 try {
+    ensureAppointmentVisitType($pdo);
 
     $stmt = $pdo->prepare("
-        SELECT a.id, a.service, a.status, a.appointment_time, 
+        SELECT a.id, a.patient_id, a.service, a.status, a.appointment_time, a.visit_type, 
                u.first_name, u.last_name, u.is_priority,
                d.name as doctor_name, d.id as doctor_id
         FROM appointments a
@@ -47,6 +48,7 @@ try {
 
         $queue[] = [
             "id" => $appt['id'],
+            "patient_id" => (int)$appt['patient_id'],
             "queue_no" => str_pad($queue_number, 3, '0', STR_PAD_LEFT),
             "patient_name" => $appt['first_name'] . ' ' . $appt['last_name'],
             "service" => $appt['service'],
@@ -54,6 +56,7 @@ try {
             "room_no" => "Room " . $appt['doctor_id'], // Simulated Room No based on doctor ID
             "status" => $logical_status, // 'waiting', 'in_progress', 'completed'
             "raw_status" => $appt['status'], // Original status if needed
+            "visit_type" => $appt['visit_type'] ?? (empty($appt['appointment_time']) ? 'walk_in' : 'scheduled'),
             "is_priority" => (bool)$appt['is_priority']
         ];
         

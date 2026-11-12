@@ -637,14 +637,12 @@ body {
   border: var(--rule-hair) solid color-mix(in oklab, #dc2626 28%, transparent);
 }
 
-.priority-badge {
+.priority-badge,
+.walkin-badge {
   display: inline-flex;
   align-items: center;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
-  background: color-mix(in oklab, #d97706 14%, var(--color-paper));
-  color: #92400e;
-  border: var(--rule-hair) solid color-mix(in oklab, #d97706 30%, transparent);
   font-family: var(--font-outlier);
   font-size: 10px;
   font-weight: 700;
@@ -652,6 +650,18 @@ body {
   letter-spacing: 0.04em;
   margin-left: 6px;
   vertical-align: middle;
+}
+
+.priority-badge {
+  background: color-mix(in oklab, #d97706 14%, var(--color-paper));
+  color: #92400e;
+  border: var(--rule-hair) solid color-mix(in oklab, #d97706 30%, transparent);
+}
+
+.walkin-badge {
+  background: color-mix(in oklab, var(--color-accent) 12%, var(--color-paper));
+  color: var(--color-accent-deep);
+  border: var(--rule-hair) solid color-mix(in oklab, var(--color-accent) 30%, transparent);
 }
 
 /* -------------------------------------------------------------
@@ -820,8 +830,9 @@ body {
   border-color: var(--color-rule);
 }
 
-/* Queue completion modal */
-#completion-modal {
+/* Queue & walk-in modals */
+#completion-modal,
+#walkin-modal {
   position: fixed;
   inset: 0;
   background: color-mix(in oklab, var(--color-ink) 50%, transparent);
@@ -832,6 +843,163 @@ body {
   justify-content: center;
   align-items: center;
   padding: var(--space-md);
+}
+
+#walkin-modal .modal-content-card {
+  max-width: 560px;
+  padding: var(--space-lg);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+#walkin-modal .form-group {
+  margin-bottom: var(--space-sm);
+}
+
+#walkin-modal .form-group label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#walkin-modal .form-group input,
+#walkin-modal .form-group select {
+  padding: 8px 12px;
+  font-size: var(--text-sm);
+  min-height: 40px;
+}
+
+#walkin-modal .walkin-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  align-items: end;
+}
+
+.walkin-patient-results {
+  max-height: 150px;
+  overflow-y: auto;
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-input);
+  background: var(--color-paper-2);
+  display: flex;
+  flex-direction: column;
+}
+
+.walkin-patient-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  background: transparent;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.walkin-patient-option:last-child {
+  border-bottom: none;
+}
+
+.walkin-patient-option:hover {
+  background: var(--color-paper);
+}
+
+.walkin-patient-option.selected {
+  background: color-mix(in oklab, var(--color-accent) 12%, var(--color-paper));
+  color: var(--color-accent-deep);
+  font-weight: 600;
+}
+
+.walkin-patient-meta {
+  font-family: var(--font-outlier);
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+.walkin-priority-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius-input);
+  background: var(--color-paper-2);
+  border: var(--rule-hair) solid var(--color-rule);
+  font-size: var(--text-xs);
+  color: var(--color-ink);
+  margin: var(--space-xs) 0 var(--space-md);
+  cursor: pointer;
+}
+
+.walkin-priority-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--color-accent);
+}
+
+@media (max-width: 34rem) {
+  #walkin-modal .walkin-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.walkin-mode-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+  background: var(--color-paper-2);
+  padding: 4px;
+  border-radius: var(--radius-input);
+  border: var(--rule-hair) solid var(--color-rule);
+}
+
+.walkin-tab {
+  border: none;
+  background: transparent;
+  padding: 8px var(--space-sm);
+  border-radius: calc(var(--radius-input) - 2px);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.walkin-tab.active {
+  background: var(--color-paper);
+  color: var(--color-accent-deep);
+  box-shadow: 0 1px 2px color-mix(in oklab, var(--color-ink) 8%, transparent);
+}
+
+.pwd-confirm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  cursor: pointer;
+  border: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper-2);
+  color: var(--color-ink-2);
+  white-space: nowrap;
+}
+
+.pwd-confirm-btn.verified {
+  background: color-mix(in oklab, #d97706 14%, var(--color-paper));
+  border-color: color-mix(in oklab, #d97706 40%, transparent);
+  color: #92400e;
 }
 
 .modal-content-card {
@@ -853,6 +1021,155 @@ body {
   margin: 0 0 var(--space-lg) 0;
 }
 
+/* PWD Custom Confirmation Modal */
+.pwd-modal-card {
+  max-width: 480px;
+  padding: var(--space-xl);
+  border-radius: var(--radius-card);
+  animation: pwdModalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pwdModalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.pwd-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.pwd-modal-icon-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in oklab, #d97706 14%, var(--color-paper-2));
+  color: #b45309;
+  border: var(--rule-hair) solid color-mix(in oklab, #d97706 35%, transparent);
+}
+
+.pwd-modal-icon-badge.danger {
+  background: color-mix(in oklab, #dc2626 12%, var(--color-paper-2));
+  color: #dc2626;
+  border-color: color-mix(in oklab, #dc2626 30%, transparent);
+}
+
+.pwd-modal-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-2xs) 0;
+}
+
+.pwd-modal-desc {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.pwd-modal-patient-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px 14px;
+  background: var(--color-paper-2);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-input);
+  margin-bottom: var(--space-md);
+}
+
+.pwd-modal-patient-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.pwd-modal-patient-meta h4 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pwd-modal-patient-meta p {
+  margin: 2px 0 0 0;
+  font-family: var(--font-outlier);
+  font-size: var(--text-2xs);
+  color: var(--color-muted);
+}
+
+.pwd-modal-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-input);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+  background: color-mix(in oklab, #d97706 10%, var(--color-paper-2));
+  border: var(--rule-hair) solid color-mix(in oklab, #d97706 32%, var(--color-rule));
+  color: #92400e;
+  margin-bottom: var(--space-lg);
+}
+
+.pwd-modal-callout.danger {
+  background: color-mix(in oklab, #dc2626 8%, var(--color-paper-2));
+  border-color: color-mix(in oklab, #dc2626 28%, var(--color-rule));
+  color: #991b1b;
+}
+
+.pwd-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+}
+
+.pwd-modal-actions button {
+  min-width: 110px;
+}
+
+.btn-danger-red {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  background: #dc2626;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-danger-red:hover {
+  background: #b91c1c;
+}
+
+.btn-danger-red:active {
+  transform: translateY(1px);
+}
+
 .form-group {
   margin-bottom: var(--space-md);
 }
@@ -869,7 +1186,8 @@ body {
 }
 
 .form-group textarea,
-.form-group input {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 10px 14px;
   border-radius: var(--radius-input);
@@ -883,7 +1201,8 @@ body {
 }
 
 .form-group textarea:focus,
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
   outline: none;
   border-color: var(--color-accent);
   background: var(--color-paper);
@@ -1335,6 +1654,22 @@ body {
 
 .detail-field-allergy p {
   color: #b45309;
+}
+
+.detail-field-pwd {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  background: color-mix(in oklab, #d97706 8%, var(--color-paper-2));
+  border: var(--rule-hair) solid color-mix(in oklab, #d97706 32%, var(--color-rule));
+}
+
+.detail-field-pwd.is-regular {
+  background: var(--color-paper-2);
+  border-color: var(--color-rule);
 }
 
 .detail-actions {

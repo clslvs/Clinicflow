@@ -25,9 +25,10 @@ $response = [
 
 try {
 
-    $stmtUser = $pdo->prepare("SELECT created_at FROM users WHERE id = ?");
+    $stmtUser = $pdo->prepare("SELECT created_at, is_priority FROM users WHERE id = ?");
     $stmtUser->execute([$user_id]);
     $userData = $stmtUser->fetch();
+    $response['user']['is_priority'] = (bool)($userData['is_priority'] ?? false);
     if ($userData && $userData['created_at']) {
         $date = new DateTime($userData['created_at']);
         $response['member_since'] = $date->format('F Y');
@@ -39,6 +40,8 @@ try {
     $response['total_visits'] = $totalData['total'] ?? 0;
 
 
+    ensureAppointmentVisitType($pdo);
+
     $stmtUpcoming = $pdo->prepare("
         SELECT a.*, d.name as doctor_name 
         FROM appointments a
@@ -46,7 +49,7 @@ try {
         WHERE a.patient_id = ? 
         AND a.appointment_date >= CURDATE()
         AND a.status != 'cancelled'
-        ORDER BY a.appointment_date ASC, a.appointment_time ASC
+        ORDER BY a.appointment_date ASC, COALESCE(NULLIF(a.appointment_time, ''), '23:59:59') ASC, a.created_at ASC
     ");
     $stmtUpcoming->execute([$user_id]);
     $appointments = $stmtUpcoming->fetchAll();
@@ -55,7 +58,7 @@ try {
         $next = $appointments[0];
         
         $dateObj = new DateTime($next['appointment_date']);
-        $time_display = 'Time not set';
+        $time_display = (($next['visit_type'] ?? '') === 'walk_in') ? 'Walk-in' : 'Time not set';
         if (!empty($next['appointment_time'])) {
             $timeObj = new DateTime($next['appointment_time']);
             $time_display = $timeObj->format('h:i A');
@@ -71,7 +74,7 @@ try {
     foreach ($appointments as $apt) {
         $dateObj = new DateTime($apt['appointment_date']);
         
-        $time_text = 'Time not set';
+        $time_text = (($apt['visit_type'] ?? '') === 'walk_in') ? 'Walk-in' : 'Time not set';
         if (!empty($apt['appointment_time'])) {
             $timeObj = new DateTime($apt['appointment_time']);
             $time_text = $timeObj->format('h:i A');

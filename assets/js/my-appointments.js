@@ -67,12 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
         filtered.forEach(app => {
             const tr = document.createElement('tr');
 
-            const dateObj = new Date(`${app.appointment_date}T${app.appointment_time}`);
+            const dateObj = new Date(`${app.appointment_date}T${app.appointment_time || '00:00:00'}`);
             let formattedDate = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
             formattedDate = formattedDate.replace(/([a-zA-Z]{3})\s/, '$1. ');
 
-            let formattedTime = 'Time not set';
+            let formattedTime = 'Walk-in';
             if (app.appointment_time) {
                 const [hours, minutes] = app.appointment_time.split(':');
                 const ampm = hours >= 12 ? 'PM' : 'AM';
@@ -136,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('modal-service').textContent = app.service;
         document.getElementById('modal-doctor').textContent = app.doctor_name;
         
-        const dateObj = new Date(app.appointment_date);
-        let formattedTime = 'Time not set';
+        const dateObj = new Date(`${app.appointment_date}T${app.appointment_time || '00:00:00'}`);
+        let formattedTime = 'Walk-in';
         if (app.appointment_time) {
             const [hours, minutes] = app.appointment_time.split(':');
             const ampm = hours >= 12 ? 'PM' : 'AM';

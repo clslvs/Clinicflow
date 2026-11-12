@@ -37,15 +37,25 @@ try {
     $stmt4->execute([$today]);
     $metrics['completed_today'] = $stmt4->fetchColumn();
 
+    ensureAppointmentVisitType($pdo);
+
     $stmtSchedule = $pdo->prepare("
-        SELECT a.id, a.service, a.appointment_time, a.status, d.name as doctor_name
+        SELECT a.id, a.patient_id, a.service, a.appointment_time, a.visit_type, a.status,
+               d.name as doctor_name,
+               CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+               u.is_priority
         FROM appointments a
         JOIN doctors d ON a.doctor_id = d.id
+        JOIN users u ON a.patient_id = u.id
         WHERE a.appointment_date = ? 
-        ORDER BY a.appointment_time ASC
+        ORDER BY u.is_priority DESC, COALESCE(NULLIF(a.appointment_time, ''), '23:59:59') ASC, a.created_at ASC
     ");
     $stmtSchedule->execute([$today]);
     $schedule = $stmtSchedule->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($schedule as &$row) {
+        $row['is_priority'] = (bool)($row['is_priority'] ?? false);
+    }
+    unset($row);
 
     echo json_encode([
         "success" => true,

@@ -63,7 +63,7 @@ try {
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
-    if (!$user || (isset($user['is_active']) && $user['is_active'] == 0)) {
+    if (!$user || (isset($user['is_active']) && $user['is_active'] == 0) || str_ends_with(strtolower($user['email']), '@clinic.local')) {
         // Generic success message to prevent account enumeration
         echo json_encode([
             "success" => true,

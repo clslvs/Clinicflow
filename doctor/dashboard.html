@@ -194,7 +194,7 @@
                         }
 
                         data.schedule.forEach(appt => {
-                            let formattedTime = 'Time not set';
+                            let formattedTime = appt.visit_type === 'walk_in' ? 'Walk-in' : 'Time not set';
                             if (appt.appointment_time) {
                                 const timeParts = appt.appointment_time.split(':');
                                 const dateObj = new Date();

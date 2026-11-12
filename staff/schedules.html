@@ -294,7 +294,7 @@
                         data.schedule.forEach(appt => {
                             const colBody = document.getElementById('col-' + appt.date);
                             if (colBody) {
-                                let timeStr = 'Time not set';
+                                let timeStr = appt.visit_type === 'walk_in' ? 'Walk-in' : 'Time not set';
                                 if (appt.time) {
                                     const timeParts = appt.time.split(':');
                                     const d = new Date();

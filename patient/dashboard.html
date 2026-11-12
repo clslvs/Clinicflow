@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" href="../tokens.css">
     <link rel="stylesheet" href="../base.css">
-    <link rel="stylesheet" href="../assets/css/patient.css?v=2">
+    <link rel="stylesheet" href="../assets/css/patient.css?v=3">
     
     <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -102,6 +102,10 @@
             <header class="page-header">
                 <h1>Good Day, <span id="header-name">...</span>!</h1>
                 <p>Here is an overview of your dental health journey.</p>
+                <div class="patient-priority-badge" id="pwd-status-badge" style="display: none;" role="status" aria-live="polite">
+                    <i data-lucide="shield-check" aria-hidden="true"></i>
+                    <span>Priority Queue Access Active (PWD / Senior)</span>
+                </div>
             </header>
 
             <div class="metrics-grid">
@@ -122,7 +126,7 @@
                     <div class="queue-header">
                         <div class="queue-info">
                             <div class="card-subtitle text-white">LIVE QUEUE</div>
-                            <div class="card-desc text-white">Your current position</div>
+                            <div class="card-desc text-white" id="queue-priority-desc">Your current position</div>
                         </div>
                         <div class="queue-number" id="dashboard-queue-number">--</div>
                     </div>
@@ -172,6 +176,21 @@
                 const firstName = data.user.name.split(' ')[0];
                 document.getElementById('header-name').textContent = firstName;
 
+                function updatePriorityUI(isPriority) {
+                    const badge = document.getElementById('pwd-status-badge');
+                    const qDesc = document.getElementById('queue-priority-desc');
+                    if (badge) {
+                        badge.style.display = isPriority ? 'inline-flex' : 'none';
+                    }
+                    if (qDesc) {
+                        qDesc.textContent = isPriority ? 'Priority queue access active (PWD / Senior)' : 'Your current position';
+                    }
+                    if (isPriority && typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+                        lucide.createIcons();
+                    }
+                }
+                updatePriorityUI(Boolean(data.user.is_priority));
+
                 document.getElementById('total-visits-count').textContent = data.total_visits;
                 document.getElementById('member-since-text').textContent = "Since " + data.member_since;
 
@@ -184,16 +203,21 @@
                     fetch('../backend/get_queue_data.php')
                         .then(res => res.json())
                         .then(qData => {
-                            if (qData.success && qData.has_queue) {
-                                document.getElementById('dashboard-queue-number').textContent = qData.user_queue_number;
+                            if (qData.success) {
+                                if (typeof qData.is_priority === 'boolean') {
+                                    updatePriorityUI(qData.is_priority);
+                                }
+                                if (qData.has_queue) {
+                                    document.getElementById('dashboard-queue-number').textContent = qData.user_queue_number;
 
-                                if (qData.patient_status === 'in_progress') {
-                                    if (window.lastKnownStatus !== 'in_progress') {
-                                        const audio = new Audio('../assets/sound/mixkit-happy-bells-notification-937.wav');
-                                        audio.play().catch(e => console.log('Audio blocked', e));
-                                        window.lastKnownStatus = 'in_progress';
+                                    if (qData.patient_status === 'in_progress') {
+                                        if (window.lastKnownStatus !== 'in_progress') {
+                                            const audio = new Audio('../assets/sound/mixkit-happy-bells-notification-937.wav');
+                                            audio.play().catch(e => console.log('Audio blocked', e));
+                                            window.lastKnownStatus = 'in_progress';
 
-                                        window.location.reload();
+                                            window.location.reload();
+                                        }
                                     }
                                 }
                             }

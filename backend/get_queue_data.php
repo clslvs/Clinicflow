@@ -15,6 +15,10 @@ $today = date('Y-m-d');
 
 try {
 
+    $prioStmt = $pdo->prepare("SELECT is_priority FROM users WHERE id = ?");
+    $prioStmt->execute([$user_id]);
+    $isPriorityUser = (bool)($prioStmt->fetchColumn() ?? false);
+
     $stmt = $pdo->prepare("
         SELECT id, doctor_id, status, appointment_time, appointment_date 
         FROM appointments 
@@ -27,7 +31,7 @@ try {
 
     if (!$userAppt) {
 
-        echo json_encode(["success" => true, "has_queue" => false]);
+        echo json_encode(["success" => true, "has_queue" => false, "is_priority" => $isPriorityUser]);
         exit;
     }
 
@@ -114,6 +118,7 @@ try {
     echo json_encode([
         "success" => true,
         "has_queue" => true,
+        "is_priority" => $isPriorityUser,
         "doctor_name" => $doctor_name,
         "user_status" => $userAppt['status'],
         "is_called" => ($userAppt['status'] === 'in_progress'),

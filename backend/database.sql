@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     service VARCHAR(100) NOT NULL,
     appointment_date DATE NOT NULL,
     appointment_time TIME NULL,
+    visit_type ENUM('scheduled', 'walk_in') NOT NULL DEFAULT 'scheduled',
     status ENUM('pending', 'confirmed', 'in_progress', 'completed', 'cancelled', 'rescheduling') DEFAULT 'pending',
     notes TEXT DEFAULT NULL,
     doctor_notes TEXT DEFAULT NULL,

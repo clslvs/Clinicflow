@@ -103,4 +103,12 @@ try {
         exit;
     }
 }
+
+function ensureAppointmentVisitType(PDO $pdo): void {
+    try {
+        $pdo->query("SELECT visit_type FROM appointments LIMIT 1");
+    } catch (PDOException $e) {
+        $pdo->exec("ALTER TABLE appointments ADD COLUMN visit_type ENUM('scheduled', 'walk_in') NOT NULL DEFAULT 'scheduled' AFTER appointment_time");
+    }
+}
 ?>
