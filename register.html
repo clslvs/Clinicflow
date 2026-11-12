@@ -3,135 +3,180 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - ClinicFlow</title>
-    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Create Patient Account - NgipinSolution Biñan</title>
+    <meta name="description" content="Register your patient account at NgipinSolution to book dental appointments and track live queue wait times. Powered by ClinicFlow.">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/variables.css">
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/auth.css?v=6">
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="assets/css/auth.css?v=8">
 </head>
 
 <body>
     <div class="auth-page">
-        
-        <div class="bg-shape shape-1"></div>
-        <div class="bg-shape shape-2"></div>
-        <div class="bg-shape shape-3"></div>
+        <header class="auth-top-nav">
+            <a href="index.html" class="auth-brand" aria-label="NgipinSolution Biñan Home">
+                <span class="auth-brand-icon">
+                    <img src="assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" id="auth-clinic-logo">
+                </span>
+                <span id="auth-clinic-name">NgipinSolution Biñan</span>
+            </a>
+            <a href="index.html" class="auth-back-link">
+                <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i>
+                <span>Back to Home</span>
+            </a>
+        </header>
 
-        <div class="auth-card">
-            <div class="auth-showcase">
-                <a href="index.html" class="back-to-home">Back to Homepage &rarr;</a>
-                <div class="slide slide-1 active"></div>
-                <div class="slide slide-2"></div>
-                <div class="slide slide-3"></div>
-                
-                <div class="showcase-content">
-                    <h3 id="slide-title">Perfecting Smiles,<br>Restoring Confidence</h3>
-                    <p id="slide-desc">Experience the best dental care in the city.</p>
-                    <div class="slide-indicators">
-                        <div class="indicator active" onclick="setSlide(0)"></div>
-                        <div class="indicator" onclick="setSlide(1)"></div>
-                        <div class="indicator" onclick="setSlide(2)"></div>
-                    </div>
+        <main class="auth-card">
+            <!-- Left Side: Clinical Trust & Value Panel -->
+            <aside class="auth-showcase">
+                <div class="showcase-top">
+                    <h1 class="showcase-heading">Dental care from your first visit</h1>
+                    <p class="showcase-lead">Create your patient profile to book appointments, receive reminder alerts, and skip long waiting room delays.</p>
+
+                    <ul class="showcase-features">
+                        <li class="showcase-feature-item">
+                            <span class="feature-icon-wrapper"><i data-lucide="check-circle" style="width: 15px; height: 15px;"></i></span>
+                            <div>
+                                <strong>Fast Triage Check-in</strong>
+                                <p style="margin: 2px 0 0 0; color: var(--color-muted);">Join the clinic queue directly from your phone on the day of your visit.</p>
+                            </div>
+                        </li>
+                        <li class="showcase-feature-item">
+                            <span class="feature-icon-wrapper"><i data-lucide="calendar-check" style="width: 15px; height: 15px;"></i></span>
+                            <div>
+                                <strong>Flexible Scheduling</strong>
+                                <p style="margin: 2px 0 0 0; color: var(--color-muted);">Reschedule or cancel visits online anytime with 24 hours notice.</p>
+                            </div>
+                        </li>
+                        <li class="showcase-feature-item">
+                            <span class="feature-icon-wrapper"><i data-lucide="lock" style="width: 15px; height: 15px;"></i></span>
+                            <div>
+                                <strong>Confidential Health Data</strong>
+                                <p style="margin: 2px 0 0 0; color: var(--color-muted);">Encrypted medical history and private doctor treatment notes.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </div>
 
-            <div class="auth-form-section">
+                <div class="showcase-footer">
+                    <span class="live-triage-status">
+                        <span class="pulse-dot"></span>
+                        Clinic registrations open
+                    </span>
+                    <span id="auth-showcase-clinic-tag">NgipinSolution &bull; Powered by ClinicFlow</span>
+                </div>
+            </aside>
+
+            <!-- Right Side: Registration Form Section -->
+            <section class="auth-form-section">
                 <div class="auth-header-new">
-                    <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="ClinicFlow Logo" />
-                        <span>ClinicFlow</span>
-                    </a>
                     <h2>Create Account</h2>
-                    <p>Join us at ClinicFlow</p>
+                    <p>Enter your patient information to get started</p>
                 </div>
 
-            <div class="auth-tabs">
-                <a href="login.html" class="auth-tab">Sign In</a>
-                <a href="register.html" class="auth-tab active">Register</a>
-            </div>
+                <div class="auth-tabs" role="tablist">
+                    <a href="login.html" class="auth-tab" role="tab" aria-selected="false">Sign In</a>
+                    <a href="register.html" class="auth-tab active" role="tab" aria-selected="true">Register</a>
+                </div>
 
-            <form class="auth-form" id="registerForm">
-                <div class="form-row">
+                <form class="auth-form" id="registerForm">
+                    <div id="auth-alert" class="auth-alert" style="display:none;" role="alert"></div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="Maria" required autocomplete="given-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="middleName">Middle Name <span style="font-weight: 400; color: var(--color-muted); font-size: 0.75rem;">(Optional)</span></label>
+                            <input type="text" id="middleName" placeholder="Santos" autocomplete="additional-name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Cruz" required autocomplete="family-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="sex">Biological Sex</label>
+                            <select id="sex" required>
+                                <option value="" disabled selected>Select sex</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" placeholder="Juan" required>
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="maria.santos@email.com" required autocomplete="email">
                     </div>
+
                     <div class="form-group">
-                        <label for="middleName">Middle Name <span style="font-weight: 400; color: var(--color-grey); font-size: 0.8rem;">(Optional)</span></label>
-                        <input type="text" id="middleName" placeholder="Mendoza">
+                        <div class="phone-header-row">
+                            <label for="phone">Mobile Phone Number</label>
+                            <span id="phoneCounter" class="phone-counter">0/11</span>
+                        </div>
+                        <input type="tel" id="phone" placeholder="09123456789" maxlength="11" pattern="[0-9]{11}" inputmode="numeric" required autocomplete="tel">
+                        <small id="phoneHint" class="phone-hint">Must be 11 numeric digits starting with 09 (e.g. 09123456789)</small>
                     </div>
-                </div>
 
-                <div class="form-row">
                     <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" placeholder="Dela Cruz" required>
+                        <label for="password">Create Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="password" placeholder="At least 6 characters" required autocomplete="new-password">
+                            <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
+                                <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                                    <line x1="2" y1="2" x2="22" y2="22"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="sex">Sex</label>
-                        <select id="sex" required style="width: 100%; padding: 0.85rem 1rem; border-radius: 8px; border: 1px solid var(--color-teal-100); background: white; font-family: inherit; font-size: 0.95rem; color: var(--color-dark);">
-                            <option value="" disabled selected>Select sex</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
+
+                    <div class="terms-row">
+                        <label class="terms-label">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span>I agree to ClinicFlow’s <a href="legal.html#terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href="legal.html#privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</span>
+                        </label>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="you@example.com" required>
-                </div>
-
-                <div class="form-group">
-                    <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                        <label for="phone">Phone Number</label>
-                        <span id="phoneCounter" style="font-size: 0.75rem; color: var(--color-grey); font-weight: 600;">0/11</span>
-                    </div>
-                    <input type="tel" id="phone" placeholder="09123456789" maxlength="11" pattern="[0-9]{11}" inputmode="numeric" required>
-                    <small id="phoneHint" style="font-size: 0.75rem; color: var(--color-grey); margin-top: 4px; display: block;">Must be exactly 11 digits (e.g., 09123456789)</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="password-input-wrapper">
-                        <input type="password" id="password" placeholder="•••••••" required autocomplete="new-password">
-                        <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
-                            <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
-                                <circle cx="12" cy="12" r="3"/>
-                            </svg>
-                            <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
-                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
-                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
-                                <line x1="2" y1="2" x2="22" y2="22"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-top: 1rem; margin-bottom: 1.25rem;">
-                    <label style="display: flex; align-items: flex-start; gap: 10px; font-weight: 500; font-size: 0.88rem; cursor: pointer; color: var(--color-dark); line-height: 1.45;">
-                        <input type="checkbox" id="agreeTerms" required style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--color-teal-900); cursor: pointer;">
-                        <span>I have read and agree to ClinicFlow's <a href="legal.html#terms" target="_blank" rel="noopener noreferrer" style="color: var(--color-teal-900); font-weight: 700; text-decoration: underline;">Terms & Conditions</a> and <a href="legal.html#privacy" target="_blank" rel="noopener noreferrer" style="color: var(--color-teal-900); font-weight: 700; text-decoration: underline;">Privacy Policy</a>.</span>
-                    </label>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-glow">Create Account</button>
-            </form>
-            </div>
-        </div>
+                    <button type="submit" class="btn-primary" style="margin-top: var(--space-xs);">Create Patient Account</button>
+                </form>
+            </section>
+        </main>
     </div>
-    <script src="assets/js/auth.js?v=6"></script>
+
+    <script src="assets/js/lucide.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        function initIcons() {
+            if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+                lucide.createIcons();
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initIcons);
+        } else {
+            initIcons();
+        }
+    </script>
+    <script src="assets/js/auth.js?v=8"></script>
     <script src="assets/js/cookie-consent.js"></script>
 </body>
 

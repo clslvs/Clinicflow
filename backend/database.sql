@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
     role ENUM('patient', 'staff', 'admin', 'doctor') NOT NULL DEFAULT 'patient',
     sex ENUM('Male', 'Female', 'Other') DEFAULT NULL,
     is_active BOOLEAN DEFAULT TRUE,
+    is_deleted BOOLEAN DEFAULT FALSE,
     is_priority BOOLEAN DEFAULT FALSE,
     allergies TEXT DEFAULT NULL,
     medical_conditions TEXT DEFAULT NULL,
@@ -23,8 +24,8 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Insert initial default accounts (Password is 'admin123' for all)
 INSERT INTO users (first_name, last_name, email, phone, password, role, allergies, medical_conditions, is_priority, linked_doctor_id) VALUES 
-('System', 'Admin', 'imadmin123@gmail.com', '09123456789', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'admin', NULL, NULL, FALSE, NULL),
-('Clinic', 'Staff', 'admin@clinicflow.com', '09123456788', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'staff', NULL, NULL, FALSE, NULL),
+('System', 'Admin', 'admin@clinicflow.com', '09123456789', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'admin', NULL, NULL, FALSE, NULL),
+('Clinic', 'Staff', 'staff@clinicflow.com', '09123456788', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'staff', NULL, NULL, FALSE, NULL),
 ('Jane', 'Doe', 'patient@clinicflow.com', '09123456787', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'patient', 'Penicillin', 'None', FALSE, NULL),
 ('John', 'Doe', 'doctor@clinicflow.com', '09123456786', '$2y$10$q6fSd4v0.BaHIscwnPFdResJTMEJxm7ePoV4GvEmUC5/gThmb6Xni', 'doctor', NULL, NULL, FALSE, 1)
 ON DUPLICATE KEY UPDATE email=email;
@@ -34,7 +35,8 @@ CREATE TABLE IF NOT EXISTS doctors (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     specialty VARCHAR(100) NOT NULL,
-    image_url VARCHAR(255)
+    image_url VARCHAR(255),
+    is_active BOOLEAN DEFAULT TRUE
 );
 
 -- Seed initial doctors
@@ -82,12 +84,13 @@ CREATE TABLE IF NOT EXISTS system_settings (
 
 -- Seed default settings
 INSERT IGNORE INTO system_settings (setting_key, setting_value) VALUES 
-('clinic_name', 'ClinicFlow Dental'),
+('clinic_name', 'NgipinSolution Biñan'),
 ('clinic_email', 'contact@clinicflow.com'),
-('clinic_phone', '0912 345 6789'),
+('clinic_phone', '09951467688'),
+('clinic_address', '028 Santo Tomas Rd, Biñan, Laguna'),
 ('closed_days', '["Sunday"]'),
-('open_time', '09:00'),
-('close_time', '17:00');
+('open_time', '08:00'),
+('close_time', '18:00');
 
 -- Create doctor availability table
 CREATE TABLE IF NOT EXISTS doctor_availability (

@@ -3,135 +3,161 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ClinicFlow</title>
-    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Sign In - NgipinSolution Biñan</title>
+    <meta name="description" content="Sign in to your NgipinSolution patient or staff account for live queue tracking and dental appointment management. Powered by ClinicFlow.">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/variables.css">
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/auth.css?v=6">
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="assets/css/auth.css?v=8">
 </head>
 
 <body>
     <div class="auth-page">
-        
-        <div class="bg-shape shape-1"></div>
-        <div class="bg-shape shape-2"></div>
-        <div class="bg-shape shape-3"></div>
+        <header class="auth-top-nav">
+            <a href="index.html" class="auth-brand" aria-label="NgipinSolution Biñan Home">
+                <span class="auth-brand-icon">
+                    <img src="assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" id="auth-clinic-logo">
+                </span>
+                <span id="auth-clinic-name">NgipinSolution Biñan</span>
+            </a>
+            <a href="index.html" class="auth-back-link">
+                <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i>
+                <span>Back to Home</span>
+            </a>
+        </header>
 
-        <div class="auth-card">
-            <div class="auth-showcase">
-                <a href="index.html" class="back-to-home">Back to Homepage &rarr;</a>
-                <div class="slide slide-1 active"></div>
-                <div class="slide slide-2"></div>
-                <div class="slide slide-3"></div>
-                
-                <div class="showcase-content">
-                    <h3 id="slide-title">Perfecting Smiles,<br>Restoring Confidence</h3>
-                    <p id="slide-desc">Experience the best dental care in the city.</p>
-                    <div class="slide-indicators">
-                        <div class="indicator active" onclick="setSlide(0)"></div>
-                        <div class="indicator" onclick="setSlide(1)"></div>
-                        <div class="indicator" onclick="setSlide(2)"></div>
-                    </div>
+        <main class="auth-card">
+            <!-- Left Side: Clinical Trust & Value Panel -->
+            <aside class="auth-showcase">
+                <div class="showcase-top">
+                    <h1 class="showcase-heading">Your personal clinic care portal</h1>
+                    <p class="showcase-lead">Access appointments, manage prescriptions, and track triage queues in real time.</p>
+
+                    <ul class="showcase-features">
+                        <li class="showcase-feature-item">
+                            <span class="feature-icon-wrapper"><i data-lucide="clock" style="width: 15px; height: 15px;"></i></span>
+                            <div>
+                                <strong>Live Queue Tracking</strong>
+                                <p style="margin: 2px 0 0 0; color: var(--color-muted);">Check current serving numbers and wait times before arriving.</p>
+                            </div>
+                        </li>
+                        <li class="showcase-feature-item">
+                            <span class="feature-icon-wrapper"><i data-lucide="calendar" style="width: 15px; height: 15px;"></i></span>
+                            <div>
+                                <strong>Online Consultation Booking</strong>
+                                <p style="margin: 2px 0 0 0; color: var(--color-muted);">Select your attending dentist and select appointment times online.</p>
+                            </div>
+                        </li>
+                        <li class="showcase-feature-item">
+                            <span class="feature-icon-wrapper"><i data-lucide="file-text" style="width: 15px; height: 15px;"></i></span>
+                            <div>
+                                <strong>Treatment Records</strong>
+                                <p style="margin: 2px 0 0 0; color: var(--color-muted);">Secure digital history of all clinical visits and diagnostic notes.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </div>
 
-            <div class="auth-form-section">
+                <div class="showcase-footer">
+                    <span class="live-triage-status">
+                        <span class="pulse-dot"></span>
+                        Clinic triage active
+                    </span>
+                    <span id="auth-showcase-clinic-tag">NgipinSolution &bull; Powered by ClinicFlow</span>
+                </div>
+            </aside>
+
+            <!-- Right Side: Auth Form Section -->
+            <section class="auth-form-section">
                 <div class="auth-header-new">
-                    <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="ClinicFlow Logo" />
-                        <span>ClinicFlow</span>
-                    </a>
                     <h2>Welcome Back</h2>
-                    <p>Sign in to your account</p>
+                    <p>Sign in to your patient or staff account</p>
                 </div>
 
-            <div class="auth-tabs">
-                <a href="login.html" class="auth-tab active">Sign In</a>
-                <a href="register.html" class="auth-tab">Register</a>
-            </div>
+                <div class="auth-tabs" role="tablist">
+                    <a href="login.html" class="auth-tab active" role="tab" aria-selected="true">Sign In</a>
+                    <a href="register.html" class="auth-tab" role="tab" aria-selected="false">Register</a>
+                </div>
 
-            <form class="auth-form" id="loginForm">
-                <div class="form-group">
-                    <label>I AM A</label>
-                    <div class="role-selector">
-                        <label class="role-option">
-                            <input type="radio" name="role" value="patient" checked>
-                            <div class="role-label">
-                                <span class="role-icon">👱</span> Patient
-                            </div>
-                        </label>
-                        <label class="role-option">
-                            <input type="radio" name="role" value="staff">
-                            <div class="role-label">
-                                <span class="role-icon">👩‍⚕️</span> Staff / Doctor
-                            </div>
-                        </label>
+                <form class="auth-form" id="loginForm">
+                    <div id="auth-alert" class="auth-alert" style="display:none;" role="alert"></div>
+
+                    <div class="form-group">
+                        <label>Account Role</label>
+                        <div class="role-selector" role="radiogroup" aria-label="Select account role">
+                            <label class="role-option">
+                                <input type="radio" name="role" value="patient" checked>
+                                <div class="role-label">
+                                    <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                                    <span>Patient</span>
+                                </div>
+                            </label>
+                            <label class="role-option">
+                                <input type="radio" name="role" value="staff">
+                                <div class="role-label">
+                                    <i data-lucide="stethoscope" style="width: 16px; height: 16px;"></i>
+                                    <span>Staff / Doctor</span>
+                                </div>
+                            </label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="you@example.com" required>
-                </div>
-
-                <div class="form-group">
-                    <div class="label-row">
-                        <label for="password">Password</label>
-                        <a href="javascript:void(0)" class="forgot-link" id="forgotPasswordBtn">Forgot Password?</a>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="patient@clinicflow.com" required autocomplete="email">
                     </div>
-                    <div class="password-input-wrapper">
-                        <input type="password" id="password" placeholder="•••••••" required autocomplete="current-password">
-                        <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
-                            <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
-                                <circle cx="12" cy="12" r="3"/>
-                            </svg>
-                            <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
-                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
-                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
-                                <line x1="2" y1="2" x2="22" y2="22"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
 
-                <button type="submit" class="btn btn-primary btn-glow">Sign In</button>
-            </form>
-            </div>
-        </div>
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label for="password">Password</label>
+                            <a href="javascript:void(0)" class="forgot-link" id="forgotPasswordBtn">Forgot Password?</a>
+                        </div>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+                            <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
+                                <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                                    <line x1="2" y1="2" x2="22" y2="22"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: var(--space-xs);">Sign In</button>
+                </form>
+            </section>
+        </main>
     </div>
 
     <!-- Forgot Password Modal -->
-    <div class="auth-modal-overlay" id="forgotPasswordModal" aria-hidden="true">
+    <div class="auth-modal-overlay" id="forgotPasswordModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="forgotModalTitle">
         <div class="auth-modal-card">
             <button type="button" class="auth-modal-close" id="closeForgotModal" aria-label="Close dialog">&times;</button>
             <div class="auth-modal-header">
-                <div class="auth-modal-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
-                </div>
-                <h3>Reset Password</h3>
-                <p>Enter your registered account email. We'll generate a secure new temporary password and send it to your inbox.</p>
+                <h3 id="forgotModalTitle">Reset Password</h3>
+                <p>Enter your registered account email. A secure temporary password will be sent to your inbox.</p>
             </div>
 
             <form id="forgotPasswordForm" class="auth-form">
-                <div id="forgot-alert" class="auth-alert"></div>
+                <div id="forgot-alert" class="auth-alert" style="display:none;" role="alert"></div>
                 <div class="form-group">
                     <label for="forgotEmail">Email Address</label>
-                    <input type="email" id="forgotEmail" placeholder="you@example.com" required autocomplete="email">
+                    <input type="email" id="forgotEmail" placeholder="patient@clinicflow.com" required autocomplete="email">
                 </div>
-                <button type="submit" class="btn btn-primary btn-glow" id="forgotSubmitBtn">Send New Password</button>
+                <button type="submit" class="btn-primary" id="forgotSubmitBtn">Send Temporary Password</button>
                 <div class="auth-modal-footer">
                     <a href="javascript:void(0)" id="backToSignInLink">&larr; Back to Sign In</a>
                 </div>
@@ -139,7 +165,21 @@
         </div>
     </div>
 
-    <script src="assets/js/auth.js?v=6"></script>
+    <script src="assets/js/lucide.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        function initIcons() {
+            if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+                lucide.createIcons();
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initIcons);
+        } else {
+            initIcons();
+        }
+    </script>
+    <script src="assets/js/auth.js?v=8"></script>
     <script src="assets/js/cookie-consent.js"></script>
 </body>
 

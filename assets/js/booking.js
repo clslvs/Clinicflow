@@ -23,16 +23,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeSlots = document.querySelectorAll('.time-slot');
     const dateInput = document.getElementById('appointment_date');
 
+    function escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
     function getServiceDetails(serviceName) {
         const lower = (serviceName || '').toLowerCase();
-        if (lower.includes('clean')) return { icon: '✨', est: 'est. 45 min', price: '$45' };
-        if (lower.includes('whiten')) return { icon: '💎', est: 'est. 60 min', price: '$85' };
-        if (lower.includes('ortho') || lower.includes('brace')) return { icon: '🔩', est: 'est. 45 min', price: '$90' };
-        if (lower.includes('root') || lower.includes('canal')) return { icon: '🏥', est: 'est. 60 min', price: '$120' };
-        if (lower.includes('extract') || lower.includes('remov')) return { icon: '🩹', est: 'est. 30 min', price: '$60' };
-        if (lower.includes('consult')) return { icon: '🩺', est: 'est. 30 min', price: '$35' };
-        if (lower.includes('implant')) return { icon: '🔬', est: 'est. 90 min', price: '$150' };
-        return { icon: '🦷', est: 'est. 45 min', price: '$45' };
+        if (lower.includes('clean')) return { icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>', est: 'est. 45 min', price: '$45' };
+        if (lower.includes('whiten')) return { icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg>', est: 'est. 60 min', price: '$85' };
+        if (lower.includes('ortho') || lower.includes('brace')) return { icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3 12h6m6 0h6"/></svg>', est: 'est. 45 min', price: '$90' };
+        if (lower.includes('root') || lower.includes('canal')) return { icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>', est: 'est. 60 min', price: '$120' };
+        if (lower.includes('extract') || lower.includes('remov')) return { icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>', est: 'est. 30 min', price: '$60' };
+        if (lower.includes('consult')) return { icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>', est: 'est. 30 min', price: '$35' };
+        if (lower.includes('implant')) return { icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M8 6h8M9 11h6M10 16h4"/></svg>', est: 'est. 90 min', price: '$150' };
+        return { icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 2 6 5 6 9c0 3 1.5 6.5 2 9.5.5 3 2.5 3.5 4 3.5s3.5-.5 4-3.5c.5-3 2-6.5 2-9.5 0-4-2-7-6-7z"/></svg>', est: 'est. 45 min', price: '$45' };
     }
 
     function loadServices() {
@@ -47,11 +57,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         div.className = 'service-card';
                         div.dataset.service = s.name;
                         const details = getServiceDetails(s.name);
+                        const safeName = escapeHtml(s.name);
+                        const safeDesc = escapeHtml(s.description || details.est);
                         div.innerHTML = `
-                            <div class="service-icon">${details.icon}</div>
-                            <h3>${s.name}</h3>
-                            <p>${s.description || details.est}</p>
-                            <div class="price">${details.price}</div>
+                            <div class="service-card-top">
+                                <div class="service-icon" aria-hidden="true">${details.icon}</div>
+                                <div>
+                                    <h3>${safeName}</h3>
+                                    <div class="price">${details.price}</div>
+                                </div>
+                            </div>
+                            <p>${safeDesc}</p>
                         `;
                         div.addEventListener('click', () => {
                             document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
@@ -90,18 +106,30 @@ document.addEventListener('DOMContentLoaded', () => {
                             ? (names[0][0] + names[names.length - 1][0]).toUpperCase() 
                             : d.name.slice(0, 2).toUpperCase();
 
+                        const safeDocName = escapeHtml(d.name);
+                        const safeSpecialty = escapeHtml(d.specialty || 'Available');
+                        const safeInitials = escapeHtml(initials);
+
                         div.innerHTML = `
-                            <div class="doctor-list-avatar">${initials}</div>
+                            <div class="doctor-list-avatar">${safeInitials}</div>
                             <div class="doctor-list-info">
-                                <h3>${d.name}</h3>
-                                <p class="status-available">${d.specialty || 'Available'}</p>
+                                <h3>${safeDocName}</h3>
+                                <p class="status-available">${safeSpecialty}</p>
                             </div>
                         `;
                         div.addEventListener('click', () => {
+                            const doctorChanged = bookingData.doctorId !== d.id;
                             document.querySelectorAll('.doctor-list-card').forEach(c => c.classList.remove('selected'));
                             div.classList.add('selected');
                             bookingData.doctorId = d.id;
                             bookingData.doctorName = d.name;
+                            if (doctorChanged) {
+                                bookingData.time = null; // Invalidate previously chosen doctor's time slot
+                                const grid = document.getElementById('time-grid');
+                                if (grid) grid.innerHTML = '';
+                                const msg = document.getElementById('no-slots-msg');
+                                if (msg) msg.style.display = 'none';
+                            }
                             updateNextButtonState();
                         });
                         list.appendChild(div);
@@ -153,6 +181,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 line.classList.remove('active');
             }
         });
+
+        if (currentStep === 2) {
+            document.querySelectorAll('.doctor-list-card').forEach(c => {
+                if (bookingData.doctorId && c.dataset.doctor == bookingData.doctorId) {
+                    c.classList.add('selected');
+                } else {
+                    c.classList.remove('selected');
+                }
+            });
+        }
+
+        if (currentStep === 3) {
+            // Re-fetch slots if date and doctor are set to ensure they always belong to current doctor
+            if (bookingData.doctorId && bookingData.date) {
+                loadTimeSlots();
+            } else {
+                timeSlotsContainer.style.display = 'none';
+            }
+        }
 
         if (currentStep === 4) {
             document.getElementById('summary-service').textContent = bookingData.service;
@@ -207,6 +254,75 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     
+    let currentSlotsFetchId = 0;
+
+    function loadTimeSlots() {
+        if (!bookingData.date || !bookingData.doctorId) {
+            timeSlotsContainer.style.display = 'none';
+            return;
+        }
+
+        const fetchId = ++currentSlotsFetchId;
+        timeSlotsContainer.style.display = 'block';
+        const grid = document.getElementById('time-grid');
+        const msg = document.getElementById('no-slots-msg');
+        const docLabel = bookingData.doctorName ? escapeHtml(bookingData.doctorName) : 'attending doctor';
+        grid.innerHTML = `<p style="color:var(--color-grey); grid-column:1/-1;">Loading slots for ${docLabel}...</p>`;
+        msg.style.display = 'none';
+
+        fetch(`../backend/get_available_times.php?doctor_id=${bookingData.doctorId}&date=${bookingData.date}`)
+            .then(res => res.json())
+            .then(data => {
+                if (fetchId !== currentSlotsFetchId) return; // Stale fetch response
+
+                grid.innerHTML = '';
+                const slots = data.slots || data.times || [];
+                if (data.success && slots.length > 0) {
+                    // If previously chosen time isn't in this doctor's available slots, clear it
+                    if (bookingData.time && !slots.includes(bookingData.time)) {
+                        bookingData.time = null;
+                    }
+
+                    slots.forEach(time => {
+                        const [h, m] = time.split(':');
+                        const hour = parseInt(h);
+                        const ampm = hour >= 12 ? 'PM' : 'AM';
+                        const hour12 = hour % 12 || 12;
+                        const displayTime = `${hour12}:${m} ${ampm}`;
+
+                        const slot = document.createElement('div');
+                        slot.className = 'time-slot';
+                        if (bookingData.time === time) {
+                            slot.classList.add('selected');
+                        }
+                        slot.textContent = displayTime;
+                        slot.dataset.time = time;
+                        
+                        slot.addEventListener('click', () => {
+                            document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                            slot.classList.add('selected');
+                            bookingData.time = time;
+                            updateNextButtonState();
+                        });
+                        grid.appendChild(slot);
+                    });
+                } else {
+                    bookingData.time = null;
+                    msg.style.display = 'block';
+                    msg.textContent = data.message || `No available slots for ${docLabel} on this date.`;
+                }
+                updateNextButtonState();
+            })
+            .catch(err => {
+                if (fetchId !== currentSlotsFetchId) return;
+                grid.innerHTML = '';
+                msg.style.display = 'block';
+                msg.textContent = 'Error loading slots.';
+                bookingData.time = null;
+                updateNextButtonState();
+            });
+    }
+
     dateInput.addEventListener('change', (e) => {
         bookingData.date = e.target.value;
         if(bookingData.date) {
@@ -218,62 +334,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(`Sorry, the clinic is closed on ${dayName}s. Please select another date.`);
                 e.target.value = '';
                 bookingData.date = null;
+                bookingData.time = null;
                 timeSlotsContainer.style.display = 'none';
+                updateNextButtonState();
                 return;
             }
         }
 
         bookingData.time = null;
         updateNextButtonState();
-
-        if (bookingData.date && bookingData.doctorId) {
-            timeSlotsContainer.style.display = 'block';
-            const grid = document.getElementById('time-grid');
-            const msg = document.getElementById('no-slots-msg');
-            grid.innerHTML = '<p style="color:var(--color-grey); grid-column:1/-1;">Loading slots...</p>';
-            msg.style.display = 'none';
-
-            fetch(`../backend/get_available_times.php?doctor_id=${bookingData.doctorId}&date=${bookingData.date}`)
-                .then(res => res.json())
-                .then(data => {
-                    grid.innerHTML = '';
-                    if (data.success && data.slots && data.slots.length > 0) {
-                        data.slots.forEach(time => {
-
-                            const [h, m] = time.split(':');
-                            const hour = parseInt(h);
-                            const ampm = hour >= 12 ? 'PM' : 'AM';
-                            const hour12 = hour % 12 || 12;
-                            const displayTime = `${hour12}:${m} ${ampm}`;
-
-                            const slot = document.createElement('div');
-                            slot.className = 'time-slot';
-                            slot.textContent = displayTime;
-                            slot.dataset.time = time;
-                            
-                            slot.addEventListener('click', () => {
-                                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-                                slot.classList.add('selected');
-                                bookingData.time = time;
-                                updateNextButtonState();
-                            });
-                            grid.appendChild(slot);
-                        });
-                    } else {
-                        msg.style.display = 'block';
-                        if (data.message) {
-                            msg.textContent = data.message;
-                        }
-                    }
-                })
-                .catch(err => {
-                    grid.innerHTML = '';
-                    msg.style.display = 'block';
-                    msg.textContent = 'Error loading slots.';
-                });
-        } else {
-            timeSlotsContainer.style.display = 'none';
-        }
+        loadTimeSlots();
     });
 
     const noteInput = document.getElementById('appointment_note');

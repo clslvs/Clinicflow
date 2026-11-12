@@ -3,106 +3,138 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClinicFlow - Doctor Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Doctor Dashboard - NgipinSolution Biñan</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/staff.css">
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../assets/css/doctor.css">
 
-
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Mobile Top Navigation Bar -->
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="doctor-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="dashboard.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">D</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
     <div class="dashboard-layout">
-
-        <aside class="sidebar staff-sidebar">
-            <div class="sidebar-header">
-                <a href="dashboard.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-
-            <div class="user-profile-section">
-                <div class="avatar" id="user-avatar">J</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="user-name">Loading...</h3>
-                    <span class="user-role">Doctor</span>
+        <!-- Doctor Sidebar -->
+        <aside class="sidebar doctor-sidebar" id="doctor-sidebar" role="navigation" aria-label="Doctor Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="dashboard.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
                 </div>
-            </div>
 
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item active">
-                    <i data-lucide="layout-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="my-schedule.html" class="nav-item">
-                    <i data-lucide="calendar"></i>
-                    <span>My Schedule</span>
-                </a>
-                <a href="my-patients.html" class="nav-item">
-                    <i data-lucide="users"></i>
-                    <span>My Patients</span>
-                </a>
-                <a href="settings.html" class="nav-item">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+                <div class="user-profile-section">
+                    <div class="avatar" id="user-avatar">D</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="user-name">Loading...</h3>
+                        <span class="user-role-badge">Doctor</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="dashboard.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="my-schedule.html" class="nav-item">
+                        <i data-lucide="calendar" aria-hidden="true"></i>
+                        <span>My Schedule</span>
+                    </a>
+                    <a href="my-patients.html" class="nav-item">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>My Patients</span>
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" id="logout-btn" class="nav-item">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-
-        <main class="main-content">
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
             <header class="dashboard-header">
                 <h1 id="greeting">Good Day!</h1>
-                <p>Here is today's clinic overview - <span id="current-date">August 00, 0000</span></p>
+                <p>Here is today's clinic overview &mdash; <span id="current-date">August 00, 0000</span></p>
             </header>
 
-            <section class="metrics-grid">
+            <section class="metrics-grid" aria-label="Today's Clinic Overview Metrics">
                 <div class="metric-card">
-                    <h3>Today's<br>Appointment</h3>
+                    <h3>Today's Appointment</h3>
                     <div class="metric-value primary" id="metric-appointments">00</div>
+                    <span class="metric-subtext">Consultations booked</span>
                 </div>
                 <div class="metric-card">
-                    <h3>In<br>Queue</h3>
+                    <h3>In Queue</h3>
                     <div class="metric-value yellow" id="metric-queue">00</div>
+                    <span class="metric-subtext">Active in waiting room</span>
                 </div>
                 <div class="metric-card">
-                    <h3>Total<br>Patients</h3>
+                    <h3>Total Patients</h3>
                     <div class="metric-value primary" id="metric-patients">00</div>
+                    <span class="metric-subtext">Under your clinical care</span>
                 </div>
                 <div class="metric-card">
-                    <h3>Completed<br>Today</h3>
+                    <h3>Completed Today</h3>
                     <div class="metric-value light" id="metric-completed">00</div>
+                    <span class="metric-subtext">Treated &amp; discharged</span>
                 </div>
             </section>
 
-            <section class="schedule-panel">
+            <section class="schedule-panel" aria-label="Today's Schedule">
                 <h2>Today's Schedule</h2>
                 <div class="schedule-list" id="schedule-list">
-
                     <p class="loading">Loading schedule...</p>
                 </div>
             </section>
         </main>
     </div>
 
+    <script src="../assets/js/doctor-nav.js"></script>
     <script>
         lucide.createIcons();
 
@@ -119,6 +151,8 @@
                     document.getElementById('user-name').textContent = name;
                     document.getElementById('greeting').textContent = `Good Day, ${name.split(' ')[0]}!`;
                     document.getElementById('user-avatar').textContent = name.charAt(0);
+                    const mobAvatar = document.getElementById('mobile-avatar');
+                    if (mobAvatar) mobAvatar.textContent = name.charAt(0);
 
                     fetchDashboardData();
                 }
@@ -136,7 +170,6 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
-
                         document.getElementById('metric-appointments').textContent = String(data.metrics.total_appointments).padStart(2, '0');
                         document.getElementById('metric-queue').textContent = String(data.metrics.in_queue).padStart(2, '0');
                         document.getElementById('metric-patients').textContent = String(data.metrics.total_patients).padStart(2, '0');
@@ -145,8 +178,8 @@
                         const list = document.getElementById('schedule-list');
                         list.innerHTML = '';
 
-                        if (data.schedule.length === 0) {
-                            list.innerHTML = '<p>No appointments scheduled for today.</p>';
+                        if (!data.schedule || data.schedule.length === 0) {
+                            list.innerHTML = '<p class="loading">No appointments scheduled for today.</p>';
                             return;
                         }
 
@@ -161,7 +194,6 @@
                         }
 
                         data.schedule.forEach(appt => {
-
                             let formattedTime = 'Time not set';
                             if (appt.appointment_time) {
                                 const timeParts = appt.appointment_time.split(':');
@@ -197,6 +229,7 @@
                 });
         }
     </script>
+    <script src="../assets/js/doctor-nav.js"></script>
 </body>
 
 </html>

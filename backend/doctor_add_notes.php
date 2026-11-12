@@ -31,16 +31,20 @@ try {
 
     $doctor_id = $userRow['linked_doctor_id'];
 
+    $checkStmt = $pdo->prepare("SELECT id FROM appointments WHERE id = ? AND doctor_id = ?");
+    $checkStmt->execute([$appointment_id, $doctor_id]);
+    if (!$checkStmt->fetch()) {
+        echo json_encode(["success" => false, "message" => "Appointment not found or not assigned to your profile."]);
+        exit;
+    }
+
     $stmt = $pdo->prepare("UPDATE appointments SET doctor_notes = ? WHERE id = ? AND doctor_id = ?");
     $stmt->execute([$notes, $appointment_id, $doctor_id]);
 
-    if ($stmt->rowCount() > 0) {
-        echo json_encode(["success" => true, "message" => "Treatment notes saved."]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Appointment not found or not yours."]);
-    }
+    echo json_encode(["success" => true, "message" => "Treatment notes saved."]);
 
 } catch (PDOException $e) {
-    error_log($e->getMessage()); echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
+    error_log($e->getMessage()); 
+    echo json_encode(["success" => false, "message" => "A database error occurred. Please try again later."]);
 }
 ?>

@@ -2,136 +2,166 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClinicFlow - Live Queue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Live Queue Control - ClinicFlow Staff</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
     <link rel="stylesheet" href="../assets/css/staff.css">
-    
-    
+
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="dashboard-layout">
-        
-        <aside class="sidebar staff-sidebar">
-            <div class="sidebar-header">
-                <a href="dashboard.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-            
-            <div class="user-profile-section">
-                <div class="avatar" id="sidebar-avatar">...</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
-                    <span class="user-role">Staff</span>
-                </div>
-            </div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i data-lucide="layout-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="queue.html" class="nav-item active">
-                    <i data-lucide="play"></i>
-                    <span>Live Queue</span>
-                </a>
-                <a href="schedules.html" class="nav-item">
-                    <i data-lucide="calendar"></i>
-                    <span>Schedules</span>
-                </a>
-                <a href="records.html" class="nav-item">
-                    <i data-lucide="users"></i>
-                    <span>Patient Records</span>
-                </a>
-                <a href="settings.html" class="nav-item">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+    <!-- Mobile Top Navigation Bar -->
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="staff-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="dashboard.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">S</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="dashboard-layout">
+        <!-- Staff Sidebar -->
+        <aside class="sidebar staff-sidebar" id="staff-sidebar" role="navigation" aria-label="Staff Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="dashboard.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
+                </div>
+
+                <div class="user-profile-section">
+                    <div class="avatar" id="sidebar-avatar">S</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                        <span class="user-role-badge">Staff Operations</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="queue.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="play" aria-hidden="true"></i>
+                        <span>Live Queue</span>
+                    </a>
+                    <a href="schedules.html" class="nav-item">
+                        <i data-lucide="calendar" aria-hidden="true"></i>
+                        <span>Schedules</span>
+                    </a>
+                    <a href="records.html" class="nav-item">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Patient Records</span>
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" id="logout-btn" class="nav-item">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-        
-        <main class="main-content" style="padding: 3rem 4rem;">
-            <header class="page-header" style="margin-bottom: 2.5rem; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <header class="page-header" style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: var(--space-md);">
                 <div>
-                    <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Live Queue Control</h1>
-                    <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;">Manage patient flow in real time.</p>
+                    <h1>Live Queue Control</h1>
+                    <p>Manage real-time triage and patient progression.</p>
                 </div>
-                <div id="live-indicator" style="display: flex; align-items: center; gap: 8px; background: #f0fdf9; border: 1px solid #5eead4; border-radius: 999px; padding: 6px 16px; font-size: 0.85rem; font-weight: 700; color: #0d7a70; margin-top: 0.5rem;">
-                    <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #14b8a6; animation: livePulse 1.5s ease-in-out infinite;"></span>
-                    LIVE
+                <div class="live-indicator" id="live-indicator">
+                    <span class="live-dot"></span>
+                    <span>LIVE TRIAGE ACTIVE</span>
                 </div>
             </header>
-            <style>
-                @keyframes livePulse {
-                    0%, 100% { opacity: 1; transform: scale(1); }
-                    50% { opacity: 0.4; transform: scale(0.85); }
-                }
-            </style>
 
-            <div class="queue-metrics-container">
+            <section class="queue-metrics-container" aria-label="Current Queue Status Metrics">
                 <div class="queue-metric-card">
+                    <span class="queue-metric-label">In Treatment Room</span>
                     <div class="queue-metric-number text-yellow" id="metric-in-progress">00</div>
-                    <div class="queue-metric-label">In Progress</div>
+                    <span style="font-size: var(--text-2xs); color: var(--color-muted);">Currently in consultation</span>
                 </div>
                 <div class="queue-metric-card">
+                    <span class="queue-metric-label">Waiting in Clinic</span>
                     <div class="queue-metric-number text-teal" id="metric-waiting">00</div>
-                    <div class="queue-metric-label">Waiting</div>
+                    <span style="font-size: var(--text-2xs); color: var(--color-muted);">Checked in and ready</span>
                 </div>
                 <div class="queue-metric-card">
+                    <span class="queue-metric-label">Completed Today</span>
                     <div class="queue-metric-number text-grey" id="metric-completed">00</div>
-                    <div class="queue-metric-label">Completed</div>
+                    <span style="font-size: var(--text-2xs); color: var(--color-muted);">Discharged after care</span>
                 </div>
-            </div>
+            </section>
 
-            <div class="queue-list-card">
-                <div class="queue-list-header">
-                    QUEUE TODAY
+            <section class="queue-list-card" aria-labelledby="queue-today-title">
+                <div class="queue-list-header" id="queue-today-title">
+                    Today's Patient Queue
                 </div>
                 <div id="queue-list-container">
-                    <div style="padding: 3rem; text-align: center; color: var(--color-grey);">Loading queue...</div>
+                    <div style="padding: var(--space-3xl); text-align: center; color: var(--color-muted); font-size: var(--text-sm);">
+                        Loading clinic queue...
+                    </div>
                 </div>
-            </div>
-
+            </section>
         </main>
     </div>
 
-    
-    <div id="completion-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
-        <div style="background: white; padding: 2rem; border-radius: 12px; width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-            <h2 class="playfair" style="margin-bottom: 1.5rem; color: var(--color-dark);">Complete Appointment</h2>
-            <div class="form-group" style="margin-bottom: 1rem;">
-                <label style="display:block; margin-bottom: 0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">NOTES FOR PATIENT (OPTIONAL)</label>
-                <textarea id="modal-notes" rows="3" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); font-family: inherit; resize: vertical;"></textarea>
+    <!-- Complete Appointment Modal Dialog -->
+    <div id="completion-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="complete-modal-title">
+        <div class="modal-content-card">
+            <h2 id="complete-modal-title">Complete Appointment</h2>
+            <div class="form-group">
+                <label for="modal-notes">Clinical Notes for Patient <span style="font-weight: 400; text-transform: none; color: var(--color-muted);">(Optional)</span></label>
+                <textarea id="modal-notes" rows="3" placeholder="Treatment summary, aftercare recommendations..."></textarea>
             </div>
-            <div class="form-group" style="margin-bottom: 1.5rem;">
-                <label style="display:block; margin-bottom: 0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">RECOMMENDED FOLLOW-UP DATE (OPTIONAL)</label>
-                <input type="date" id="modal-followup-date" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100);">
+            <div class="form-group">
+                <label for="modal-followup-date">Recommended Follow-up Date <span style="font-weight: 400; text-transform: none; color: var(--color-muted);">(Optional)</span></label>
+                <input type="date" id="modal-followup-date">
             </div>
-            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+            <div style="display: flex; gap: var(--space-sm); justify-content: flex-end; margin-top: var(--space-lg);">
                 <button type="button" class="btn-outline-teal" onclick="closeCompletionModal()">Cancel</button>
                 <button type="button" class="btn-solid-teal" id="btn-confirm-complete">Mark Done</button>
             </div>
         </div>
     </div>
 
+
+    <script src="../assets/js/staff-nav.js"></script>
     <script>
         lucide.createIcons();
 
@@ -149,7 +179,10 @@
                 } else {
                     const name = data.user.name;
                     document.getElementById('sidebar-name').textContent = name;
-                    document.getElementById('sidebar-avatar').textContent = name.charAt(0);
+                    const avatarChar = name.charAt(0).toUpperCase();
+                    document.getElementById('sidebar-avatar').textContent = avatarChar;
+                    const mobAvatar = document.getElementById('mobile-avatar');
+                    if (mobAvatar) mobAvatar.textContent = avatarChar;
                 }
             });
 
@@ -158,9 +191,9 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
-                        document.getElementById('metric-in-progress').textContent = data.metrics.in_progress;
-                        document.getElementById('metric-waiting').textContent = data.metrics.waiting;
-                        document.getElementById('metric-completed').textContent = data.metrics.completed;
+                        document.getElementById('metric-in-progress').textContent = String(data.metrics.in_progress).padStart(2, '0');
+                        document.getElementById('metric-waiting').textContent = String(data.metrics.waiting).padStart(2, '0');
+                        document.getElementById('metric-completed').textContent = String(data.metrics.completed).padStart(2, '0');
 
                         renderQueue(data.queue);
                     }
@@ -182,7 +215,7 @@
             container.innerHTML = '';
 
             if (queueItems.length === 0) {
-                container.innerHTML = '<div style="padding: 3rem; text-align: center; color: var(--color-grey);">No appointments scheduled for today.</div>';
+                container.innerHTML = '<div style="padding: var(--space-3xl); text-align: center; color: var(--color-muted); font-size: var(--text-sm);">No appointments scheduled for today.</div>';
                 return;
             }
 
@@ -191,29 +224,29 @@
                 el.className = 'queue-item';
 
                 let circleClass = '';
-                let circleContent = item.queue_no;
+                let circleContent = String(item.queue_no).padStart(2, '0');
                 let statusPill = '';
                 let actionsHtml = '';
 
                 if (item.status === 'completed') {
                     circleClass = 'bg-grey';
-                    circleContent = '<i data-lucide="check" style="width: 24px; height: 24px;"></i>';
-                    statusPill = '<div class="status-pill status-completed">Completed</div>';
+                    circleContent = '<i data-lucide="check" style="width: 20px; height: 20px;"></i>';
+                    statusPill = '<span class="status-pill status-completed">Completed</span>';
                     actionsHtml = '<button class="btn-q-action btn-q-disabled" disabled>Done</button>';
                 } else if (item.status === 'in_progress') {
                     circleClass = 'bg-yellow';
-                    statusPill = '<div class="status-pill status-in-progress">In Progress</div>';
+                    statusPill = '<span class="status-pill status-in-progress">In Progress</span>';
                     actionsHtml = `<button class="btn-q-action btn-q-solid-green" onclick="openCompletionModal(${item.id})">Mark Done</button>`;
                 } else if (item.status === 'waiting') {
                     circleClass = 'bg-light-teal';
-                    statusPill = '<div class="status-pill status-waiting">Waiting</div>';
+                    statusPill = '<span class="status-pill status-waiting">Waiting</span>';
                     actionsHtml = `
                         <button class="btn-q-action btn-q-solid-teal" onclick="updateStatus(${item.id}, 'in_progress')">Call</button>
                         <button class="btn-q-action btn-q-outline-red" onclick="updateStatus(${item.id}, 'cancelled')">Cancel</button>
                     `;
                 }
 
-                let priorityBadge = item.is_priority ? '<span class="status-pill bg-yellow" style="color:var(--color-dark); margin-left:10px; padding: 2px 8px; font-size: 0.75rem;">PWD/Senior</span>' : '';
+                let priorityBadge = item.is_priority ? '<span class="priority-badge">PWD / Senior</span>' : '';
 
                 const safeName = escapeHtml(item.patient_name);
                 const safeService = escapeHtml(item.service);
@@ -225,8 +258,8 @@
                         ${circleContent}
                     </div>
                     <div class="queue-details">
-                        <h4>${safeName} | Queue No. ${item.queue_no} ${priorityBadge}</h4>
-                        <p>${safeService} - ${safeDoctor} | ${safeRoom}</p>
+                        <h4>${safeName} &middot; Token #${String(item.queue_no).padStart(2, '0')} ${priorityBadge}</h4>
+                        <p>${safeService} &mdash; ${safeDoctor} | ${safeRoom || 'Triage Room'}</p>
                     </div>
                     <div class="queue-status-col">
                         ${statusPill}
@@ -281,7 +314,7 @@
             }
         });
 
-        // ─── Smart polling: only re-render when data actually changed ─────────
+        // Smart polling: only re-render when data actually changed
         let _lastQueueHash = null;
         function smartLoadQueue() {
             fetch('../backend/staff_get_queue.php')
@@ -291,17 +324,17 @@
                     const hash = JSON.stringify([data.metrics, data.queue.map(q => q.id + q.status).join('')]);
                     if (hash === _lastQueueHash) return;
                     _lastQueueHash = hash;
-                    document.getElementById('metric-in-progress').textContent = data.metrics.in_progress;
-                    document.getElementById('metric-waiting').textContent     = data.metrics.waiting;
-                    document.getElementById('metric-completed').textContent   = data.metrics.completed;
+                    document.getElementById('metric-in-progress').textContent = String(data.metrics.in_progress).padStart(2, '0');
+                    document.getElementById('metric-waiting').textContent     = String(data.metrics.waiting).padStart(2, '0');
+                    document.getElementById('metric-completed').textContent   = String(data.metrics.completed).padStart(2, '0');
                     renderQueue(data.queue);
                 })
                 .catch(err => console.error('Queue load failed:', err));
         }
 
         smartLoadQueue();
-        setInterval(smartLoadQueue, 5000); // poll every 5s
-
+        setInterval(smartLoadQueue, 5000);
     </script>
+    <script src="../assets/js/staff-nav.js"></script>
 </body>
 </html>

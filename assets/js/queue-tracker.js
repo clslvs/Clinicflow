@@ -90,6 +90,7 @@ function fetchQueueData() {
             // Skip DOM update if nothing meaningful changed
             const newHash = hashData(data);
             if (newHash === lastQueueHash) return;
+            const isInitialLoad = lastQueueHash === null;
             lastQueueHash = newHash;
 
             document.getElementById('queue-content').style.display = 'grid';
@@ -101,6 +102,12 @@ function fetchQueueData() {
             document.getElementById('current-patient-pos').textContent = data.current_patient;
             document.getElementById('estimated-wait').textContent   = data.estimated_wait;
             document.getElementById('people-ahead').textContent     = data.people_ahead;
+
+            // Trigger calm single pulse to reassure user that queue shifted forward
+            if (!isInitialLoad && window.ClinicFlowMotion && typeof window.ClinicFlowMotion.pulse === 'function') {
+                const ticketCard = document.querySelector('.ticket-card, .user-queue-card, .metric-card');
+                if (ticketCard) window.ClinicFlowMotion.pulse(ticketCard);
+            }
 
             const listContainer = document.getElementById('queue-list-container');
             listContainer.innerHTML = '';

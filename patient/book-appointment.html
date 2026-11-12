@@ -3,87 +3,111 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Appointment - ClinicFlow</title>
-    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Book Appointment - NgipinSolution Biñan</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/booking.css">
-
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../assets/css/patient.css">
     
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-    <div class="dashboard-layout">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="patient-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="../index.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">...</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="dashboard-layout" data-ui>
         
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <a href="../index.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-
-            <div class="user-profile-section">
-                <div class="avatar" id="user-avatar">J</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="user-name">Loading...</h3>
-                    <span class="user-role">Patient</span>
+        <aside class="sidebar" id="patient-sidebar" role="navigation" aria-label="Patient Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="../index.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
                 </div>
-            </div>
 
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i data-lucide="layout-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="book-appointment.html" class="nav-item active">
-                    <i data-lucide="book-open"></i>
-                    <span>Book Appointment</span>
-                </a>
-                <a href="my-appointments.html" class="nav-item">
-                    <i data-lucide="calendar"></i>
-                    <span>My Appointment</span>
-                </a>
-                <a href="queue-tracker.html" class="nav-item">
-                    <i data-lucide="users"></i>
-                    <span>Queue Tracker</span>
-                </a>
-                <a href="settings.html" class="nav-item">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+                <div class="user-profile-section">
+                    <div class="avatar" id="user-avatar">...</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="user-name">Loading...</h3>
+                        <span class="user-role">Patient</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="book-appointment.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="book-open" aria-hidden="true"></i>
+                        <span>Book Appointment</span>
+                    </a>
+                    <a href="my-appointments.html" class="nav-item">
+                        <i data-lucide="calendar" aria-hidden="true"></i>
+                        <span>My Appointment</span>
+                    </a>
+                    <a href="queue-tracker.html" class="nav-item">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Queue Tracker</span>
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" class="nav-item sign-out" id="logout-btn">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-        
-        <main class="main-content booking-content">
+        <main class="main-content booking-content" id="main-content">
             <header class="page-header">
                 <h1>Book Appointment</h1>
-                <p>Complete the steps below to schedule your visit.</p>
+                <p>Complete the clinical steps below to schedule your dental visit.</p>
             </header>
 
             <div class="booking-container">
                 <div id="booking-flow">
                     
-                    <div class="stepper">
+                    <div class="stepper" aria-label="Booking progress">
                         <div class="step active" data-step="1">
                             <div class="step-circle">1</div>
                             <div class="step-label">Select Service</div>
@@ -105,96 +129,130 @@
                         </div>
                     </div>
 
-                    
                     <form id="booking-form">
                         
                         <div class="form-step active" id="step-1">
+                            <h2 class="form-step-title">Select a Dental Service</h2>
                             <div class="services-grid">
                                 <div class="service-card" data-service="General Check up">
-                                    <div class="service-icon">🦷</div>
-                                    <h3>General Check up</h3>
+                                    <div class="service-card-top">
+                                        <div class="service-icon" aria-hidden="true">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 2 6 5 6 9c0 3 1.5 6.5 2 9.5.5 3 2.5 3.5 4 3.5s3.5-.5 4-3.5c.5-3 2-6.5 2-9.5 0-4-2-7-6-7z"/></svg>
+                                        </div>
+                                        <div>
+                                            <h3>General Check up</h3>
+                                            <div class="price">$45</div>
+                                        </div>
+                                    </div>
                                     <p>est. 45 min</p>
-                                    <div class="price">$45</div>
                                 </div>
                                 <div class="service-card" data-service="Cleaning">
-                                    <div class="service-icon">✨</div>
-                                    <h3>Cleaning</h3>
+                                    <div class="service-card-top">
+                                        <div class="service-icon" aria-hidden="true">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                                        </div>
+                                        <div>
+                                            <h3>Cleaning</h3>
+                                            <div class="price">$45</div>
+                                        </div>
+                                    </div>
                                     <p>est. 45 min</p>
-                                    <div class="price">$45</div>
                                 </div>
                                 <div class="service-card" data-service="Whitening">
-                                    <div class="service-icon">💎</div>
-                                    <h3>Whitening</h3>
-                                    <p>est. 45 min</p>
-                                    <div class="price">$45</div>
+                                    <div class="service-card-top">
+                                        <div class="service-icon" aria-hidden="true">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg>
+                                        </div>
+                                        <div>
+                                            <h3>Whitening</h3>
+                                            <div class="price">$85</div>
+                                        </div>
+                                    </div>
+                                    <p>est. 60 min</p>
                                 </div>
                                 <div class="service-card" data-service="Orthodontics">
-                                    <div class="service-icon">🔩</div>
-                                    <h3>Orthodontics</h3>
+                                    <div class="service-card-top">
+                                        <div class="service-icon" aria-hidden="true">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3 12h6m6 0h6"/></svg>
+                                        </div>
+                                        <div>
+                                            <h3>Orthodontics</h3>
+                                            <div class="price">$90</div>
+                                        </div>
+                                    </div>
                                     <p>est. 45 min</p>
-                                    <div class="price">$45</div>
                                 </div>
                                 <div class="service-card" data-service="Root Canal">
-                                    <div class="service-icon">🏥</div>
-                                    <h3>Root Canal</h3>
-                                    <p>est. 45 min</p>
-                                    <div class="price">$45</div>
+                                    <div class="service-card-top">
+                                        <div class="service-icon" aria-hidden="true">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                        </div>
+                                        <div>
+                                            <h3>Root Canal</h3>
+                                            <div class="price">$120</div>
+                                        </div>
+                                    </div>
+                                    <p>est. 60 min</p>
                                 </div>
                                 <div class="service-card" data-service="Dental Implants">
-                                    <div class="service-icon">🔬</div>
-                                    <h3>Dental Implants</h3>
-                                    <p>est. 45 min</p>
-                                    <div class="price">$45</div>
+                                    <div class="service-card-top">
+                                        <div class="service-icon" aria-hidden="true">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M8 6h8M9 11h6M10 16h4"/></svg>
+                                        </div>
+                                        <div>
+                                            <h3>Dental Implants</h3>
+                                            <div class="price">$150</div>
+                                        </div>
+                                    </div>
+                                    <p>est. 90 min</p>
                                 </div>
                             </div>
                             <div class="step-actions">
-                                <button type="button" class="btn btn-primary btn-next" disabled>Continue <i data-lucide="arrow-right"></i></button>
+                                <button type="button" class="btn btn-primary btn-next" disabled>Continue <i data-lucide="arrow-right" aria-hidden="true"></i></button>
                             </div>
                         </div>
 
-                        
                         <div class="form-step" id="step-2">
+                            <h2 class="form-step-title">Choose Practitioner</h2>
                             <div class="doctors-list">
-                                
+                                <!-- Populated dynamically by booking.js -->
                             </div>
                             <div class="step-actions">
-                                <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left"></i> Back</button>
-                                <button type="button" class="btn btn-primary btn-next" disabled>Continue <i data-lucide="arrow-right"></i></button>
+                                <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left" aria-hidden="true"></i> Back</button>
+                                <button type="button" class="btn btn-primary btn-next" disabled>Continue <i data-lucide="arrow-right" aria-hidden="true"></i></button>
                             </div>
                         </div>
 
-                        
                         <div class="form-step" id="step-3">
+                            <h2 class="form-step-title">Pick Date & Time</h2>
                             <div class="date-time-section">
                                 <div class="form-group">
-                                    <label for="appointment_date" class="section-label">DATE</label>
-                                    <input type="date" id="appointment_date" name="appointment_date" required min=""
-                                        class="styled-input">
+                                    <label for="appointment_date" class="section-label">Select Date</label>
+                                    <input type="date" id="appointment_date" name="appointment_date" required min="" class="styled-input">
                                 </div>
 
                                 <div class="form-group" id="time-slots-container" style="display: none;">
-                                    <label class="section-label">SELECT TIME</label>
+                                    <label class="section-label">Available Time Slots</label>
                                     <div class="time-slots" id="time-grid">
-                                        
+                                        <!-- Populated dynamically by booking.js -->
                                     </div>
-                                    <p id="no-slots-msg" style="display:none; color:var(--color-grey); font-size: 0.9rem;">No available slots for this date.</p>
+                                    <p id="no-slots-msg" style="display:none; color: var(--color-muted); font-size: 0.9375rem; margin-top: 10px;">No available slots for this date.</p>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="appointment_note" class="section-label">NOTE (OPTIONAL)</label>
-                                    <textarea id="appointment_note" name="appointment_note" class="styled-textarea"
-                                        placeholder="Any specific concerns...."></textarea>
+                                    <label for="appointment_note" class="section-label">Note (Optional)</label>
+                                    <textarea id="appointment_note" name="appointment_note" class="styled-textarea" placeholder="Any specific dental concerns, symptoms or requests..."></textarea>
                                 </div>
                             </div>
                             <div class="step-actions">
-                                <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left"></i> Back</button>
-                                <button type="button" class="btn btn-primary btn-next" disabled>Continue <i data-lucide="arrow-right"></i></button>
+                                <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left" aria-hidden="true"></i> Back</button>
+                                <button type="button" class="btn btn-primary btn-next" disabled>Continue <i data-lucide="arrow-right" aria-hidden="true"></i></button>
                             </div>
                         </div>
 
-                        
                         <div class="form-step" id="step-4">
-                            <label class="section-label">APPOINTMENT SUMMARY</label>
+                            <h2 class="form-step-title">Review & Confirm</h2>
+                            <label class="section-label">Appointment Summary</label>
                             <div class="confirmation-summary">
                                 <div class="summary-details">
                                     <div class="summary-item">
@@ -206,10 +264,9 @@
                                         <span class="value" id="summary-doctor"></span>
                                     </div>
                                     <div class="summary-item">
-                                        <span class="label">Date</span>
+                                        <span class="label">Date & Time</span>
                                         <span class="value" id="summary-date"></span>
                                     </div>
-                                    
                                     <div class="summary-item">
                                         <span class="label">Notes</span>
                                         <span class="value" id="summary-notes">None</span>
@@ -219,34 +276,30 @@
                             </div>
 
                             <div class="info-banner">
-                                You will receive a confirmation notification once your appointment is verified.
+                                You will receive an immediate confirmation upon receptionist verification.
                             </div>
 
                             <div class="step-actions">
-                                <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left"></i> Back</button>
-                                        <button type="button" class="btn btn-primary" id="btn-submit">For Approval
-                                            <i data-lucide="arrow-right"></i></button>
+                                <button type="button" class="btn btn-secondary btn-prev"><i data-lucide="arrow-left" aria-hidden="true"></i> Back</button>
+                                <button type="button" class="btn btn-primary" id="btn-submit">Confirm Booking <i data-lucide="arrow-right" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </form>
                 </div> 
 
-                
                 <div id="success-screen" class="success-screen" style="display: none;">
                     <div class="success-header">
-                        <div class="success-icon-large">
-                            <div class="success-icon-inner">
-                                <i data-lucide="check" size="40" color="white" stroke-width="3"></i>
-                            </div>
+                        <div class="success-icon-large" aria-hidden="true">
+                            <i data-lucide="check" style="width: 36px; height: 36px; stroke-width: 3px;"></i>
                         </div>
-                        <h2 class="playfair">Appointment Booked!</h2>
-                        <p>Your appointment has been confirmed.</p>
+                        <h2>Appointment Booked!</h2>
+                        <p style="color: var(--color-muted); font-size: 1rem; margin-top: 4px;">Your appointment has been successfully recorded.</p>
                     </div>
 
                     <div class="success-card">
                         <div class="queue-number-section">
-                            <p>Your Queue No.</p>
-                            <h1 class="playfair" id="success-queue">0000</h1>
+                            <div class="queue-number-display" id="success-queue">0000</div>
+                            <p style="font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-muted); margin: 6px 0 0 0;">Estimated Queue Ticket</p>
                         </div>
                         <div class="summary-details">
                             <div class="summary-item">
@@ -266,7 +319,7 @@
 
                     <div class="success-actions">
                         <a href="dashboard.html" class="btn btn-secondary">View My Appointments</a>
-                        <button class="btn btn-primary" onclick="location.reload()">Book Another Appointment</button>
+                        <button class="btn btn-primary" onclick="location.reload()">Book Another</button>
                     </div>
                 </div>
             </div>
@@ -290,7 +343,9 @@
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('appointment_date').setAttribute('min', today);
     </script>
-    <script src="../assets/js/booking.js?v=3"></script>
+    <script src="../assets/js/booking.js?v=6"></script>
+    <script src="../assets/js/patient-nav.js"></script>
+    <script src="../assets/js/cookie-consent.js"></script>
 </body>
 
 </html>

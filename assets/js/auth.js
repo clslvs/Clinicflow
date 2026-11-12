@@ -323,3 +323,21 @@ if (slides.length > 0) {
         setSlide(next);
     }, 5000);
 }
+
+// Dynamic clinic branding sync for auth screens
+(function() {
+    fetch('backend/get_public_settings.php')
+        .then(res => res.json())
+        .then(data => {
+            if (data?.success && data?.settings?.clinic_name) {
+                const name = data.settings.clinic_name;
+                const brandText = document.getElementById('auth-clinic-name');
+                if (brandText) brandText.textContent = name;
+                const showcaseTag = document.getElementById('auth-showcase-clinic-tag');
+                if (showcaseTag) showcaseTag.innerHTML = `${name} &bull; Powered by ClinicFlow`;
+                const prefix = document.title.split('-')[0].trim();
+                document.title = `${prefix} - ${name}`;
+            }
+        })
+        .catch(() => {});
+})();

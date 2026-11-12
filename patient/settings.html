@@ -2,78 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings - ClinicFlow</title>
-    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Settings - NgipinSolution Biñan</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/settings.css">
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../assets/css/patient.css">
     
-    
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="dashboard-layout">
-        
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <a href="../index.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-            
-            <div class="user-profile-section">
-                <div class="avatar" id="sidebar-avatar">...</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
-                    <span class="user-role">Patient</span>
-                </div>
-            </div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i data-lucide="layout-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="book-appointment.html" class="nav-item">
-                    <i data-lucide="book-open"></i>
-                    <span>Book Appointment</span>
-                </a>
-                <a href="my-appointments.html" class="nav-item">
-                    <i data-lucide="calendar"></i>
-                    <span>My Appointment</span>
-                </a>
-                <a href="queue-tracker.html" class="nav-item">
-                    <i data-lucide="users"></i>
-                    <span>Queue Tracker</span>
-                </a>
-                <a href="settings.html" class="nav-item active">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="patient-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="../index.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">...</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="dashboard-layout" data-ui>
+        
+        <aside class="sidebar" id="patient-sidebar" role="navigation" aria-label="Patient Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="../index.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
+                </div>
+                
+                <div class="user-profile-section">
+                    <div class="avatar" id="sidebar-avatar">...</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                        <span class="user-role">Patient</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="book-appointment.html" class="nav-item">
+                        <i data-lucide="book-open" aria-hidden="true"></i>
+                        <span>Book Appointment</span>
+                    </a>
+                    <a href="my-appointments.html" class="nav-item">
+                        <i data-lucide="calendar" aria-hidden="true"></i>
+                        <span>My Appointment</span>
+                    </a>
+                    <a href="queue-tracker.html" class="nav-item">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Queue Tracker</span>
+                    </a>
+                    <a href="settings.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" class="nav-item sign-out" id="logout-btn">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-        
-        <main class="main-content" style="background-color: #F8FBFC; min-height: 100vh; padding: 2rem 3rem;">
-            <header class="page-header" style="margin-bottom: 2rem;">
-                <h1 class="playfair" style="font-size: 2.2rem; color: var(--color-dark); margin-bottom: 0.25rem;">Settings</h1>
-                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;">Manage your profile and preferences.</p>
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <h1>Settings</h1>
+                <p>Manage your patient profile, medical info, and account security.</p>
             </header>
 
             <div class="settings-container">
@@ -82,29 +108,29 @@
                     <div class="profile-header">
                         <div class="settings-avatar" id="settings-avatar">...</div>
                         <div class="settings-user-info">
-                            <h3 id="settings-name">Loading...</h3>
+                            <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--color-ink); margin: 0 0 3px 0;" id="settings-name">Loading...</h2>
                             <p id="settings-patient-id">Patient ID: #PT-0000</p>
                         </div>
                     </div>
                     
-                    <h4 class="settings-section-title">PERSONAL INFORMATION</h4>
+                    <h2 class="settings-section-title">Personal Information</h2>
                     
                     <form id="personal-form">
                         <div class="settings-grid">
                             <div class="input-group">
-                                <label>FIRST NAME</label>
+                                <label for="input-firstname">First Name</label>
                                 <input type="text" id="input-firstname" class="settings-input" readonly required>
                             </div>
                             <div class="input-group">
-                                <label>MIDDLE NAME <span style="font-weight: 400; text-transform: none; color: var(--color-grey); font-size: 0.75rem;">(Optional)</span></label>
+                                <label for="input-middlename">Middle Name <span style="font-weight: 400; text-transform: none; color: var(--color-muted); font-size: 0.75rem;">(Optional)</span></label>
                                 <input type="text" id="input-middlename" class="settings-input" readonly placeholder="None">
                             </div>
                             <div class="input-group">
-                                <label>LAST NAME</label>
+                                <label for="input-lastname">Last Name</label>
                                 <input type="text" id="input-lastname" class="settings-input" readonly required>
                             </div>
                             <div class="input-group">
-                                <label>SEX</label>
+                                <label for="input-sex">Sex</label>
                                 <select id="input-sex" class="settings-input" disabled>
                                     <option value="">Not specified</option>
                                     <option value="Male">Male</option>
@@ -113,13 +139,13 @@
                                 </select>
                             </div>
                             <div class="input-group">
-                                <label>EMAIL</label>
+                                <label for="input-email">Email Address</label>
                                 <input type="email" id="input-email" class="settings-input" readonly required>
                             </div>
                             <div class="input-group">
-                                <label>PHONE NUMBER</label>
-                                <input type="tel" id="input-phone" class="settings-input" readonly maxlength="11" pattern="[0-9]{11}" inputmode="numeric" placeholder="09123456789" required>
-                                <div class="phone-hint" id="personal-phone-hint" style="display: none;">
+                                <label for="input-phone">Phone Number</label>
+                                <input type="tel" id="input-phone" class="settings-input" readonly maxlength="11" pattern="[0-9]{11}" inputmode="numeric" placeholder="09123456789" required aria-describedby="personal-phone-hint">
+                                <div class="phone-hint" id="personal-phone-hint">
                                     <span>Exact 11 digits (e.g. 09123456789)</span>
                                     <span id="personal-phone-counter">0/11</span>
                                 </div>
@@ -127,43 +153,41 @@
                         </div>
                         <div class="card-actions">
                             <button type="button" class="btn-settings-action" id="btn-edit-personal">Edit</button>
-                            <button type="submit" class="btn-settings-action primary" id="btn-save-personal" style="display: none;">Save</button>
+                            <button type="submit" class="btn-settings-action primary" id="btn-save-personal" style="display: none;">Save Changes</button>
                         </div>
                     </form>
                 </div>
 
-                
                 <div class="settings-card">
-                    <h4 class="settings-section-title">MEDICAL INFORMATION</h4>
+                    <h2 class="settings-section-title">Medical Information</h2>
                     <form id="medical-form">
                         <div class="input-group full-width">
-                            <label>KNOWN ALLERGIES</label>
-                            <input type="text" id="input-allergies" class="settings-input" readonly>
+                            <label for="input-allergies">Known Allergies</label>
+                            <input type="text" id="input-allergies" class="settings-input" readonly placeholder="None listed">
                         </div>
                         <div class="input-group full-width">
-                            <label>MEDICAL CONDITIONS</label>
-                            <input type="text" id="input-conditions" class="settings-input" readonly>
+                            <label for="input-conditions">Medical Conditions</label>
+                            <input type="text" id="input-conditions" class="settings-input" readonly placeholder="None listed">
                         </div>
-                        <div class="input-group full-width" style="display: flex; flex-direction: column; gap: 5px; margin-top: 1rem;">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <input type="checkbox" id="input-priority" class="settings-input" style="width: 20px; height: 20px; cursor: not-allowed;" disabled>
-                                <label for="input-priority" style="margin: 0; cursor: not-allowed;">I am a Senior Citizen / PWD (Priority Queue)</label>
+                        <div class="input-group full-width" style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <input type="checkbox" id="input-priority" class="settings-input" style="width: 22px; height: 22px; cursor: not-allowed;" disabled>
+                                <label for="input-priority" style="margin: 0; cursor: not-allowed; text-transform: none; font-size: 0.9375rem; font-weight: 500;">I am a Senior Citizen / PWD (Priority Queue)</label>
                             </div>
-                            <p style="font-size: 0.8rem; color: var(--color-grey); margin-top: 4px;">*Priority status can only be updated by Clinic Staff upon ID presentation.</p>
+                            <p style="font-size: 0.8125rem; color: var(--color-muted); margin: 2px 0 0 34px;">Priority status is verified and updated by Clinic Staff upon ID presentation.</p>
                         </div>
                         <div class="card-actions">
                             <button type="button" class="btn-settings-action" id="btn-edit-medical">Edit</button>
-                            <button type="submit" class="btn-settings-action primary" id="btn-save-medical" style="display: none;">Save</button>
+                            <button type="submit" class="btn-settings-action primary" id="btn-save-medical" style="display: none;">Save Changes</button>
                         </div>
                     </form>
                 </div>
 
-                
                 <div class="settings-card">
-                    <h4 class="settings-section-title">RESET PASSWORD</h4>
+                    <h2 class="settings-section-title">Change Password</h2>
                     <form id="password-form">
                         <div class="input-group full-width">
-                            <label>OLD PASSWORD</label>
+                            <label for="input-old-password">Current Password</label>
                             <div class="password-input-wrapper">
                                 <input type="password" id="input-old-password" class="settings-input" required autocomplete="current-password">
                                 <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
@@ -181,7 +205,7 @@
                             </div>
                         </div>
                         <div class="input-group full-width">
-                            <label>NEW PASSWORD</label>
+                            <label for="input-new-password">New Password</label>
                             <div class="password-input-wrapper">
                                 <input type="password" id="input-new-password" class="settings-input" required autocomplete="new-password">
                                 <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
@@ -199,7 +223,7 @@
                             </div>
                         </div>
                         <div class="card-actions">
-                            <button type="submit" class="btn-settings-action primary">Save</button>
+                            <button type="submit" class="btn-settings-action primary">Update Password</button>
                         </div>
                     </form>
                 </div>
@@ -213,5 +237,7 @@
         lucide.createIcons();
     </script>
     <script src="../assets/js/settings.js"></script>
+    <script src="../assets/js/patient-nav.js"></script>
+    <script src="../assets/js/cookie-consent.js"></script>
 </body>
 </html>

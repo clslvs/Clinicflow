@@ -11,7 +11,11 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
 }
 
 try {
-    $stmt = $pdo->query("SELECT id, first_name, last_name, email, phone, role, is_active, created_at FROM users ORDER BY created_at DESC");
+    try {
+        $stmt = $pdo->query("SELECT id, first_name, last_name, email, phone, role, is_active, created_at FROM users WHERE (is_deleted = 0 OR is_deleted IS NULL) ORDER BY created_at DESC");
+    } catch (PDOException $colErr) {
+        $stmt = $pdo->query("SELECT id, first_name, last_name, email, phone, role, is_active, created_at FROM users ORDER BY created_at DESC");
+    }
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $formatted = [];

@@ -30,8 +30,6 @@ try {
             exit;
         }
 
-        $pdo->beginTransaction();
-
         $hashed = password_hash($data['password'], PASSWORD_DEFAULT);
 
         $avatarPath = 'assets/images/temporarypicdoctor.jpg';
@@ -75,6 +73,8 @@ try {
             }
         }
 
+        $pdo->beginTransaction();
+
         $docName = "Dr. " . $data['first_name'] . " " . $data['last_name'];
         $specialty = $data['specialty'] ?? 'General';
         
@@ -84,6 +84,14 @@ try {
 
         $stmtUser = $pdo->prepare("INSERT INTO users (first_name, last_name, email, phone, role, password, linked_doctor_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmtUser->execute([$data['first_name'], $data['last_name'], $data['email'], $data['phone'], 'doctor', $hashed, $doctorId]);
+
+        // Seed default weekday availability (Monday-Friday 09:00 - 17:00, Saturday off)
+        $availStmt = $pdo->prepare("INSERT INTO doctor_availability (doctor_id, day_of_week, start_time, end_time, is_available) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE start_time = VALUES(start_time), end_time = VALUES(end_time), is_available = VALUES(is_available)");
+        $defaultDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        foreach ($defaultDays as $day) {
+            $avail = ($day === 'Saturday') ? 0 : 1;
+            $availStmt->execute([$doctorId, $day, '09:00:00', '17:00:00', $avail]);
+        }
 
         $pdo->commit();
         echo json_encode(["success" => true, "message" => "Doctor created successfully."]);

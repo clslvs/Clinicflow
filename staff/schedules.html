@@ -2,98 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClinicFlow - Schedules</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Doctor Schedules - ClinicFlow Staff</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
     <link rel="stylesheet" href="../assets/css/staff.css">
-    
-    
+
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="dashboard-layout">
-        
-        <aside class="sidebar staff-sidebar">
-            <div class="sidebar-header">
-                <a href="dashboard.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-            
-            <div class="user-profile-section">
-                <div class="avatar" id="sidebar-avatar">...</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
-                    <span class="user-role">Staff</span>
-                </div>
-            </div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i data-lucide="layout-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="queue.html" class="nav-item">
-                    <i data-lucide="play"></i>
-                    <span>Live Queue</span>
-                </a>
-                <a href="schedules.html" class="nav-item active">
-                    <i data-lucide="calendar"></i>
-                    <span>Schedules</span>
-                </a>
-                <a href="records.html" class="nav-item">
-                    <i data-lucide="users"></i>
-                    <span>Patient Records</span>
-                </a>
-                <a href="settings.html" class="nav-item">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+    <!-- Mobile Top Navigation Bar -->
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="staff-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="dashboard.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">S</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="dashboard-layout">
+        <!-- Staff Sidebar -->
+        <aside class="sidebar staff-sidebar" id="staff-sidebar" role="navigation" aria-label="Staff Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="dashboard.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
+                </div>
+
+                <div class="user-profile-section">
+                    <div class="avatar" id="sidebar-avatar">S</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                        <span class="user-role-badge">Staff Operations</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="queue.html" class="nav-item">
+                        <i data-lucide="play" aria-hidden="true"></i>
+                        <span>Live Queue</span>
+                    </a>
+                    <a href="schedules.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="calendar" aria-hidden="true"></i>
+                        <span>Schedules</span>
+                    </a>
+                    <a href="records.html" class="nav-item">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Patient Records</span>
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" id="logout-btn" class="nav-item">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-        
-        <main class="main-content" style="padding: 3rem 4rem;">
-            <header class="page-header" style="margin-bottom: 2.5rem;">
-                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Doctor Schedules</h1>
-                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;">View weekly schedules for each doctor.</p>
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <h1>Doctor Schedules</h1>
+                <p>View weekly consultations and clinical availability for each doctor.</p>
             </header>
 
-            <div class="doctor-cards-container" id="doctors-container">
-                <div style="color: var(--color-grey);">Loading doctors...</div>
+            <div class="doctor-cards-container" id="doctors-container" aria-label="Doctor Selection Rail">
+                <div style="color: var(--color-muted); font-size: var(--text-sm);">Loading doctors...</div>
             </div>
 
             <div class="calendar-container">
                 <div class="calendar-header">
-                    <h3 id="calendar-title">Loading...</h3>
-                    <div class="calendar-nav">
-                        <button class="btn-cal-nav" id="btn-prev-week"><i data-lucide="chevron-left"></i></button>
-                        <button class="btn-cal-nav" id="btn-next-week"><i data-lucide="chevron-right"></i></button>
+                    <h3 id="calendar-title">Loading weekly schedule...</h3>
+                    <div class="calendar-nav" aria-label="Calendar navigation">
+                        <button type="button" class="btn-cal-nav" id="btn-prev-week" aria-label="Previous week">
+                            <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                        </button>
+                        <button type="button" class="btn-cal-nav" id="btn-next-week" aria-label="Next week">
+                            <i data-lucide="chevron-right" style="width: 18px; height: 18px;"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="calendar-grid" id="calendar-grid">
-                    
+                    <!-- 6-day columns populated via JS -->
                 </div>
             </div>
-
         </main>
     </div>
 
+
+    <script src="../assets/js/staff-nav.js"></script>
     <script>
         lucide.createIcons();
 
@@ -111,16 +146,29 @@
                 } else {
                     const name = data.user.name;
                     document.getElementById('sidebar-name').textContent = name;
-                    document.getElementById('sidebar-avatar').textContent = name.charAt(0);
+                    const avatarChar = name.charAt(0).toUpperCase();
+                    document.getElementById('sidebar-avatar').textContent = avatarChar;
+                    const mobAvatar = document.getElementById('mobile-avatar');
+                    if (mobAvatar) mobAvatar.textContent = avatarChar;
                 }
             });
+
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
 
         let currentDoctorId = null;
         let currentDoctorName = "";
         let currentWeekStart = new Date();
 
         const dayOfWeek = currentWeekStart.getDay();
-        const diffToMonday = currentWeekStart.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // adjust when day is sunday
+        const diffToMonday = currentWeekStart.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
         currentWeekStart.setDate(diffToMonday);
         currentWeekStart.setHours(0,0,0,0);
 
@@ -136,8 +184,6 @@
             return [year, month, day].join('-');
         }
 
-        const colors = ['green', 'yellow', 'purple'];
-
         fetch('../backend/staff_get_doctors.php')
             .then(res => res.json())
             .then(data => {
@@ -150,14 +196,15 @@
                         el.className = 'doc-card';
                         el.dataset.id = doc.id;
                         
-                        const colorClass = colors[index % colors.length];
-                        const initial = doc.name.replace('Dr. ', '').charAt(0).toUpperCase();
+                        const safeName = escapeHtml(doc.name);
+                        const safeSpecialty = escapeHtml(doc.specialty || 'General Dentistry');
+                        const initial = escapeHtml(doc.name.replace('Dr. ', '').charAt(0).toUpperCase());
 
                         el.innerHTML = `
-                            <div class="doc-avatar ${colorClass}">${initial}</div>
+                            <div class="doc-avatar">${initial}</div>
                             <div class="doc-info">
-                                <h4>${doc.name}</h4>
-                                <p>${doc.specialty}</p>
+                                <h4>${safeName}</h4>
+                                <p>${safeSpecialty}</p>
                             </div>
                         `;
 
@@ -199,32 +246,33 @@
             const d2 = weekEnd.getDate();
             const year = currentWeekStart.getFullYear();
             
-            let dateStr = `${m1} ${d1}-${d2}`;
-            if (m1 !== m2) dateStr = `${m1} ${d1}-${m2} ${d2}`;
+            let dateStr = `${m1} ${d1} - ${d2}`;
+            if (m1 !== m2) dateStr = `${m1} ${d1} - ${m2} ${d2}`;
 
-            document.getElementById('calendar-title').textContent = `${currentDoctorName} - Week of ${dateStr}, ${year}`;
+            document.getElementById('calendar-title').textContent = `${currentDoctorName} \u00B7 Week of ${dateStr}, ${year}`;
 
             const grid = document.getElementById('calendar-grid');
             grid.innerHTML = '';
 
-            const dayNames = ['MON', 'TUES', 'WED', 'THURS', 'FRI', 'SAT'];
-            const dayColumns = []; // Store elements to append appointments later
+            const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const todayStr = formatDateToYMD(new Date());
 
             for (let i = 0; i < 6; i++) {
                 const currentDate = new Date(currentWeekStart);
                 currentDate.setDate(currentWeekStart.getDate() + i);
                 
                 const ymd = formatDateToYMD(currentDate);
+                const isToday = (ymd === todayStr);
 
                 const col = document.createElement('div');
-                col.className = 'calendar-day-col';
+                col.className = 'calendar-day-col' + (isToday ? ' today' : '');
                 col.dataset.date = ymd;
 
                 const header = document.createElement('div');
                 header.className = 'calendar-day-header';
                 header.innerHTML = `
-                    <div class="day-name">${dayNames[i]}</div>
-                    <div class="day-date">${monthNames[currentDate.getMonth()]} ${currentDate.getDate().toString().padStart(2, '0')}</div>
+                    <div class="day-name" style="font-family: var(--font-outlier); font-size: var(--text-2xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: ${isToday ? 'var(--color-accent-deep)' : 'var(--color-muted)'};">${dayNames[i]}</div>
+                    <div class="day-date" style="font-family: var(--font-outlier); font-size: var(--text-sm); font-weight: 700; color: var(--color-ink);">${monthNames[currentDate.getMonth()]} ${currentDate.getDate().toString().padStart(2, '0')}</div>
                 `;
 
                 const body = document.createElement('div');
@@ -234,7 +282,6 @@
                 col.appendChild(header);
                 col.appendChild(body);
                 grid.appendChild(col);
-                dayColumns.push(body);
             }
 
             const startStr = formatDateToYMD(currentWeekStart);
@@ -243,11 +290,10 @@
             fetch(`../backend/staff_get_weekly_schedule.php?doctor_id=${currentDoctorId}&start_date=${startStr}&end_date=${endStr}`)
                 .then(res => res.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data.success && data.schedule) {
                         data.schedule.forEach(appt => {
                             const colBody = document.getElementById('col-' + appt.date);
                             if (colBody) {
-
                                 let timeStr = 'Time not set';
                                 if (appt.time) {
                                     const timeParts = appt.time.split(':');
@@ -259,9 +305,9 @@
                                 const block = document.createElement('div');
                                 block.className = 'appt-block';
                                 block.innerHTML = `
-                                    <div class="appt-patient">${appt.patient_name}</div>
-                                    <div class="appt-issue">${appt.service}</div>
-                                    <div class="appt-time">${timeStr}</div>
+                                    <div class="appt-patient">${escapeHtml(appt.patient_name)}</div>
+                                    <div class="appt-issue">${escapeHtml(appt.service)}</div>
+                                    <div class="appt-time">${escapeHtml(timeStr)}</div>
                                 `;
                                 colBody.appendChild(block);
                             }
@@ -270,5 +316,6 @@
                 });
         }
     </script>
+    <script src="../assets/js/staff-nav.js"></script>
 </body>
 </html>

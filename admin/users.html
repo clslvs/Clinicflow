@@ -1,254 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users - Admin Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>User Management - ClinicFlow Admin</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/staff.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
-    
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../assets/css/admin.css?v=4">
+
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <style>
-        
-        .slide-panel {
-            position: fixed;
-            top: 0;
-            right: -500px;
-            width: 450px;
-            height: 100vh;
-            background: white;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
-            transition: right 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .slide-panel.open {
-            right: 0;
-        }
-
-        .panel-header {
-            padding: 2rem;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .panel-body {
-            padding: 2rem;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        .panel-footer {
-            padding: 1.5rem 2rem;
-            border-top: 1px solid #eee;
-            background: #f8f9fa;
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 999;
-        }
-        
-        .overlay.show {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        
-        .role-badge {
-            padding: 0.3rem 0.8rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        
-        .role-admin { background: #fee2e2; color: #ef4444; }
-        .role-staff { background: #e0f2fe; color: #0ea5e9; }
-        .role-patient { background: #dcfce7; color: #22c55e; }
-        .role-doctor { background: #f3e8ff; color: #a855f7; }
-        
-        .status-badge {
-            padding: 0.3rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-        
-        .status-active { background: #e6f6f4; color: #2b938f; }
-        .status-inactive { background: #f3f4f6; color: #9ca3af; }
-
-        
-        .admin-form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .admin-form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #4b5563;
-            font-size: 0.85rem;
-        }
-        
-        .admin-form-group input, .admin-form-group select {
-            width: 100%;
-            padding: 0.7rem;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-family: inherit;
-        }
-        
-        .admin-form-group input:focus, .admin-form-group select:focus {
-            outline: none;
-            border-color: var(--color-teal-500);
-            box-shadow: 0 0 0 3px rgba(36, 128, 126, 0.1);
-        }
-    </style>
 </head>
-<body style="background-color: #f8f9fa;">
-    <div class="dashboard-layout">
-        
-        <aside class="sidebar admin-sidebar">
-            <div class="sidebar-header">
-                <a href="../index.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-            
-            <div class="user-profile-section">
-                <div class="avatar" id="sidebar-avatar" style="background-color: white; color: black; font-weight: bold;">...</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
-                    <span class="user-role">Admin</span>
-                </div>
-            </div>
 
-            <nav class="sidebar-nav">
-                <a href="users.html" class="nav-item active">
-                    <i data-lucide="users"></i>
-                    <span>Users</span>
-                </a>
-                <a href="appointments.html" class="nav-item">
-                    <i data-lucide="clock"></i>
-                    <span>Appointments</span>
-                </a>
-                <a href="settings.html" class="nav-item">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Mobile Top Navigation Bar -->
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="admin-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="users.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">A</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="dashboard-layout">
+        <!-- Admin Sidebar -->
+        <aside class="sidebar admin-sidebar" id="admin-sidebar" role="navigation" aria-label="Admin Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="users.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
+                </div>
+
+                <div class="user-profile-section">
+                    <div class="avatar" id="sidebar-avatar">A</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                        <span class="user-role-badge">System Admin</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="users.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Users</span>
+                    </a>
+                    <a href="appointments.html" class="nav-item">
+                        <i data-lucide="clock" aria-hidden="true"></i>
+                        <span>Appointments</span>
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" id="logout-btn" class="nav-item sign-out">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-        
-        <main class="main-content" style="padding: 3rem 4rem;">
-            <header class="page-header" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <header class="page-header">
                 <div>
-                    <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Users</h1>
-                    <p style="color: #666; font-weight: 500; font-size: 1.05rem;">Manage staff, admins, and patient accounts.</p>
+                    <h1>User Management</h1>
+                    <p>Manage system access across patients, attending doctors, and clinic staff.</p>
                 </div>
-                <button class="btn-solid-teal" id="btn-add-user" style="display: flex; align-items: center; gap: 0.5rem;">
-                    <i data-lucide="plus" style="width: 18px; height: 18px;"></i> Add New User
-                </button>
+                <div style="display: flex; gap: var(--space-sm); align-items: center; flex-wrap: wrap;">
+                    <a href="settings.html?tab=doctors" class="btn-outline-teal" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                        <i data-lucide="calendar" style="width: 18px; height: 18px;"></i>
+                        <span>Doctor Availability</span>
+                    </a>
+                    <button type="button" class="btn-solid-teal" id="btn-add-user">
+                        <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+                        <span>Add New User</span>
+                    </button>
+                </div>
             </header>
 
             <div class="appointments-toolbar">
                 <div class="search-box">
                     <i data-lucide="search"></i>
-                    <input type="text" id="search-input" placeholder="Search by name, email, or role...">
+                    <input type="text" id="search-input" placeholder="Search by name, email, or role..." aria-label="Search users">
                 </div>
-                
-                <div class="filter-pills" id="filter-pills">
-                    <button class="filter-pill active" data-filter="all">All</button>
-                    <button class="filter-pill" data-filter="admin">Admins</button>
-                    <button class="filter-pill" data-filter="doctor">Doctors</button>
-                    <button class="filter-pill" data-filter="staff">Staff</button>
-                    <button class="filter-pill" data-filter="patient">Patients</button>
+
+                <div class="filter-pills" id="filter-pills" role="group" aria-label="Filter users by role">
+                    <button type="button" class="filter-pill active" data-filter="all">All</button>
+                    <button type="button" class="filter-pill" data-filter="admin">Admins</button>
+                    <button type="button" class="filter-pill" data-filter="doctor">Doctors</button>
+                    <button type="button" class="filter-pill" data-filter="staff">Staff</button>
+                    <button type="button" class="filter-pill" data-filter="patient">Patients</button>
                 </div>
             </div>
 
-            
-            <div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eee;">
-                <table class="history-table" style="margin: 0; width: 100%;">
-                    <thead style="background: #f1f3f4; border-bottom: none;">
-                        <tr>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">USER</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">CONTACT INFO</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">ROLE</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">STATUS</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">JOINED</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem; text-align: right;">ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody id="users-tbody">
-                        <tr><td colspan="6" style="text-align: center; padding: 2rem;">Loading users...</td></tr>
-                    </tbody>
-                </table>
+            <div class="admin-table-card">
+                <div class="admin-table-wrapper">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">User</th>
+                                <th scope="col">Contact Info</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Joined</th>
+                                <th scope="col" style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-tbody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2.5rem; color: var(--color-muted);">Loading users...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>
 
-    
+    <!-- Slide-Out User Management Drawer -->
     <div class="overlay" id="overlay"></div>
-    <div class="slide-panel" id="user-panel">
+    <div class="slide-panel" id="user-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title">
         <div class="panel-header">
-            <h2 class="playfair" id="panel-title" style="margin: 0;">Add New User</h2>
-            <button id="close-panel" style="background:none; border:none; cursor:pointer; color:#666;">
-                <i data-lucide="x"></i>
+            <h2 id="panel-title">Add New User</h2>
+            <button type="button" id="close-panel" class="sidebar-close-btn" style="display: flex;" aria-label="Close user form">
+                <i data-lucide="x" style="width: 20px; height: 20px;"></i>
             </button>
         </div>
         <div class="panel-body">
             <form id="user-form">
                 <input type="hidden" id="user-id">
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
                     <div class="admin-form-group">
-                        <label>FIRST NAME</label>
+                        <label for="user-first-name">First Name</label>
                         <input type="text" id="user-first-name" required>
                     </div>
                     <div class="admin-form-group">
-                        <label>LAST NAME</label>
+                        <label for="user-last-name">Last Name</label>
                         <input type="text" id="user-last-name" required>
                     </div>
                 </div>
 
                 <div class="admin-form-group">
-                    <label>EMAIL ADDRESS</label>
+                    <label for="user-email">Email Address</label>
                     <input type="email" id="user-email" required>
                 </div>
-                
+
                 <div class="admin-form-group">
-                    <label>PHONE NUMBER</label>
-                    <input type="tel" id="user-phone" required maxlength="11" pattern="[0-9]{11}" placeholder="09123456789">
+                    <label for="user-phone">Phone Number</label>
+                    <input type="tel" id="user-phone" required maxlength="11" pattern="[0-9]{11}" inputmode="numeric" placeholder="09123456789">
                     <div class="phone-hint" id="admin-user-phone-hint" style="display: flex;">
                         <span>Exact 11 digits (e.g. 09123456789)</span>
                         <span id="admin-user-phone-counter">0/11</span>
@@ -256,7 +188,7 @@
                 </div>
 
                 <div class="admin-form-group">
-                    <label>ROLE</label>
+                    <label for="user-role">Role</label>
                     <select id="user-role" required>
                         <option value="patient">Patient</option>
                         <option value="staff">Staff Member</option>
@@ -265,9 +197,9 @@
                 </div>
 
                 <div class="admin-form-group" id="password-group">
-                    <label>PASSWORD <span id="password-hint" style="font-weight:normal; color:#888;"></span></label>
+                    <label for="user-password">Password <span id="password-hint" style="font-weight: normal; color: var(--color-muted);"></span></label>
                     <div class="password-input-wrapper">
-                        <input type="password" id="user-password" placeholder="••••••••">
+                        <input type="password" id="user-password" placeholder="••••••••" autocomplete="new-password">
                         <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
                             <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
@@ -285,49 +217,170 @@
             </form>
         </div>
         <div class="panel-footer">
-            <button class="btn-outline-teal" id="btn-cancel" style="border-color: #d1d5db; color: #4b5563;">Cancel</button>
-            <button class="btn-solid-teal" id="btn-save-user">Save User</button>
+            <button type="button" class="btn-outline-teal" id="btn-cancel">Cancel</button>
+            <button type="button" class="btn-solid-teal" id="btn-save-user">Save User</button>
         </div>
     </div>
 
+    <!-- 2-Step Permanent User Deletion Modal -->
+    <div class="delete-modal-backdrop" id="delete-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+        <div class="delete-modal-dialog">
+            <!-- Modal Header -->
+            <div class="delete-modal-header">
+                <div class="delete-modal-icon-badge">
+                    <i data-lucide="alert-triangle" style="width: 24px; height: 24px;"></i>
+                </div>
+                <div class="delete-modal-title-group">
+                    <h3 id="delete-modal-title">Permanently Delete User</h3>
+                    <span class="delete-step-counter" id="delete-step-counter">Step 1 of 2: Impact Review</span>
+                </div>
+                <button type="button" class="sidebar-close-btn" id="btn-close-delete-modal" aria-label="Close modal" style="display: flex;">
+                    <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
+
+            <!-- Stepper Progress Bar -->
+            <div class="delete-stepper-bar">
+                <div class="delete-step-fill" id="delete-step-fill"></div>
+            </div>
+
+            <!-- STEP 1: Impact Assessment & Review -->
+            <div class="delete-modal-step" id="delete-step-1">
+                <p class="delete-lead-text">
+                    You are initiating permanent account deletion for the following user. Please review what will be revoked and what will remain preserved.
+                </p>
+
+                <!-- User Identity Card -->
+                <div class="delete-user-card">
+                    <div class="delete-user-avatar" id="del-user-avatar">U</div>
+                    <div class="delete-user-meta">
+                        <div class="delete-user-name" id="del-user-name">Loading...</div>
+                        <div class="delete-user-email" id="del-user-email">email@example.com</div>
+                        <div class="delete-user-sub">
+                            <span class="role-badge" id="del-user-role">PATIENT</span>
+                            <span class="del-user-phone" id="del-user-phone">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impact Comparison Cards -->
+                <div class="delete-impact-cards">
+                    <div class="impact-card revoked">
+                        <div class="impact-header">
+                            <i data-lucide="shield-x"></i>
+                            <span>What Gets Revoked</span>
+                        </div>
+                        <ul>
+                            <li>Login access, password credentials &amp; active sessions are permanently erased.</li>
+                            <li>User will no longer appear in active user listings or booking selectors.</li>
+                        </ul>
+                    </div>
+                    <div class="impact-card preserved">
+                        <div class="impact-header">
+                            <i data-lucide="shield-check"></i>
+                            <span>What Stays Intact</span>
+                        </div>
+                        <ul>
+                            <li>All historical appointments &amp; past queue records remain 100% intact.</li>
+                            <li>Clinical notes, treatments &amp; audit trails are safely preserved for clinic compliance.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="delete-modal-actions">
+                    <button type="button" class="btn-cancel-modal" id="btn-cancel-del-1">Cancel</button>
+                    <button type="button" class="btn-proceed-step" id="btn-goto-step-2">
+                        <span>Proceed to Verification</span>
+                        <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 2: Security Verification Safeguard -->
+            <div class="delete-modal-step" id="delete-step-2" style="display: none;">
+                <div class="verification-notice-banner">
+                    <i data-lucide="alert-circle"></i>
+                    <div>
+                        <strong>Confirmation Safeguard</strong>
+                        <p>To eliminate accidental deletions, complete both verification requirements below before the deletion button unlocks.</p>
+                    </div>
+                </div>
+
+                <div class="verification-field-group">
+                    <label for="delete-confirm-input">
+                        1. Type <span class="highlight-code">DELETE</span> to confirm intent:
+                    </label>
+                    <input type="text" id="delete-confirm-input" placeholder="Type DELETE here..." autocomplete="off" spellcheck="false">
+                    <small class="verification-hint" id="delete-input-hint">Type the word DELETE in uppercase or lowercase.</small>
+                </div>
+
+                <div class="verification-checkbox-group">
+                    <label class="custom-check-container">
+                        <input type="checkbox" id="delete-confirm-checkbox">
+                        <span class="checkbox-text">
+                            I understand and confirm that I want to permanently delete <strong id="del-confirm-username">this user</strong> while preserving all historical clinical and appointment records.
+                        </span>
+                    </label>
+                </div>
+
+                <div class="delete-modal-actions">
+                    <button type="button" class="btn-back-step" id="btn-back-to-step-1">
+                        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                        <span>Back</span>
+                    </button>
+                    <button type="button" class="btn-danger-execute" id="btn-execute-delete" disabled>
+                        <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                        <span id="btn-delete-label">Permanently Delete User</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modern Admin Toast Notification -->
+    <div class="admin-toast" id="admin-toast" role="status" aria-live="polite"></div>
+
+    <script src="../assets/js/admin-nav.js"></script>
     <script>
         lucide.createIcons();
+
+        let allUsers = [];
+        let currentFilter = 'all';
+        let currentUserId = null;
 
         fetch('../backend/check_session.php')
             .then(res => res.json())
             .then(data => {
-                if(!data.success || data.user.role !== 'admin') {
+                if (!data.success || data.user.role !== 'admin') {
                     window.location.href = '../login.html';
                 } else {
+                    currentUserId = data.user.id;
                     document.getElementById('sidebar-name').textContent = data.user.name;
                     document.getElementById('sidebar-avatar').textContent = data.user.name.charAt(0).toUpperCase();
+                    const mobAvatar = document.getElementById('mobile-avatar');
+                    if (mobAvatar) mobAvatar.textContent = data.user.name.charAt(0).toUpperCase();
                 }
-            });
-
-        document.getElementById('logout-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            fetch('../backend/logout.php')
-                .finally(() => window.location.href = '../login.html');
-        });
-
-        let allUsers = [];
-        let currentFilter = 'all';
+            })
+            .catch(() => window.location.href = '../login.html');
 
         function loadUsers() {
             fetch('../backend/admin_get_users.php')
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
-                        allUsers = data.users;
+                        allUsers = data.users || [];
                         renderTable();
                     } else {
-                        alert("Error: " + data.message);
+                        alert("Error: " + (data.message || 'Failed to load users'));
                     }
+                })
+                .catch(err => {
+                    console.error("Error loading users:", err);
                 });
         }
 
         document.getElementById('search-input').addEventListener('input', renderTable);
-        
+
         document.querySelectorAll('.filter-pill').forEach(pill => {
             pill.addEventListener('click', (e) => {
                 document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
@@ -359,12 +412,11 @@
             tbody.innerHTML = '';
 
             const filtered = allUsers.filter(user => {
-
                 if (currentFilter !== 'all' && user.role !== currentFilter) {
                     return false;
                 }
 
-                const searchStr = `${user.first_name} ${user.last_name} ${user.email} ${user.role}`.toLowerCase();
+                const searchStr = `${user.first_name || ''} ${user.last_name || ''} ${user.email || ''} ${user.role || ''}`.toLowerCase();
                 if (!searchStr.includes(search)) {
                     return false;
                 }
@@ -373,54 +425,64 @@
             });
 
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #999;">No users found.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2.5rem; color: var(--color-muted);">No users found.</td></tr>';
                 return;
             }
 
             filtered.forEach(user => {
                 const tr = document.createElement('tr');
-                tr.style.borderBottom = "1px solid #eee";
 
-                const rowOpacity = user.is_active == 1 ? "1" : "0.5";
-                
-                let toggleAction = user.is_active == 1 
-                    ? `<button class="btn-action cancel" onclick="toggleStatus(${user.id}, 0)" title="Deactivate"><i data-lucide="user-minus" style="width:16px; height:16px;"></i></button>`
-                    : `<button class="btn-action confirm" onclick="toggleStatus(${user.id}, 1)" title="Reactivate"><i data-lucide="user-check" style="width:16px; height:16px;"></i></button>`;
+                const rowOpacity = user.is_active == 1 ? "1" : "0.55";
+
+                let toggleAction = user.is_active == 1
+                    ? `<button type="button" class="btn-action cancel" onclick="toggleStatus(${user.id}, 0)" title="Deactivate user" aria-label="Deactivate user"><i data-lucide="user-minus"></i></button>`
+                    : `<button type="button" class="btn-action confirm" onclick="toggleStatus(${user.id}, 1)" title="Reactivate user" aria-label="Reactivate user"><i data-lucide="user-check"></i></button>`;
 
                 const safeFirst = escapeHtml(user.first_name);
                 const safeLast = escapeHtml(user.last_name);
                 const safeEmail = escapeHtml(user.email);
-                const safePhone = escapeHtml(user.phone);
+                const safePhone = escapeHtml(user.phone || '—');
                 const safeRole = escapeHtml(user.role);
-                const safeDate = escapeHtml(user.formatted_date);
-                const initials = escapeHtml(((user.first_name || '').charAt(0) + (user.last_name || '').charAt(0)).toUpperCase());
+                const safeDate = escapeHtml(user.formatted_date || '—');
+                const initials = escapeHtml(((user.first_name || '').charAt(0) + (user.last_name || '').charAt(0)).toUpperCase() || 'U');
+
+                const isSelf = currentUserId && user.id == currentUserId;
+                const doctorScheduleBtn = user.role === 'doctor'
+                    ? `<a href="settings.html?tab=doctors" class="btn-action confirm" title="View & edit doctor schedule" aria-label="View doctor schedule"><i data-lucide="calendar"></i></a>`
+                    : '';
+
+                const deleteBtn = !isSelf
+                    ? `<button type="button" class="btn-action cancel" onclick="openDeleteModal(${user.id})" title="Delete user permanently" aria-label="Delete user permanently"><i data-lucide="trash-2"></i></button>`
+                    : '';
 
                 tr.innerHTML = `
-                    <td style="padding: 1rem 1.5rem; opacity: ${rowOpacity};">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-teal-100); color: var(--color-teal-800); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem;">
+                    <td data-label="User" style="opacity: ${rowOpacity};">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--color-paper-3); color: var(--color-accent-deep); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: var(--text-xs); flex-shrink: 0; border: 1px solid var(--color-rule);">
                                 ${initials}
                             </div>
                             <div>
-                                <div style="font-weight: 600; color: #333;">${safeFirst} ${safeLast}</div>
+                                <strong style="color: var(--color-ink);">${safeFirst} ${safeLast}</strong>
                             </div>
                         </div>
                     </td>
-                    <td style="padding: 1.5rem; color: #555; opacity: ${rowOpacity};">
-                        <div>${safeEmail}</div>
-                        <div style="font-size: 0.85rem; color: #888;">${safePhone}</div>
+                    <td data-label="Contact" style="opacity: ${rowOpacity};">
+                        <div style="color: var(--color-ink);">${safeEmail}</div>
+                        <div style="font-size: var(--text-2xs); color: var(--color-muted); font-family: var(--font-outlier);">${safePhone}</div>
                     </td>
-                    <td style="padding: 1.5rem; opacity: ${rowOpacity};">
+                    <td data-label="Role" style="opacity: ${rowOpacity};">
                         <span class="role-badge role-${safeRole}">${safeRole}</span>
                     </td>
-                    <td style="padding: 1.5rem;">
+                    <td data-label="Status">
                         <span class="status-badge ${user.is_active == 1 ? 'status-active' : 'status-inactive'}">${user.is_active == 1 ? 'Active' : 'Inactive'}</span>
                     </td>
-                    <td style="padding: 1.5rem; color: #666; opacity: ${rowOpacity};">${safeDate}</td>
-                    <td style="padding: 1.5rem; text-align: right;">
+                    <td data-label="Joined" style="color: var(--color-muted); opacity: ${rowOpacity}; font-family: var(--font-outlier); font-size: var(--text-xs);">${safeDate}</td>
+                    <td data-label="Actions" style="text-align: right;">
                         <div class="table-actions" style="justify-content: flex-end;">
-                            <button class="btn-action confirm" onclick="openEditPanelById(${user.id})" style="border-color:var(--color-teal-500); color:var(--color-teal-500);" title="Edit"><i data-lucide="edit-2" style="width:16px; height:16px;"></i></button>
+                            ${doctorScheduleBtn}
+                            <button type="button" class="btn-action confirm" onclick="openEditPanelById(${user.id})" title="Edit user" aria-label="Edit user"><i data-lucide="edit-2"></i></button>
                             ${toggleAction}
+                            ${deleteBtn}
                         </div>
                     </td>
                 `;
@@ -445,30 +507,40 @@
             document.getElementById('user-id').value = "";
             document.getElementById('password-hint').textContent = "(Required)";
             document.getElementById('user-password').required = true;
-            
+
             panel.classList.add('open');
             overlay.classList.add('show');
+            document.getElementById('user-first-name').focus();
         });
 
         function openEditPanel(user) {
             document.getElementById('panel-title').textContent = "Edit User";
             document.getElementById('user-id').value = user.id;
-            document.getElementById('user-first-name').value = user.first_name;
-            document.getElementById('user-last-name').value = user.last_name;
-            document.getElementById('user-email').value = user.email;
-            document.getElementById('user-phone').value = user.phone;
-            document.getElementById('user-role').value = user.role;
-            
+            document.getElementById('user-first-name').value = user.first_name || '';
+            document.getElementById('user-last-name').value = user.last_name || '';
+            document.getElementById('user-email').value = user.email || '';
+            document.getElementById('user-phone').value = user.phone || '';
+            document.getElementById('user-role').value = user.role || 'patient';
+
             document.getElementById('password-hint').textContent = "(Leave blank to keep current)";
             document.getElementById('user-password').required = false;
 
+            updateUserPhoneCounter(user.phone || '');
+
             panel.classList.add('open');
             overlay.classList.add('show');
+            document.getElementById('user-first-name').focus();
         }
 
         document.getElementById('close-panel').addEventListener('click', closePanel);
         document.getElementById('btn-cancel').addEventListener('click', closePanel);
         overlay.addEventListener('click', closePanel);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && panel.classList.contains('open')) {
+                closePanel();
+            }
+        });
 
         const userPhoneInput = document.getElementById('user-phone');
         const userPhoneCounter = document.getElementById('admin-user-phone-counter');
@@ -496,7 +568,7 @@
         }
 
         document.getElementById('btn-save-user').addEventListener('click', () => {
-            if(!form.checkValidity()) {
+            if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
             }
@@ -508,11 +580,15 @@
                 return;
             }
 
+            const saveBtn = document.getElementById('btn-save-user');
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saving...';
+
             const payload = {
                 id: document.getElementById('user-id').value,
-                first_name: document.getElementById('user-first-name').value,
-                last_name: document.getElementById('user-last-name').value,
-                email: document.getElementById('user-email').value,
+                first_name: document.getElementById('user-first-name').value.trim(),
+                last_name: document.getElementById('user-last-name').value.trim(),
+                email: document.getElementById('user-email').value.trim(),
                 phone: phoneVal,
                 role: document.getElementById('user-role').value,
                 password: document.getElementById('user-password').value
@@ -525,15 +601,19 @@
             })
             .then(res => res.json())
             .then(data => {
-                if(data.success) {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save User';
+                if (data.success) {
                     closePanel();
                     loadUsers();
                 } else {
-                    alert(data.message);
+                    alert(data.message || 'Failed to save user.');
                 }
             })
             .catch(err => {
-                console.error(err);
+                console.error("Error saving user:", err);
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save User';
                 alert("Connection error.");
             });
         });
@@ -564,9 +644,21 @@
             });
         });
 
+        // Toast Notification System
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('admin-toast');
+            if (!toast) return;
+            toast.textContent = message;
+            toast.className = `admin-toast ${type} show`;
+            clearTimeout(window._toastTimeout);
+            window._toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
         function toggleStatus(id, newStatus) {
             const action = newStatus === 1 ? 'reactivate' : 'deactivate';
-            if(!confirm(`Are you sure you want to ${action} this user?`)) return;
+            if (!confirm(`Are you sure you want to ${action} this user?`)) return;
 
             fetch('../backend/admin_toggle_user_status.php', {
                 method: 'POST',
@@ -575,15 +667,176 @@
             })
             .then(res => res.json())
             .then(data => {
-                if(data.success) {
+                if (data.success) {
+                    showToast(`User successfully ${action}d.`, 'success');
                     loadUsers();
                 } else {
-                    alert(data.message);
+                    showToast(data.message || 'Failed to update user status.', 'error');
                 }
+            })
+            .catch(err => {
+                console.error("Error toggling status:", err);
+                showToast("Connection error.", 'error');
             });
         }
 
+        // 2-Step Permanent Deletion Modal Controller
+        let targetDeleteUser = null;
+        let currentDeleteStep = 1;
+
+        function openDeleteModal(userId) {
+            const user = allUsers.find(u => u.id == userId);
+            if (!user) return;
+            targetDeleteUser = user;
+
+            const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'User';
+            const initials = (((user.first_name || '').charAt(0) + (user.last_name || '').charAt(0)).toUpperCase() || 'U');
+
+            // Populate Step 1 Data
+            document.getElementById('del-user-avatar').textContent = initials;
+            document.getElementById('del-user-name').textContent = fullName;
+            document.getElementById('del-user-email').textContent = user.email || '—';
+            document.getElementById('del-user-phone').textContent = user.phone || '—';
+
+            const roleEl = document.getElementById('del-user-role');
+            const safeRole = (user.role || 'patient').toLowerCase();
+            roleEl.textContent = safeRole.toUpperCase();
+            roleEl.className = `role-badge role-${safeRole}`;
+
+            // Populate Step 2 confirmation target text
+            document.getElementById('del-confirm-username').textContent = fullName;
+
+            // Reset verification inputs
+            const confirmInput = document.getElementById('delete-confirm-input');
+            const confirmCheckbox = document.getElementById('delete-confirm-checkbox');
+            const executeBtn = document.getElementById('btn-execute-delete');
+            const btnLabel = document.getElementById('btn-delete-label');
+
+            confirmInput.value = '';
+            confirmInput.classList.remove('valid-match');
+            confirmCheckbox.checked = false;
+            executeBtn.disabled = true;
+            btnLabel.textContent = 'Permanently Delete User';
+
+            // Reset to Step 1
+            setDeleteStep(1);
+
+            // Open Modal Dialog
+            document.getElementById('delete-modal-backdrop').classList.add('show');
+            lucide.createIcons();
+        }
+
+        function setDeleteStep(step) {
+            currentDeleteStep = step;
+            const step1 = document.getElementById('delete-step-1');
+            const step2 = document.getElementById('delete-step-2');
+            const counter = document.getElementById('delete-step-counter');
+            const fill = document.getElementById('delete-step-fill');
+
+            if (step === 1) {
+                step1.style.display = 'flex';
+                step2.style.display = 'none';
+                counter.textContent = 'Step 1 of 2: Impact Review';
+                fill.classList.remove('step-2');
+            } else {
+                step1.style.display = 'none';
+                step2.style.display = 'flex';
+                counter.textContent = 'Step 2 of 2: Security Verification';
+                fill.classList.add('step-2');
+                setTimeout(() => {
+                    const input = document.getElementById('delete-confirm-input');
+                    if (input) input.focus();
+                }, 100);
+            }
+            lucide.createIcons();
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('delete-modal-backdrop').classList.remove('show');
+            targetDeleteUser = null;
+            currentDeleteStep = 1;
+        }
+
+        function checkDeleteVerification() {
+            const val = (document.getElementById('delete-confirm-input').value || '').trim();
+            const checked = document.getElementById('delete-confirm-checkbox').checked;
+            const inputEl = document.getElementById('delete-confirm-input');
+            const executeBtn = document.getElementById('btn-execute-delete');
+
+            const isMatch = val.toUpperCase() === 'DELETE';
+            if (isMatch) {
+                inputEl.classList.add('valid-match');
+            } else {
+                inputEl.classList.remove('valid-match');
+            }
+
+            executeBtn.disabled = !(isMatch && checked);
+        }
+
+        // Modal Action Bindings
+        document.getElementById('btn-goto-step-2').addEventListener('click', () => setDeleteStep(2));
+        document.getElementById('btn-back-to-step-1').addEventListener('click', () => setDeleteStep(1));
+        document.getElementById('btn-cancel-del-1').addEventListener('click', closeDeleteModal);
+        document.getElementById('btn-close-delete-modal').addEventListener('click', closeDeleteModal);
+
+        document.getElementById('delete-confirm-input').addEventListener('input', checkDeleteVerification);
+        document.getElementById('delete-confirm-checkbox').addEventListener('change', checkDeleteVerification);
+
+        document.getElementById('delete-modal-backdrop').addEventListener('click', (e) => {
+            if (e.target.id === 'delete-modal-backdrop') {
+                closeDeleteModal();
+            }
+        });
+
+        // Final Permanent Delete Trigger
+        document.getElementById('btn-execute-delete').addEventListener('click', () => {
+            if (!targetDeleteUser) return;
+
+            const executeBtn = document.getElementById('btn-execute-delete');
+            const label = document.getElementById('btn-delete-label');
+            executeBtn.disabled = true;
+            label.textContent = 'Deleting account...';
+
+            fetch('../backend/admin_delete_user.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: targetDeleteUser.id })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    closeDeleteModal();
+                    showToast('User account successfully deleted.', 'success');
+                    loadUsers();
+                } else {
+                    executeBtn.disabled = false;
+                    label.textContent = 'Permanently Delete User';
+                    showToast(data.message || 'Failed to delete user.', 'error');
+                }
+            })
+            .catch(err => {
+                console.error("Error deleting user:", err);
+                executeBtn.disabled = false;
+                label.textContent = 'Permanently Delete User';
+                showToast("Network error. Failed to delete user.", 'error');
+            });
+        });
+
+        // Global Escape Key Listener for Modals
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const deleteBackdrop = document.getElementById('delete-modal-backdrop');
+                if (deleteBackdrop && deleteBackdrop.classList.contains('show')) {
+                    closeDeleteModal();
+                } else if (panel && panel.classList.contains('open')) {
+                    closePanel();
+                }
+            }
+        });
+
         loadUsers();
     </script>
+    <script src="../assets/js/admin-nav.js"></script>
 </body>
+
 </html>

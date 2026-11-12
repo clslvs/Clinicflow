@@ -2,118 +2,141 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Queue Tracker - ClinicFlow</title>
-    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Queue Tracker - NgipinSolution Biñan</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/queue-tracker.css">
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../assets/css/patient.css">
     
-    
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="dashboard-layout">
-        
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <a href="../index.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-            
-            <div class="user-profile-section">
-                <div class="avatar" id="sidebar-avatar">...</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
-                    <span class="user-role">Patient</span>
-                </div>
-            </div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i data-lucide="layout-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="book-appointment.html" class="nav-item">
-                    <i data-lucide="book-open"></i>
-                    <span>Book Appointment</span>
-                </a>
-                <a href="my-appointments.html" class="nav-item">
-                    <i data-lucide="calendar"></i>
-                    <span>My Appointment</span>
-                </a>
-                <a href="queue-tracker.html" class="nav-item active">
-                    <i data-lucide="users"></i>
-                    <span>Queue Tracker</span>
-                </a>
-                <a href="settings.html" class="nav-item">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="patient-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="../index.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">...</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="dashboard-layout" data-ui>
+        
+        <aside class="sidebar" id="patient-sidebar" role="navigation" aria-label="Patient Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="../index.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
+                </div>
+                
+                <div class="user-profile-section">
+                    <div class="avatar" id="sidebar-avatar">...</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                        <span class="user-role">Patient</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="book-appointment.html" class="nav-item">
+                        <i data-lucide="book-open" aria-hidden="true"></i>
+                        <span>Book Appointment</span>
+                    </a>
+                    <a href="my-appointments.html" class="nav-item">
+                        <i data-lucide="calendar" aria-hidden="true"></i>
+                        <span>My Appointment</span>
+                    </a>
+                    <a href="queue-tracker.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Queue Tracker</span>
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" class="nav-item sign-out" id="logout-btn">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-        
-        <main class="main-content" style="background-color: #F8FBFC; min-height: 100vh; padding: 2rem 3rem;">
-            <header class="page-header" style="margin-bottom: 2.5rem;">
-                <h1 class="playfair" style="font-size: 2.2rem; color: var(--color-dark); margin-bottom: 0.25rem;">Queue Tracker</h1>
-                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;" id="queue-subtitle">Loading queue information...</p>
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <h1>Queue Tracker</h1>
+                <p id="queue-subtitle">Loading queue information...</p>
             </header>
 
-            <!-- Audio Unlock Hint (browser autoplay policy) -->
-            <div id="audio-unlock-hint" style="display: flex; align-items: center; gap: 12px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px; padding: 12px 18px; margin-bottom: 16px; font-size: 0.9rem; color: #92400e; font-weight: 500;">
-                <span style="font-size: 1.3rem;">🔔</span>
-                <span>Tap anywhere on this page to enable sound alerts when you're called.</span>
-                <button onclick="document.getElementById('audio-unlock-hint').style.display='none'" style="margin-left: auto; background: none; border: none; cursor: pointer; font-size: 1.1rem; color: #92400e;">✕</button>
+            <!-- Sound Alert Notice (browser autoplay policy) -->
+            <div id="audio-alert-hint">
+                <i data-lucide="bell" style="width: 20px; height: 20px; flex-shrink: 0;" aria-hidden="true"></i>
+                <span style="flex: 1;">Tap anywhere on this page to enable sound chime alerts when your ticket is called.</span>
+                <button type="button" onclick="document.getElementById('audio-alert-hint').style.display='none'" style="background: none; border: none; cursor: pointer; color: inherit; padding: 6px; display: flex; align-items: center;" aria-label="Close sound alert notice">
+                    <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+                </button>
             </div>
 
             <!-- Real-Time Call Announcement Banner -->
-            <div id="call-alert-banner" style="display: none; background: linear-gradient(135deg, #0d7a70, #065e57); color: white; padding: 22px 26px; border-radius: 18px; margin-bottom: 28px; box-shadow: 0 12px 32px rgba(13, 122, 112, 0.4); border: 2px solid #2dd4bf; animation: pulseCall 2s infinite alternate;">
-                <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+            <div id="call-alert-banner" style="display: none;" role="alert" aria-live="assertive">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;">
                     <div style="display: flex; align-items: center; gap: 18px;">
-                        <div style="font-size: 2.5rem;">📢</div>
+                        <div class="call-alert-icon-box" aria-hidden="true">
+                            <i data-lucide="volume-2" style="width: 28px; height: 28px;"></i>
+                        </div>
                         <div>
-                            <div style="font-size: 0.85rem; letter-spacing: 1.5px; font-weight: 800; text-transform: uppercase; color: #5eead4;">NOW SERVING — IT'S YOUR TURN!</div>
-                            <div style="font-size: 1.5rem; font-weight: 800; margin: 4px 0;" id="call-banner-title">Queue #001 is being called!</div>
-                            <div style="font-size: 1rem; opacity: 0.95;" id="call-banner-desc">Please proceed to your consultation room now.</div>
+                            <div style="font-size: 0.8125rem; letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; color: var(--color-accent-soft);">NOW SERVING · IT'S YOUR TURN</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; margin: 4px 0;" id="call-banner-title">Queue #001 is being called!</div>
+                            <div style="font-size: 0.95rem; opacity: 0.94;" id="call-banner-desc">Please proceed to your consultation room now.</div>
                         </div>
                     </div>
-                    <button type="button" onclick="dismissCallAlert()" style="background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.4); color: white; border-radius: 24px; padding: 10px 22px; font-weight: 700; cursor: pointer; font-size: 0.95rem; transition: background 0.2s ease;">I'm on my way</button>
+                    <button type="button" onclick="dismissCallAlert()" class="btn-on-my-way">I'm on my way</button>
                 </div>
             </div>
-
-            <style>
-                @keyframes pulseCall {
-                    from { box-shadow: 0 10px 30px rgba(13, 122, 112, 0.35); }
-                    to { box-shadow: 0 15px 45px rgba(20, 184, 166, 0.65); border-color: #5eead4; }
-                }
-            </style>
 
             <div class="queue-grid" id="queue-content" style="display: none;">
                 
                 <div class="queue-left">
                     <div class="current-position-card">
-                        <p class="subtitle">Your current position</p>
-                        <h2 class="playfair position-number" id="user-position">--</h2>
+                        <div class="position-number" id="user-position">--</div>
+                        <p class="subtitle">Your Current Position</p>
                         <div class="queue-divider"></div>
-                        <p class="subtitle">QUEUE NO.</p>
-                        <h3 class="queue-number" id="user-queue-number">----</h3>
+                        <div class="queue-number" id="user-queue-number">----</div>
+                        <p class="subtitle" style="margin-top: 6px;">Queue Ticket Number</p>
                     </div>
 
                     <div class="queue-stats-card">
@@ -134,22 +157,23 @@
                     </div>
                 </div>
 
-                
                 <div class="queue-right">
                     <div class="queue-overview-card">
-                        <h4 class="overview-title">QUEUE OVERVIEW</h4>
+                        <h2 class="overview-title" style="font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted); margin: 0 0 18px 0;">Queue Overview</h2>
                         <div class="queue-list" id="queue-list-container">
-                            
+                            <!-- Populated dynamically by queue-tracker.js -->
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div id="no-queue-msg" style="display: none; background: white; padding: 3rem; border-radius: 12px; text-align: center; border: 1px solid var(--color-teal-300);">
-                <i data-lucide="calendar-x" style="width: 48px; height: 48px; color: var(--color-teal-300); margin-bottom: 1rem;"></i>
-                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">No Appointments Today</h3>
-                <p style="color: var(--color-teal-700);">You don't have any appointments scheduled for today, so you are not currently in any queue.</p>
-                <a href="book-appointment.html" class="btn btn-primary" style="margin-top: 1.5rem; display: inline-block;">Book an Appointment</a>
+            <div id="no-queue-msg" style="display: none; background: var(--color-paper); padding: 3.5rem 2rem; border-radius: var(--radius-card); text-align: center; border: 1px solid var(--color-rule); max-width: 540px; margin: 30px auto;">
+                <div style="width: 60px; height: 60px; border-radius: 16px; background: var(--color-paper-2); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; color: var(--color-muted);" aria-hidden="true">
+                    <i data-lucide="calendar-x" style="width: 32px; height: 32px;"></i>
+                </div>
+                <h2 style="font-family: var(--font-display); font-size: 1.45rem; margin-bottom: 8px; color: var(--color-ink);">No Appointments Today</h2>
+                <p style="color: var(--color-muted); font-size: 0.95rem; margin-bottom: 24px;">You do not have an active queue ticket today.</p>
+                <a href="book-appointment.html" class="btn btn-primary">Book an Appointment</a>
             </div>
 
         </main>
@@ -158,10 +182,10 @@
     <script>
         lucide.createIcons();
 
-        // Auto-hide the audio unlock hint on first interaction
+        // Auto-hide the sound alert hint on first interaction
         ['click', 'keydown'].forEach(evt =>
             document.addEventListener(evt, () => {
-                const hint = document.getElementById('audio-unlock-hint');
+                const hint = document.getElementById('audio-alert-hint');
                 if (hint) hint.style.display = 'none';
             }, { once: true })
         );
@@ -177,6 +201,9 @@
                 }
             });
     </script>
+    <script src="../assets/js/animations.js"></script>
     <script src="../assets/js/queue-tracker.js"></script>
+    <script src="../assets/js/patient-nav.js"></script>
+    <script src="../assets/js/cookie-consent.js"></script>
 </body>
 </html>

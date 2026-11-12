@@ -4,12 +4,18 @@ node_modules/
 .env.local
 backend/config.local.php
 deploy.config.ps1
+*.local.json
+ftp.credentials.local.json
+notes/
 
 # Old local backup directories
 2026-08-10_20-03_Backup/
 2026-08-10_20-09_Backup/
 *_Backup/
 *.backup.sql
+backup_*/
+*_backup*/
+WhatToUpload/
 
 # Editor directories and files
 .vscode/
@@ -29,3 +35,10 @@ desktop.ini
 ignore/
 .tokenade/
 *.zip
+G7_Manual.pdf
+graphify-out/
+tasks/
+
+# Uploaded media (keep security .htaccess)
+assets/images/uploads/*
+!assets/images/uploads/.htaccess

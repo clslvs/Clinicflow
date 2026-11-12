@@ -1,5 +1,15 @@
 
 
+function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const tbody = document.getElementById('appointments-tbody');
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -100,9 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     statusText = app.status;
             }
 
+            const safeService = escapeHtml(app.service);
+            const safeDoctor = escapeHtml(app.doctor_name);
+
             tr.innerHTML = `
-                <td>${app.service}</td>
-                <td style="color: var(--light-text);">${app.doctor_name}</td>
+                <td>${safeService}</td>
+                <td style="color: var(--light-text);">${safeDoctor}</td>
                 <td style="color: var(--light-text);">${formattedDate} | ${formattedTime}</td>
                 <td><span class="status-pill ${statusPillClass}">${statusText}</span></td>
                 <td><div class="action-links">${actionLinks}</div></td>

@@ -3,231 +3,393 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClinicFlow - Your Brightest Smile Starts Here</title>
-    <meta name="description" content="ClinicFlow — Modern dental care with online booking, real-time queue tracking, and expert doctors. Your brightest smile starts here.">
-    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NgipinSolution Biñan - Dental Care &amp; Live Queue</title>
+    <meta name="description" content="NgipinSolution Biñan — Modern dental care with online booking, real-time queue tracking, and expert doctors. Powered by ClinicFlow.">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/variables.css?v=5">
-    <link rel="stylesheet" href="assets/css/global.css?v=5">
-    <link rel="stylesheet" href="assets/css/layout.css?v=5">
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="assets/css/landing.css">
 </head>
 
 <body>
-    <header class="main-header">
-        <div class="logo">
-            <img src="assets/images/logo.png" alt="ClinicFlow Logo" />
-            <span>ClinicFlow</span>
-        </div>
-        <div class="nav-container" id="nav-container">
-            <nav class="main-nav" id="main-nav">
-                <a href="#services">Services</a>
-                <a href="#doctors">Doctors</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <div class="header-actions" id="header-actions">
-                <a href="login.html" class="btn btn-primary">Login</a>
-                <a href="register.html" class="btn btn-secondary">Register</a>
-            </div>
-        </div>
-        <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation" aria-expanded="false">
-            <span></span><span></span><span></span>
-        </button>
-    </header>
-    <div class="mobile-backdrop" id="mobile-backdrop"></div>
-
-    <main>
-
-        <section class="hero">
-            <div class="hero-content fade-up">
-                <h1>Your Brightest<br>Smile Starts<br><span class="highlight">Here.</span></h1>
-                <p>Modern dental care with a gentle touch. Book appointments online, track your queue in real time, and
-                    leave with a smile.</p>
-                <a href="login.html" class="btn btn-light">Login to Book</a>
-            </div>
-            <div class="hero-image">
-                <img src="assets/images/hero-clinic.jpg" alt="Modern Dental Clinic" />
-            </div>
-        </section>
-
-        <section class="live-queue-banner" style="display:none;" id="live-queue-banner">
-            <div class="queue-content fade-up">
-                <div class="queue-indicator"></div>
-                <div class="queue-text">
-                    Live Clinic Queue: <span class="queue-number" id="public-queue-number">0</span> Patients waiting or
-                    in treatment
-                </div>
-            </div>
-        </section>
-
-        <section class="services" id="services">
-            <div class="section-header fade-up">
-                <span class="subtitle">WHAT WE OFFER</span>
-                <h2>Comprehensive Dental Care</h2>
-                <p>From routine checkups to advanced procedures, we cover every aspect of your oral health.</p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card fade-up stagger-1">
-                    <div class="icon"><i data-lucide="stethoscope"></i></div>
-                    <h3>General Check up</h3>
-                    <p>Comprehensive oral health exam and professional cleaning.</p>
-                </div>
-                <div class="service-card fade-up stagger-2">
-                    <div class="icon"><i data-lucide="sparkles"></i></div>
-                    <h3>Teeth Whitening</h3>
-                    <p>Professional whitening for a brighter, confident smile.</p>
-                </div>
-                <div class="service-card fade-up stagger-3">
-                    <div class="icon"><i data-lucide="smile"></i></div>
-                    <h3>Orthodontics</h3>
-                    <p>Braces and clear aligners for perfectly aligned teeth.</p>
-                </div>
-                <div class="service-card fade-up stagger-4">
-                    <div class="icon"><i data-lucide="heart-pulse"></i></div>
-                    <h3>Root Canal</h3>
-                    <p>Pain-free treatment to save your natural teeth.</p>
-                </div>
-                <div class="service-card fade-up stagger-5">
-                    <div class="icon"><i data-lucide="activity"></i></div>
-                    <h3>Dental Implants</h3>
-                    <p>Permanent tooth replacement that looks and feels natural.</p>
-                </div>
-                <div class="service-card fade-up stagger-6">
-                    <div class="icon"><i data-lucide="shield-check"></i></div>
-                    <h3>Preventive Care</h3>
-                    <p>Regular care to keep your smile healthy for life.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="doctors" id="doctors">
-            <div class="section-header fade-up">
-                <span class="subtitle">OUR TEAM</span>
-                <h2>Meet the Doctors</h2>
-            </div>
-
-            <div class="doctors-grid" id="landing-doctors-grid">
-                <div class="doctor-card bg-teal fade-up stagger-1">
-                    <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. John Doe - General Dentistry">
-                    <div class="doctor-info">
-                        <h3>Dr. John Doe</h3>
-                        <p>General Dentistry</p>
+    <div class="site-wrapper">
+        <header class="site-header main-header">
+            <div class="container header-container">
+                <a href="index.html" class="brand" aria-label="NgipinSolution Biñan Home">
+                    <span class="brand-icon">
+                        <img src="assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" id="brand-clinic-logo">
+                    </span>
+                    <span id="brand-clinic-name">NgipinSolution Biñan</span>
+                </a>
+                <div class="nav-container" id="nav-container">
+                    <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+                        <a href="#how-it-works" class="nav-link">How it works</a>
+                        <a href="#services" class="nav-link">Services</a>
+                        <a href="#doctors" class="nav-link">Doctors</a>
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </nav>
+                    <div class="header-actions" id="header-actions">
+                        <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+                        <a href="register.html" class="btn btn-primary btn-sm">Register</a>
                     </div>
                 </div>
-                <div class="doctor-card bg-blue fade-up stagger-2">
-                    <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Jane Smith - Orthodontics">
-                    <div class="doctor-info">
-                        <h3>Dr. Jane Smith</h3>
-                        <p>Orthodontics</p>
+                <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-container">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </header>
+        <div class="mobile-backdrop" id="mobile-backdrop"></div>
+
+        <main>
+            <section class="hero-stage fade-up">
+                <div class="container hero-grid">
+                    <div class="hero-copy">
+                        <div class="emergency-pill">
+                            <span class="emergency-dot"></span>
+                            <span><strong>Sudden tooth pain?</strong> Walk-in patients accepted during clinic hours</span>
+                        </div>
+                        <h1 class="hero-headline">Your brightest smile starts right here</h1>
+                        <p class="hero-lead">Online booking and real-time clinic queue tracking in one calm place.</p>
+                        <div class="hero-cta-group">
+                            <a href="login.html" class="btn btn-primary">Book consultation</a>
+                            <a href="#services" class="btn btn-secondary">Explore treatments</a>
+                        </div>
+                        <div class="hero-meta-note">
+                            <i data-lucide="shield" style="width: 14px; height: 14px;"></i>
+                            Certified oral surgery and family dentistry
+                        </div>
+                    </div>
+
+                    <div class="hero-tray-col">
+                        <div class="molded-tray">
+                            <div class="tray-header">
+                                <span class="tray-title">Live clinic status</span>
+                                <span class="pharmacy-stamp">Real-time triage</span>
+                            </div>
+                            <div class="queue-metric-display">
+                                <span class="queue-big-number" id="public-queue-number">0</span>
+                                <span class="queue-metric-label">
+                                    <strong>Patients in care</strong>
+                                    Currently waiting or in treatment
+                                </span>
+                            </div>
+                            <div class="queue-status-bar">
+                                <span class="status-indicator" id="clinic-status-badge">
+                                    <span class="status-dot-pulse" id="clinic-status-dot"></span>
+                                    <span id="clinic-status-text">Checking hours...</span>
+                                </span>
+                                <span id="clinic-status-time" style="font-family: var(--font-outlier); font-size: var(--text-xs); color: var(--color-muted);">
+                                    Updated live
+                                </span>
+                            </div>
+                            <a href="login.html" class="queue-action-link">Login to join queue</a>
+                        </div>
                     </div>
                 </div>
-                <div class="doctor-card bg-grey fade-up stagger-3">
-                    <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Robert Lee - Periodontics">
-                    <div class="doctor-info">
-                        <h3>Dr. Robert Lee</h3>
-                        <p>Periodontics</p>
+            </section>
+
+            <section class="how-it-works-section fade-up" id="how-it-works">
+                <div class="container">
+                    <div class="section-head-wrap" style="text-align: center; margin-bottom: var(--space-xl);">
+                        <span class="pharmacy-stamp" style="margin-bottom: var(--space-xs);">Simple 3-Step Process</span>
+                        <h2 class="section-title">How ClinicFlow Works</h2>
+                        <p class="section-lead" style="max-width: 600px; margin-inline: auto;">Zero crowded waiting room delays. Reserve your consultation online and track your live turn from anywhere.</p>
+                    </div>
+                    <div class="how-it-works-grid">
+                        <div class="step-card">
+                            <div class="step-badge">1</div>
+                            <div class="step-icon-wrap">
+                                <i data-lucide="calendar-check" style="width: 24px; height: 24px;"></i>
+                            </div>
+                            <h3>Book Online</h3>
+                            <p>Choose your dental treatment, attending doctor, and preferred time slot in under a minute.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-badge">2</div>
+                            <div class="step-icon-wrap">
+                                <i data-lucide="smartphone" style="width: 24px; height: 24px;"></i>
+                            </div>
+                            <h3>Track Live Queue</h3>
+                            <p>Check real-time patient queue numbers and estimated wait times right from your phone.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-badge">3</div>
+                            <div class="step-icon-wrap">
+                                <i data-lucide="smile" style="width: 24px; height: 24px;"></i>
+                            </div>
+                            <h3>Arrive &amp; Be Treated</h3>
+                            <p>Walk in calmly when your number is called for rapid triage and dedicated dental care.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container live-queue-banner fade-up" id="live-queue-banner" style="display: none;">
+                <div class="banner-pill">
+                    <div class="banner-left">
+                        <i data-lucide="clock" style="width: 18px; height: 18px; color: var(--color-accent-deep);"></i>
+                        <span>Live clinic queue is currently serving patients</span>
+                    </div>
+                    <span class="queue-pill-num">Now Serving</span>
+                </div>
+            </div>
+
+            <section class="services-section fade-up" id="services">
+                <div class="container">
+                    <div class="section-head-wrap">
+                        <h2 class="section-title">Comprehensive dental care</h2>
+                        <p class="section-lead">Preventive checkups, cosmetic procedures, and surgical care delivered with modern equipment and patient comfort.</p>
+                    </div>
+
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-header-line">
+                                <i data-lucide="stethoscope" style="width: 24px; height: 24px; color: var(--color-accent-deep);"></i>
+                            </div>
+                            <h3>General checkup</h3>
+                            <p>Thorough oral examinations, digital diagnostic radiographs, and professional preventative cleanings.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-header-line">
+                                <i data-lucide="sparkles" style="width: 24px; height: 24px; color: var(--color-accent-deep);"></i>
+                            </div>
+                            <h3>Teeth whitening</h3>
+                            <p>Clinical-grade in-office whitening and gentle take-home systems for natural enamel brightness.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-header-line">
+                                <i data-lucide="smile" style="width: 24px; height: 24px; color: var(--color-accent-deep);"></i>
+                            </div>
+                            <h3>Orthodontics</h3>
+                            <p>Modern clear aligners and traditional corrective brackets designed for predictable alignment.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-header-line">
+                                <i data-lucide="heart-pulse" style="width: 24px; height: 24px; color: var(--color-accent-deep);"></i>
+                            </div>
+                            <h3>Root canal</h3>
+                            <p>Gentle micro-endodontic therapy restoring infected teeth comfortably with zero pain.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-header-line">
+                                <i data-lucide="activity" style="width: 24px; height: 24px; color: var(--color-accent-deep);"></i>
+                            </div>
+                            <h3>Dental implants</h3>
+                            <p>Long-lasting titanium restorations engineered to look, feel, and function like natural teeth.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-header-line">
+                                <i data-lucide="shield-check" style="width: 24px; height: 24px; color: var(--color-accent-deep);"></i>
+                            </div>
+                            <h3>Preventive care</h3>
+                            <p>Custom mouthguards, fluoridation, and periodontal therapy to maintain lifelong oral health.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="doctors-section fade-up" id="doctors">
+                <div class="container">
+                    <div class="section-head-wrap">
+                        <h2 class="section-title">Meet our dentists</h2>
+                        <p class="section-lead">Experienced practitioners specializing in restorative, cosmetic, and general dental procedures.</p>
+                    </div>
+
+                    <div class="doctors-grid" id="landing-doctors-grid">
+                        <div class="doctor-card">
+                            <div class="doctor-media">
+                                <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Alex Vance - General Dentistry">
+                            </div>
+                            <div class="doctor-info">
+                                <h3>Dr. Alex Vance</h3>
+                                <span class="doctor-specialty">General Dentistry</span>
+                                <p>Attending Dental Practitioner</p>
+                            </div>
+                        </div>
+                        <div class="doctor-card">
+                            <div class="doctor-media">
+                                <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Sarah Lin - Orthodontics">
+                            </div>
+                            <div class="doctor-info">
+                                <h3>Dr. Sarah Lin</h3>
+                                <span class="doctor-specialty">Orthodontics</span>
+                                <p>Attending Dental Practitioner</p>
+                            </div>
+                        </div>
+                        <div class="doctor-card">
+                            <div class="doctor-media">
+                                <img src="assets/images/temporarypicdoctor.jpg" alt="Dr. Marcus Reed - Periodontics">
+                            </div>
+                            <div class="doctor-info">
+                                <h3>Dr. Marcus Reed</h3>
+                                <span class="doctor-specialty">Periodontics</span>
+                                <p>Attending Dental Practitioner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="visit-section fade-up" id="contact">
+                <div class="container">
+                    <div class="visit-grid">
+                        <div class="visit-info-col">
+                            <div class="section-head-wrap">
+                                <h2 class="section-title">Clinic hours and location</h2>
+                                <p class="section-lead" id="landing-clinic-lead">NgipinSolution Biñan &mdash; dedicated care, accessible location, and rapid triage check-in.</p>
+                            </div>
+                            <p id="landing-clinic-address" style="font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-ink); margin-bottom: var(--space-xs);">
+                                028 Santo Tomas Rd, Biñan, Laguna
+                            </p>
+                            <p id="landing-clinic-phone" style="font-family: var(--font-outlier); font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-xs);">
+                                0995 146 7688
+                            </p>
+                            <p id="landing-clinic-email" style="font-family: var(--font-outlier); font-size: var(--text-sm); color: var(--color-muted);">
+                                contact@clinicflow.com
+                            </p>
+                        </div>
+                        <div class="visit-hours-col">
+                            <table class="hours-table">
+                                <tbody id="landing-hours-tbody">
+                                    <tr>
+                                        <td>Monday to Friday</td>
+                                        <td>08:00 to 18:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Saturday</td>
+                                        <td>09:00 to 16:00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sunday</td>
+                                        <td>Closed</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta-section fade-up">
+                <div class="container">
+                    <div class="cta-box">
+                        <h2>Ready for your appointment?</h2>
+                        <p>Schedule your consultation online with real-time slot selection and live queue notifications.</p>
+                        <a href="login.html" class="btn btn-primary">Book consultation</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <h3 id="footer-clinic-name">NgipinSolution Biñan</h3>
+                        <p>Powered by ClinicFlow. Modern dental care for patients and families. Track queues live, manage treatment histories, and schedule visits online.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Navigation</h4>
+                        <ul class="footer-links">
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#doctors">Doctors</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Portals</h4>
+                        <ul class="footer-links">
+                            <li><a href="login.html">Patient Login</a></li>
+                            <li><a href="register.html">Register</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul class="footer-links">
+                            <li><a href="legal.html#privacy">Privacy Policy</a></li>
+                            <li><a href="legal.html#terms">Terms of Service</a></li>
+                            <li><a href="legal.html#cookies">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 NgipinSolution Biñan. Powered by ClinicFlow. All rights reserved.</p>
+                    <div class="footer-legal-links">
+                        <a href="legal.html#privacy">Privacy</a>
+                        <a href="legal.html#terms">Terms</a>
+                        <a href="legal.html#cookies">Cookies</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </footer>
+    </div>
 
-        <section class="cta">
-            <div class="cta-content fade-up">
-                <h2>Ready for Your Best Smile?</h2>
-                <p>Book an appointment today — friendly care, flexible hours, no long waits.</p>
-                <a href="login.html" class="btn btn-primary">Book Now!</a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="main-footer" id="contact">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>ClinicFlow</h3>
-                <p>Modern dental care for the whole family. Your comfort and confidence is our priority.</p>
-            </div>
-
-            <div class="footer-contact">
-                <h4>CONTACT</h4>
-                <p>123 Dental Avenue, Suite 100</p>
-                <p>+1 (555) 123-4567</p>
-                <p>hello@brightsmile.com</p>
-            </div>
-
-            <div class="footer-hours">
-                <h4>HOURS</h4>
-                <p>Mon–Fri: 8:00 AM – 6:00 PM</p>
-                <p>Saturday: 9:00 AM – 4:00 PM</p>
-                <p>Sunday: Closed</p>
-            </div>
-        </div>
-        <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <p>&copy; 2026 ClinicFlow. All rights reserved.</p>
-            <div style="display: flex; gap: 16px; font-size: 0.85rem;">
-                <a href="legal.html#privacy" style="color: var(--color-teal-300); text-decoration: none;">Privacy Policy</a>
-                <a href="legal.html#terms" style="color: var(--color-teal-300); text-decoration: none;">Terms of Service</a>
-                <a href="legal.html#cookies" style="color: var(--color-teal-300); text-decoration: none;">Cookie Policy</a>
-            </div>
-        </div>
-    </footer>
+    <script src="assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="assets/js/animations.js?v=2" defer></script>
+    <script src="assets/js/animations.js" defer></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Immediate safety fallback so content is never blank even if observer is delayed
-            setTimeout(() => {
-                document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
-            }, 600);
-            lucide.createIcons();
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
 
-            // Hamburger menu toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
             const hamburger = document.getElementById('hamburger-btn');
-            const header = document.querySelector('.main-header');
             const navContainer = document.getElementById('nav-container');
             const backdrop = document.getElementById('mobile-backdrop');
 
             function toggleMenu(open) {
-                const isOpen = open !== undefined ? open : !header.classList.contains('nav-open');
-                header.classList.toggle('nav-open', isOpen);
+                const isOpen = open !== undefined ? open : !navContainer.classList.contains('open');
                 hamburger.classList.toggle('active', isOpen);
-                if (navContainer) navContainer.classList.toggle('open', isOpen);
-                if (backdrop) backdrop.classList.toggle('active', isOpen);
+                navContainer.classList.toggle('open', isOpen);
+                backdrop.classList.toggle('active', isOpen);
                 hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-                document.body.style.overflow = isOpen ? 'hidden' : '';
+                document.body.classList.toggle('nav-open', isOpen);
             }
 
             if (hamburger) {
                 hamburger.addEventListener('click', () => toggleMenu());
                 if (backdrop) backdrop.addEventListener('click', () => toggleMenu(false));
-                document.querySelectorAll('.main-nav a, .header-actions a').forEach(link => {
+                document.querySelectorAll('#main-nav a, #header-actions a').forEach(link => {
                     link.addEventListener('click', () => toggleMenu(false));
                 });
                 document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && header.classList.contains('nav-open')) {
+                    if (e.key === 'Escape' && navContainer && navContainer.classList.contains('open')) {
                         toggleMenu(false);
                     }
                 });
             }
 
+            // Live Queue fetch
             fetch('backend/get_public_queue.php')
                 .then(res => res.json())
                 .then(data => {
-                    if (data.success && data.queue_length > 0) {
+                    if (data.success && data.queue_length !== undefined) {
                         const banner = document.getElementById('live-queue-banner');
                         const numberEl = document.getElementById('public-queue-number');
-                        numberEl.textContent = data.queue_length;
-                        banner.style.display = 'flex';
+                        if (numberEl) numberEl.textContent = data.queue_length;
+                        if (banner && data.queue_length > 0) banner.style.display = 'block';
                     }
                 })
-                .catch(err => console.log('Queue fetch error:', err));
+                .catch(err => console.log('Queue fetch note:', err));
 
+            // Dynamic doctors fetch
             fetch('backend/staff_get_doctors.php')
                 .then(res => res.json())
                 .then(data => {
@@ -235,21 +397,23 @@
                         const grid = document.getElementById('landing-doctors-grid');
                         if (!grid) return;
                         grid.innerHTML = '';
-                        const colorThemes = ['bg-teal', 'bg-blue', 'bg-grey'];
+                        const fallbackImg = 'assets/images/temporarypicdoctor.jpg';
 
-                        data.doctors.forEach((doc, index) => {
+                        data.doctors.forEach(doc => {
                             const card = document.createElement('div');
-                            const theme = colorThemes[index % colorThemes.length];
-                            card.className = `doctor-card ${theme} fade-up stagger-${(index % 3) + 1} visible`;
-
-                            const fallbackImg = 'assets/images/temporarypicdoctor.jpg';
-                            const img = doc.image_url || fallbackImg;
+                            card.className = 'doctor-card';
+                            const safeImg = escapeHtml(doc.image_url || fallbackImg);
+                            const safeName = escapeHtml(doc.name);
+                            const safeSpecialty = escapeHtml(doc.specialty || 'General Dentistry');
 
                             card.innerHTML = `
-                                <img src="${img}" alt="${doc.name} - ${doc.specialty}" onerror="this.src='${fallbackImg}'">
+                                <div class="doctor-media">
+                                    <img src="${safeImg}" alt="${safeName} - ${safeSpecialty}" onerror="this.src='${fallbackImg}'">
+                                </div>
                                 <div class="doctor-info">
-                                    <h3>${doc.name}</h3>
-                                    <p>${doc.specialty || 'General Dentistry'}</p>
+                                    <h3>${safeName}</h3>
+                                    <span class="doctor-specialty">${safeSpecialty}</span>
+                                    <p>Attending Dental Practitioner</p>
                                 </div>
                             `;
                             grid.appendChild(card);
@@ -257,6 +421,146 @@
                     }
                 })
                 .catch(err => console.log('Doctors sync note:', err));
+
+            // Dynamic settings fetch (hours, clinic info, live open/closed status)
+            function formatAmPm(timeStr) {
+                if (!timeStr) return '';
+                const parts = timeStr.split(':');
+                const h = parseInt(parts[0], 10);
+                const m = parts[1] ? parts[1].substring(0, 2) : '00';
+                const period = h >= 12 ? 'PM' : 'AM';
+                const hour = h % 12 || 12;
+                return `${hour}:${m} ${period}`;
+            }
+
+            function updateLiveClinicStatus(openTime, closeTime, closedDaysData) {
+                let closedDays = [];
+                try {
+                    closedDays = Array.isArray(closedDaysData) ? closedDaysData : JSON.parse(closedDaysData || '[]');
+                } catch (e) {
+                    closedDays = [];
+                }
+
+                const now = new Date();
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const currentDay = days[now.getDay()];
+                const isClosedDay = closedDays.includes(currentDay);
+
+                const currentMinutes = now.getHours() * 60 + now.getMinutes();
+                const [openH, openM] = (openTime || '09:00').split(':').map(Number);
+                const [closeH, closeM] = (closeTime || '17:00').split(':').map(Number);
+                const openMinutes = openH * 60 + (openM || 0);
+                const closeMinutes = closeH * 60 + (closeM || 0);
+
+                const isOpen = !isClosedDay && (currentMinutes >= openMinutes && currentMinutes < closeMinutes);
+
+                const statusDot = document.getElementById('clinic-status-dot');
+                const statusText = document.getElementById('clinic-status-text');
+                const statusTime = document.getElementById('clinic-status-time');
+
+                if (isOpen) {
+                    if (statusText) statusText.textContent = 'Clinic Open Now';
+                    if (statusDot) {
+                        statusDot.style.background = 'var(--color-accent)';
+                        statusDot.style.boxShadow = '0 0 0 2px var(--color-accent-soft)';
+                    }
+                    if (statusTime) statusTime.textContent = `Closes at ${formatAmPm(closeTime)}`;
+                } else {
+                    if (statusText) statusText.textContent = isClosedDay ? 'Closed Today' : 'Closed Now';
+                    if (statusDot) {
+                        statusDot.style.background = 'var(--color-error, #e11d48)';
+                        statusDot.style.boxShadow = 'none';
+                    }
+                    if (statusTime) {
+                        statusTime.textContent = isClosedDay ? 'Opens on schedule' : `Opens at ${formatAmPm(openTime)}`;
+                    }
+                }
+            }
+
+            function renderHoursTable(tbody, openTime, closeTime, closedDaysData) {
+                let closedDays = [];
+                try {
+                    closedDays = Array.isArray(closedDaysData) ? closedDaysData : JSON.parse(closedDaysData || '[]');
+                } catch (e) {
+                    closedDays = [];
+                }
+
+                const timeStr = `${openTime.substring(0, 5)} to ${closeTime.substring(0, 5)}`;
+                const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+                const closedWeekdays = weekdays.filter(d => closedDays.includes(d));
+
+                const rows = [];
+
+                if (closedWeekdays.length === 0) {
+                    rows.push({ label: 'Monday to Friday', value: timeStr });
+                } else if (closedWeekdays.length === 5) {
+                    rows.push({ label: 'Monday to Friday', value: 'Closed' });
+                } else {
+                    weekdays.forEach(day => {
+                        rows.push({
+                            label: day,
+                            value: closedDays.includes(day) ? 'Closed' : timeStr
+                        });
+                    });
+                }
+
+                rows.push({
+                    label: 'Saturday',
+                    value: closedDays.includes('Saturday') ? 'Closed' : timeStr
+                });
+
+                rows.push({
+                    label: 'Sunday',
+                    value: closedDays.includes('Sunday') ? 'Closed' : timeStr
+                });
+
+                tbody.innerHTML = rows.map(r => `
+                    <tr>
+                        <td>${escapeHtml(r.label)}</td>
+                        <td>${escapeHtml(r.value)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            fetch('backend/get_public_settings.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.success || !data.settings) return;
+                    const s = data.settings;
+
+                    if (s.clinic_name) {
+                        const brandEl = document.getElementById('brand-clinic-name');
+                        if (brandEl) brandEl.textContent = s.clinic_name;
+                        document.title = `${s.clinic_name} - Dental Care & Live Queue`;
+                        const leadEl = document.getElementById('landing-clinic-lead');
+                        if (leadEl) leadEl.innerHTML = `${escapeHtml(s.clinic_name)} &mdash; dedicated care, accessible location, and rapid triage check-in.`;
+                        const footBrand = document.getElementById('footer-clinic-name');
+                        if (footBrand) footBrand.textContent = s.clinic_name;
+                    }
+                    if (s.clinic_address) {
+                        const addrEl = document.getElementById('landing-clinic-address');
+                        if (addrEl) addrEl.textContent = s.clinic_address;
+                    }
+                    if (s.clinic_phone) {
+                        const phoneEl = document.getElementById('landing-clinic-phone');
+                        if (phoneEl) phoneEl.textContent = s.clinic_phone;
+                    }
+                    if (s.clinic_email) {
+                        const emailEl = document.getElementById('landing-clinic-email');
+                        if (emailEl) emailEl.textContent = s.clinic_email;
+                    }
+
+                    const tbody = document.getElementById('landing-hours-tbody');
+                    if (tbody && s.open_time && s.close_time) {
+                        renderHoursTable(tbody, s.open_time, s.close_time, s.closed_days);
+                        updateLiveClinicStatus(s.open_time, s.close_time, s.closed_days);
+                    }
+
+                    if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+                        lucide.createIcons();
+                    }
+                })
+                .catch(err => console.log('Settings sync note:', err));
         });
     </script>
     <script src="assets/js/cookie-consent.js"></script>

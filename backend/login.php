@@ -66,6 +66,11 @@ try {
     $user = $stmt->fetch();
 
     if ($user) {
+        if (!empty($user['is_deleted'])) {
+            echo json_encode(["success" => false, "message" => "Account not found or has been deleted."]);
+            exit;
+        }
+
         if ($user['is_active'] == 0) {
             echo json_encode(["success" => false, "message" => "Your account has been deactivated. Please contact an administrator."]);
             exit;

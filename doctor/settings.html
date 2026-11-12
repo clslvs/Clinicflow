@@ -1,104 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClinicFlow - Doctor Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Doctor Settings - NgipinSolution Biñan</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/staff.css">
-    <link rel="stylesheet" href="../assets/css/settings.css">
-    
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../assets/css/doctor.css">
+
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-    <div class="dashboard-layout">
-        
-        <aside class="sidebar staff-sidebar">
-            <div class="sidebar-header">
-                <a href="dashboard.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-            
-            <div class="user-profile-section">
-                <div class="avatar" id="user-avatar">J</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="user-name">Loading...</h3>
-                    <span class="user-role">Doctor</span>
-                </div>
-            </div>
 
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i data-lucide="layout-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="my-schedule.html" class="nav-item">
-                    <i data-lucide="calendar"></i>
-                    <span>My Schedule</span>
-                </a>
-                <a href="my-patients.html" class="nav-item">
-                    <i data-lucide="users"></i>
-                    <span>My Patients</span>
-                </a>
-                <a href="settings.html" class="nav-item active">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Mobile Top Navigation Bar -->
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="doctor-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="dashboard.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">D</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="dashboard-layout">
+        <!-- Doctor Sidebar -->
+        <aside class="sidebar doctor-sidebar" id="doctor-sidebar" role="navigation" aria-label="Doctor Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="dashboard.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
+                </div>
+
+                <div class="user-profile-section">
+                    <div class="avatar" id="user-avatar">D</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="user-name">Loading...</h3>
+                        <span class="user-role-badge">Doctor</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="my-schedule.html" class="nav-item">
+                        <i data-lucide="calendar" aria-hidden="true"></i>
+                        <span>My Schedule</span>
+                    </a>
+                    <a href="my-patients.html" class="nav-item">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>My Patients</span>
+                    </a>
+                    <a href="settings.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" id="logout-btn" class="nav-item">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-        
-        <main class="main-content" style="padding: 3rem 4rem;">
-            <header class="page-header" style="margin-bottom: 2.5rem;">
-                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">Settings</h1>
-                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;">Manage your profile and security.</p>
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <h1>Settings &amp; Profile</h1>
+                <p>Manage your account credentials, contact information, and security preferences.</p>
             </header>
 
             <div class="settings-container">
-                
-                <div class="settings-card">
+                <!-- Personal Info Card -->
+                <section class="settings-card" aria-label="Personal Information">
                     <div class="profile-header">
-                        <div class="settings-avatar" id="settings-avatar">J</div>
+                        <div class="settings-avatar" id="settings-avatar">D</div>
                         <div class="settings-user-info">
                             <h3 id="settings-name">Loading...</h3>
-                            <p id="settings-id">Loading...</p>
+                            <p id="settings-id">#DR-0000</p>
                         </div>
                     </div>
 
-                    <h4 class="settings-section-title">PERSONAL INFORMATION</h4>
-                    
+                    <h2 class="settings-section-title">Personal Information</h2>
+
                     <form id="personal-form">
                         <div class="settings-grid">
                             <div class="input-group">
-                                <label>FIRST NAME</label>
+                                <label for="first-name">First Name</label>
                                 <input type="text" class="settings-input" id="first-name" readonly required>
                             </div>
                             <div class="input-group">
-                                <label>MIDDLE NAME <span style="font-weight: 400; text-transform: none; color: var(--color-grey); font-size: 0.75rem;">(Optional)</span></label>
+                                <label for="middle-name">Middle Name <span style="font-weight: 400; text-transform: none; color: var(--color-muted); font-size: 0.75rem;">(Optional)</span></label>
                                 <input type="text" class="settings-input" id="middle-name" readonly placeholder="None">
                             </div>
                             <div class="input-group">
-                                <label>LAST NAME</label>
+                                <label for="last-name">Last Name</label>
                                 <input type="text" class="settings-input" id="last-name" readonly required>
                             </div>
                             <div class="input-group">
-                                <label>SEX</label>
+                                <label for="sex">Sex</label>
                                 <select id="sex" class="settings-input" disabled>
                                     <option value="">Not specified</option>
                                     <option value="Male">Male</option>
@@ -107,11 +139,11 @@
                                 </select>
                             </div>
                             <div class="input-group">
-                                <label>EMAIL</label>
+                                <label for="email">Email Address</label>
                                 <input type="email" class="settings-input" id="email" readonly required>
                             </div>
                             <div class="input-group">
-                                <label>PHONE NUMBER</label>
+                                <label for="phone">Phone Number</label>
                                 <input type="tel" class="settings-input" id="phone" readonly maxlength="11" pattern="[0-9]{11}" inputmode="numeric" placeholder="09123456789" required>
                                 <div class="phone-hint" id="personal-phone-hint" style="display: none;">
                                     <span>Exact 11 digits (e.g. 09123456789)</span>
@@ -124,15 +156,15 @@
                             <button type="submit" class="btn-settings-action primary" id="btn-save-personal" style="display: none;">Save</button>
                         </div>
                     </form>
-                </div>
+                </section>
 
-                
-                <div class="settings-card">
-                    <h4 class="settings-section-title">CHANGE PASSWORD</h4>
+                <!-- Change Password Card -->
+                <section class="settings-card" aria-label="Security Preferences">
+                    <h2 class="settings-section-title">Change Password</h2>
                     <form id="password-form">
                         <div class="settings-grid">
                             <div class="input-group">
-                                <label>CURRENT PASSWORD</label>
+                                <label for="current-password">Current Password</label>
                                 <div class="password-input-wrapper">
                                     <input type="password" class="settings-input" id="current-password" placeholder="Enter current password" required autocomplete="current-password">
                                     <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
@@ -150,7 +182,7 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <label>NEW PASSWORD</label>
+                                <label for="new-password">New Password</label>
                                 <div class="password-input-wrapper">
                                     <input type="password" class="settings-input" id="new-password" placeholder="Enter new password" required autocomplete="new-password">
                                     <button type="button" class="toggle-password-btn" aria-label="Show password" title="Show password" tabindex="-1">
@@ -169,15 +201,16 @@
                             </div>
                         </div>
                         <div class="card-actions">
-                            <span id="password-status" style="color: var(--color-teal-700); font-weight: 600; font-size: 0.9rem; margin-right: 1rem;"></span>
+                            <span id="password-status" role="status" aria-live="polite" style="color: var(--color-accent-deep); font-weight: 600; font-size: var(--text-sm); margin-right: 1rem;"></span>
                             <button type="submit" class="btn-settings-action primary" id="btn-change-password">Save</button>
                         </div>
                     </form>
-                </div>
+                </section>
             </div>
         </main>
     </div>
 
+    <script src="../assets/js/doctor-nav.js"></script>
     <script>
         lucide.createIcons();
 
@@ -218,11 +251,13 @@
         fetch('../backend/check_session.php')
             .then(res => res.json())
             .then(data => {
-                if(!data.success || data.user.role !== 'doctor') {
+                if (!data.success || data.user.role !== 'doctor') {
                     window.location.href = '../login.html';
                 } else {
                     document.getElementById('user-name').textContent = data.user.name;
                     document.getElementById('user-avatar').textContent = data.user.name.charAt(0);
+                    const mobAvatar = document.getElementById('mobile-avatar');
+                    if (mobAvatar) mobAvatar.textContent = data.user.name.charAt(0);
                     loadSettings();
                 }
             })
@@ -328,6 +363,8 @@
                         document.getElementById('user-name').textContent = fullName;
                         document.getElementById('settings-avatar').textContent = initial;
                         document.getElementById('settings-name').textContent = fullName;
+                        const mobAvatar = document.getElementById('mobile-avatar');
+                        if (mobAvatar) mobAvatar.textContent = initial;
 
                         alert("Personal information updated successfully.");
                     } else {
@@ -376,7 +413,7 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Save';
                 statusEl.textContent = data.message;
-                statusEl.style.color = data.success ? 'var(--color-teal-700)' : '#dc2626';
+                statusEl.style.color = data.success ? 'var(--color-accent-deep)' : '#dc2626';
                 if (data.success) {
                     document.getElementById('current-password').value = '';
                     document.getElementById('new-password').value = '';
@@ -391,7 +428,7 @@
             });
         });
 
-        // Password Visibility Toggle (Show / Hide password)
+        // Password Visibility Toggle
         document.querySelectorAll('.toggle-password-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -417,5 +454,7 @@
             });
         });
     </script>
+    <script src="../assets/js/doctor-nav.js"></script>
 </body>
+
 </html>

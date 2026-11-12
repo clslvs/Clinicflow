@@ -3,117 +3,147 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointments - Admin Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Appointments - ClinicFlow Admin</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/staff.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../assets/css/admin.css?v=3">
 
-
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-<body style="background-color: #f8f9fa;">
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Mobile Top Navigation Bar -->
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="admin-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="users.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">A</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
     <div class="dashboard-layout">
-
-        <aside class="sidebar admin-sidebar">
-            <div class="sidebar-header">
-                <a href="../index.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-
-            <div class="user-profile-section">
-                <div class="avatar" id="sidebar-avatar"
-                    style="background-color: white; color: black; font-weight: bold;">...</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
-                    <span class="user-role">Admin</span>
+        <!-- Admin Sidebar -->
+        <aside class="sidebar admin-sidebar" id="admin-sidebar" role="navigation" aria-label="Admin Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="users.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
                 </div>
-            </div>
 
-            <nav class="sidebar-nav">
-                <a href="users.html" class="nav-item">
-                    <i data-lucide="users"></i>
-                    <span>Users</span>
-                </a>
-                <a href="appointments.html" class="nav-item active">
-                    <i data-lucide="clock"></i>
-                    <span>Appointments</span>
-                </a>
-                <a href="settings.html" class="nav-item">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+                <div class="user-profile-section">
+                    <div class="avatar" id="sidebar-avatar">A</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                        <span class="user-role-badge">System Admin</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="users.html" class="nav-item">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Users</span>
+                    </a>
+                    <a href="appointments.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="clock" aria-hidden="true"></i>
+                        <span>Appointments</span>
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" id="logout-btn" class="nav-item sign-out">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-
-        <main class="main-content" style="padding: 3rem 4rem;">
-            <header class="page-header" style="margin-bottom: 2rem;">
-                <h1 class="playfair" style="font-size: 2.5rem; color: var(--color-dark); margin-bottom: 0.25rem;">
-                    Appointments</h1>
-                <p style="color: #666; font-weight: 500; font-size: 1.05rem;">Manage and update appointment status.</p>
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div>
+                    <h1>Appointments</h1>
+                    <p>Clinic-wide schedule, triage overview, and consultation statuses.</p>
+                </div>
+                <button type="button" class="btn-solid-teal" onclick="openDoctorSchedulesModal()" id="btn-view-doctor-schedules">
+                    <i data-lucide="calendar" style="width: 18px; height: 18px;"></i>
+                    <span>Doctor Schedules</span>
+                </button>
             </header>
 
             <div class="appointments-toolbar">
                 <div class="search-box">
                     <i data-lucide="search"></i>
-                    <input type="text" id="search-input" placeholder="Search patient, doctor, service, date...">
+                    <input type="text" id="search-input" placeholder="Search patient, doctor, service, or date..." aria-label="Search appointments">
                 </div>
 
-                <div class="filter-pills" id="filter-pills">
-                    <button class="filter-pill active" data-filter="all">All</button>
-                    <button class="filter-pill" data-filter="confirmed">Confirmed</button>
-                    <button class="filter-pill" data-filter="pending">Pending</button>
-                    <button class="filter-pill" data-filter="completed">Completed</button>
-                    <button class="filter-pill" data-filter="cancelled">Cancelled</button>
+                <div class="filter-pills" id="filter-pills" role="group" aria-label="Filter appointments by status">
+                    <button type="button" class="filter-pill active" data-filter="all">All</button>
+                    <button type="button" class="filter-pill" data-filter="confirmed">Confirmed</button>
+                    <button type="button" class="filter-pill" data-filter="pending">Pending</button>
+                    <button type="button" class="filter-pill" data-filter="completed">Completed</button>
+                    <button type="button" class="filter-pill" data-filter="cancelled">Cancelled</button>
                 </div>
             </div>
 
-
-            <div
-                style="background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eee;">
-                <table class="history-table" style="margin: 0; width: 100%;">
-                    <thead style="background: #f1f3f4; border-bottom: none;">
-                        <tr>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">PATIENT</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">SERVICE</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">DOCTOR</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">DATE & TIME</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">STATUS</th>
-                            <th style="padding: 1.2rem 1.5rem; color: #555; font-size: 0.85rem;">ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody id="appointments-tbody">
-
-                        <tr>
-                            <td colspan="6" style="text-align: center; padding: 2rem;">Loading appointments...</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="admin-table-card">
+                <div class="admin-table-wrapper">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Patient</th>
+                                <th scope="col">Service</th>
+                                <th scope="col">Doctor</th>
+                                <th scope="col">Date &amp; Time</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointments-tbody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2.5rem; color: var(--color-muted);">Loading appointments...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
         </main>
     </div>
 
+    <script src="../assets/js/admin-nav.js"></script>
     <script>
         lucide.createIcons();
 
@@ -125,8 +155,11 @@
                 } else {
                     document.getElementById('sidebar-name').textContent = data.user.name;
                     document.getElementById('sidebar-avatar').textContent = data.user.name.charAt(0).toUpperCase();
+                    const mobAvatar = document.getElementById('mobile-avatar');
+                    if (mobAvatar) mobAvatar.textContent = data.user.name.charAt(0).toUpperCase();
                 }
-            });
+            })
+            .catch(() => window.location.href = '../login.html');
 
         document.getElementById('logout-btn').addEventListener('click', (e) => {
             e.preventDefault();
@@ -142,11 +175,14 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
-                        allAppointments = data.appointments;
+                        allAppointments = data.appointments || [];
                         renderTable();
                     } else {
-                        alert("Error: " + data.message);
+                        alert("Error: " + (data.message || 'Failed to load appointments'));
                     }
+                })
+                .catch(err => {
+                    console.error("Error loading appointments:", err);
                 });
         }
 
@@ -177,12 +213,11 @@
             tbody.innerHTML = '';
 
             const filtered = allAppointments.filter(app => {
-
-                if (currentFilter !== 'all' && app.status.toLowerCase() !== currentFilter) {
+                if (currentFilter !== 'all' && (app.status || '').toLowerCase() !== currentFilter) {
                     return false;
                 }
 
-                const searchStr = `${app.patient_name} ${app.service} ${app.doctor_name} ${app.formatted_date}`.toLowerCase();
+                const searchStr = `${app.patient_name || ''} ${app.service || ''} ${app.doctor_name || ''} ${app.formatted_date || ''}`.toLowerCase();
                 if (!searchStr.includes(search)) {
                     return false;
                 }
@@ -191,55 +226,54 @@
             });
 
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #999;">No appointments found.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2.5rem; color: var(--color-muted);">No appointments found.</td></tr>';
                 return;
             }
 
             filtered.forEach(app => {
                 const tr = document.createElement('tr');
-                tr.style.borderBottom = "1px solid #eee";
 
-                let statusClass = app.status.toLowerCase();
-                let displayStatus = app.status.charAt(0).toUpperCase() + app.status.slice(1);
+                let statusClass = (app.status || '').toLowerCase();
+                let displayStatus = app.status ? (app.status.charAt(0).toUpperCase() + app.status.slice(1)) : 'Unknown';
 
                 let actionsHtml = '';
                 if (statusClass === 'pending' || statusClass === 'rescheduling') {
                     actionsHtml = `
-                        <button class="btn-action confirm" onclick="updateStatus(${app.id}, 'confirmed')"><i data-lucide="check-circle"></i> Confirm</button>
-                        <button class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')"><i data-lucide="x-circle"></i> Cancel</button>
-                        <button class="btn-action done" onclick="updateStatus(${app.id}, 'completed')"><i data-lucide="check-square"></i> Done</button>
+                        <button type="button" class="btn-action confirm" onclick="updateStatus(${app.id}, 'confirmed')"><i data-lucide="check-circle"></i> <span>Confirm</span></button>
+                        <button type="button" class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')"><i data-lucide="x-circle"></i> <span>Cancel</span></button>
+                        <button type="button" class="btn-action done" onclick="updateStatus(${app.id}, 'completed')"><i data-lucide="check-square"></i> <span>Done</span></button>
                     `;
                 } else if (statusClass === 'confirmed') {
                     actionsHtml = `
-                        <button class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')"><i data-lucide="x-circle"></i> Cancel</button>
-                        <button class="btn-action done" onclick="updateStatus(${app.id}, 'completed')"><i data-lucide="check-square"></i> Done</button>
+                        <button type="button" class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')"><i data-lucide="x-circle"></i> <span>Cancel</span></button>
+                        <button type="button" class="btn-action done" onclick="updateStatus(${app.id}, 'completed')"><i data-lucide="check-square"></i> <span>Done</span></button>
                     `;
                 } else if (statusClass === 'in_progress') {
                     displayStatus = 'In Progress';
                     actionsHtml = `
-                        <button class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')"><i data-lucide="x-circle"></i> Cancel</button>
-                        <button class="btn-action done" onclick="updateStatus(${app.id}, 'completed')"><i data-lucide="check-square"></i> Done</button>
+                        <button type="button" class="btn-action cancel" onclick="updateStatus(${app.id}, 'cancelled')"><i data-lucide="x-circle"></i> <span>Cancel</span></button>
+                        <button type="button" class="btn-action done" onclick="updateStatus(${app.id}, 'completed')"><i data-lucide="check-square"></i> <span>Done</span></button>
                     `;
                 } else {
-                    actionsHtml = `<span style="color: #999; font-style: italic; font-size: 0.9rem;">No actions</span>`;
+                    actionsHtml = `<span style="color: var(--color-muted); font-size: var(--text-xs); font-style: italic;">No actions</span>`;
                 }
 
-                const safePatient = escapeHtml(app.patient_name);
-                const safeService = escapeHtml(app.service);
-                const safeDoctor = escapeHtml(app.doctor_name);
-                const safeDate = escapeHtml(app.formatted_date);
-                const safeTime = escapeHtml(app.formatted_time);
+                const safePatient = escapeHtml(app.patient_name || 'Unknown Patient');
+                const safeService = escapeHtml(app.service || 'General');
+                const safeDoctor = escapeHtml(app.doctor_name || 'Any Doctor');
+                const safeDate = escapeHtml(app.formatted_date || '—');
+                const safeTime = escapeHtml(app.formatted_time || '—');
                 const safeStatus = escapeHtml(displayStatus);
 
                 tr.innerHTML = `
-                    <td style="padding: 1.5rem; font-weight: 600; color: #333;">${safePatient}</td>
-                    <td style="padding: 1.5rem; color: #666;">${safeService}</td>
-                    <td style="padding: 1.5rem; color: #666;">${safeDoctor}</td>
-                    <td style="padding: 1.5rem; color: #666;">${safeDate} | ${safeTime}</td>
-                    <td style="padding: 1.5rem;">
+                    <td data-label="Patient"><strong style="color: var(--color-ink);">${safePatient}</strong></td>
+                    <td data-label="Service" style="color: var(--color-ink-2);">${safeService}</td>
+                    <td data-label="Doctor" style="color: var(--color-ink-2);">${safeDoctor}</td>
+                    <td data-label="Date &amp; Time" style="font-family: var(--font-outlier); font-size: var(--text-xs); color: var(--color-muted);">${safeDate} &middot; ${safeTime}</td>
+                    <td data-label="Status">
                         <span class="status-pill ${statusClass}">${safeStatus}</span>
                     </td>
-                    <td style="padding: 1.5rem;">
+                    <td data-label="Actions">
                         <div class="table-actions">${actionsHtml}</div>
                     </td>
                 `;
@@ -257,22 +291,134 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ appointment_id: id, status: newStatus })
             })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    loadAppointments();
+                } else {
+                    alert("Error: " + (data.message || 'Failed to update status'));
+                }
+            })
+            .catch(err => {
+                console.error("Error updating appointment:", err);
+                alert("Error connecting to server.");
+            });
+        }
+
+        function formatTime12(time) {
+            if (!time) return '—';
+            const parts = time.split(':');
+            const hr = parseInt(parts[0], 10);
+            const min = parts[1] || '00';
+            const ampm = hr >= 12 ? 'PM' : 'AM';
+            const hr12 = hr % 12 || 12;
+            return `${hr12}:${min} ${ampm}`;
+        }
+
+        function openDoctorSchedulesModal() {
+            const panel = document.getElementById('schedules-panel');
+            const overlay = document.getElementById('schedules-overlay');
+            const list = document.getElementById('doctor-schedules-list');
+            list.innerHTML = '<p style="color: var(--color-muted); text-align: center; padding: 2rem;">Loading doctor availability...</p>';
+            panel.classList.add('open');
+            overlay.classList.add('show');
+
+            fetch('../backend/staff_get_doctors.php')
                 .then(res => res.json())
                 .then(data => {
-                    if (data.success) {
-                        loadAppointments(); // Refresh data
-                    } else {
-                        alert("Error: " + data.message);
+                    if (!data.success || !data.doctors || data.doctors.length === 0) {
+                        list.innerHTML = '<p style="color: var(--color-muted); text-align: center; padding: 2rem;">No active doctors found.</p>';
+                        return;
                     }
+
+                    list.innerHTML = '';
+                    const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+                    data.doctors.forEach(doc => {
+                        const card = document.createElement('div');
+                        card.style.cssText = 'background: var(--color-paper-2); border: 1px solid var(--color-rule); border-radius: var(--radius-card); padding: 16px;';
+
+                        const availMap = {};
+                        (doc.availability || []).forEach(av => {
+                            availMap[av.day_of_week] = av;
+                        });
+
+                        let scheduleRows = '';
+                        DAYS.forEach(day => {
+                            const slot = availMap[day];
+                            const isAvailable = slot && (slot.is_available == 1 || slot.is_available === true);
+                            const timeText = isAvailable
+                                ? `${formatTime12(slot.start_time)} &ndash; ${formatTime12(slot.end_time)}`
+                                : '<span style="color: var(--color-muted); font-style: italic;">Day Off</span>';
+
+                            scheduleRows += `
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed var(--color-rule); font-size: var(--text-xs);">
+                                    <span style="font-weight: 600; color: ${isAvailable ? 'var(--color-ink)' : 'var(--color-muted)'};">${day}</span>
+                                    <span style="color: ${isAvailable ? 'var(--color-ink)' : 'var(--color-muted)'};">${timeText}</span>
+                                </div>
+                            `;
+                        });
+
+                        card.innerHTML = `
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--color-accent), var(--color-accent-deep)); color: var(--color-accent-ink); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: var(--text-sm);">
+                                    ${escapeHtml(doc.name.replace(/^Dr\.\s*/i, '').charAt(0) || 'D')}
+                                </div>
+                                <div>
+                                    <h3 style="margin: 0; font-size: var(--text-base); color: var(--color-ink);">${escapeHtml(doc.name)}</h3>
+                                    <span style="font-size: var(--text-xs); color: var(--color-muted);">${escapeHtml(doc.specialty || 'General')}</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                ${scheduleRows}
+                            </div>
+                        `;
+                        list.appendChild(card);
+                    });
+                    lucide.createIcons();
                 })
                 .catch(err => {
-                    console.error(err);
-                    alert("Error connecting to server.");
+                    console.error('Error loading doctor schedules:', err);
+                    list.innerHTML = '<p style="color: var(--color-danger); text-align: center; padding: 2rem;">Error loading schedules.</p>';
                 });
         }
 
+        function closeDoctorSchedulesModal() {
+            document.getElementById('schedules-panel').classList.remove('open');
+            document.getElementById('schedules-overlay').classList.remove('show');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeDoctorSchedulesModal();
+        });
+
         loadAppointments();
     </script>
+
+    <!-- Doctor Schedules Overview Drawer -->
+    <div class="overlay" id="schedules-overlay" onclick="closeDoctorSchedulesModal()"></div>
+    <div class="slide-panel" id="schedules-panel" role="dialog" aria-modal="true" aria-labelledby="schedules-title">
+        <div class="panel-header">
+            <div>
+                <h2 id="schedules-title" style="margin: 0; font-size: var(--text-lg); font-family: var(--font-display);">Doctor Availability</h2>
+                <p style="margin: 3px 0 0 0; font-size: var(--text-xs); color: var(--color-muted);">Weekly consultation hours for all active clinic doctors.</p>
+            </div>
+            <button type="button" onclick="closeDoctorSchedulesModal()" class="sidebar-close-btn" style="display: flex;" aria-label="Close schedules">
+                <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+            </button>
+        </div>
+        <div class="panel-body" id="doctor-schedules-list" style="display: flex; flex-direction: column; gap: var(--space-md);">
+            <p style="color: var(--color-muted); text-align: center; padding: 2rem;">Loading doctor availability...</p>
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn-outline-teal" onclick="closeDoctorSchedulesModal()">Close</button>
+            <a href="settings.html" class="btn-solid-teal" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
+                <span>Configure in Settings</span>
+            </a>
+        </div>
+    </div>
+    <script src="../assets/js/admin-nav.js"></script>
 </body>
 
 </html>

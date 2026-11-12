@@ -1,316 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legal & Policies - ClinicFlow</title>
-    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Trust, Safety &amp; Legal Policies - NgipinSolution Biñan</title>
+    <meta name="description" content="NgipinSolution Biñan Terms of Service, Privacy Policy, and Cookie Policy. Learn how we safeguard patient dental records and manage clinic appointments. Powered by ClinicFlow.">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/variables.css">
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-
-    <style>
-        body {
-            background-color: #F8FBFC;
-            color: var(--color-dark);
-            font-family: var(--font-body);
-            line-height: 1.7;
-        }
-
-        .legal-header {
-            background: white;
-            border-bottom: 1px solid var(--color-teal-100);
-            padding: 1.25rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .legal-header .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--color-dark);
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
-
-        .legal-header .logo img {
-            height: 34px;
-            width: auto;
-        }
-
-        .legal-nav-links {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .legal-container {
-            max-width: 1000px;
-            margin: 2.5rem auto 5rem;
-            padding: 0 1.5rem;
-        }
-
-        .legal-hero {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .legal-hero h1 {
-            font-family: var(--font-heading);
-            font-size: 2.4rem;
-            color: var(--color-teal-900);
-            margin-bottom: 0.5rem;
-        }
-
-        .legal-hero p {
-            color: var(--color-grey);
-            font-size: 1rem;
-        }
-
-        .legal-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-        }
-
-        .legal-tab-btn {
-            background: white;
-            border: 1px solid var(--color-teal-300);
-            color: var(--color-teal-900);
-            padding: 0.65rem 1.4rem;
-            border-radius: 999px;
-            font-family: var(--font-body);
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .legal-tab-btn:hover, .legal-tab-btn.active {
-            background: var(--color-teal-900);
-            color: white;
-            border-color: var(--color-teal-900);
-            box-shadow: 0 4px 14px rgba(12, 124, 119, 0.25);
-        }
-
-        .legal-card {
-            background: white;
-            border-radius: 16px;
-            padding: 3rem;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
-            border: 1px solid var(--color-teal-100);
-            margin-bottom: 2rem;
-        }
-
-        .legal-card h2 {
-            font-family: var(--font-heading);
-            color: var(--color-teal-900);
-            font-size: 1.7rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid var(--color-teal-100);
-        }
-
-        .legal-card h3 {
-            font-size: 1.15rem;
-            color: var(--color-dark);
-            margin-top: 1.8rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .legal-card p, .legal-card ul {
-            color: #4a4a4a;
-            margin-bottom: 1rem;
-            font-size: 0.96rem;
-        }
-
-        .legal-card ul {
-            padding-left: 1.5rem;
-        }
-
-        .legal-card li {
-            margin-bottom: 0.4rem;
-        }
-
-        .badge-updated {
-            display: inline-block;
-            background: var(--color-teal-100);
-            color: var(--color-teal-900);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        .cookie-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            font-size: 0.92rem;
-        }
-
-        .cookie-table th, .cookie-table td {
-            border: 1px solid var(--color-teal-100);
-            padding: 10px 14px;
-            text-align: left;
-        }
-
-        .cookie-table th {
-            background: var(--color-teal-50);
-            color: var(--color-teal-900);
-            font-weight: 700;
-        }
-    </style>
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="assets/css/legal.css?v=1.1">
 </head>
-<body>
 
+<body>
     <header class="legal-header">
-        <a href="index.html" class="logo">
-            <img src="assets/images/logo.png" alt="ClinicFlow Logo">
-            <span>ClinicFlow</span>
+        <a href="index.html" class="legal-brand" aria-label="NgipinSolution Biñan Home">
+            <span class="legal-brand-icon">
+                <img src="assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo">
+            </span>
+            <span>NgipinSolution Biñan</span>
         </a>
-        <div class="legal-nav-links">
-            <a href="index.html" class="btn btn-outline" style="padding: 6px 16px; font-size: 0.88rem; text-decoration: none;">Home</a>
-            <a href="login.html" class="btn btn-primary" style="padding: 6px 18px; font-size: 0.88rem; text-decoration: none;">Sign In</a>
-        </div>
+        <nav class="legal-nav-links" aria-label="Page navigation">
+            <a href="index.html" class="legal-nav-btn secondary">
+                <i data-lucide="arrow-left" style="width: 14px; height: 14px; margin-right: 4px;"></i>
+                <span>Home</span>
+            </a>
+            <a href="login.html" class="legal-nav-btn primary">Sign In</a>
+        </nav>
     </header>
 
-    <div class="legal-container">
-        <div class="legal-hero">
+    <main class="legal-container">
+        <header class="legal-hero">
             <h1>Trust, Safety & Legal Policies</h1>
-            <p>Our commitment to transparent dental care, patient privacy, and data security.</p>
-        </div>
+            <p>Our commitment to transparent dental care, patient privacy, and clinical data security.</p>
+        </header>
 
-        <div class="legal-tabs">
-            <a href="#terms" class="legal-tab-btn active" id="tab-terms" onclick="switchSection('terms')">Terms & Conditions</a>
-            <a href="#privacy" class="legal-tab-btn" id="tab-privacy" onclick="switchSection('privacy')">Privacy Policy</a>
-            <a href="#cookies" class="legal-tab-btn" id="tab-cookies" onclick="switchSection('cookies')">Cookie Policy</a>
-        </div>
+        <nav class="legal-tabs" role="tablist" aria-label="Policy sections">
+            <a href="#terms" class="legal-tab-btn active" id="tab-terms" role="tab" aria-selected="true" onclick="switchSection('terms')">Terms & Conditions</a>
+            <a href="#privacy" class="legal-tab-btn" id="tab-privacy" role="tab" aria-selected="false" onclick="switchSection('privacy')">Privacy Policy</a>
+            <a href="#cookies" class="legal-tab-btn" id="tab-cookies" role="tab" aria-selected="false" onclick="switchSection('cookies')">Cookie Policy</a>
+        </nav>
 
         <!-- 1. TERMS AND CONDITIONS -->
-        <section id="terms" class="legal-section">
-            <div class="legal-card">
-                <span class="badge-updated">Last Updated: October 2026</span>
-                <h2>Terms & Conditions of Service</h2>
+        <section id="terms" class="legal-section" role="tabpanel" aria-labelledby="tab-terms">
+            <article class="legal-card">
+                <div class="badge-updated">
+                    <i data-lucide="clock" style="width: 12px; height: 12px;"></i>
+                    <span>Last updated: November 2026</span>
+                </div>
+                <h2>Terms &amp; Conditions of Service</h2>
 
-                <p>Welcome to <strong>ClinicFlow</strong>. By creating an account, scheduling an appointment, or using our clinic management platform, you agree to comply with and be bound by the following terms.</p>
+                <p>Welcome to <strong>NgipinSolution Biñan</strong>, operating digitally via the <strong>ClinicFlow</strong> clinic management and patient portal platform. By registering an account, booking an appointment, or using our live queue system, you enter into a legally binding agreement under the laws of the Republic of the Philippines. Please read these terms carefully before accessing our clinical services.</p>
 
-                <h3>1. Clinic Services & Consultations</h3>
-                <p>ClinicFlow provides digital appointment scheduling, queue progression tracking, and medical record management for dental consultations and procedures. Digital confirmations do not replace professional in-person clinical examinations.</p>
+                <h3>1. Scope of Digital &amp; Clinical Services</h3>
+                <p>ClinicFlow provides digital appointment reservation, live outpatient queue tracking, electronic dental records management, and profile coordination for NgipinSolution Biñan. Digital confirmations, SMS notifications, and queue estimates are operational tools designed to streamline clinic access and <strong>do not constitute a final clinical diagnosis or treatment guarantee</strong>. An in-person dental consultation is required for all medical recommendations.</p>
 
-                <h3>2. Patient Responsibilities</h3>
+                <h3>2. Emergency Medical &amp; Dental Disclaimer</h3>
+                <div style="background: color-mix(in oklab, var(--color-error, #e11d48) 8%, transparent); border-left: 3px solid var(--color-error, #e11d48); padding: var(--space-md); border-radius: var(--radius-sm); margin-block: var(--space-md);">
+                    <p style="margin: 0; font-size: var(--text-sm); line-height: 1.6; color: var(--color-ink);">
+                        <strong>CRITICAL EMERGENCY NOTICE:</strong> ClinicFlow is an outpatient scheduling and triage queue platform. <strong>It is NOT an acute emergency response service.</strong> If you or a family member are experiencing acute, life-threatening maxillofacial trauma, uncontrolled oral hemorrhaging, severe facial or airway swelling causing breathing difficulty, or systemic anaphylaxis, <strong>do not wait for an online appointment</strong>. Immediately proceed to the nearest hospital emergency room (ER) or dial local emergency services.
+                    </p>
+                </div>
+
+                <h3>3. Account Creation, Eligibility &amp; Security</h3>
                 <ul>
-                    <li>You agree to provide true, accurate, and complete information regarding your identity, contact details, medical allergies, and existing conditions.</li>
-                    <li>You are responsible for keeping your account credentials confidential. Any activity under your account remains your responsibility.</li>
-                    <li>Patients must arrive at least 10 minutes prior to their estimated consultation time or queue call.</li>
+                    <li><strong>Age Requirement:</strong> You must be at least 18 years of age to register an independent patient account. Pediatric patients (under 18 years old) must be registered and accompanied by a parent or authorized legal guardian.</li>
+                    <li><strong>Accuracy of Information:</strong> You agree to provide true, accurate, current, and complete personal, contact, and medical information during registration and appointment booking.</li>
+                    <li><strong>Credential Confidentiality:</strong> You are solely responsible for maintaining the confidentiality of your login credentials (email and password). Any action, appointment request, or cancellation initiated under your authenticated session will be deemed your authorized act.</li>
+                    <li><strong>Prohibition of Impersonation:</strong> You may not create accounts for fictitious persons, impersonate any individual, or register under contact numbers not owned by you.</li>
                 </ul>
 
-                <h3>3. Appointments & Queue Etiquette</h3>
+                <h3>4. Patient Clinical Disclosures &amp; Health Declarations</h3>
+                <p>Dental procedures interact directly with your systemic health. Patients bear the legal and medical responsibility to disclose comprehensive, accurate health data to attending practitioners, including but not limited to:</p>
                 <ul>
-                    <li><strong>Booking & Rescheduling:</strong> Pending and confirmed appointments may be rescheduled through your patient portal prior to your appointment time. Completed or in-progress appointments cannot be altered.</li>
-                    <li><strong>Queue Progression:</strong> Live queue positions and estimated wait times are approximations based on average consultation durations. Urgent or emergency treatments take clinical priority.</li>
-                    <li><strong>Cancellations:</strong> If you are unable to attend, please cancel your booking promptly through your dashboard so the slot can be released to waiting patients.</li>
+                    <li>Cardiovascular conditions (hypertension, heart murmurs, pacemaker implants, previous stroke).</li>
+                    <li>Systemic diseases (diabetes mellitus, bleeding disorders, hepatitis, asthma, kidney disorders).</li>
+                    <li>Allergies to medications (Penicillin, Amoxicillin, local anesthetics, latex, pain relievers).</li>
+                    <li>Active medications (blood thinners, aspirin, anticoagulants, immunosuppressants, bisphosphonates).</li>
+                    <li>Pregnancy status (trimester stage, nursing).</li>
+                </ul>
+                <p>NgipinSolution Biñan and its attending dentists shall not be held liable for clinical complications arising from a patient's omission, concealment, or falsification of relevant medical and allergic history.</p>
+
+                <h3>5. Appointment Scheduling, Rescheduling &amp; Cancellations</h3>
+                <ul>
+                    <li><strong>advance Reservations:</strong> Appointments must be booked in advance through available portal time slots. Same-day bookings are subject to attending dentist availability.</li>
+                    <li><strong>Rescheduling Courtesy:</strong> If you must adjust your consultation date or time, we request at least <strong>24 hours advance notice</strong> via your patient portal to allow waiting patients access to the released slot.</li>
+                    <li><strong>Cancellations &amp; No-Shows:</strong> Repeated unexcused cancellations or failures to attend scheduled consultations may result in temporary restrictions on automated online reservations, requiring in-person walk-in check-in.</li>
                 </ul>
 
-                <h3>4. Priority Patients</h3>
-                <p>In accordance with accessible healthcare standards, Senior Citizens, Persons with Disabilities (PWD), and patients requiring urgent dental intervention are prioritized in our live queue system.</p>
+                <h3>6. Live Triage Queue Etiquette &amp; Priority Patients</h3>
+                <ul>
+                    <li><strong>Dynamic Estimations:</strong> Queue numbers, estimated wait durations, and patient counts displayed in the live queue tracker are algorithmic estimates based on standard procedure times. Complex surgical procedures or unexpected clinical emergencies may extend wait durations.</li>
+                    <li><strong>Statutory Priority Lanes:</strong> In strict compliance with Republic Act No. 7432 (Senior Citizens Act, as amended by RA 9994) and Republic Act No. 7277 (Magna Carta for Disabled Persons, as amended by RA 9442), Senior Citizens, Persons with Disabilities (PWD), and pregnant women receive statutory prioritization in triage and queue calling.</li>
+                    <li><strong>Queue Call &amp; Grace Period:</strong> Patients must be physically present at the clinic premises when their queue number is called. A <strong>10-minute grace window</strong> is provided; if unacknowledged, the queue management system advances to the next patient, and your number may be deferred to the end of the active queue.</li>
+                </ul>
 
-                <h3>5. Modifications to Service</h3>
-                <p>ClinicFlow reserves the right to modify operating hours, doctor availability schedules, and system terms with reasonable notice posted on the platform.</p>
-            </div>
+                <h3>7. Professional Autonomy &amp; Clinical Discretion</h3>
+                <p>Every attending dentist at NgipinSolution Biñan is an independent licensed professional under the Professional Regulation Commission (PRC) Board of Dentistry. Attending dentists maintain absolute clinical autonomy to:</p>
+                <ul>
+                    <li>Refuse, delay, or modify any procedure if in their medical judgment the procedure is contraindicated by the patient's acute systemic condition (e.g. dangerously elevated blood pressure, acute infection requiring antibiotic pre-medication).</li>
+                    <li>Require prior medical clearance from an attending cardiologist, physician, or OB-GYN before performing surgical or invasive dental procedures.</li>
+                    <li>Refer complex maxillofacial or specialized endodontic/periodontic cases to hospital-based specialists.</li>
+                </ul>
+
+                <h3>8. Fee Transparency &amp; Payment Obligations</h3>
+                <ul>
+                    <li><strong>Preliminary Estimates:</strong> Service fee ranges listed on promotional materials or communicated digitally are initial estimates. Actual treatment costs are finalized following direct clinical intra-oral examination, diagnostic radiographs, and radiographic evaluation.</li>
+                    <li><strong>Payment Settlement:</strong> Payment is due immediately upon the completion of each consultation or dental procedure. Accepted payment channels include cash, verified digital payments (GCash, Maya), and authorized partner healthcare arrangements.</li>
+                </ul>
+
+                <h3>9. Patient Conduct &amp; Clinic Safety</h3>
+                <p>NgipinSolution Biñan maintains a safe, dignified, and respectful healthcare environment. Physical intimidation, verbal aggression, abusive language, or sexual harassment directed toward attending dentists, dental assistants, receptionists, or other patients will result in immediate termination of the consultation, removal from the clinic premises, permanent account deactivation, and potential civil or criminal reporting under applicable Philippine laws.</p>
+
+                <h3>10. Limitation of Liability</h3>
+                <p>While ClinicFlow strives for continuous system availability, we do not warrant uninterrupted, error-free digital portal uptime. To the maximum extent permitted by Philippine law, NgipinSolution Biñan and ClinicFlow shall not be liable for incidental damages, cellular network carrier delivery failures (delayed SMS reminders), or internet service provider outages that impact real-time queue visibility.</p>
+
+                <h3>11. Governing Law &amp; Exclusive Jurisdiction</h3>
+                <p>These Terms &amp; Conditions are governed by and construed in accordance with the laws of the Republic of the Philippines. Any legal action, controversy, or claim arising from or relating to these terms or clinical interactions that cannot be settled amicably shall be submitted to the exclusive jurisdiction of the competent courts of <strong>Biñan, Laguna</strong>, to the exclusion of all other venues.</p>
+            </article>
         </section>
 
         <!-- 2. PRIVACY POLICY -->
-        <section id="privacy" class="legal-section" style="display: none;">
-            <div class="legal-card">
-                <span class="badge-updated">Last Updated: October 2026</span>
-                <h2>Privacy Policy & Medical Data Protection</h2>
+        <section id="privacy" class="legal-section" style="display: none;" role="tabpanel" aria-labelledby="tab-privacy">
+            <article class="legal-card">
+                <div class="badge-updated">
+                    <i data-lucide="clock" style="width: 12px; height: 12px;"></i>
+                    <span>Last updated: November 2026</span>
+                </div>
+                <h2>Privacy Policy &amp; Medical Data Protection</h2>
 
-                <p>Your privacy and the security of your dental and personal health records are of paramount importance to <strong>ClinicFlow</strong>. This policy describes how we collect, store, and safeguard your health data.</p>
+                <p>At <strong>NgipinSolution Biñan</strong> and <strong>ClinicFlow</strong>, we recognize the deeply personal nature of dental and medical health records. We are committed to upholding your fundamental right to privacy in full compliance with <strong>Republic Act No. 10173</strong>, otherwise known as the <strong>Data Privacy Act of 2012 (DPA)</strong> of the Philippines, its Implementing Rules and Regulations (IRR), and all relevant circulars issued by the <strong>National Privacy Commission (NPC)</strong>.</p>
 
-                <h3>1. Information We Collect</h3>
+                <h3>1. Governance &amp; Entity Classification</h3>
                 <ul>
-                    <li><strong>Account Information:</strong> Name, email address, phone number, and encrypted password.</li>
-                    <li><strong>Dental & Medical Data:</strong> Reported allergies, pre-existing health conditions, PWD/senior priority classification, visit history, consultation notes, and doctor treatment plans.</li>
-                    <li><strong>Operational Logs:</strong> Queue numbers, appointment dates, and visit progression statuses.</li>
+                    <li><strong>Personal Information Controller (PIC):</strong> <strong>NgipinSolution Biñan</strong>, with clinic premises located at 028 Santo Tomas Rd, Biñan, Laguna, determines the purposes and clinical means of processing your dental health data.</li>
+                    <li><strong>Personal Information Processor (PIP):</strong> <strong>ClinicFlow</strong> acts as the secure technological software platform processing digital scheduling, authentication, and queue records under the direct mandate of the clinic.</li>
+                    <li><strong>Designated Data Protection Contact:</strong> You may contact our Data Protection Officer regarding privacy concerns at <a href="mailto:contact@clinicflow.com" style="color: var(--color-accent-deep); text-decoration: underline;">contact@clinicflow.com</a>.</li>
                 </ul>
 
-                <h3>2. How We Use Your Information</h3>
+                <h3>2. Categories of Information Collected</h3>
+                <p>We process only data strictly necessary to deliver quality outpatient dental care, maintain clinical safety, and manage our patient queue:</p>
                 <ul>
-                    <li>To facilitate appointment bookings and manage doctor schedules.</li>
-                    <li>To operate the live patient calling system and voice announcement notifications.</li>
-                    <li>To provide doctors and authorized clinic staff with your clinical medical history during treatment.</li>
-                    <li>To send automated password reset tokens and critical service updates.</li>
+                    <li><strong>General Personal Information:</strong> Full legal name (first, middle, last), biological sex, personal mobile phone number (Philippine 11-digit mobile format), and email address.</li>
+                    <li><strong>Sensitive Personal Information (SPI) under Section 13 of RA 10173:</strong>
+                        <ul>
+                            <li>Reported medical conditions, cardiovascular history, and systemic ailments.</li>
+                            <li>Known drug, latex, and chemical allergies.</li>
+                            <li>Clinical dental notes, diagnostic summaries, attending dentist notes, procedure histories, and prescribed medications.</li>
+                            <li>Statutory identification details (Senior Citizen ID and PWD ID numbers) presented to claim statutory priority and privileges.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Technical &amp; Operational Data:</strong> Cryptographic password hashes (passwords are never stored in plain text), session identifiers (`PHPSESSID`), security rate-limiting timestamps, appointment timestamps, and queue movement logs.</li>
                 </ul>
 
-                <h3>3. Confidentiality & Security</h3>
-                <p>All passwords are encrypted with industry-standard bcrypt hashing. Only authenticated clinic personnel (your attending dentist and authorized reception staff) have access to your clinical dental notes. We never sell, rent, or trade your personal or medical data to third parties.</p>
+                <h3>3. Lawful Bases for Processing</h3>
+                <p>We process your personal and sensitive health data under sanctioned provisions of the Data Privacy Act of 2012:</p>
+                <ul>
+                    <li><strong>Explicit Consent (Section 12 &amp; 13(a)):</strong> You grant express consent upon creating an account, acknowledging our legal terms, and submitting consultation requests.</li>
+                    <li><strong>Medical Diagnosis &amp; Healthcare Treatment (Section 13(e)):</strong> Processing is necessary for medical consultation, diagnosis, and healthcare treatment performed by or under the supervision of a licensed dental healthcare professional bound by clinical secrecy.</li>
+                    <li><strong>Vital Medical Interests (Section 13(d)):</strong> In clinical scenarios where immediate health declarations are necessary to protect life or physical health.</li>
+                    <li><strong>Statutory Compliance:</strong> Compliance with clinical healthcare recordkeeping standards established by the Professional Regulation Commission (PRC) Board of Dentistry and the Philippine Department of Health (DOH).</li>
+                </ul>
 
-                <h3>4. Your Patient Rights</h3>
-                <p>You have the right to review your personal profile, update your contact and medical allergy details via your Patient Settings, and request an account deactivation at any time by speaking with clinic administration.</p>
-            </div>
+                <h3>4. Purpose Specification</h3>
+                <p>Your records are processed exclusively for legitimate healthcare and administrative purposes:</p>
+                <ul>
+                    <li>Facilitating appointment scheduling, schedule coordination, and attending doctor calendar allocation.</li>
+                    <li>Managing live triage queuing, room assignment, and on-premises audio turn announcements.</li>
+                    <li>Furnishing your attending dentist with your prior treatment notes, allergies, and diagnostic history during consultations.</li>
+                    <li>Dispatching transactional notifications, appointment confirmations, and password recovery tokens.</li>
+                    <li>Fulfilling legal, statutory, and ethical dental recordkeeping mandates.</li>
+                </ul>
+
+                <h3>5. Strict Prohibition on Third-Party Data Sharing</h3>
+                <p>We hold an unwavering stance regarding patient confidentiality: <strong>We do not sell, rent, lease, monetize, or disclose your personal or medical records to pharmaceutical advertisers, data brokers, insurance marketers, or external marketing networks.</strong></p>
+                <p>Disclosures are strictly limited to:</p>
+                <ul>
+                    <li>Authorized clinic healthcare staff directly participating in your treatment triage.</li>
+                    <li>Accredited dental prosthetic laboratories fabricating patient-specific dental appliances (prosthetics, crowns, aligners) under strict non-disclosure obligations.</li>
+                    <li>Government or judicial authorities only when formally mandated by a lawful court subpoena, warrant, or statutory public health order.</li>
+                </ul>
+
+                <h3>6. Technical, Organizational &amp; Physical Safeguards</h3>
+                <p>To prevent unauthorized access, accidental loss, unlawful destruction, or alteration of patient data, we enforce multi-tiered safeguards:</p>
+                <ul>
+                    <li><strong>Cryptographic Protection:</strong> User passwords are encrypted using state-of-the-art <code>Bcrypt</code> hashing with randomized salt rounds. Plaintext passwords never touch our database.</li>
+                    <li><strong>Database &amp; Transport Security:</strong> Web communications are encrypted via SSL/TLS HTTPS. All database transactions are executed strictly using parameterized PHP Data Objects (PDO) prepared statements, completely preventing SQL injection vulnerabilities.</li>
+                    <li><strong>Cookie Session Isolation:</strong> Authentication cookies are hardened with <code>HttpOnly</code> (blocking JavaScript XSS token theft), <code>SameSite=Lax</code> (neutralizing Cross-Site Request Forgery), and <code>Secure</code> flags over HTTPS.</li>
+                    <li><strong>Role-Based Access Control (RBAC):</strong> Administrative, doctor, and staff privileges are strictly isolated. Reception staff cannot view intimate medical diagnosis notes; only verified attending dentists retain medical documentation access.</li>
+                    <li><strong>Brute-Force Rate Limiting:</strong> Electronic portals enforce automatic account lockouts after 5 consecutive failed login attempts to prevent credential-stuffing attacks.</li>
+                </ul>
+
+                <h3>7. Medical Record Retention &amp; Disposal</h3>
+                <ul>
+                    <li><strong>Healthcare Retention Mandate:</strong> In compliance with Philippine healthcare professional standards, clinical malpractice limitation periods, and regulatory guidelines, dental consultation charts, radiographs, and treatment notes are retained for a minimum of <strong>10 to 15 years</strong> from the date of the last patient visit.</li>
+                    <li><strong>Safe Deletion &amp; Deactivation:</strong> When a patient requests account closure, personal portal access is deactivated, and records are safely archived in an ethical soft-deleted state (`is_active = 0`) to preserve clinical audit trails while preventing further electronic access.</li>
+                </ul>
+
+                <h3>8. Your Patient Rights under Republic Act No. 10173</h3>
+                <p>As a data subject under Philippine law, you possess comprehensive rights regarding your information:</p>
+                <ul>
+                    <li><strong>Right to be Informed:</strong> You have the right to know whether personal data pertaining to you is being processed, including the purpose, scope, and recipients of such processing.</li>
+                    <li><strong>Right to Access:</strong> You may inspect and review your personal profile, past dental visit history, and registered medical conditions directly through your authenticated Patient Portal.</li>
+                    <li><strong>Right to Rectification:</strong> You have the right to dispute any inaccuracy or error in your personal data and have it corrected immediately via your Portal Settings or clinic administration.</li>
+                    <li><strong>Right to Erasure or Blocking:</strong> You may request the suspension, withdrawal, or blocking of your personal data upon valid grounds, subject to mandatory statutory healthcare record retention rules.</li>
+                    <li><strong>Right to Object:</strong> You have the right to object to the processing of your personal data for purposes other than direct healthcare and treatment coordination.</li>
+                    <li><strong>Right to Data Portability:</strong> You may obtain a copy of your personal data in an electronic, structured, and commonly used format.</li>
+                    <li><strong>Right to Damages &amp; NPC Complaint:</strong> You have the right to be indemnified for any damages sustained due to inaccurate, incomplete, outdated, false, unlawfully obtained, or unauthorized use of personal data, and to lodge a formal complaint with the <strong>National Privacy Commission (NPC)</strong> at <a href="https://privacy.gov.ph" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-deep); text-decoration: underline;">privacy.gov.ph</a>.</li>
+                </ul>
+            </article>
         </section>
 
         <!-- 3. COOKIE POLICY -->
-        <section id="cookies" class="legal-section" style="display: none;">
-            <div class="legal-card">
-                <span class="badge-updated">Last Updated: October 2026</span>
-                <h2>Cookie & Local Storage Policy</h2>
+        <section id="cookies" class="legal-section" style="display: none;" role="tabpanel" aria-labelledby="tab-cookies">
+            <article class="legal-card">
+                <div class="badge-updated">
+                    <i data-lucide="clock" style="width: 12px; height: 12px;"></i>
+                    <span>Last updated: November 2026</span>
+                </div>
+                <h2>Cookie &amp; Technical Storage Policy</h2>
 
-                <p>ClinicFlow is designed to be privacy-friendly. We do <strong>not</strong> use third-party marketing, ad-tracking, or cross-site profiling cookies.</p>
+                <p>The <strong>ClinicFlow</strong> architecture is engineered with a strict <strong>privacy-by-design</strong> philosophy. We reject intrusive user profiling, tracking beacons, and cross-site behavioral telemetry. This policy explains what cookies and browser storage tokens are utilized on this platform, why they exist, and how you can manage them.</p>
 
-                <h3>1. What Are Cookies & Local Storage?</h3>
-                <p>Cookies are small data files stored in your browser by websites you visit. Local storage is a browser feature that allows websites to remember simple preferences without transmitting data across external servers.</p>
+                <h3>1. What Are Cookies and Browser Local Storage?</h3>
+                <p>Cookies are small, encrypted text files placed on your device by web servers to maintain authenticated session state. Local Storage is a modern browser feature that allows web applications to store basic, non-sensitive client preferences directly on your local device without sending unnecessary telemetry data to external servers with every request.</p>
 
-                <h3>2. How ClinicFlow Uses Cookies</h3>
-                <table class="cookie-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Provider</th>
-                            <th>Purpose</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>PHPSESSID</strong></td>
-                            <td>ClinicFlow (First-party)</td>
-                            <td>Essential session identifier that keeps you securely logged into your portal.</td>
-                            <td>Session (deleted upon browser close)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>clinicflow_cookie_consent</strong></td>
-                            <td>Browser LocalStorage</td>
-                            <td>Remembers that you have acknowledged our privacy and cookie banner.</td>
-                            <td>Persistent until cleared</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3>2. Technical Inventory of Cookies &amp; Storage Tokens</h3>
+                <p>ClinicFlow utilizes only first-party, functionally essential technical tokens. We do <strong>not</strong> load third-party marketing or cross-site advertising trackers:</p>
 
-                <h3>3. Managing Cookies</h3>
-                <p>Because our cookie is strictly necessary for portal authentication and security, disabling cookies in your browser settings will prevent you from logging into your account.</p>
-            </div>
+                <div class="cookie-table-wrapper">
+                    <table class="cookie-table">
+                        <thead>
+                            <tr>
+                                <th>Token / Cookie Name</th>
+                                <th>Category</th>
+                                <th>Provider</th>
+                                <th>Functional Purpose</th>
+                                <th>Lifespan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Name"><strong>PHPSESSID</strong></td>
+                                <td data-label="Category"><span class="pharmacy-stamp" style="background: var(--color-accent-soft); color: var(--color-accent-deep);">Essential</span></td>
+                                <td data-label="Provider">First-Party (ClinicFlow)</td>
+                                <td data-label="Purpose">Secure session token verifying that you are logged into your patient, doctor, staff, or admin portal. Hardened with <code>HttpOnly</code> and <code>SameSite=Lax</code> to prevent cross-site theft.</td>
+                                <td data-label="Lifespan">Session (deleted automatically when you close your browser or log out)</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Name"><strong>login_attempts</strong><br><strong>login_first_attempt</strong></td>
+                                <td data-label="Category"><span class="pharmacy-stamp" style="background: var(--color-paper-3); color: var(--color-ink);">Security</span></td>
+                                <td data-label="Provider">First-Party Server Session</td>
+                                <td data-label="Purpose">Protects patient accounts against automated brute-force attacks by tracking failed password attempts and enforcing temporary lockout timers.</td>
+                                <td data-label="Lifespan">300 seconds (5 minutes)</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Name"><strong>clinicflow_cookie_consent</strong></td>
+                                <td data-label="Category"><span class="pharmacy-stamp" style="background: var(--color-paper-2); color: var(--color-muted);">Preference</span></td>
+                                <td data-label="Provider">Browser LocalStorage</td>
+                                <td data-label="Purpose">Remembers that you have reviewed and acknowledged our privacy, terms, and cookie policy banner so you are not interrupted on subsequent visits.</td>
+                                <td data-label="Lifespan">Persistent (until manually cleared by user)</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Name"><strong>lastKnownStatus</strong></td>
+                                <td data-label="Category"><span class="pharmacy-stamp" style="background: var(--color-paper-2); color: var(--color-muted);">Functional</span></td>
+                                <td data-label="Provider">Browser Window Memory</td>
+                                <td data-label="Purpose">Tracks queue transition status on the live dashboard so the system triggers an audible chime bell notification only once when your number is called.</td>
+                                <td data-label="Lifespan">Active tab session only</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>3. Zero Third-Party Advertising Guarantee</h3>
+                <p>Unlike commercial websites that embed marketing pixels, social media tracking trackers, or ad-retargeting beacons, <strong>ClinicFlow contains zero third-party marketing trackers</strong>:</p>
+                <ul>
+                    <li>No Facebook Pixel, Meta Business SDK, or social tracker beacons.</li>
+                    <li>No Google Ads remarketing or conversion pixels.</li>
+                    <li>No data broker telemetry, behavioral profiling, or cross-site tracking scripts.</li>
+                    <li>No third-party content distribution networks tracking your health navigation.</li>
+                </ul>
+
+                <h3>4. Managing &amp; Controlling Browser Cookies</h3>
+                <p>You have full authority to audit, block, or delete cookies through your web browser preferences at any time:</p>
+                <ul>
+                    <li><strong>Google Chrome:</strong> Settings &rarr; Privacy and security &rarr; Third-party cookies &rarr; Clear browsing data.</li>
+                    <li><strong>Mozilla Firefox:</strong> Settings &rarr; Privacy &amp; Security &rarr; Cookies and Site Data &rarr; Clear Data.</li>
+                    <li><strong>Apple Safari:</strong> Settings &rarr; Safari &rarr; Advanced &rarr; Privacy &rarr; Block All Cookies.</li>
+                    <li><strong>Microsoft Edge:</strong> Settings &rarr; Cookies and site permissions &rarr; Manage and delete cookies.</li>
+                </ul>
+
+                <h3>5. Impact of Disabling Technical Cookies</h3>
+                <p>Because the <code>PHPSESSID</code> cookie is technically essential for server authentication and security, <strong>disabling all cookies in your browser settings will prevent you from signing in to your patient portal, booking appointments, or viewing private medical records</strong>. The public informational landing page will remain viewable.</p>
+            </article>
         </section>
-    </div>
+    </main>
 
+    <footer class="legal-footer">
+        <p>&copy; 2026 ClinicFlow. Dental Clinic Management System. All policy agreements apply to active portal accounts.</p>
+    </footer>
+
+    <script src="assets/js/lucide.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         function switchSection(target) {
             const sections = ['terms', 'privacy', 'cookies'];
@@ -319,21 +316,27 @@
                 const tabEl = document.getElementById('tab-' + s);
                 if (s === target) {
                     secEl.style.display = 'block';
+                    secEl.setAttribute('aria-hidden', 'false');
                     tabEl.classList.add('active');
+                    tabEl.setAttribute('aria-selected', 'true');
                 } else {
                     secEl.style.display = 'none';
+                    secEl.setAttribute('aria-hidden', 'true');
                     tabEl.classList.remove('active');
+                    tabEl.setAttribute('aria-selected', 'false');
                 }
             });
         }
 
         // Check URL hash on page load (e.g. legal.html#privacy)
         window.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
             const hash = window.location.hash.replace('#', '');
             if (['terms', 'privacy', 'cookies'].includes(hash)) {
                 switchSection(hash);
             }
         });
     </script>
+    <script src="assets/js/cookie-consent.js"></script>
 </body>
 </html>

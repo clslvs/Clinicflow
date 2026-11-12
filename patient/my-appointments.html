@@ -2,161 +2,190 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Appointments - ClinicFlow</title>
-    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>My Appointments - NgipinSolution Biñan</title>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="../assets/images/NgipinSolutionLogo.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/appointments.css">
+    <link rel="stylesheet" href="../tokens.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../assets/css/patient.css">
     
-    
+    <script src="../assets/js/lucide.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="dashboard-layout">
-        
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <a href="../index.html" class="logo">
-                    <img src="../assets/images/logo.png" alt="ClinicFlow Logo" />
-                    <span>ClinicFlow</span>
-                </a>
-            </div>
-            
-            <div class="user-profile-section">
-                <div class="avatar" id="sidebar-avatar">...</div>
-                <div class="user-info">
-                    <h3 class="user-name" id="sidebar-name">Loading...</h3>
-                    <span class="user-role">Patient</span>
-                </div>
-            </div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i data-lucide="layout-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="book-appointment.html" class="nav-item">
-                    <i data-lucide="book-open"></i>
-                    <span>Book Appointment</span>
-                </a>
-                <a href="my-appointments.html" class="nav-item active">
-                    <i data-lucide="calendar"></i>
-                    <span>My Appointment</span>
-                </a>
-                <a href="queue-tracker.html" class="nav-item">
-                    <i data-lucide="users"></i>
-                    <span>Queue Tracker</span>
-                </a>
-                <a href="settings.html" class="nav-item">
-                    <i data-lucide="settings"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
+    <header class="mobile-top-bar" aria-label="Mobile Navigation">
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="patient-sidebar">
+            <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+        <a href="../index.html" class="mobile-brand">
+            <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+            <div class="brand-text-group">
+                <span class="brand-title">NgipinSolution</span>
+                <span class="brand-subtitle">Powered by ClinicFlow</span>
+            </div>
+        </a>
+        <a href="settings.html" class="mobile-avatar-link" aria-label="Go to settings">
+            <div class="mobile-avatar" id="mobile-avatar">...</div>
+        </a>
+    </header>
+
+    <div class="mobile-sidebar-backdrop" id="mobile-sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="dashboard-layout" data-ui>
+        
+        <aside class="sidebar" id="patient-sidebar" role="navigation" aria-label="Patient Portal Navigation">
+            <div>
+                <div class="sidebar-header">
+                    <a href="../index.html" class="logo">
+                        <img src="../assets/images/NgipinSolutionLogo.jpg" alt="NgipinSolution Logo" />
+                        <div class="brand-text-group">
+                            <span class="brand-title">NgipinSolution</span>
+                            <span class="brand-subtitle">Powered by ClinicFlow</span>
+                        </div>
+                    </a>
+                    <button type="button" class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+                        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+                    </button>
+                </div>
+                
+                <div class="user-profile-section">
+                    <div class="avatar" id="sidebar-avatar">...</div>
+                    <div class="user-info">
+                        <h3 class="user-name" id="sidebar-name">Loading...</h3>
+                        <span class="user-role">Patient</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="book-appointment.html" class="nav-item">
+                        <i data-lucide="book-open" aria-hidden="true"></i>
+                        <span>Book Appointment</span>
+                    </a>
+                    <a href="my-appointments.html" class="nav-item active" aria-current="page">
+                        <i data-lucide="calendar" aria-hidden="true"></i>
+                        <span>My Appointment</span>
+                    </a>
+                    <a href="queue-tracker.html" class="nav-item">
+                        <i data-lucide="users" aria-hidden="true"></i>
+                        <span>Queue Tracker</span>
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <i data-lucide="settings" aria-hidden="true"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
 
             <div class="sidebar-footer">
                 <a href="../login.html" class="nav-item sign-out" id="logout-btn">
-                    <i data-lucide="log-out"></i>
+                    <i data-lucide="log-out" aria-hidden="true"></i>
                     <span>Sign Out</span>
                 </a>
             </div>
         </aside>
 
-        
-        <main class="main-content">
-            <header class="page-header" style="margin-bottom: 2rem;">
-                <h1 class="playfair" style="font-size: 2.2rem; margin-bottom: 0.25rem;">My Appointments</h1>
-                <p style="color: var(--color-teal-700); font-weight: 500; font-size: 1.05rem;">View and manage all your appointments.</p>
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <h1>My Appointments</h1>
+                <p>Track, manage, and reschedule your dental clinic appointments.</p>
             </header>
 
-            <div class="appointments-filters">
+            <div class="appointments-filters" role="group" aria-label="Filter appointments">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="upcoming">Upcoming</button>
                 <button class="filter-btn" data-filter="past">Past</button>
             </div>
 
-            <div class="appointments-container">
-                <table class="appointments-table">
-                    <thead>
-                        <tr>
-                            <th>SERVICE</th>
-                            <th>DOCTOR</th>
-                            <th>DATE & TIME</th>
-                            <th>STATUS</th>
-                            <th>ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody id="appointments-tbody">
-                        
-                        <tr>
-                            <td colspan="5" style="text-align: center; color: var(--light-text);">Loading appointments...</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <section class="appointments-section">
+                <h2 style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; margin: 0 0 18px 0; color: var(--color-ink);">Appointment History</h2>
+                <div class="appointments-container">
+                    <table class="appointments-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Doctor</th>
+                                <th>Date & Time</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointments-tbody" aria-live="polite">
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: var(--color-muted); padding: 2rem;">Loading appointments...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
         </main>
     </div>
 
-    
-    <div id="details-modal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-        <div class="modal-content" style="background: white; border-radius: 12px; padding: 2rem; max-width: 500px; width: 90%;">
-            <h3 class="playfair" style="margin-bottom: 1rem; font-size: 1.5rem;">Appointment Details</h3>
+    <!-- Details Modal -->
+    <div id="details-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="details-modal-title">
+        <div class="modal-content" style="max-width: 500px; width: 90%;">
+            <h2 id="details-modal-title">Appointment Details</h2>
             
-            <div style="margin-bottom: 1rem;">
-                <p style="color: var(--color-grey); font-size: 0.9rem; margin-bottom: 0.2rem;">Service</p>
-                <p id="modal-service" style="font-weight: 600;">-</p>
+            <div style="margin-bottom: 16px;">
+                <p style="color: var(--color-muted); font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; margin: 0 0 4px 0;">Service</p>
+                <p id="modal-service" style="font-weight: 600; font-size: 1.05rem; margin: 0; color: var(--color-ink);">-</p>
             </div>
             
-            <div style="margin-bottom: 1rem;">
-                <p style="color: var(--color-grey); font-size: 0.9rem; margin-bottom: 0.2rem;">Doctor</p>
-                <p id="modal-doctor" style="font-weight: 600;">-</p>
+            <div style="margin-bottom: 16px;">
+                <p style="color: var(--color-muted); font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; margin: 0 0 4px 0;">Doctor</p>
+                <p id="modal-doctor" style="font-weight: 600; font-size: 1.05rem; margin: 0; color: var(--color-ink);">-</p>
             </div>
 
-            <div style="margin-bottom: 1rem;">
-                <p style="color: var(--color-grey); font-size: 0.9rem; margin-bottom: 0.2rem;">Date & Time</p>
-                <p id="modal-datetime" style="font-weight: 600;">-</p>
+            <div style="margin-bottom: 16px;">
+                <p style="color: var(--color-muted); font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; margin: 0 0 4px 0;">Date & Time</p>
+                <p id="modal-datetime" style="font-weight: 600; margin: 0; font-family: var(--font-outlier); font-size: 1rem; color: var(--color-ink);">-</p>
             </div>
             
-            <div style="margin-bottom: 1.5rem; background: #f8f9fa; padding: 1rem; border-radius: 8px;">
-                <p style="color: var(--color-grey); font-size: 0.9rem; margin-bottom: 0.5rem; font-weight: 600;">Doctor's Notes</p>
-                <p id="modal-notes" style="white-space: pre-wrap;">-</p>
+            <div style="margin-bottom: 24px; background: var(--color-paper-2); padding: 16px; border-radius: 12px; border: 1px solid var(--color-rule);">
+                <p style="color: var(--color-muted); font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; margin: 0 0 6px 0;">Doctor's Notes</p>
+                <p id="modal-notes" style="white-space: pre-wrap; margin: 0; font-size: 0.9375rem; color: var(--color-ink); line-height: 1.5;">-</p>
             </div>
 
-            <button onclick="document.getElementById('details-modal').style.display='none'" class="btn-solid-teal" style="width: 100%;">Close</button>
+            <button type="button" onclick="document.getElementById('details-modal').style.display='none'" class="btn btn-primary" style="width: 100%;">Close</button>
         </div>
     </div>
 
-    <div id="reschedule-modal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-        <div class="modal-content" style="background: white; border-radius: 12px; padding: 2rem; max-width: 400px; width: 90%;">
-            <h3 class="playfair" style="margin-bottom: 1rem; font-size: 1.5rem;">Reschedule Appointment</h3>
+    <!-- Reschedule Modal -->
+    <div id="reschedule-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="reschedule-modal-title">
+        <div class="modal-content" style="max-width: 440px; width: 90%;">
+            <h2 id="reschedule-modal-title">Reschedule Visit</h2>
             
             <form id="reschedule-form" onsubmit="submitReschedule(event)">
                 <input type="hidden" id="reschedule-id">
                 <input type="hidden" id="reschedule-doctor-id">
                 
-                <div style="margin-bottom: 1rem;">
-                    <label style="display:block; margin-bottom:0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">NEW DATE</label>
-                    <input type="date" id="reschedule-date" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); background: #F8FBFC;" onchange="loadAvailableTimes()">
+                <div style="margin-bottom: 18px;">
+                    <label for="reschedule-date" style="display:block; margin-bottom: 8px; font-weight: 600; color: var(--color-ink-2); font-size: 0.8125rem; text-transform: uppercase;">New Date</label>
+                    <input type="date" id="reschedule-date" required class="styled-input" onchange="loadAvailableTimes()">
                 </div>
                 
-                <div style="margin-bottom: 1.5rem;">
-                    <label style="display:block; margin-bottom:0.5rem; font-weight:600; color:var(--color-grey); font-size: 0.85rem;">NEW TIME</label>
-                    <select id="reschedule-time" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--color-teal-100); background: #F8FBFC;">
+                <div style="margin-bottom: 24px;">
+                    <label for="reschedule-time" style="display:block; margin-bottom: 8px; font-weight: 600; color: var(--color-ink-2); font-size: 0.8125rem; text-transform: uppercase;">Available Time</label>
+                    <select id="reschedule-time" required class="styled-input">
                         <option value="">Select a date first</option>
                     </select>
                 </div>
 
-                <div style="display: flex; gap: 1rem;">
-                    <button type="button" onclick="document.getElementById('reschedule-modal').style.display='none'" class="btn-outline-teal" style="flex: 1;">Cancel</button>
-                    <button type="submit" class="btn-solid-teal" style="flex: 1;">Save</button>
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" onclick="document.getElementById('reschedule-modal').style.display='none'" class="btn btn-secondary" style="flex: 1;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Changes</button>
                 </div>
             </form>
         </div>
@@ -177,5 +206,7 @@
             });
     </script>
     <script src="../assets/js/my-appointments.js"></script>
+    <script src="../assets/js/patient-nav.js"></script>
+    <script src="../assets/js/cookie-consent.js"></script>
 </body>
 </html>
